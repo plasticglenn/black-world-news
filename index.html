@@ -583,15 +583,18 @@
             .logo-wrap svg { width: 36px; height: 36px; }
 
             .masthead-eyebrow { display: none; }
-            .masthead-tagline { display: none; }
+            .masthead-tagline { display: block; font-size: 0.6rem; letter-spacing: 0.06em; margin-top: 0.2rem; color: #8ab89a; }
             .masthead-meta { display: none; }
+
+            .masthead-text {
+                flex: 1;
+                padding-left: 0.75rem;
+            }
 
             .masthead h1 {
                 font-size: 1.3rem;
                 letter-spacing: 0.02em;
                 text-align: left;
-                flex: 1;
-                padding-left: 0.75rem;
             }
 
             /* HIDE desktop nav, show bottom app nav */
@@ -770,9 +773,11 @@
         </svg>
     </div>
     <p class="masthead-eyebrow">Your World Today</p>
-    <h1>BLACK WORLD NEWS</h1>
-    <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
-    <p class="masthead-meta">Last updated: May 21, 2026 — 10:13 &nbsp;|&nbsp; 111 stories in archive</p>
+    <div class="masthead-text">
+        <h1>BLACK WORLD NEWS</h1>
+        <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
+    </div>
+    <p class="masthead-meta">Last updated: May 21, 2026 — 10:21 &nbsp;|&nbsp; 111 stories in archive</p>
 </header>
 
 <nav>
@@ -782,7 +787,7 @@
     <a href="#united-states">United States</a><a href="#united-kingdom">United Kingdom</a><a href="#canada">Canada</a><a href="#france">France</a><a href="#nigeria">Nigeria</a><a href="#ghana">Ghana</a><a href="#south-africa">South Africa</a><a href="#other-global">Other/Global</a>
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 21, 2026 — 10:13</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 21, 2026 — 10:21</div>
 
 <main>
 
