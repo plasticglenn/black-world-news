@@ -420,15 +420,17 @@
 
         /* KIDS SECTION */
         .kids-section {
-            background: #fffbea;
+            background: #ffffff;
             padding: 3rem 1.5rem;
-            border-top: 6px solid #ffd93d;
-            border-bottom: 6px solid #ffd93d;
+            border-top: 8px solid #ffd93d;
+            border-bottom: 8px solid #ffd93d;
+            position: relative;
         }
 
         .kids-header {
             text-align: center;
             margin-bottom: 2rem;
+            position: relative;
         }
 
         .kids-header h2 {
@@ -446,6 +448,14 @@
             margin-top: 0.5rem;
         }
 
+        .kids-header::after {
+            content: '⭐ 🌍 ⭐';
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            letter-spacing: 0.5rem;
+        }
+
         .kids-grid {
             max-width: 1200px;
             margin: 0 auto;
@@ -456,16 +466,22 @@
 
         .kids-card {
             background: #fff;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            border: 3px solid #ffd93d;
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border: 4px solid #ffd93d;
+            transition: transform 0.25s, box-shadow 0.25s;
         }
 
+        .kids-card:nth-child(2) { border-color: #6bcb77; }
+        .kids-card:nth-child(3) { border-color: #4d96ff; }
+        .kids-card:nth-child(4) { border-color: #ff6b6b; }
+        .kids-card:nth-child(5) { border-color: #f9844a; }
+        .kids-card:nth-child(6) { border-color: #a855f7; }
+
         .kids-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transform: translateY(-6px) rotate(0.5deg);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
         }
 
         .kids-img {
@@ -496,7 +512,7 @@
         .kids-title {
             font-family: 'Fredoka One', cursive;
             font-size: 1.2rem;
-            color: #111;
+            color: #222;
             line-height: 1.3;
             margin-bottom: 0.6rem;
         }
@@ -506,21 +522,33 @@
         .kids-summary {
             font-size: 0.88rem;
             color: #555;
+            line-height: 1.5;
             margin-bottom: 1rem;
+        }
+
+        .kids-flag {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 0.4rem;
         }
 
         .kids-btn {
             display: inline-block;
-            background: #ff6b6b;
-            color: #fff;
+            background: #ffd93d;
+            color: #111;
             font-family: 'Fredoka One', cursive;
             font-size: 0.95rem;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            transition: background 0.2s;
+            padding: 0.45rem 1.2rem;
+            border-radius: 30px;
+            border: 2px solid #111;
+            box-shadow: 3px 3px 0 #111;
+            transition: transform 0.15s, box-shadow 0.15s;
         }
 
-        .kids-btn:hover { background: #e05555; }
+        .kids-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #111;
+        }
 
         /* FOOTER */
         footer {
@@ -558,10 +586,10 @@
                   font-size="17" font-weight="bold" fill="white" opacity="0.9">BWN</text>
         </svg>
     </div>
-    <p class="masthead-eyebrow">Your News Today</p>
+    <p class="masthead-eyebrow">Your World Today</p>
     <h1>BLACK WORLD NEWS</h1>
     <p class="masthead-tagline">Documenting anti-Black racism globally — updated daily</p>
-    <p class="masthead-meta">Last updated: May 21, 2026 — 09:17 &nbsp;|&nbsp; 111 stories in archive</p>
+    <p class="masthead-meta">Last updated: May 21, 2026 — 09:52 &nbsp;|&nbsp; 111 stories in archive</p>
 </header>
 
 <nav>
@@ -571,7 +599,7 @@
     <a href="#united-states">United States</a><a href="#united-kingdom">United Kingdom</a><a href="#canada">Canada</a><a href="#france">France</a><a href="#nigeria">Nigeria</a><a href="#ghana">Ghana</a><a href="#south-africa">South Africa</a><a href="#other-global">Other/Global</a>
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 21, 2026 — 09:17</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 21, 2026 — 09:52</div>
 
 <main>
 
@@ -580,26 +608,7 @@
         <p class="section-label">Featured Story</p>
         
     <div class="card featured">
-        <img class="card-img  featured-img" src="https://image.pollinations.ai/prompt/editorial%20photojournalism%2C%20Cheers%20Covid-19%3A%20Will%20we%20consume%20more%20alcohol%20during%20this%2C%20The%20article%20discusses%20the%20potential%20increase%20in%20alcohol%20consumption%20during%20the%20COVID-19%20pandemic.%20It%20explores%20the%20possible%20reasons%20behind%20this%20trend%20a%2C%20Other/Global%2C%20healthcare%2C%20real%20people%2C%20powerful%2C%20documentary%20photography%2C%20no%20text%2C%20no%20watermark?width=900&height=500&nologo=true&seed=80962" alt="" loading="lazy">
-        <div class="card-meta">
-            <span class="flag-country">🌍 Other/Global</span>
-            <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
-            
-        </div>
-        <h2 class="card-title"><a href="https://www.nationalelfservice.net/mental-health/addiction/cheers-covid-19-will-consume-alcohol-crisis/" target="_blank" rel="noopener">Cheers Covid-19: Will we consume more alcohol during this</a></h2>
-        <p class="card-summary">The article discusses the potential increase in alcohol consumption during the COVID-19 pandemic. It explores the possible reasons behind this trend and its implications for public health. However</p>
-        <p class="narrative-analysis">The article's focus on statistics and public health trends may overlook the disproportionate impact of alcohol consumption on Black communities</p>
-        <div class="factors"><span class="factor">Media bias</span><span class="factor">Alcohol industry targeting</span><span class="factor">Engineered unemployment</span></div>
-        <div class="card-footer">
-            <span class="saved-at">Collected: 2026-05-19 20:02</span>
-            <a href="https://www.nationalelfservice.net/mental-health/addiction/cheers-covid-19-will-consume-alcohol-crisis/" class="read-more" target="_blank" rel="noopener">Read original →</a>
-        </div>
-    </div>
-        <p class="section-label">Latest</p>
-        <div class="card-grid">
-    <div class="card">
-        <img class="card-img" src="https://image.pollinations.ai/prompt/editorial%20photojournalism%2C%20Youth%20Unemployment%20and%20Educational%20Attainment%20in%20South%20Africa%3A%20An...%2C%20The%20article%20discusses%20youth%20unemployment%20and%20educational%20attainment%20in%20South%20Africa%2C%20South%20Africa%2C%20employment%2C%20real%20people%2C%20powerful%2C%20documentary%20photography%2C%20no%20text%2C%20no%20watermark?width=900&height=500&nologo=true&seed=6805" alt="" loading="lazy">
+        <img class="card-img  featured-img" src="https://images.pexels.com/photos/9829493/pexels-photo-9829493.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Employment</span>
@@ -615,8 +624,27 @@
             <a href="https://ecohumanism.co.uk/joe/ecohumanism/article/view/6980" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
+        <p class="section-label">Latest</p>
+        <div class="card-grid">
     <div class="card">
-        <img class="card-img" src="https://image.pollinations.ai/prompt/editorial%20photojournalism%2C%20Ghana%E2%80%99s%20economic%20sovereignty%20in%20the%20age%20of%20digital%20finance%20%5BArticle%5D%2C%20Ghana%20is%20working%20towards%20economic%20sovereignty%20through%20digital%20finance%2C%20with%20a%20focus%20on%20fintech%20and%20digital%20currencies%2C%20as%20it%20celebrates%20its%20independen%2C%20Ghana%2C%20politics%2C%20real%20people%2C%20powerful%2C%20documentary%20photography%2C%20no%20text%2C%20no%20watermark?width=900&height=500&nologo=true&seed=61343" alt="" loading="lazy">
+        <img class="card-img" src="https://images.pexels.com/photos/16509486/pexels-photo-16509486.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <div class="card-meta">
+            <span class="flag-country">🌍 Other/Global</span>
+            <span class="category">Healthcare</span>
+            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.nationalelfservice.net/mental-health/addiction/cheers-covid-19-will-consume-alcohol-crisis/" target="_blank" rel="noopener">Cheers Covid-19: Will we consume more alcohol during this</a></h2>
+        <p class="card-summary">The article discusses the potential increase in alcohol consumption during the COVID-19 pandemic. It explores the possible reasons behind this trend and its implications for public health. However</p>
+        <p class="narrative-analysis">The article's focus on statistics and public health trends may overlook the disproportionate impact of alcohol consumption on Black communities</p>
+        <div class="factors"><span class="factor">Media bias</span><span class="factor">Alcohol industry targeting</span><span class="factor">Engineered unemployment</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-05-19 20:02</span>
+            <a href="https://www.nationalelfservice.net/mental-health/addiction/cheers-covid-19-will-consume-alcohol-crisis/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <img class="card-img" src="https://images.pexels.com/photos/15993794/pexels-photo-15993794.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
@@ -633,7 +661,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://image.pollinations.ai/prompt/editorial%20photojournalism%2C%20Russia%E2%80%93US%20talks%20in%20Moscow%20%26%20What%20the%20World%20Can%20Learn%20from%20Ghana%E2%80%99s%20Security%20Model%2C%20Ghana%27s%20community-led%20security%20model%20is%20being%20highlighted%20as%20a%20successful%20approach%20to%20sovereignty%2C%20blending%20traditional%20conflict-resolution%20with%20moder%2C%20Ghana%2C%20politics%2C%20real%20people%2C%20powerful%2C%20documentary%20photography%2C%20no%20text%2C%20no%20watermark?width=900&height=500&nologo=true&seed=23473" alt="" loading="lazy">
+        <img class="card-img" src="https://images.pexels.com/photos/15993794/pexels-photo-15993794.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
@@ -650,7 +678,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://image.pollinations.ai/prompt/editorial%20photojournalism%2C%20Ghana%20%7C%20World%20Bank%20Group%2C%20The%20World%20Bank%20reports%20on%20Ghana%27s%20economic%20recovery%2C%20Ghana%2C%20economy%2C%20real%20people%2C%20powerful%2C%20documentary%20photography%2C%20no%20text%2C%20no%20watermark?width=900&height=500&nologo=true&seed=42056" alt="" loading="lazy">
+        <img class="card-img" src="https://images.pexels.com/photos/36392318/pexels-photo-36392318.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Economy</span>
@@ -667,7 +695,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://image.pollinations.ai/prompt/editorial%20photojournalism%2C%20Macron%E2%80%99s%20China-bashing%20in%20Africa%3A%20a%20case...%20-%20Friends%20of%20Socialist%20China%2C%20French%20President%20Emmanuel%20Macron%20accused%20China%20of%20operating%20with%20a%2C%20France%2C%20politics%2C%20real%20people%2C%20powerful%2C%20documentary%20photography%2C%20no%20text%2C%20no%20watermark?width=900&height=500&nologo=true&seed=83717" alt="" loading="lazy">
+        <img class="card-img" src="https://images.pexels.com/photos/11421113/pexels-photo-11421113.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🇫🇷 France</span>
             <span class="category">Politics</span>
@@ -684,7 +712,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://image.pollinations.ai/prompt/editorial%20photojournalism%2C%20Canada%20Condemns%20Foreign%20Interference%20in%20Alberta%20but%20Dismisses...%2C%20Canada%20condemns%20foreign%20interference%20in%20Alberta%27s%20separatist%20debate%2C%20yet%20dismisses%20similar%20concerns%20raised%20by%20India%20regarding%20Khalistani%20separatist%20ac%2C%20Canada%2C%20politics%2C%20real%20people%2C%20powerful%2C%20documentary%20photography%2C%20no%20text%2C%20no%20watermark?width=900&height=500&nologo=true&seed=69737" alt="" loading="lazy">
+        <img class="card-img" src="https://images.pexels.com/photos/11325547/pexels-photo-11325547.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Politics</span>
