@@ -561,6 +561,189 @@
         }
 
         footer strong { color: #8ab89a; }
+
+        /* ========== MOBILE APP EXPERIENCE ========== */
+        @media (max-width: 768px) {
+
+            /* APP HEADER — compact, sticky */
+            .masthead {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                padding: 0.75rem 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+                border-top: none;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }
+
+            .logo-wrap { margin-bottom: 0; }
+            .logo-wrap svg { width: 36px; height: 36px; }
+
+            .masthead-eyebrow { display: none; }
+            .masthead-tagline { display: none; }
+            .masthead-meta { display: none; }
+
+            .masthead h1 {
+                font-size: 1.3rem;
+                letter-spacing: 0.02em;
+                text-align: left;
+                flex: 1;
+                padding-left: 0.75rem;
+            }
+
+            /* HIDE desktop nav, show bottom app nav */
+            nav { display: none; }
+            .breaking-bar { font-size: 0.68rem; padding: 0.35rem 0.75rem; }
+
+            /* BOTTOM TAB BAR */
+            body { padding-bottom: 60px; }
+
+            body::after {
+                content: '';
+                display: block;
+            }
+
+            .mobile-tabs {
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #111;
+                border-top: 2px solid #1a3a2a;
+                z-index: 200;
+                height: 60px;
+            }
+
+            .mobile-tabs a {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #888;
+                font-size: 0.6rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                gap: 0.2rem;
+                text-decoration: none;
+                transition: color 0.15s;
+            }
+
+            .mobile-tabs a:first-child { color: #8ab89a; }
+            .mobile-tabs a .tab-icon { font-size: 1.1rem; }
+
+            /* FEATURED — full bleed hero card */
+            .card.featured {
+                border-radius: 0;
+                border: none;
+                border-top: none;
+                padding: 0;
+                margin-bottom: 0;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .featured-img {
+                height: 280px;
+                width: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .card.featured .card-meta,
+            .card.featured .card-title,
+            .card.featured .card-summary,
+            .card.featured .narrative-analysis,
+            .card.featured .factors,
+            .card.featured .card-footer {
+                padding: 0 1rem;
+            }
+
+            .card.featured .card-meta { padding-top: 1rem; }
+            .card.featured .card-footer { padding-bottom: 1rem; }
+            .card.featured .card-title { font-size: 1.25rem; }
+
+            /* LATEST — horizontal scroll strip */
+            .card-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 0.75rem;
+                padding: 0 1rem 1rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .card-grid::-webkit-scrollbar { display: none; }
+
+            .card-grid .card {
+                min-width: 260px;
+                max-width: 260px;
+                scroll-snap-align: start;
+                margin-bottom: 0;
+                border-radius: 12px;
+                flex-shrink: 0;
+            }
+
+            .card-grid .card-img { height: 150px; border-radius: 12px 12px 0 0; }
+
+            /* SECTION LABELS */
+            .section-label {
+                padding: 0 1rem;
+                font-size: 0.75rem;
+            }
+
+            .container { padding: 1rem 0; }
+
+            /* PAGE BREAKS — slimmer on mobile */
+            .page-break, .page-break-alt {
+                padding: 1.25rem 1rem;
+                text-align: left;
+            }
+
+            /* KIDS — single column, app card style */
+            .kids-section { padding: 1.5rem 1rem; }
+            .kids-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .kids-card { border-radius: 16px; }
+            .kids-header h2 { font-size: 1.5rem; }
+
+            /* ARCHIVE — slim list rows */
+            .archive-card {
+                border-radius: 0;
+                border-left: none;
+                border-bottom: 1px solid #eee;
+                padding: 0.85rem 1rem;
+                margin-bottom: 0;
+            }
+
+            .archive-card .card-title { font-size: 0.95rem; }
+            .archive-card .card-summary { display: none; }
+            .archive-card .factors { display: none; }
+            .archive-card .narrative-analysis { display: none; }
+            .archive-card .card-footer {
+                padding-top: 0.4rem;
+                margin-top: 0.4rem;
+            }
+
+            .country-section { margin-bottom: 1.5rem; }
+            .country-heading {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+                margin-bottom: 0;
+                border-bottom: 2px solid #111;
+                background: #f8f8f8;
+            }
+
+            footer { padding: 1.25rem 1rem; font-size: 0.75rem; margin-bottom: 60px; }
+        }
     </style>
 </head>
 <body>
@@ -589,7 +772,7 @@
     <p class="masthead-eyebrow">Your World Today</p>
     <h1>BLACK WORLD NEWS</h1>
     <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
-    <p class="masthead-meta">Last updated: May 21, 2026 — 10:10 &nbsp;|&nbsp; 111 stories in archive</p>
+    <p class="masthead-meta">Last updated: May 21, 2026 — 10:13 &nbsp;|&nbsp; 111 stories in archive</p>
 </header>
 
 <nav>
@@ -599,7 +782,7 @@
     <a href="#united-states">United States</a><a href="#united-kingdom">United Kingdom</a><a href="#canada">Canada</a><a href="#france">France</a><a href="#nigeria">Nigeria</a><a href="#ghana">Ghana</a><a href="#south-africa">South Africa</a><a href="#other-global">Other/Global</a>
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 21, 2026 — 10:10</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 21, 2026 — 10:13</div>
 
 <main>
 
@@ -2241,6 +2424,13 @@
     </div>
 
 </main>
+
+<div class="mobile-tabs" style="display:none">
+    <a href="#latest"><span class="tab-icon">🏠</span>Latest</a>
+    <a href="#kids"><span class="tab-icon">🌍</span>Kids</a>
+    <a href="#archive"><span class="tab-icon">📰</span>Archive</a>
+    <a href="#latest"><span class="tab-icon">🔍</span>Search</a>
+</div>
 
 <footer>
     <p><strong>BLACK WORLD NEWS</strong> — A Pan-African media monitoring project.</p>
