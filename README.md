@@ -232,9 +232,9 @@ with a Black world lens.
 | Service | Username/Login |
 |---------|---------------|
 | GitHub | plasticglenn |
-| Namecheap | (your email) |
-| Groq | (your email) |
-| Pexels | (your email) |
+| Namecheap | glenna.asare@gmail.com |
+| Groq | glenna.asare@gmail.com |
+| Pexels | glenna.asare@gmail.com |
 
 ---
 
