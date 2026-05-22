@@ -1,17 +1,48 @@
-import json 
-import os
-from datetime import datetime 
-from ddgs import DDGS
-import requests 
-from bs4 import BeautifulSoup
-from groq import Groq
-from json_repair import repair_json
+# ============================================================
+# BLACK WORLD NEWS — News Agent
+# This script searches the web for stories, reads them,
+# and uses AI to analyze how Black people are being portrayed.
+# Run it to collect new stories into your archive.
+# ============================================================
 
+# Tools we need — each one has a specific job
+import json                          # saves and reads the archive file
+import os                            # talks to the operating system
+from datetime import datetime        # adds timestamps to stories
+from ddgs import DDGS                # searches DuckDuckGo for articles
+import requests                      # fetches web pages
+from bs4 import BeautifulSoup        # pulls text out of web pages
+from groq import Groq                # sends articles to AI for analysis
+from json_repair import repair_json  # fixes AI responses that aren't perfect JSON
+
+# ---- SETTINGS ----
+
+# Where stories get saved
 ARCHIVE_FILE = "stories.json"
+
+# Which AI model to use (running on Groq's free servers)
 MODEL = "llama-3.3-70b-versatile"
+
+# Connect to Groq using your API key (stored safely in Windows, not here)
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-COUNTRIES = ["Canada", "United States", "United Kingdom", "France", "Germany", "Brazil", "South Africa", "Nigeria", "Ghana", "Australia", "Other/Global"]
-CATEGORIES = ["Policing", "Housing", "Employment", "Education", "Healthcare", "Politics", "Culture", "Hate Crime", "Immigration", "Other"]
+
+# The countries we sort stories into
+COUNTRIES = [
+    "Canada", "United States", "United Kingdom", "France", "Germany",
+    "Brazil", "South Africa", "Nigeria", "Ghana", "Australia", "Other/Global"
+]
+
+# The topics we sort stories into
+CATEGORIES = [
+    "Policing", "Housing", "Employment", "Education", "Healthcare",
+    "Politics", "Culture", "Hate Crime", "Immigration", "Other"
+]
+
+# ---- SEARCH QUERIES ----
+# These are the searches we run every time the agent collects stories.
+# Each one is designed with a Pan-African lens — we're looking at root causes,
+# not repeating Western media framing.
+
 QUERIES = [
     # Explicit racism
     "anti-Black racism news 2025",
@@ -93,43 +124,54 @@ QUERIES = [
     "Afro-French alcohol drug community impact 2025",
 ]
 
+
+# ---- FUNCTIONS ----
+
 def load_archive():
+    # Open the saved stories file. If it doesn't exist yet, start with empty list.
     if os.path.exists(ARCHIVE_FILE):
         with open(ARCHIVE_FILE, "r") as f:
             return json.load(f)
     return []
 
+
 def save_archive(stories):
+    # Write the full list of stories to the file on your drive.
     with open(ARCHIVE_FILE, "w") as f:
         json.dump(stories, f, indent=2)
 
+
 def search_stories(query, max_results=10):
+    # Search DuckDuckGo and return a clean list of results.
     results = []
     with DDGS() as ddgs:
         search_results = ddgs.text(query, max_results=max_results)
         for result in search_results:
-            results.append({"title": result["title"], "url": result["href"], "snippet": result["body"]})
+            results.append({
+                "title":   result["title"],
+                "url":     result["href"],
+                "snippet": result["body"]
+            })
         return results
 
-def get_article_text(url):
-    try:
-        response = requests.get(url, timeout=10)
-        soup = BeautifulSoup(response.text, "html.parser")
-        paragraphs = soup.find_all("p")
-        text = " ".join([p.get_text() for p in paragraphs])
-        return text[:3000]
-    except:
-        return ""
 
 def get_article_image(url, soup):
+    # Try to find the main image of the article (the one that shows on social media).
+    # Websites store this in hidden tags called og:image or twitter:image.
     for prop in ["og:image", "twitter:image"]:
         tag = soup.find("meta", property=prop) or soup.find("meta", attrs={"name": prop})
         if tag and tag.get("content"):
             return tag["content"]
     return ""
-    
+
+
 def analyze_story(title, url, snippet, article_text):
-    content = article_text if article_text else snippet 
+    # Send the article to the AI and get back a structured analysis.
+    # We use the full article text if we got it, otherwise the short snippet.
+    content = article_text if article_text else snippet
+
+    # This is the instruction we send to the AI — it tells it who it is
+    # and exactly what format we want back.
     prompt = f"""You are a Pan-African media analyst. Your job is to analyze news stories through the lens of how Black communities globally are affected by systemic racism, colonial legacy, and economic exploitation.
 
 You understand that anti-Black racism is rarely explicit — it often appears in how stories about poverty, crime, drugs, alcohol, unemployment, and healthcare are framed when Black people are involved.
@@ -148,36 +190,54 @@ Respond in JSON format only with these exact fields:
 - "narrative_analysis": 1-2 sentences describing how Black people are framed in this story and what that framing implies
 - "structural_factors": list up to 3 systemic factors at play from ["Colonial legacy", "Drug war", "Engineered unemployment", "Alcohol industry targeting", "Land theft", "Foreign debt", "Mass incarceration", "Media bias", "Police violence", "Voter suppression", "Corporate extraction", "None identified"]
 """
-    
+
     raw = ""
     try:
-        response = client.chat.completions.create(model=MODEL, messages=[{"role": "user", "content": prompt}])
+        # Send the prompt to Groq and get the AI's response
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=[{"role": "user", "content": prompt}]
+        )
         raw = response.choices[0].message.content
-        # Strip markdown code fences if present
+
+        # Sometimes AI wraps the response in code blocks — strip those off
         if "```" in raw:
             raw = raw.split("```")[-2] if raw.count("```") >= 2 else raw
             if raw.startswith("json"):
                 raw = raw[4:]
+
+        # Pull out just the JSON part and fix any formatting errors
         raw = raw[raw.find("{"):raw.rfind("}")+1].strip()
         data = json.loads(repair_json(raw))
-        data["title"] = title
-        data["url"] = url
+
+        # Add fields the AI didn't include
+        data["title"]    = title
+        data["url"]      = url
         data["saved_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
         return data
+
     except Exception as e:
         print(f"    ⚠️  Analysis failed: {e}")
         print(f"    Raw (first 300): {raw[:300]}")
         return None
-    
+
+
 def is_duplicate(story, archive):
+    # Check if we already saved this story by comparing URLs.
     for saved in archive:
         if saved.get("url") == story.get("url"):
             return True
     return False
 
+
 def run_agent(custom_query=None):
+    # This is the main function that runs the whole pipeline.
+    # It searches, reads, analyzes, and saves stories.
+
     archive = load_archive()
     new_stories = []
+
+    # Use a single custom query if provided, otherwise run all 57
     queries = [custom_query] if custom_query else QUERIES
     total_queries = len(queries)
 
@@ -187,35 +247,42 @@ def run_agent(custom_query=None):
         print(f"Found {len(stories)} results. Analyzing...")
 
         for i, story in enumerate(stories):
+
+            # Skip if we already have this story
             if is_duplicate(story, archive):
                 print(f"⏭️  Skipping duplicate: {story['title'][:50]}")
                 continue
+
             print(f"Analyzing {i+1} of {len(stories)}: {story['title'][:50]}...")
+
+            # Fetch the full article page
             try:
-                _r = requests.get(story["url"], timeout=10)
+                _r    = requests.get(story["url"], timeout=10)
                 _soup = BeautifulSoup(_r.text, "html.parser")
                 article_text = " ".join([p.get_text() for p in _soup.find_all("p")])[:3000]
-                image_url = get_article_image(story["url"], _soup)
+                image_url    = get_article_image(story["url"], _soup)
             except:
                 article_text = ""
-                image_url = ""
+                image_url    = ""
+
+            # Send to AI for analysis
             analyzed = analyze_story(story["title"], story["url"], story["snippet"], article_text)
+
             if analyzed:
                 analyzed["image"] = image_url
                 new_stories.append(analyzed)
                 archive.append(analyzed)
                 print(f"✅ {analyzed['country']} | {analyzed['category']} | {analyzed['narrative_framing']} | {analyzed['title'][:35]}")
 
+    # Save everything to disk
     save_archive(archive)
     print(f"\n✅ Done! Found {len(new_stories)} new stories. Archive now has {len(archive)} total.\n")
     return new_stories
 
+
+# ---- START HERE ----
+# This runs when you type: python dispatch.py
 if __name__ == "__main__":
-    query = input("Enter custom query (or press Enter to run all queries): ")
+    query = input("Enter a search term (or press Enter to run all queries): ")
     query = query if query else None
     run_agent(query)
-
-
-        
-
-

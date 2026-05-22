@@ -253,14 +253,15 @@
             font-weight: 600;
         }
 
-        .badge {
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 0.2rem 0.5rem;
-            color: #fff;
-            border-radius: 2px;
+        /* Framing shown as a small coloured dot — subtle, not a label */
+        .framing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            vertical-align: middle;
+            cursor: default;
+            flex-shrink: 0;
         }
 
         .explicit-tag {
@@ -312,13 +313,13 @@
         }
 
         .factor {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            background: #eef4f0;
-            border: 1px solid #c5daca;
-            color: #2a5a3a;
-            padding: 0.15rem 0.5rem;
+            font-size: 0.62rem;
+            text-transform: lowercase;
+            letter-spacing: 0.02em;
+            background: none;
+            border: none;
+            color: #bbb;
+            padding: 0;
             font-weight: 600;
         }
 
@@ -777,7 +778,7 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta">Last updated: May 21, 2026 — 10:21 &nbsp;|&nbsp; 111 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 22, 2026 — 19:34 &nbsp;|&nbsp; 111 stories in archive</p>
 </header>
 
 <nav>
@@ -787,7 +788,7 @@
     <a href="#united-states">United States</a><a href="#united-kingdom">United Kingdom</a><a href="#canada">Canada</a><a href="#france">France</a><a href="#nigeria">Nigeria</a><a href="#ghana">Ghana</a><a href="#south-africa">South Africa</a><a href="#other-global">Other/Global</a>
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 21, 2026 — 10:21</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring 111 stories across 8 regions — updated May 22, 2026 — 19:34</div>
 
 <main>
 
@@ -800,13 +801,13 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
         <h2 class="card-title"><a href="https://ecohumanism.co.uk/joe/ecohumanism/article/view/6980" target="_blank" rel="noopener">Youth Unemployment and Educational Attainment in South Africa: An...</a></h2>
         <p class="card-summary">The article discusses youth unemployment and educational attainment in South Africa</p>
         <p class="narrative-analysis">The narrative likely frames Black youth as statistics</p>
-        <div class="factors"><span class="factor">Colonial legacy</span><span class="factor">Engineered unemployment</span><span class="factor">Corporate extraction</span></div>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">engineered unemployment</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-05-19 19:56</span>
             <a href="https://ecohumanism.co.uk/joe/ecohumanism/article/view/6980" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -819,13 +820,13 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
         <h2 class="card-title"><a href="https://www.nationalelfservice.net/mental-health/addiction/cheers-covid-19-will-consume-alcohol-crisis/" target="_blank" rel="noopener">Cheers Covid-19: Will we consume more alcohol during this</a></h2>
         <p class="card-summary">The article discusses the potential increase in alcohol consumption during the COVID-19 pandemic. It explores the possible reasons behind this trend and its implications for public health. However</p>
         <p class="narrative-analysis">The article's focus on statistics and public health trends may overlook the disproportionate impact of alcohol consumption on Black communities</p>
-        <div class="factors"><span class="factor">Media bias</span><span class="factor">Alcohol industry targeting</span><span class="factor">Engineered unemployment</span></div>
+        <div class="factors"><span class="factor">media bias</span><span class="factor">alcohol industry targeting</span><span class="factor">engineered unemployment</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-05-19 20:02</span>
             <a href="https://www.nationalelfservice.net/mental-health/addiction/cheers-covid-19-will-consume-alcohol-crisis/" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -836,13 +837,13 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
             
         </div>
         <h2 class="card-title"><a href="https://citinewsroom.com/2025/03/ghanas-economic-sovereignty-in-the-age-of-digital-finance/" target="_blank" rel="noopener">Ghana’s economic sovereignty in the age of digital finance [Article]</a></h2>
         <p class="card-summary">Ghana is working towards economic sovereignty through digital finance, with a focus on fintech and digital currencies, as it celebrates its independence milestone. The country's economic journey has been complex</p>
         <p class="narrative-analysis">This story frames Ghana as a resistant nation, working to overcome its complex economic history and achieve sovereignty through innovative means, implying a sense of agency and self-determination. The narrative highlights the country's efforts to break free from colonial legacy and economic exploitation.</p>
-        <div class="factors"><span class="factor">Colonial legacy</span><span class="factor">Foreign debt</span><span class="factor">Corporate extraction</span></div>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-05-19 19:54</span>
             <a href="https://citinewsroom.com/2025/03/ghanas-economic-sovereignty-in-the-age-of-digital-finance/" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -853,13 +854,13 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
             
         </div>
         <h2 class="card-title"><a href="https://news-pravda.com/world/2025/12/03/1908079.html" target="_blank" rel="noopener">Russia–US talks in Moscow & What the World Can Learn from Ghana’s Security Model - Pravda EN</a></h2>
         <p class="card-summary">Ghana's community-led security model is being highlighted as a successful approach to sovereignty, blending traditional conflict-resolution with modern governance. This model is being discussed in the context of global security challenges and the ongoing Ukrainian crisis. Ghana's approach is seen as a positive example of a non-traditional security strategy.</p>
         <p class="narrative-analysis">The story frames Black people</p>
-        <div class="factors"><span class="factor">Colonial legacy</span><span class="factor">Corporate extraction</span></div>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-05-19 19:54</span>
             <a href="https://news-pravda.com/world/2025/12/03/1908079.html" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -870,13 +871,13 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Economy</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
         <h2 class="card-title"><a href="https://www.worldbank.org/en/country/ghana/overview" target="_blank" rel="noopener">Ghana | World Bank Group</a></h2>
         <p class="card-summary">The World Bank reports on Ghana's economic recovery</p>
         <p class="narrative-analysis">The story frames Black people in Ghana primarily as economic statistics</p>
-        <div class="factors"><span class="factor">Colonial legacy</span><span class="factor">Foreign debt</span><span class="factor">Corporate extraction</span></div>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-05-19 19:54</span>
             <a href="https://www.worldbank.org/en/country/ghana/overview" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -887,13 +888,13 @@
         <div class="card-meta">
             <span class="flag-country">🇫🇷 France</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#f39c12">Exploited</span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
             
         </div>
         <h2 class="card-title"><a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" target="_blank" rel="noopener">Macron’s China-bashing in Africa: a case... - Friends of Socialist China</a></h2>
         <p class="card-summary">French President Emmanuel Macron accused China of operating with a</p>
         <p class="narrative-analysis">The story frames Black people as being exploited by French colonialism and economic interests</p>
-        <div class="factors"><span class="factor">Colonial legacy</span><span class="factor">Corporate extraction</span><span class="factor">Foreign debt</span></div>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">corporate extraction</span><span class="factor">foreign debt</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-05-19 19:54</span>
             <a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -904,13 +905,13 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
         <h2 class="card-title"><a href="https://www.millichronicle.com/2026/05/67033.html" target="_blank" rel="noopener">Canada Condemns Foreign Interference in Alberta but Dismisses...</a></h2>
         <p class="card-summary">Canada condemns foreign interference in Alberta's separatist debate, yet dismisses similar concerns raised by India regarding Khalistani separatist activities in Canada. The Canadian government's reaction to foreign interference is asymmetric, prioritizing sovereignty when Alberta is involved but downplaying concerns about separatist organizing from Canadian soil when India is affected. This double standard highlights Canada's inconsistent approach to addressing foreign interference and separatist activities.</p>
         <p class="narrative-analysis">Although Black people are not directly mentioned in this story, the narrative framing implies that the Canadian government's selective concern for foreign interference reinforces a power dynamic where the interests of dominant groups are prioritized over those of marginalized communities</p>
-        <div class="factors"><span class="factor">Colonial legacy</span><span class="factor">Media bias</span></div>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-05-19 19:54</span>
             <a href="https://www.millichronicle.com/2026/05/67033.html" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -958,7 +959,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.epi.org/blog/black-women-suffered-large-employment-losses-in-2025-particularly-among-college-graduates-and-public-sector-workers/" target="_blank" rel="noopener">Black women suffered large employment losses in 2025—particularly among ...</a></h2>
         <p class="card-summary">Black women experienced significant employment losses in 2025</p>
@@ -971,7 +972,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://ladatanews.com/african-american-jobless-rate-hits-lowest-in-u-s-history/" target="_blank" rel="noopener">African American Jobless Rate Hits Lowest in U.S. History</a></h2>
         <p class="card-summary">The jobless rate for African Americans in the United States has hit a historic low</p>
@@ -984,7 +985,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.pressherald.com/2020/05/08/jobless-rate-spikes-to-14-7-highest-since-great-depression/" target="_blank" rel="noopener">Jobless rate surges to 14.7%, highest since Great Depression</a></h2>
         <p class="card-summary">The coronavirus crisis has led to a surge in unemployment in the US</p>
@@ -997,7 +998,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.mexiconews.net/news/265003397/us-jobless-rate-triples-to-147-in-devastating-labour-downturn" target="_blank" rel="noopener">US jobless rate triples to 14.7% in 'devastating' labour</a></h2>
         <p class="card-summary">The US jobless rate has tripled to 14.7% due to the coronavirus pandemic</p>
@@ -1010,7 +1011,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://finance.yahoo.com/news/why-drop-u-black-jobless-154215668.html" target="_blank" rel="noopener">Why the drop in the U.S. Black jobless rate may not be good news</a></h2>
         <p class="card-summary">The drop in the U.S. Black jobless rate may not be good news as nearly 250</p>
@@ -1023,7 +1024,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#e67e22">Victim</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
         </div>
         <h2 class="card-title"><a href="https://www.nbcnews.com/news/nbcblk/black-americans-talk-pain-uncertainty-soaring-jobless-rates-due-covid-n1225721" target="_blank" rel="noopener">Black Americans talk of pain, uncertainty with soaring jobless</a></h2>
         <p class="card-summary">The COVID-19 pandemic has exacerbated existing economic inequalities</p>
@@ -1036,7 +1037,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.thefix.com/how-will-new-war-drugs-impact-communities-color/" target="_blank" rel="noopener">How Will The "New" War On Drugs Impact Communities of... - The Fix</a></h2>
         <p class="card-summary">The Trump administration's new War on Drugs plan includes imposing tougher penalties</p>
@@ -1049,7 +1050,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://newrepublic.com/article/129433/clintons-war-drugs-black-lives-didnt-matter" target="_blank" rel="noopener">The Clintons’ War on Drugs: When Black Lives... | The New Republic</a></h2>
         <p class="card-summary">The Clintons' War on Drugs policies have been criticized for their impact on Black communities, leading to mass incarceration and devastating health and human services disasters. A Black Lives Matter protestor confronted Hillary Clinton about her role in these policies, forcing her to accept personal responsibility. Clinton's response deflected blame onto African American communities themselves</p>
@@ -1062,7 +1063,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://medicine.uky.edu/events/history-war-drugs-impact-communities-color-2024-02-14t12-38-11" target="_blank" rel="noopener">History of the War on Drugs: Impact on Communities of Color</a></h2>
         <p class="card-summary">The talk will explore the history of the war on drugs and its impact on communities of color in the United States, highlighting the role of structural racism in shaping the distinction between</p>
@@ -1075,7 +1076,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Demographics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://worldpopulationreview.com/state-rankings/black-population-by-state" target="_blank" rel="noopener">Black Population by State 2026</a></h2>
         <p class="card-summary">The Black population in the United States is approximately 13% of the total population in 2026</p>
@@ -1088,7 +1089,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.sciencedirect.com/science/article/pii/S0749379724004549" target="_blank" rel="noopener">Widening Racial Disparities in the U.S. Overdose Epidemic</a></h2>
         <p class="card-summary">The U.S. overdose epidemic is widening racial disparities</p>
@@ -1101,7 +1102,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://youcansavelives.org/wp-content/uploads/2025/03/Data-Brief-Left-Behind-Black-Overdose-Rates-Surge-as-National-Deaths-Decline.pdf" target="_blank" rel="noopener">PDF Left Behind: Black Overdose Rates Surge as National Deaths Decline</a></h2>
         <p class="card-summary">The United States saw a 24% decrease in drug overdose deaths in 2024</p>
@@ -1114,7 +1115,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://schaeffer.usc.edu/research/opioid-overdose-death-disparity-fentanyl/" target="_blank" rel="noopener">Black Overdose Deaths Have Surged. Geography Helps Explain Why.</a></h2>
         <p class="card-summary">The research highlights the surge in Black overdose deaths</p>
@@ -1127,7 +1128,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://aibm.org/research/the-new-race-gap-in-drug-overdose-deaths-the-rising-toll-on-black-men/" target="_blank" rel="noopener">The new race gap in drug overdose deaths: The rising toll on Black men</a></h2>
         <p class="card-summary">The rate of drug overdose deaths among Black men in the US has risen sharply over the last decade</p>
@@ -1140,7 +1141,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.tandfonline.com/doi/full/10.1080/10826084.2025.2537836" target="_blank" rel="noopener">Full article: Racial Discrimination and Substance Use: Results from a ...</a></h2>
         <p class="card-summary">The study examines the relationship between racial discrimination and substance use disorders in the US</p>
@@ -1153,7 +1154,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://publichealth.berkeley.edu/articles/spotlight/research/black-students-are-punished-more-often" target="_blank" rel="noopener">Black students are punished more often | UC Berkeley Public Health</a></h2>
         <p class="card-summary">Black students in the US are punished more often than their peers, with disparities emerging as early as preschool and persisting throughout their educational careers. The study found that Black students are 3.6 times more likely to be suspended out of school and 2.5 times more likely to be suspended in school compared to white students. These disparities are widespread and have significant negative impacts on Black students' educational and mental health outcomes.</p>
@@ -1166,7 +1167,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://apnews.com/article/ferguson-black-lives-matter-school-discipline-suspension-d099aab519ff743dc2be04c6b6132144" target="_blank" rel="noopener">Black students are still kicked out of school at higher rates despite reforms | AP News</a></h2>
         <p class="card-summary">Black students in the US are disproportionately suspended and expelled from school</p>
@@ -1179,7 +1180,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.pbs.org/newshour/nation/despite-some-progress-black-students-still-kicked-out-of-school-at-higher-rates" target="_blank" rel="noopener">Despite some progress, Black students still kicked out of school at higher rates | PBS News</a></h2>
         <p class="card-summary">Black students in the US, particularly in states like Georgia and Missouri, are disproportionately suspended and expelled from school, perpetuating the</p>
@@ -1192,7 +1193,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.kidsdata.org/topic/2198/suspensions-race/table" target="_blank" rel="noopener">Students Suspended from School, by Race/Ethnicity - Kidsdata.org</a></h2>
         <p class="card-summary">The suspension rates of students in California show a significant disparity in disciplinary treatment</p>
@@ -1205,7 +1206,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.usnews.com/news/us/articles/2024-08-30/why-black-students-are-still-disciplined-at-higher-rates-takeaways-from-aps-report" target="_blank" rel="noopener">Why Black Students Are Still Disciplined at Higher Rates: Takeaways From AP's Report</a></h2>
         <p class="card-summary">The Associated Press report highlights the disproportionate discipline rates of Black students</p>
@@ -1218,7 +1219,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.theglobalstatistics.com/crime-statistics-by-ethnicity/" target="_blank" rel="noopener">Crime Statistics by Ethnicity in US 2025 | Key Facts</a></h2>
         <p class="card-summary">The FBI's Uniform Crime Reporting Program reveals significant disparities in arrest rates across different ethnic groups in the US</p>
@@ -1231,7 +1232,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://archkennedy.com/black-crime-media-bias/" target="_blank" rel="noopener">Black Crime: FBI Data Exposes Media Bias - archkennedy.com</a></h2>
         <p class="card-summary">The article discusses the recent FBI data on crime rates, which shows a decline in violent crime nationwide, but a persistent disparity in per-capita crime rates among Black Americans. The author argues that the media is biased in its coverage of crime, selectively highlighting cases that fit a certain narrative while ignoring others. The article cites the example of a Ukrainian refugee's murder</p>
@@ -1244,7 +1245,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://factually.co/fact-checks/justice/black-community-crime-rates-2025-addb1a" target="_blank" rel="noopener">What are the actual crime rates for black communities ...</a></h2>
         <p class="card-summary">The article reports on the high homicide and gun-violence victimization rates among Black Americans</p>
@@ -1257,7 +1258,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Hate Crime</span>
-            <span class="badge" style="background:#e74c3c">Criminal</span>
+            <span class="framing-dot" style="background:#e74c3c" title="Criminal"></span>
         </div>
         <h2 class="card-title"><a href="https://thenarrativematters.com/media-bias-in-crime-reporting-race-and-the-unequal-framing-of-violence/" target="_blank" rel="noopener">Media Bias in Crime Reporting: Race and the Unequal Framing ...</a></h2>
         <p class="card-summary">The media's framing of violent crime reveals a double standard based on the perpetrator's race and class. When Black teenagers commit violent acts, they are often condemned and labeled as</p>
@@ -1270,7 +1271,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.pnas.org/doi/10.1073/pnas.2505499123" target="_blank" rel="noopener">Quantifying racial disparities in media representations of ...</a></h2>
         <p class="card-summary">The study examines how media coverage of gun violence differs based on incident characteristics. It uses metrics to identify relationships between incident characteristics and media attention</p>
@@ -1283,7 +1284,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.aclu.org/news/smart-justice/40-year-war-drugs-its-not-fair-and-its-not-working" target="_blank" rel="noopener">The 40-Year War on Drugs: It's Not Fair, and It's Not Working.</a></h2>
         <p class="card-summary">The 40-year war on drugs has disproportionately affected communities of color</p>
@@ -1296,7 +1297,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.commonwealthfund.org/publications/issue-briefs/2025/jul/maternal-mortality-united-states-2025" target="_blank" rel="noopener">Maternal Mortality in the United States, 2025 | Commonwealth Fund</a></h2>
         <p class="card-summary">The United States has seen a significant increase in maternal mortality rates, with racial disparities persisting and behavioral health issues being a leading cause of maternal deaths during the COVID-19 pandemic. Maternal death rates are higher in states that haven't expanded Medicaid eligibility. The country's maternal mortality ratio remains higher than in comparable countries.</p>
@@ -1309,7 +1310,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.mckinsey.com/institute-for-economic-mobility/our-insights/closing-the-black-maternal-health-gap-healthier-lives-stronger-economies" target="_blank" rel="noopener">Black maternal health disparities: reducing mortality rates ...</a></h2>
         <p class="card-summary">The maternal mortality gap between Black women and the broader US female population can be reduced</p>
@@ -1322,7 +1323,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.kff.org/racial-equity-and-health-policy/racial-disparities-in-maternal-and-infant-health-current-status-and-key-issues/" target="_blank" rel="noopener">Racial Disparities in Maternal and Infant Health: Current ...</a></h2>
         <p class="card-summary">Racial disparities in maternal and infant health persist in the US</p>
@@ -1335,7 +1336,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://grocommunity.org/psychiatric-in-underserved-communities" target="_blank" rel="noopener">Black-Owned Mental Health Organization Tackles Mental Health</a></h2>
         <p class="card-summary">GRO Community</p>
@@ -1348,7 +1349,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#e67e22">Victim</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
         </div>
         <h2 class="card-title"><a href="https://capitalbnews.org/student-mental-health-crisis/" target="_blank" rel="noopener">Black Students Face Mental Health Crisis Amid Shortage of</a></h2>
         <p class="card-summary">The COVID-19 pandemic has led to a mental health crisis among Black students</p>
@@ -1361,7 +1362,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://www.drberrypierre.com/video_posts/the-mental-health-crisis-in-black-america/" target="_blank" rel="noopener">The Mental Health Crisis in Black America</a></h2>
         <p class="card-summary">The mental health crisis in Black America is being discussed, with a focus on systemic barriers that contribute to the issue. The crisis is affecting Black communities, and it's essential to address the root causes. Systemic barriers are a significant factor in the mental health crisis.</p>
@@ -1374,7 +1375,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://authoritypresswire.com/new-interview-series-discusses-mental-health-crisis-in-the-black-community/" target="_blank" rel="noopener">New Interview Series Discusses Mental Health Crisis In The</a></h2>
         <p class="card-summary">A new interview series is discussing the mental health crisis in the Black community</p>
@@ -1387,7 +1388,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://findrecoverynow.org/mental-health-facilities/california-ca/" target="_blank" rel="noopener">2025's Best Drug Rehab Centers in California | Reviews & Costs</a></h2>
         <p class="card-summary">The article reviews the best drug rehab centers in California</p>
@@ -1400,7 +1401,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://startyourrecovery.org/treatment/rehab-centers/washington/vancouver" target="_blank" rel="noopener">2025’s Top Rehab Centers in Vancouver, WA (from $0) -</a></h2>
         <p class="card-summary">The article discusses rehab centers in Vancouver</p>
@@ -1413,7 +1414,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://eprhealthcarenews.com/tag/drug-rehab/" target="_blank" rel="noopener">drug rehab | EPR Healthcare News</a></h2>
         <p class="card-summary">The Centers for Disease Control reports that excess alcohol use is the third leading cause of death from lifestyle-related factors in the US. Mountainside Drug Rehab and Alcohol Treatment Center offers comprehensive residential addiction treatment programs to address this issue. The center's team includes licensed and certified social workers</p>
@@ -1426,7 +1427,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://news.ucsc.edu/2025/04/social-psychologist-explains-historical-progress-and-pitfalls-in-addressing-anti-black-racism/" target="_blank" rel="noopener">Social psychologist explains historical progress and pitfalls in... - News</a></h2>
         <p class="card-summary">Thomas F. Pettigrew, a social psychologist, has released a new book titled</p>
@@ -1439,7 +1440,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Hate Crime</span>
-            <span class="badge" style="background:#e74c3c">Criminal</span>
+            <span class="framing-dot" style="background:#e74c3c" title="Criminal"></span>
         </div>
         <h2 class="card-title"><a href="https://www.amren.com/" target="_blank" rel="noopener">American Renaissance - News and commentary on interracial crime...</a></h2>
         <p class="card-summary">The American Renaissance website publishes news and commentary on interracial crime, often framing Black people as perpetrators and white people as victims. The site's content is notable for its implicit anti-Black racism and xenophobic undertones. The website's focus on interracial crime reinforces harmful stereotypes about Black people.</p>
@@ -1452,7 +1453,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#e67e22">Victim</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
         </div>
         <h2 class="card-title"><a href="https://tminstituteldf.org/project-2025-public-safety-criminal-legal-system/" target="_blank" rel="noopener">What Project 2025 Means for Black Communities: Criminal Legal System - The Thurgood Marshall Institute at LDF</a></h2>
         <p class="card-summary">Project 2025 is a proposed policy that will dismantle rights and protections for all Americans</p>
@@ -1465,7 +1466,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://civilrights.org/resource/civil-rights-groups-express-concerns-about-2025-police-week/" target="_blank" rel="noopener">Civil Rights Groups Express Concerns about 2025 Police Week - The Leadership Conference on Civil and Human Rights</a></h2>
         <p class="card-summary">The Leadership Conference on Civil and Human Rights and other organizations have expressed concerns about legislation taken up during Police Week</p>
@@ -1478,7 +1479,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Hate Crime</span>
-            <span class="badge" style="background:#e67e22">Victim</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
         </div>
         <h2 class="card-title"><a href="https://capitalbnews.org/everythings-political-trump-black-america-justice-department/" target="_blank" rel="noopener">The Threat of Unchecked Anti-Black Violence in 2025 and Beyond - Capital B News</a></h2>
         <p class="card-summary">The US Department of Justice has opened an investigation into the killing of a 36-year-old Black woman by a white deputy, raising concerns about interactions with Black people. The story highlights the potential threats to Black Americans' safety under a Trump presidency, given his history of downplaying anti-Black violence. The investigation and federal attention to anti-Black violence may be impacted by Trump's return to office.</p>
@@ -1491,7 +1492,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#e67e22">Victim</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
         </div>
         <h2 class="card-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10228454/" target="_blank" rel="noopener">History of Racial Discrimination by Police Contributes to Worse Physical and Emotional Quality of Life in Black Americans After Traumatic Injury - PMC</a></h2>
         <p class="card-summary">The study found that Black Americans who experienced traumatic injuries were more likely to have worse physical and emotional recovery outcomes due to history of police discrimination. The investigation revealed that frequent police discrimination significantly predicted lower emotional and physical well-being 6 months after injury. These findings highlight the need to consider patients' history of negative police experiences as a social determinant of health in their recovery.</p>
@@ -1504,7 +1505,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://lawlibguides.sandiego.edu/policekillingsandassaults" target="_blank" rel="noopener">Introduction - Black and Brown Lives Matter: Cases of Police Killings and Assaults - Guides at University of San Diego Legal Research Center</a></h2>
         <p class="card-summary">The University of San Diego Legal Research Center has created a guide to track cases of police killings and assaults</p>
@@ -1517,7 +1518,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://endhomelessness.org/homelessness-in-america/what-causes-homelessness/inequality/" target="_blank" rel="noopener">Homelessness and Racial Disparities - National Alliance to End Homelessness</a></h2>
         <p class="card-summary">The National Alliance to End Homelessness reports that African Americans are disproportionately represented among people experiencing homelessness</p>
@@ -1530,7 +1531,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://phys.org/news/2025-10-homelessness-vary-sharply.html" target="_blank" rel="noopener">Homelessness rates vary sharply by race, study shows</a></h2>
         <p class="card-summary">A study has found that homelessness rates vary significantly by race</p>
@@ -1543,7 +1544,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://endhomelessness.org/blog/homelessness-and-black-history-poverty-and-income/" target="_blank" rel="noopener">Homelessness and Black History: Poverty and Income - National Alliance to End Homelessness</a></h2>
         <p class="card-summary">The National Alliance to End Homelessness has analyzed the roots of homelessness among African Americans</p>
@@ -1556,7 +1557,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://academic.oup.com/socpro/advance-article/doi/10.1093/socpro/spaf044/8257659" target="_blank" rel="noopener">Homelessness and race: the impact of structural conditions on Black, White, and Latine homelessness | Social Problems | Oxford Academic</a></h2>
         <p class="card-summary">The study reveals that Black people in the US are disproportionately affected by homelessness</p>
@@ -1569,7 +1570,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.cdc.gov/womens-health/features/maternal-mortality.html" target="_blank" rel="noopener">Working Together to Reduce Black Maternal Mortality</a></h2>
         <p class="card-summary">The CDC is working to reduce Black maternal mortality, which is three times more likely to occur than in White women. The main factors contributing to these disparities are variation in quality healthcare and underlying chronic conditions. The CDC's Office of Women's Health aims to raise visibility of risk factors and other conditions that impact women's health.</p>
@@ -1582,7 +1583,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.ajmc.com/view/black-maternal-health-week-highlights-persistent-disparities-and-policy-action" target="_blank" rel="noopener">Black Maternal Health Week Highlights Persistent Disparities ...</a></h2>
         <p class="card-summary">The CDC reported that Black women have a significantly higher rate of maternal mortality</p>
@@ -1595,7 +1596,7 @@
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://atlantadailyworld.com/2025/08/04/poll-downplays-racism-project-2025-doesnt/" target="_blank" rel="noopener">Poll Downplays Racism, Project 2025 Doesn’t | Atlanta Daily</a></h2>
         <p class="card-summary">A recent poll has downplayed the issue of racism, but Project 2025 does not, highlighting the need for a more nuanced understanding of the problem. The poll's findings have been criticized for oversimplifying the complexities of racism. Project 2025 aims to provide a more comprehensive approach to addressing racism.</p>
@@ -1703,7 +1704,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇧 United Kingdom</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://ahauk.org/race-and-alcohol-addiction-treatment-services/" target="_blank" rel="noopener">Race and alcohol addiction treatment services - Alcohol Health</a></h2>
         <p class="card-summary">The article discusses the barriers faced by individuals from Black and Asian backgrounds seeking support for alcohol addiction treatment. The drug and alcohol recovery support service BAC-IN explores these barriers and aims to provide more inclusive services. The article highlights the need for culturally sensitive support services to address the unique challenges faced by these communities.</p>
@@ -1716,7 +1717,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇧 United Kingdom</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.drinkanddrugsnews.com/a-new-model/" target="_blank" rel="noopener">A New Model - Drink and Drugs News</a></h2>
         <p class="card-summary">The UK government has acquired investment to tackle drug dependence</p>
@@ -1729,7 +1730,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇧 United Kingdom</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#e67e22">Victim</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
         </div>
         <h2 class="card-title"><a href="https://www.theguardian.com/society/2025/jul/11/race-homelessness-social-housing-study-england-uk" target="_blank" rel="noopener">Black people in England four times as likely to face homelessness, study finds | Homelessness | The Guardian</a></h2>
         <p class="card-summary">Black people in England are four times as likely to face homelessness as white people</p>
@@ -1746,7 +1747,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.millichronicle.com/2026/05/67033.html" target="_blank" rel="noopener">Canada Condemns Foreign Interference in Alberta but Dismisses...</a></h2>
         <p class="card-summary">Canada condemns foreign interference in Alberta's separatist debate, yet dismisses similar concerns raised by India regarding Khalistani separatist activities in Canada. The Canadian government's reaction to foreign interference is asymmetric, prioritizing sovereignty when Alberta is involved but downplaying concerns about separatist organizing from Canadian soil when India is affected. This double standard highlights Canada's inconsistent approach to addressing foreign interference and separatist activities.</p>
@@ -1759,7 +1760,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://fsc-ccf.ca/research/sober-2025/" target="_blank" rel="noopener">State of Black Economics Report: Insights on Education, Employment and ...</a></h2>
         <p class="card-summary">The State of Black Economics Report highlights the challenges Black Canadians face in economic advancement</p>
@@ -1772,7 +1773,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://canadanewsmedia.ca/the-continued-struggles-of-black-canadians-and-indigenous-peoples-in-canada-2025/" target="_blank" rel="noopener">The Continued Struggles of Black Canadians and Indigenous Peoples in ...</a></h2>
         <p class="card-summary">The legacy of colonialism and racism continues to affect Black Canadians and Indigenous peoples in Canada</p>
@@ -1785,7 +1786,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www150.statcan.gc.ca/n1/daily-quotidien/250922/dq250922c-eng.htm" target="_blank" rel="noopener">Labour market outcomes of the Black populations in Canada, 2020 to 2025</a></h2>
         <p class="card-summary">The labour market outcomes of Black populations in Canada from 2020 to 2025 show significant disparities</p>
@@ -1798,7 +1799,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://acaottawa.com/toronto-declares-anti-black-racism-a-public-health-crisis/" target="_blank" rel="noopener">Toronto Declares Anti-Black Racism A Public Health Crisis</a></h2>
         <p class="card-summary">The city of Toronto has declared anti-Black racism a public health crisis</p>
@@ -1811,7 +1812,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Other</span>
-            <span class="badge" style="background:#555">None</span>
+            <span class="framing-dot" style="background:#aaa" title="None"></span>
         </div>
         <h2 class="card-title"><a href="https://torontourbangrowers.org/news/dismantling-anti-black-racism-1" target="_blank" rel="noopener">Dismantling Anti-Black Racism - News - Toronto Urban Growers</a></h2>
         <p class="card-summary">The provided link leads to a page with no content</p>
@@ -1824,7 +1825,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://www.cbc.ca/lite/story/1.5593395" target="_blank" rel="noopener">Trudeau says anti-black racism is alive in Canada and 'we need to be...</a></h2>
         <p class="card-summary">Canadian Prime Minister Justin Trudeau acknowledged that anti-Black racism exists in Canada and stated his government's commitment to fighting against it. His government has already taken steps such as funding Black community groups and supporting anti-racism programming. Trudeau promised to do more to address the issue.</p>
@@ -1837,7 +1838,7 @@
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
             <span class="category">Policing</span>
-            <span class="badge" style="background:#e67e22">Victim</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
         </div>
         <h2 class="card-title"><a href="https://globalnews.ca/tag/anti-black-racism/" target="_blank" rel="noopener">anti-black racism | News, Videos & Articles</a></h2>
         <p class="card-summary">A recent report highlights systemic anti-Black racism within Canadian law enforcement, citing disproportionate arrest and incarceration rates among Black Canadians. The report calls for reforms to address these disparities. Community leaders demand accountability and action from authorities to address the issue.</p>
@@ -1971,7 +1972,7 @@
         <div class="card-meta">
             <span class="flag-country">🇫🇷 France</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#f39c12">Exploited</span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
         </div>
         <h2 class="card-title"><a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" target="_blank" rel="noopener">Macron’s China-bashing in Africa: a case... - Friends of Socialist China</a></h2>
         <p class="card-summary">French President Emmanuel Macron accused China of operating with a</p>
@@ -1988,7 +1989,7 @@
         <div class="card-meta">
             <span class="flag-country">🇳🇬 Nigeria</span>
             <span class="category">Economy</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://punchng.com/nigeria-needs-right-environment-to-attract-investments-economist/" target="_blank" rel="noopener">Nigeria needs right environment to attract investments –</a></h2>
         <p class="card-summary">Nigeria's economic crisis deepens</p>
@@ -2001,7 +2002,7 @@
         <div class="card-meta">
             <span class="flag-country">🇳🇬 Nigeria</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#f39c12">Exploited</span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
         </div>
         <h2 class="card-title"><a href="https://theenergyyear.com/articles/boosting-investor-confidence-in-nigeria/" target="_blank" rel="noopener">Boosting investor confidence in Nigeria - - The Energy Year</a></h2>
         <p class="card-summary">The article discusses the need for energy diversification in Nigeria</p>
@@ -2014,7 +2015,7 @@
         <div class="card-meta">
             <span class="flag-country">🇳🇬 Nigeria</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://independent.ng/2022-nigeria-economic-prospects-slowing-growth-rising-risks/" target="_blank" rel="noopener">2022 Nigeria Economic Prospects: Slowing Growth, Rising Risks</a></h2>
         <p class="card-summary">The Nigerian economy is expected to experience slowing growth and rising risks in 2022 due to various factors, including the proposed removal of fuel subsidies and lingering supply bottlenecks. The economic outlook is clouded by downside risks, including unanchored inflation expectations and financial stress. The government's policies</p>
@@ -2027,7 +2028,7 @@
         <div class="card-meta">
             <span class="flag-country">🇳🇬 Nigeria</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.premiumtimesng.com/opinion/842837-increasing-inequality-in-the-nigerian-polity-as-a-disincentive-for-investment-by-dipo-baruwa.html" target="_blank" rel="noopener">Increasing inequality in the Nigerian polity as a disincentive</a></h2>
         <p class="card-summary">The article discusses how systemic inequalities in Nigeria have led to a decline in investment confidence, both domestically and internationally. Despite the country's vast natural and human resources</p>
@@ -2040,7 +2041,7 @@
         <div class="card-meta">
             <span class="flag-country">🇳🇬 Nigeria</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.otowngist.com/2018/08/nigeria-deep-30tr-global-loss-inequality/" target="_blank" rel="noopener">Nigeria deep in $30tr global loss to inequality - OtownGist</a></h2>
         <p class="card-summary">The World Bank reports that Nigeria is experiencing significant losses due to inequality</p>
@@ -2057,7 +2058,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://citinewsroom.com/2025/03/ghanas-economic-sovereignty-in-the-age-of-digital-finance/" target="_blank" rel="noopener">Ghana’s economic sovereignty in the age of digital finance [Article]</a></h2>
         <p class="card-summary">Ghana is working towards economic sovereignty through digital finance, with a focus on fintech and digital currencies, as it celebrates its independence milestone. The country's economic journey has been complex</p>
@@ -2070,7 +2071,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://news-pravda.com/world/2025/12/03/1908079.html" target="_blank" rel="noopener">Russia–US talks in Moscow & What the World Can Learn from Ghana’s Security Model - Pravda EN</a></h2>
         <p class="card-summary">Ghana's community-led security model is being highlighted as a successful approach to sovereignty, blending traditional conflict-resolution with modern governance. This model is being discussed in the context of global security challenges and the ongoing Ukrainian crisis. Ghana's approach is seen as a positive example of a non-traditional security strategy.</p>
@@ -2083,7 +2084,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Economy</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.worldbank.org/en/country/ghana/overview" target="_blank" rel="noopener">Ghana | World Bank Group</a></h2>
         <p class="card-summary">The World Bank reports on Ghana's economic recovery</p>
@@ -2096,7 +2097,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://gna.org.gh/2026/03/ghanas-foreign-policy-central-to-advancing-national-development-sovereignty-president-mahama/" target="_blank" rel="noopener">Ghana’s Foreign Policy central to advancing national development, sovereignty – President Mahama | Ghana News Agency</a></h2>
         <p class="card-summary">President John Dramani Mahama of Ghana emphasized the importance of foreign policy in advancing national development and sovereignty. He highlighted Ghana's commitment to regional cooperation and its role in the African Union, as well as its plans to seek recognition of the Transatlantic Slave Trade as a crime against humanity. Ghana's foreign policy aims to serve the practical needs of its people</p>
@@ -2109,7 +2110,7 @@
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://techafricanews.com/2025/05/02/digital-sovereignty-first-ghana-launches-ai-centric-tech-reforms/" target="_blank" rel="noopener">Digital Sovereignty First: Ghana Launches AI-Centric Tech Reforms - TechAfrica News</a></h2>
         <p class="card-summary">Ghana has launched a digital transformation strategy with a focus on artificial intelligence to drive innovation and safeguard sovereignty. The initiative aims to guide the ethical deployment of digital tools and ensure that AI systems developed in Ghana learn from local data. This effort is part of a broader digital transformation agenda that includes legislative reforms to modernize Ghana's technology sector.</p>
@@ -2126,7 +2127,7 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://ecohumanism.co.uk/joe/ecohumanism/article/view/6980" target="_blank" rel="noopener">Youth Unemployment and Educational Attainment in South Africa: An...</a></h2>
         <p class="card-summary">The article discusses youth unemployment and educational attainment in South Africa</p>
@@ -2139,7 +2140,7 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://en.wikipedia.org/wiki/Economy_of_South_Africa" target="_blank" rel="noopener">Economy of South Africa - Wikipedia</a></h2>
         <p class="card-summary">The economy of South Africa is the largest in Africa</p>
@@ -2152,7 +2153,7 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://www.bbc.com/news/articles/cn01z1yy0jno" target="_blank" rel="noopener">Donald Trump threatens to cut funding for South Africa over land...</a></h2>
         <p class="card-summary">US President Donald Trump has threatened to cut funding to South Africa over the country's new land ownership law, which allows for land seizures without compensation in certain circumstances. The law aims to address historical injustices and inequality in land ownership, with most private farmland currently owned by white people. Trump's comments have been met with criticism from South African President Cyril Ramaphosa</p>
@@ -2165,7 +2166,7 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Employment</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.statssa.gov.za/" target="_blank" rel="noopener">Statistics South Africa | Improving Lives Through Data Ecosystems</a></h2>
         <p class="card-summary">The Quarterly Labour Force Survey in South Africa reports a working-age population of 42.2 million individuals aged 15-64 in the first quarter of 2026. The mid-year estimate for the total population is 63.1 million as of mid 2025. These statistics provide insight into the labor market and population dynamics in South Africa.</p>
@@ -2178,7 +2179,7 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://iej.org.za/no-going-back-to-normal-imagining-a-just-recovery-in-south-africa/" target="_blank" rel="noopener">No going back to normal: Imagining a Just Recovery in South Africa...</a></h2>
         <p class="card-summary">The COVID-19 pandemic has highlighted the need for a Just Recovery in South Africa</p>
@@ -2191,7 +2192,7 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://borgenproject.org/south-africas-housing-crisis/" target="_blank" rel="noopener">Addressing South Africa’s Housing Crisis - The Borgen Project</a></h2>
         <p class="card-summary">South Africa is facing a housing crisis, with a significant backlog of applicants waiting for homes. The government's contract-based system has been impacted by budget cuts and the pandemic</p>
@@ -2204,7 +2205,7 @@
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://www.bloomberg.com/news/features/2025-04-23/south-africa-cape-town-granny-flats-expand-affordable-housing-in-poor-townships" target="_blank" rel="noopener">Backyard Micro-Flats Aim to Ease South Africa’s Housing Crisis</a></h2>
         <p class="card-summary">The article discusses a potential solution to South Africa's housing crisis through the construction of backyard micro-flats in poor townships. This approach aims to expand affordable housing options and address the country's significant shortage of homes. The initiative is seen as a way to provide more affordable housing for low-income residents.</p>
@@ -2221,7 +2222,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.nationalelfservice.net/mental-health/addiction/cheers-covid-19-will-consume-alcohol-crisis/" target="_blank" rel="noopener">Cheers Covid-19: Will we consume more alcohol during this</a></h2>
         <p class="card-summary">The article discusses the potential increase in alcohol consumption during the COVID-19 pandemic. It explores the possible reasons behind this trend and its implications for public health. However</p>
@@ -2234,7 +2235,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Other</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.imf.org/en/publications/weo" target="_blank" rel="noopener">World Economic Outlook - All Issues</a></h2>
         <p class="card-summary">The World Economic Outlook report by the International Monetary Fund (IMF) provides an analysis of the global economy</p>
@@ -2247,7 +2248,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.linkedin.com/pulse/foreign-influence-destabilisation-efforts-africa-chad-ben-french-frsa-egwke" target="_blank" rel="noopener">Foreign Influence and Destabilisation Efforts in Africa, with a focus on...</a></h2>
         <p class="card-summary">The article discusses foreign influence and destabilization efforts in Africa</p>
@@ -2260,7 +2261,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://www.trtafrika.com/article/18241681?_rt=1" target="_blank" rel="noopener">Sudan decries 'foreign interference' in its affairs - TRT Afrika</a></h2>
         <p class="card-summary">Sudan has requested an emergency meeting with the Arab League to address foreign interference in its affairs</p>
@@ -2273,7 +2274,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://thedocs.worldbank.org/en/doc/6e72b0ded996306fa01f5db7a0c38b19-0050052021/related/IDR2025-App.pdf" target="_blank" rel="noopener">International Debt Report 2025 - thedocs.worldbank.org</a></h2>
         <p class="card-summary">The Heavily Indebted Poor Countries Initiative is a program by the World Bank and the International Monetary Fund to provide debt relief to countries with unsustainable debt burdens. This initiative primarily affects low-income countries in Africa and other regions. The report highlights the economic challenges faced by these countries and the need for debt relief to promote economic growth and development.</p>
@@ -2286,7 +2287,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.imf.org/en/news/articles/2025/07/08/cf-how-to-stabilize-africas-debt" target="_blank" rel="noopener">How to Stabilize Africa's Debt - IMF</a></h2>
         <p class="card-summary">The IMF has released a report on stabilizing Africa's debt</p>
@@ -2299,7 +2300,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Politics</span>
-            <span class="badge" style="background:#555">None</span>
+            <span class="framing-dot" style="background:#aaa" title="None"></span>
         </div>
         <h2 class="card-title"><a href="https://en.sputniknews.africa/" target="_blank" rel="noopener">Sputnik Africa - World News, Breaking News & Top Stories</a></h2>
         <p class="card-summary">Sputnik Africa is a news website providing global coverage of politics, economy, and social trends, with a focus on African news and events. The website offers a range of topics, including breaking news, analysis, and opinion pieces. However, without specific article content, it's challenging to determine the narrative framing and structural factors at play.</p>
@@ -2312,7 +2313,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Healthcare</span>
-            <span class="badge" style="background:#27ae60">Human</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
         </div>
         <h2 class="card-title"><a href="https://3dnorthstar.com/mental-health-in-the-crosshairs-the-silent-crisis-facing-black-youth/" target="_blank" rel="noopener">Mental Health in the Crosshairs: The Silent Crisis Facing Black</a></h2>
         <p class="card-summary">The mental health of Black youth is a silent crisis that is often a direct response to systemic inequities</p>
@@ -2325,7 +2326,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.csis.org/analysis/solving-africas-housing-deficit" target="_blank" rel="noopener">Solving Africa’s Housing Deficit | CSIS</a></h2>
         <p class="card-summary">The Center for Strategic and International Studies (CSIS) podcast discusses Africa's significant housing deficit and ways to address it through innovative approaches and strategic partnerships. The conversation involves experts with extensive experience in housing finance and urban development. They explore the challenges and promising solutions for Africa's housing future.</p>
@@ -2338,7 +2339,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://cceonlinenews.com/analysis/affordable-housing-in-africa-challenges/" target="_blank" rel="noopener">Six Challenges Facing Affordable Housing In Africa - CCE l ONLINE NEWS</a></h2>
         <p class="card-summary">The article discusses the challenges facing affordable housing in Africa</p>
@@ -2351,7 +2352,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Housing</span>
-            <span class="badge" style="background:#7f8c8d">Statistic</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
         </div>
         <h2 class="card-title"><a href="https://www.developmentaid.org/news-stream/post/203238/housing-crisis-in-2025" target="_blank" rel="noopener">Housing crisis: countries at breaking point in 2025 DevelopmentAid</a></h2>
         <p class="card-summary">The global housing crisis is deepening</p>
@@ -2364,7 +2365,7 @@
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Education</span>
-            <span class="badge" style="background:#2980b9">Resistant</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
         </div>
         <h2 class="card-title"><a href="https://theconversation.com/topics/anti-black-racism-48584" target="_blank" rel="noopener">Anti-Black racism – News, Research and Analysis – The</a></h2>
         <p class="card-summary">After global anti-Black racism protests in 2020</p>
@@ -2441,6 +2442,14 @@
     <p><strong>BLACK WORLD NEWS</strong> — A Pan-African media monitoring project.</p>
     <p style="margin-top:0.5rem">Stories sourced from open web. Analysis by AI through a Pan-African lens. Links go to original sources.</p>
 </footer>
+
+<script>
+  // If the URL contains ?admin — show the hidden stats
+  // Example: https://www.blackworldnews.world?admin
+  if (window.location.search.includes('admin')) {
+    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+  }
+</script>
 
 </body>
 </html>

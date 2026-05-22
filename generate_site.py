@@ -129,16 +129,18 @@ def load_stories():
 
 
 def framing_badge(framing):
+    # A small coloured dot — hints at the framing without announcing it
     if not framing:
         return ""
-    color = FRAMING_COLORS.get(framing, "#555")
-    return f'<span class="badge" style="background:{color}">{framing}</span>'
+    color = FRAMING_COLORS.get(framing, "#aaa")
+    return f'<span class="framing-dot" style="background:{color}" title="{framing}"></span>'
 
 
 def factor_tags(factors):
+    # Small quiet tags at the bottom of each card
     if not factors:
         return ""
-    tags = "".join(f'<span class="factor">{f}</span>' for f in factors if f != "None identified")
+    tags = "".join(f'<span class="factor">{f.lower()}</span>' for f in factors if f != "None identified")
     return f'<div class="factors">{tags}</div>' if tags else ""
 
 
@@ -527,14 +529,15 @@ def build_html(stories, cache):
             font-weight: 600;
         }}
 
-        .badge {{
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 0.2rem 0.5rem;
-            color: #fff;
-            border-radius: 2px;
+        /* Framing shown as a small coloured dot — subtle, not a label */
+        .framing-dot {{
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            vertical-align: middle;
+            cursor: default;
+            flex-shrink: 0;
         }}
 
         .explicit-tag {{
@@ -586,13 +589,13 @@ def build_html(stories, cache):
         }}
 
         .factor {{
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            background: #eef4f0;
-            border: 1px solid #c5daca;
-            color: #2a5a3a;
-            padding: 0.15rem 0.5rem;
+            font-size: 0.62rem;
+            text-transform: lowercase;
+            letter-spacing: 0.02em;
+            background: none;
+            border: none;
+            color: #bbb;
+            padding: 0;
             font-weight: 600;
         }}
 
@@ -835,6 +838,192 @@ def build_html(stories, cache):
         }}
 
         footer strong {{ color: #8ab89a; }}
+
+        /* ========== MOBILE APP EXPERIENCE ========== */
+        @media (max-width: 768px) {{
+
+            /* APP HEADER — compact, sticky */
+            .masthead {{
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                padding: 0.75rem 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+                border-top: none;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }}
+
+            .logo-wrap {{ margin-bottom: 0; }}
+            .logo-wrap svg {{ width: 36px; height: 36px; }}
+
+            .masthead-eyebrow {{ display: none; }}
+            .masthead-tagline {{ display: block; font-size: 0.6rem; letter-spacing: 0.06em; margin-top: 0.2rem; color: #8ab89a; }}
+            .masthead-meta {{ display: none; }}
+
+            .masthead-text {{
+                flex: 1;
+                padding-left: 0.75rem;
+            }}
+
+            .masthead h1 {{
+                font-size: 1.3rem;
+                letter-spacing: 0.02em;
+                text-align: left;
+            }}
+
+            /* HIDE desktop nav, show bottom app nav */
+            nav {{ display: none; }}
+            .breaking-bar {{ font-size: 0.68rem; padding: 0.35rem 0.75rem; }}
+
+            /* BOTTOM TAB BAR */
+            body {{ padding-bottom: 60px; }}
+
+            body::after {{
+                content: '';
+                display: block;
+            }}
+
+            .mobile-tabs {{
+                display: flex !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #111;
+                border-top: 2px solid #1a3a2a;
+                z-index: 200;
+                height: 60px;
+            }}
+
+            .mobile-tabs a {{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #888;
+                font-size: 0.6rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                gap: 0.2rem;
+                text-decoration: none;
+                transition: color 0.15s;
+            }}
+
+            .mobile-tabs a:first-child {{ color: #8ab89a; }}
+            .mobile-tabs a .tab-icon {{ font-size: 1.1rem; }}
+
+            /* FEATURED — full bleed hero card */
+            .card.featured {{
+                border-radius: 0;
+                border: none;
+                border-top: none;
+                padding: 0;
+                margin-bottom: 0;
+                position: relative;
+                overflow: hidden;
+            }}
+
+            .featured-img {{
+                height: 280px;
+                width: 100%;
+                object-fit: cover;
+                display: block;
+            }}
+
+            .card.featured .card-meta,
+            .card.featured .card-title,
+            .card.featured .card-summary,
+            .card.featured .narrative-analysis,
+            .card.featured .factors,
+            .card.featured .card-footer {{
+                padding: 0 1rem;
+            }}
+
+            .card.featured .card-meta {{ padding-top: 1rem; }}
+            .card.featured .card-footer {{ padding-bottom: 1rem; }}
+            .card.featured .card-title {{ font-size: 1.25rem; }}
+
+            /* LATEST — horizontal scroll strip */
+            .card-grid {{
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 0.75rem;
+                padding: 0 1rem 1rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }}
+
+            .card-grid::-webkit-scrollbar {{ display: none; }}
+
+            .card-grid .card {{
+                min-width: 260px;
+                max-width: 260px;
+                scroll-snap-align: start;
+                margin-bottom: 0;
+                border-radius: 12px;
+                flex-shrink: 0;
+            }}
+
+            .card-grid .card-img {{ height: 150px; border-radius: 12px 12px 0 0; }}
+
+            /* SECTION LABELS */
+            .section-label {{
+                padding: 0 1rem;
+                font-size: 0.75rem;
+            }}
+
+            .container {{ padding: 1rem 0; }}
+
+            /* PAGE BREAKS — slimmer on mobile */
+            .page-break, .page-break-alt {{
+                padding: 1.25rem 1rem;
+                text-align: left;
+            }}
+
+            /* KIDS — single column, app card style */
+            .kids-section {{ padding: 1.5rem 1rem; }}
+            .kids-grid {{
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }}
+            .kids-card {{ border-radius: 16px; }}
+            .kids-header h2 {{ font-size: 1.5rem; }}
+
+            /* ARCHIVE — slim list rows */
+            .archive-card {{
+                border-radius: 0;
+                border-left: none;
+                border-bottom: 1px solid #eee;
+                padding: 0.85rem 1rem;
+                margin-bottom: 0;
+            }}
+
+            .archive-card .card-title {{ font-size: 0.95rem; }}
+            .archive-card .card-summary {{ display: none; }}
+            .archive-card .factors {{ display: none; }}
+            .archive-card .narrative-analysis {{ display: none; }}
+            .archive-card .card-footer {{
+                padding-top: 0.4rem;
+                margin-top: 0.4rem;
+            }}
+
+            .country-section {{ margin-bottom: 1.5rem; }}
+            .country-heading {{
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+                margin-bottom: 0;
+                border-bottom: 2px solid #111;
+                background: #f8f8f8;
+            }}
+
+            footer {{ padding: 1.25rem 1rem; font-size: 0.75rem; margin-bottom: 60px; }}
+        }}
     </style>
 </head>
 <body>
@@ -861,9 +1050,11 @@ def build_html(stories, cache):
         </svg>
     </div>
     <p class="masthead-eyebrow">Your World Today</p>
-    <h1>BLACK WORLD NEWS</h1>
-    <p class="masthead-tagline">Documenting anti-Black racism globally — updated daily</p>
-    <p class="masthead-meta">Last updated: {now} &nbsp;|&nbsp; {total} stories in archive</p>
+    <div class="masthead-text">
+        <h1>BLACK WORLD NEWS</h1>
+        <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
+    </div>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: {now} &nbsp;|&nbsp; {total} stories in archive</p>
 </header>
 
 <nav>
@@ -913,13 +1104,174 @@ def build_html(stories, cache):
 
 </main>
 
+<div class="mobile-tabs" style="display:none">
+    <a href="#latest"><span class="tab-icon">🏠</span>Latest</a>
+    <a href="#kids"><span class="tab-icon">🌍</span>Kids</a>
+    <a href="#archive"><span class="tab-icon">📰</span>Archive</a>
+    <a href="#latest"><span class="tab-icon">🔍</span>Search</a>
+</div>
+
 <footer>
     <p><strong>BLACK WORLD NEWS</strong> — A Pan-African media monitoring project.</p>
     <p style="margin-top:0.5rem">Stories sourced from open web. Analysis by AI through a Pan-African lens. Links go to original sources.</p>
 </footer>
 
+<script>
+  // If the URL contains ?admin — show the hidden stats
+  // Example: https://www.blackworldnews.world?admin
+  if (window.location.search.includes('admin')) {{
+    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+  }}
+</script>
+
 </body>
 </html>"""
+
+
+def page_shell(title, content, active=""):
+    # Shared header, nav and footer used by every page
+    nav_links = [
+        ("Latest", "/black-world-news/index.html", "latest"),
+        ("About", "/black-world-news/about.html", "about"),
+        ("Resources", "/black-world-news/resources.html", "resources"),
+        ("Trends", "/black-world-news/trends.html", "trends"),
+        ("Community", "/black-world-news/community.html", "community"),
+        ("🌍 Kids", "/black-world-news/index.html#kids", "kids"),
+    ]
+    nav_html = "".join(
+        f'<a href="{url}" class="{"active" if key == active else ""}">{label}</a>'
+        for label, url, key in nav_links
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} — Black World News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+        body {{ background: #f2f2f2; color: #111; font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }}
+        a {{ color: inherit; text-decoration: none; }}
+
+        .masthead {{ background: #1a3a2a; border-bottom: 3px solid #111; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; }}
+        .masthead h1 {{ font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: #fff; letter-spacing: 0.04em; }}
+        .masthead h1 a:hover {{ color: #c8d8c0; }}
+        .masthead-tagline {{ font-size: 0.65rem; color: #8ab89a; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }}
+
+        nav {{ background: #111; padding: 0.6rem 1.5rem; display: flex; gap: 1.5rem; overflow-x: auto; }}
+        nav a {{ font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #888; white-space: nowrap; font-weight: 600; transition: color 0.2s; }}
+        nav a:hover, nav a.active {{ color: #8ab89a; }}
+
+        .page-container {{ max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem; }}
+        .page-title {{ font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: #111; margin-bottom: 0.5rem; }}
+        .page-subtitle {{ font-size: 1rem; color: #666; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid #111; }}
+
+        .section-title {{ font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: #1a3a2a; margin: 2rem 0 1rem; }}
+        .placeholder-block {{ background: #fff; border: 1px dashed #ccc; border-left: 4px solid #1a3a2a; padding: 2rem; color: #999; font-style: italic; margin-bottom: 1rem; }}
+
+        footer {{ background: #111; border-top: 4px solid #1a3a2a; text-align: center; padding: 2rem; font-size: 0.8rem; color: #555; margin-top: 4rem; }}
+        footer strong {{ color: #8ab89a; }}
+
+        @media (max-width: 768px) {{
+            .masthead {{ padding: 0.75rem 1rem; }}
+            .masthead h1 {{ font-size: 1.2rem; }}
+            .page-container {{ padding: 2rem 1rem; }}
+            .page-title {{ font-size: 1.5rem; }}
+        }}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <div>
+        <h1><a href="/black-world-news/index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
+    </div>
+</header>
+<nav>{nav_html}</nav>
+
+<div class="page-container">
+    {content}
+</div>
+
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong> — Your World Today</p>
+    <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to original sources.</p>
+</footer>
+</body>
+</html>"""
+
+
+def build_about():
+    content = """
+    <h1 class="page-title">About</h1>
+    <p class="page-subtitle">Who we are, what we do, and why it matters.</p>
+
+    <h2 class="section-title">What is Black World News?</h2>
+    <div class="placeholder-block">Coming soon — our story and mission in plain English.</div>
+
+    <h2 class="section-title">How it works</h2>
+    <div class="placeholder-block">Coming soon — how we find stories, how the AI analysis works, and what the framing labels mean.</div>
+
+    <h2 class="section-title">Who built this?</h2>
+    <div class="placeholder-block">Coming soon.</div>
+
+    <h2 class="section-title">Why it exists</h2>
+    <div class="placeholder-block">Coming soon.</div>
+    """
+    return page_shell("About", content, active="about")
+
+
+def build_resources():
+    content = """
+    <h1 class="page-title">Resources</h1>
+    <p class="page-subtitle">Books, organisations, people and films worth your time.</p>
+
+    <h2 class="section-title">Books</h2>
+    <div class="placeholder-block">Coming soon — a curated reading list.</div>
+
+    <h2 class="section-title">Organisations</h2>
+    <div class="placeholder-block">Coming soon — groups doing real work.</div>
+
+    <h2 class="section-title">People to follow</h2>
+    <div class="placeholder-block">Coming soon — activists, journalists, thinkers.</div>
+
+    <h2 class="section-title">Films & Documentaries</h2>
+    <div class="placeholder-block">Coming soon.</div>
+    """
+    return page_shell("Resources", content, active="resources")
+
+
+def build_trends():
+    content = """
+    <h1 class="page-title">Trends</h1>
+    <p class="page-subtitle">How Black people are being talked about in the media — and what it tells us.</p>
+
+    <h2 class="section-title">Narrative framing over time</h2>
+    <div class="placeholder-block">Coming soon — charts showing how Black people are framed across different countries and topics.</div>
+
+    <h2 class="section-title">Most common forces at play</h2>
+    <div class="placeholder-block">Coming soon — which structural factors appear most in the stories we collect.</div>
+
+    <h2 class="section-title">Country by country breakdown</h2>
+    <div class="placeholder-block">Coming soon.</div>
+    """
+    return page_shell("Trends", content, active="trends")
+
+
+def build_community():
+    content = """
+    <h1 class="page-title">Community</h1>
+    <p class="page-subtitle">This space belongs to you. Share a story. Share a thought.</p>
+
+    <h2 class="section-title">Submit a story tip</h2>
+    <div class="placeholder-block">Coming soon — send us a story you think we should cover.</div>
+
+    <h2 class="section-title">Reader voices</h2>
+    <div class="placeholder-block">Coming soon — your words, your perspective.</div>
+    """
+    return page_shell("Community", content, active="community")
 
 
 def main():
@@ -933,6 +1285,17 @@ def main():
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(html)
+
+    # Build the four extra pages
+    for filename, builder in [
+        ("about.html",     build_about),
+        ("resources.html", build_resources),
+        ("trends.html",    build_trends),
+        ("community.html", build_community),
+    ]:
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(builder())
+        print(f"Page generated: {filename}")
 
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")
