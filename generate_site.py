@@ -1794,7 +1794,7 @@ def page_shell(title, content, active=""):
 <header class="masthead">
     <div>
         <h1><a href="/black-world-news/index.html">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
+        <p class="masthead-tagline">What matters to you today</p>
     </div>
 </header>
 <nav>{nav_html}</nav>
@@ -2090,7 +2090,7 @@ def build_region_page(region_id, region, all_stories, cache):
 <header class="masthead">
     <div>
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
+        <p class="masthead-tagline">What matters to you today</p>
     </div>
 </header>
 {nav_html}
@@ -2185,7 +2185,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
 <header class="masthead">
     <div>
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">"Let my people go, that they may serve me." &ndash; Exodus 8:1</p>
+        <p class="masthead-tagline">What matters to you today</p>
     </div>
 </header>
 {nav_html}
