@@ -130,6 +130,12 @@ Replace with any Groq-supported model. See: console.groq.com/docs/models
 In dispatch.py, find the QUERIES list and add new strings.
 Keep them specific and framed from a Pan-African lens — not Western media framing.
 
+### To add a new direct source:
+In dispatch.py, find the DIRECT_SOURCES list and add a new entry.
+These sites are visited directly every run — no search query needed.
+Current direct sources: GhanaWeb (ghanaweb.com)
+Good candidates to add: Daily Maverick (South Africa), The Root (US), Caribbean National Weekly, afrol News.
+
 ---
 
 ## HOW THE SITE WORKS (generate_site.py)

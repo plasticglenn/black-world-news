@@ -235,6 +235,61 @@ def is_duplicate(story, archive):
     return False
 
 
+# ---- DIRECT SOURCES ----
+# These are sites we visit directly every run — not via search.
+# Add any reliable source here and we will always check it.
+
+DIRECT_SOURCES = [
+    {
+        "name":    "GhanaWeb",
+        "url":     "https://www.ghanaweb.com/GhanaHomePage/NewsArchive/",
+        "base":    "https://www.ghanaweb.com",
+        # CSS selector that finds article links on the page
+        "link_selector": "a[href*='/GhanaHomePage/NewsArchive/']",
+        "country": "Ghana",
+    },
+]
+
+def scrape_direct_source(source, archive):
+    # Visits a source directly and pulls the latest headlines.
+    # Returns a list of story dicts ready for analysis.
+    results = []
+    print(f"\n🌐 Checking direct source: {source['name']} ({source['url']})")
+    try:
+        r    = requests.get(source["url"], timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+        soup = BeautifulSoup(r.text, "html.parser")
+        links = soup.select(source["link_selector"])
+
+        seen_urls = set()
+        for link in links[:20]:  # take up to 20 headlines per visit
+            href  = link.get("href", "")
+            title = link.get_text(strip=True)
+
+            if not href or not title or len(title) < 15:
+                continue
+
+            # Build full URL if the link is relative
+            if href.startswith("/"):
+                href = source["base"] + href
+
+            # Skip if already in archive or seen this loop
+            if href in seen_urls or any(s.get("url") == href for s in archive):
+                continue
+            seen_urls.add(href)
+
+            results.append({
+                "title":   title,
+                "url":     href,
+                "snippet": "",
+            })
+
+    except Exception as e:
+        print(f"  ⚠️  Could not reach {source['name']}: {e}")
+
+    print(f"  Found {len(results)} new headlines from {source['name']}")
+    return results
+
+
 def run_agent(custom_query=None):
     # This is the main function that runs the whole pipeline.
     # It searches, reads, analyzes, and saves stories.
@@ -245,6 +300,33 @@ def run_agent(custom_query=None):
     # Use a single custom query if provided, otherwise run all 57
     queries = [custom_query] if custom_query else QUERIES
     total_queries = len(queries)
+
+    # Always check direct sources first — these are sites we visit every run
+    if not custom_query:
+        for source in DIRECT_SOURCES:
+            direct_stories = scrape_direct_source(source, archive)
+            for story in direct_stories:
+                if is_duplicate(story, archive):
+                    continue
+                print(f"Analyzing: {story['title'][:55]}...")
+                try:
+                    _r    = requests.get(story["url"], timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+                    _soup = BeautifulSoup(_r.text, "html.parser")
+                    article_text = " ".join([p.get_text() for p in _soup.find_all("p")])[:3000]
+                    image_url    = get_article_image(story["url"], _soup)
+                except:
+                    article_text = ""
+                    image_url    = ""
+
+                analyzed = analyze_story(story["title"], story["url"], story["snippet"], article_text)
+                if analyzed:
+                    # Make sure country is set to Ghana for GhanaWeb stories
+                    if not analyzed.get("country") or analyzed["country"] == "Other/Global":
+                        analyzed["country"] = source.get("country", analyzed.get("country"))
+                    analyzed["image"] = image_url
+                    new_stories.append(analyzed)
+                    archive.append(analyzed)
+                    print(f"✅ {analyzed['country']} | {analyzed['category']} | {analyzed['narrative_framing']} | {analyzed['title'][:35]}")
 
     for q_index, query in enumerate(queries):
         print(f"\n🔍 [{q_index+1}/{total_queries}] Searching: {query}")
