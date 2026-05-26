@@ -227,6 +227,21 @@
         }
 
         /* CARD IMAGES */
+        .card-img-link, .hero-image-link, .highlight-img-link, .kids-img-link {
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card-img-link img, .hero-image-link img, .highlight-img-link img, .kids-img-link img {
+            transition: transform 0.4s ease, opacity 0.2s ease;
+        }
+
+        .card-img-link:hover img, .hero-image-link:hover img, .highlight-img-link:hover img, .kids-img-link:hover img {
+            transform: scale(1.03);
+            opacity: 0.92;
+        }
+
         .card-img {
             width: 100%;
             height: 180px;
@@ -1084,7 +1099,7 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 17:23 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 17:26 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids">Kids Corner</a><span class="nav-divider">|</span><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
@@ -1109,19 +1124,19 @@
                     <a href="https://www.bbc.com/news/world-africa-53988788" class="read-more" target="_blank" rel="noopener">Read original &rarr;</a>
                 </div>
             </div>
-            <div class="hero-image"><img class="hero-img" src="https://images.pexels.com/photos/11196642/pexels-photo-11196642.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" loading="lazy"></div>
+            <div class="hero-image"><a href="https://www.bbc.com/news/world-africa-53988788" target="_blank" rel="noopener" class="hero-image-link"><img class="hero-img" src="https://images.pexels.com/photos/11196642/pexels-photo-11196642.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" loading="lazy"></a></div>
             <aside class="hero-sidebar">
                 <h4 class="sidebar-label">In Focus</h4>
                 <div class="highlight">
-                    <img class="highlight-img" src="https://images.pexels.com/photos/6266285/pexels-photo-6266285.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" onerror="this.style.display='none'">
+                    <a href="https://en.wikipedia.org/wiki/Marcus_Garvey" target="_blank" rel="noopener" class="highlight-img-link"><img class="highlight-img" src="https://images.pexels.com/photos/6266285/pexels-photo-6266285.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" onerror="this.style.display='none'"></a>
                     <h3 class="highlight-title"><a href="https://en.wikipedia.org/wiki/Marcus_Garvey" target="_blank" rel="noopener">Marcus Garvey and the Black Star</a></h3>
                     <p class="highlight-caption">The Pan-African vision behind the star on our logo. Read about the man who launched the Black Star Line.</p>
                 </div><div class="highlight">
-                    <img class="highlight-img" src="https://images.pexels.com/photos/3030298/pexels-photo-3030298.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" onerror="this.style.display='none'">
+                    <a href="https://en.wikipedia.org/wiki/Patrice_Lumumba" target="_blank" rel="noopener" class="highlight-img-link"><img class="highlight-img" src="https://images.pexels.com/photos/3030298/pexels-photo-3030298.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" onerror="this.style.display='none'"></a>
                     <h3 class="highlight-title"><a href="https://en.wikipedia.org/wiki/Patrice_Lumumba" target="_blank" rel="noopener">Patrice Lumumba: a voice for sovereignty</a></h3>
                     <p class="highlight-caption">The first prime minister of independent Congo and what his removal meant for Africa.</p>
                 </div><div class="highlight">
-                    <img class="highlight-img" src="https://images.pexels.com/photos/3771836/pexels-photo-3771836.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" onerror="this.style.display='none'">
+                    <a href="https://en.wikipedia.org/wiki/Bob_Marley" target="_blank" rel="noopener" class="highlight-img-link"><img class="highlight-img" src="https://images.pexels.com/photos/3771836/pexels-photo-3771836.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" onerror="this.style.display='none'"></a>
                     <h3 class="highlight-title"><a href="https://en.wikipedia.org/wiki/Bob_Marley" target="_blank" rel="noopener">Bob Marley and the message of Redemption</a></h3>
                     <p class="highlight-caption">How a son of Jamaica carried Pan-African ideas to the world through music.</p>
                 </div>
@@ -1133,7 +1148,7 @@
         <p class="section-label">Latest</p>
         <div class="card-grid">
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/8203490/pexels-photo-8203490.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://adf-magazine.com/2025/08/traffickers-exploit-war-zones-to-drive-illicit-drug-use/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/8203490/pexels-photo-8203490.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Hate Crime</span>
@@ -1150,7 +1165,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/6646878/pexels-photo-6646878.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://www.unodc.org/westandcentralafrica/en/westandcentralafrica/stories/2025/unodcs-world-drug-report-2025_-global-instability-and-the-diversification-of-drug-markets-in-west-and-central-africa-deepens-health-and-security-risks.html" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/6646878/pexels-photo-6646878.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Healthcare</span>
@@ -1167,7 +1182,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://page.globalinitiative.net/mapping-future-drug-markets-west-africa-high-level-dialogue-accra-2025/assets/hqmwVQSpiF/drugswestafrica-1536x1024.png" alt="" loading="lazy">
+        <a href="https://page.globalinitiative.net/mapping-future-drug-markets-west-africa-high-level-dialogue-accra-2025/index.html" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://page.globalinitiative.net/mapping-future-drug-markets-west-africa-high-level-dialogue-accra-2025/assets/hqmwVQSpiF/drugswestafrica-1536x1024.png" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Healthcare</span>
@@ -1184,7 +1199,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/12111234/pexels-photo-12111234.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9748399/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/12111234/pexels-photo-12111234.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Employment</span>
@@ -1201,7 +1216,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/5439381/pexels-photo-5439381.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://www.weforum.org/stories/2024/01/empower-africa-s-youth-to-create-jobs-growth-and-peace/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/5439381/pexels-photo-5439381.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Employment</span>
@@ -1218,7 +1233,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/11171617/pexels-photo-11171617.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://social.desa.un.org/sdn/africas-fast-growing-population-tackling-youth-unemployment" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/11171617/pexels-photo-11171617.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Employment</span>
@@ -1258,7 +1273,7 @@
             </div>
             
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/1464200/pexels-photo-1464200.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://www.hindustantimes.com/world-news/us-boycotts-g20-foreign-ministers-meet-attacks-south-african-land-reforms-101738867345136.html" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/1464200/pexels-photo-1464200.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🇺🇸 United States</span>
             <span class="category">Politics</span>
@@ -1282,7 +1297,7 @@
             </div>
             
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/35043641/pexels-photo-35043641.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://page.globalinitiative.net/mapping-future-drug-markets-west-africa-high-level-dialogue-accra-2025/index.html" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/35043641/pexels-photo-35043641.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
             <span class="category">Healthcare</span>
@@ -1306,7 +1321,7 @@
             </div>
             
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/11421113/pexels-photo-11421113.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/11421113/pexels-photo-11421113.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="flag-country">🇫🇷 France</span>
             <span class="category">Politics</span>

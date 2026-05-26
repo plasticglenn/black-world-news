@@ -272,7 +272,10 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
     </div>"""
 
     img_src = story_image(story, cache or {}, featured=featured, used_images=used_images)
-    img_html = f'<img class="card-img{"  featured-img" if featured else ""}" src="{img_src}" alt="" loading="lazy">' if img_src else ""
+    img_html = (
+        f'<a href="{url}" target="_blank" rel="noopener" class="card-img-link"><img class="card-img{"  featured-img" if featured else ""}" src="{img_src}" alt="" loading="lazy"></a>'
+        if img_src else ""
+    )
 
     card_class = "card featured" if featured else "card"
 
@@ -307,7 +310,11 @@ def kids_card(story):
     import hashlib
     color = colors[int(hashlib.md5(url.encode()).hexdigest(), 16) % len(colors)]
 
-    img_html = f'<img class="kids-img" src="{image}" alt="" loading="lazy">' if image else f'<div class="kids-img-placeholder" style="background:{color}"><span style="font-size:2.5rem">🌍</span></div>'
+    img_html = (
+        f'<a href="{url}" target="_blank" rel="noopener" class="kids-img-link"><img class="kids-img" src="{image}" alt="" loading="lazy"></a>'
+        if image else
+        f'<a href="{url}" target="_blank" rel="noopener" class="kids-img-link"><div class="kids-img-placeholder" style="background:{color}"><span style="font-size:2.5rem">🌍</span></div></a>'
+    )
 
     return f"""
     <div class="kids-card">
@@ -363,8 +370,9 @@ def build_html(stories, cache):
     if featured:
         hero_img = story_image(featured, cache, featured=True, used_images=used_images)
         hero_flag = COUNTRY_FLAGS.get(featured.get("country", ""), "🌍")
+        hero_url = featured.get("url", "#")
         hero_img_html = (
-            f'<img class="hero-img" src="{hero_img}" alt="" loading="lazy">'
+            f'<a href="{hero_url}" target="_blank" rel="noopener" class="hero-image-link"><img class="hero-img" src="{hero_img}" alt="" loading="lazy"></a>'
             if hero_img else
             '<div class="hero-img" style="background:#1a3a2a"></div>'
         )
@@ -374,7 +382,7 @@ def build_html(stories, cache):
         if highlights:
             highlights_html = "".join(
                 f'''<div class="highlight">
-                    <img class="highlight-img" src="{h.get("image","")}" alt="" loading="lazy" onerror="this.style.display='none'">
+                    <a href="{h.get("url","#")}" target="_blank" rel="noopener" class="highlight-img-link"><img class="highlight-img" src="{h.get("image","")}" alt="" loading="lazy" onerror="this.style.display='none'"></a>
                     <h3 class="highlight-title"><a href="{h.get("url","#")}" target="_blank" rel="noopener">{h.get("title","")}</a></h3>
                     <p class="highlight-caption">{h.get("caption","")}</p>
                 </div>'''
@@ -666,6 +674,21 @@ def build_html(stories, cache):
         }}
 
         /* CARD IMAGES */
+        .card-img-link, .hero-image-link, .highlight-img-link, .kids-img-link {{
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+        }}
+
+        .card-img-link img, .hero-image-link img, .highlight-img-link img, .kids-img-link img {{
+            transition: transform 0.4s ease, opacity 0.2s ease;
+        }}
+
+        .card-img-link:hover img, .hero-image-link:hover img, .highlight-img-link:hover img, .kids-img-link:hover img {{
+            transform: scale(1.03);
+            opacity: 0.92;
+        }}
+
         .card-img {{
             width: 100%;
             height: 180px;
