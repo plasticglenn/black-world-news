@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids lettering preview | Black World News</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Lilita+One&family=Fredoka+One&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #fff;
+            font-family: 'Source Sans 3', sans-serif;
+            color: #111;
+            padding: 3rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #888;
+            margin-bottom: 1.25rem;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        hr.sep {
+            border: none;
+            border-top: 1px dashed #ddd;
+            margin: 3.5rem 0;
+        }
+
+        /* ===== BALLOON LETTERS — fresh-paint look ===== */
+        .balloon-headline {
+            font-family: 'Bagel Fat One', cursive;
+            font-size: clamp(2.5rem, 9vw, 6.5rem);
+            line-height: 1.15;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.25em;
+        }
+
+        .balloon-letter {
+            display: inline-block;
+            background: linear-gradient(
+                to bottom,
+                #ffffff -15%,
+                var(--top) 22%,
+                var(--bot) 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            filter:
+                drop-shadow(0 4px 0 var(--deep))
+                drop-shadow(0 8px 12px rgba(0,0,0,0.25));
+            padding: 0 0.02em;
+        }
+
+        /* Per-letter color sets — vibrant party-balloon palette */
+        .c-red    { --top: #ff3344; --bot: #b81e30; --deep: #6f1320; }
+        .c-gold   { --top: #ffd83d; --bot: #c89914; --deep: #7a5d08; }
+        .c-green  { --top: #2ec167; --bot: #15803d; --deep: #0a4d24; }
+        .c-blue   { --top: #4d96ff; --bot: #1e5fb3; --deep: #103b73; }
+        .c-orange { --top: #ff9f43; --bot: #c46d10; --deep: #6e3d05; }
+        .c-purple { --top: #b366ff; --bot: #7a23c0; --deep: #3f0c6e; }
+        .c-pink   { --top: #ff6b9d; --bot: #c2326b; --deep: #6e1b3c; }
+
+        .space { display: inline-block; width: 0.35em; }
+
+        /* Variant: all one color (red, like your reference) */
+        .all-red .balloon-letter {
+            --top: #ff3344; --bot: #b81e30; --deep: #6f1320;
+        }
+
+        /* Variant: Pan-African palette (red, gold, green) */
+        .pan-african .balloon-letter:nth-child(3n+1) {
+            --top: #ff3344; --bot: #b81e30; --deep: #6f1320;
+        }
+        .pan-african .balloon-letter:nth-child(3n+2) {
+            --top: #ffd83d; --bot: #c89914; --deep: #7a5d08;
+        }
+        .pan-african .balloon-letter:nth-child(3n+3) {
+            --top: #2ec167; --bot: #15803d; --deep: #0a4d24;
+        }
+
+        /* Smaller subhead style — using Bagel Fat One in solid color */
+        .balloon-sub {
+            font-family: 'Bagel Fat One', cursive;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            color: #1a3a2a;
+            margin-top: 0.5rem;
+        }
+
+        /* Comparison with Lilita One — alternative */
+        .lilita-headline {
+            font-family: 'Lilita One', cursive;
+            font-size: clamp(2.5rem, 9vw, 6.5rem);
+            line-height: 1.15;
+            letter-spacing: 0.02em;
+        }
+        .lilita-headline .balloon-letter {
+            font-family: 'Lilita One', cursive;
+        }
+
+        /* Comparison with Fredoka One (current kids font) */
+        .fredoka-headline {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(2.5rem, 9vw, 6.5rem);
+            line-height: 1.15;
+            color: #ff6b6b;
+            text-shadow: 4px 4px 0 #ffd93d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <p class="label">OPTION 1 — Multi-color party balloons (recommended)</p>
+        <h1 class="balloon-headline">
+            <span class="balloon-letter c-red">F</span><span class="balloon-letter c-gold">O</span><span class="balloon-letter c-green">R</span>
+            <span class="space"></span>
+            <span class="balloon-letter c-blue">T</span><span class="balloon-letter c-orange">H</span><span class="balloon-letter c-purple">E</span>
+        </h1>
+        <h1 class="balloon-headline">
+            <span class="balloon-letter c-red">C</span><span class="balloon-letter c-green">H</span><span class="balloon-letter c-gold">I</span><span class="balloon-letter c-blue">L</span><span class="balloon-letter c-orange">D</span><span class="balloon-letter c-purple">R</span><span class="balloon-letter c-pink">E</span><span class="balloon-letter c-green">N</span>
+        </h1>
+        <p class="note">Vibrant party-balloon palette. Each letter glows like fresh wet paint with a glossy highlight on top, a deeper base at the bottom, and a thick shadow giving it weight.</p>
+
+        <hr class="sep">
+
+        <p class="label">OPTION 2 — Pan-African palette (red, gold, green cycling)</p>
+        <h1 class="balloon-headline pan-african">
+            <span class="balloon-letter">F</span><span class="balloon-letter">O</span><span class="balloon-letter">R</span>
+            <span class="space"></span>
+            <span class="balloon-letter">T</span><span class="balloon-letter">H</span><span class="balloon-letter">E</span>
+        </h1>
+        <h1 class="balloon-headline pan-african">
+            <span class="balloon-letter">C</span><span class="balloon-letter">H</span><span class="balloon-letter">I</span><span class="balloon-letter">L</span><span class="balloon-letter">D</span><span class="balloon-letter">R</span><span class="balloon-letter">E</span><span class="balloon-letter">N</span>
+        </h1>
+        <p class="note">Same glossy paint look but the colors cycle red, gold, green — the Pan-African flag palette.</p>
+
+        <hr class="sep">
+
+        <p class="label">For comparison: the current "Kids Corner" style (Fredoka One)</p>
+        <h1 class="fredoka-headline">FOR THE CHILDREN</h1>
+        <p class="note">The current font used in the nav and portal door — flatter, simpler. The new balloon style is much more "kid party balloon," and bolder.</p>
+
+    </div>
+</body>
+</html>
