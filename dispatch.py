@@ -279,13 +279,74 @@ DIRECT_SOURCES = [
     {
         # Brasil de Fato — independent left Brazilian outlet.
         # Strong on quilombo, racial justice, police violence, MST land struggles.
-        # Site is in Portuguese; the AI translates and summarizes in English.
         "name":    "Brasil de Fato",
         "url":     "https://www.brasildefato.com.br/",
         "base":    "https://www.brasildefato.com.br",
-        # Articles follow /YYYY/MM/DD/slug/ — catch dated links + headline anchors
         "link_selector": "a[href*='/2026/'], a[href*='/2025/'], h2 a, h3 a, article a",
         "country": "Brazil",
+    },
+    {
+        # Alma Preta — flagship Afro-Brazilian news outlet.
+        # Direct coverage of Black communities, culture, politics, racial justice.
+        "name":    "Alma Preta",
+        "url":     "https://almapreta.com.br/",
+        "base":    "https://almapreta.com.br",
+        "link_selector": "h2 a, h3 a, article a, .post-title a",
+        "country": "Brazil",
+    },
+    {
+        # RAYA — Colombian investigative outlet.
+        # Covers Afro-Colombian communities, ethnic territories, conflict displacement.
+        "name":    "RAYA",
+        "url":     "https://revistaraya.com/",
+        "base":    "https://revistaraya.com",
+        "link_selector": "h2 a, h3 a, article a, .entry-title a",
+        "country": "Colombia",
+    },
+    {
+        # El Heraldo — Colombian Caribbean-coast daily.
+        # Region with largest Afro-Colombian population. Strong local coverage.
+        "name":    "El Heraldo",
+        "url":     "https://www.elheraldo.co/",
+        "base":    "https://www.elheraldo.co",
+        "link_selector": "h2 a, h3 a, article a",
+        "country": "Colombia",
+    },
+    {
+        # South China Morning Post — Hong Kong independent angle on China-Africa.
+        # Better balanced than mainland state media, often covers Belt and Road.
+        "name":    "South China Morning Post",
+        "url":     "https://www.scmp.com/topics/africa",
+        "base":    "https://www.scmp.com",
+        "link_selector": "a[href*='/article/'], h2 a, h3 a",
+        "country": "Other/Global",
+    },
+    {
+        # Dawn — Pakistan's oldest English daily.
+        # Covers South Asia and global affairs including Africa.
+        "name":    "Dawn",
+        "url":     "https://www.dawn.com/world",
+        "base":    "https://www.dawn.com",
+        "link_selector": "article a, h2 a, h3 a, .story__link",
+        "country": "Other/Global",
+    },
+    {
+        # The Wire (India) — independent, global south perspective.
+        # Strong on India-Africa relations, decolonization themes.
+        "name":    "The Wire",
+        "url":     "https://thewire.in/category/world",
+        "base":    "https://thewire.in",
+        "link_selector": "article a, h2 a, h3 a, .post-title a",
+        "country": "Other/Global",
+    },
+    {
+        # The Japan Times — Japan's main English daily.
+        # Africa coverage limited but useful for Asia-Africa angle when present.
+        "name":    "The Japan Times",
+        "url":     "https://www.japantimes.co.jp/tag/africa/",
+        "base":    "https://www.japantimes.co.jp",
+        "link_selector": "article a, h2 a, h3 a, .article_list a",
+        "country": "Other/Global",
     },
 ]
 
