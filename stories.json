@@ -3474,5 +3474,23 @@
     "url": "https://social.desa.un.org/sdn/africas-fast-growing-population-tackling-youth-unemployment",
     "saved_at": "2026-05-26 11:44",
     "image": ""
+  },
+  {
+    "country": "Brazil",
+    "category": "Hate Crime",
+    "summary": "The Atlas da Viol\u00eancia 2026 report reveals that 77% of homicides in Brazil are of Black people",
+    "translated": true,
+    "explicit_racism": false,
+    "narrative_framing": "Statistic",
+    "narrative_analysis": "The story frames Black people as victims of homicide, implying a systemic failure to protect their lives and highlighting the deep-seated racial inequalities in Brazil's society. The use of statistics and data reinforces the notion that Black people are disproportionately affected by violence",
+    "structural_factors": [
+      "Colonial legacy",
+      "Mass incarceration",
+      "Police violence"
+    ],
+    "title": "Homic\u00eddios de pessoas negras representam 77% do total de assassinatos no Brasil, aponta Atlas da Viol\u00eancia",
+    "url": "https://www.brasildefato.com.br/2026/05/26/homicidios-de-pessoas-negras-representam-77-do-total-de-assassinatos-no-brasil-aponta-atlas-da-violencia/",
+    "saved_at": "2026-05-26 18:15",
+    "image": "https://www.brasildefato.com.br/wp-content/uploads/2026/05/ser-negro.webp"
   }
 ]

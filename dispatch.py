@@ -87,14 +87,22 @@ QUERIES = [
     "Africa youth unemployment foreign investment 2025",
     "Africa alcohol industry Black communities 2025",
 
-    # Brazil
-    "Brazil racial inequality land rights 2025",
+    # Brazil — covered broadly. Largest Black-majority country outside Africa.
+    # Whatever happens there shapes millions of Black lives whether framed that way or not.
+    "Brazil politics economy news 2025",
+    "Brazil police violence favela poverty 2025",
+    "Brazil land rights MST inequality 2025",
+    "Brazil prison mass incarceration 2025",
+    "Brazil corruption economic crisis 2025",
+    "Brazil racial democracy myth inequality 2025",
+    "Brazil health education public services 2025",
     "Afro-Brazilian quilombo land rights 2025",
-    "Brazil anti-Black police violence favela 2025",
-    "Brazil indigenous Black sovereignty 2025",
-    "Brazil drug war Black communities 2025",
-    "Afro-Brazilian unemployment economic exclusion 2025",
-    "Brazil alcohol addiction Black communities 2025",
+
+    # Colombia — large Black population, largely invisible in national politics
+    "Colombia Afro communities Chocó poverty 2025",
+    "Colombia Black population land rights violence 2025",
+    "Colombia drug war community displacement 2025",
+    "Colombia peace deal Black communities 2025",
 
     # United States
     "African American systemic inequality 2025",
@@ -127,6 +135,17 @@ QUERIES = [
     "Afro-Dutch discrimination unemployment 2025",
     "Black British alcohol addiction systemic 2025",
     "Afro-French alcohol drug community impact 2025",
+
+    # Asia and Pacific — Africa trade and geopolitics
+    # Our angle: how do the largest Asian economies shape conditions on the African continent?
+    "China Africa investment debt sovereignty 2025",
+    "China Belt and Road Africa infrastructure 2025",
+    "China Africa land deals mining resources 2025",
+    "India Africa trade summit cooperation 2025",
+    "India Africa investment development 2025",
+    "Asia Africa trade relations economic 2025",
+    "China Africa military presence influence 2025",
+    "IMF World Bank Africa debt Asian alternatives 2025",
 ]
 
 
@@ -247,6 +266,17 @@ DIRECT_SOURCES = [
         # CSS selector that finds article links on the page
         "link_selector": "a[href*='/GhanaHomePage/NewsArchive/']",
         "country": "Ghana",
+    },
+    {
+        # Brasil de Fato — independent left Brazilian outlet.
+        # Strong on quilombo, racial justice, police violence, MST land struggles.
+        # Site is in Portuguese; the AI translates and summarizes in English.
+        "name":    "Brasil de Fato",
+        "url":     "https://www.brasildefato.com.br/",
+        "base":    "https://www.brasildefato.com.br",
+        # Articles follow /YYYY/MM/DD/slug/ — catch dated links + headline anchors
+        "link_selector": "a[href*='/2026/'], a[href*='/2025/'], h2 a, h3 a, article a",
+        "country": "Brazil",
     },
 ]
 
