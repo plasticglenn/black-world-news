@@ -157,6 +157,15 @@ Search for "Let my people go" in generate_site.py and replace.
 
 ---
 
+## WRITING RULES (always follow these)
+
+- **No hyphens in copy. Ever.** Not in headlines, summaries, page text, or UI labels. Use a period or rewrite the sentence instead.
+- **No buzzwords.** Words like "Pan-African", "systemic", "narrative framing", "structural forces" do not appear in visible copy. The analysis happens quietly under the hood.
+- **Neutral tone in public-facing text.** The site sounds like a wire service. Plain, direct, no jargon, no signals of advocacy.
+- **Serious and simple. Not academic.** The subject is serious. The writing is not in a classroom.
+
+---
+
 ## GITHUB & HOSTING
 
 - Repo: https://github.com/plasticglenn/black-world-news
