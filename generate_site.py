@@ -1200,9 +1200,27 @@ def build_html(stories, cache):
             box-shadow: 1px 1px 0 #111;
         }}
 
-        /* REGIONAL TEASERS */
+        /* REGIONAL TEASERS — grid layout, one column per region */
+        .teaser-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 0.5rem;
+        }}
+
         .region-teaser {{
-            margin-bottom: 2.5rem;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }}
+
+        .region-teaser .card {{
+            margin-bottom: 0;
+            flex: 1;
+        }}
+
+        .region-teaser .card-img {{
+            height: 150px;
         }}
 
         .region-teaser-header {{
@@ -1211,7 +1229,7 @@ def build_html(stories, cache):
             align-items: baseline;
             border-bottom: 3px solid;
             padding-bottom: 0.4rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }}
 
         .region-teaser-title {{
@@ -1582,7 +1600,9 @@ def build_html(stories, cache):
     <!-- REGIONAL TEASERS — one story per region, click through to full page -->
     <div class="container">
         <p class="section-label">Around the World</p>
-        {regional_teasers}
+        <div class="teaser-grid">
+            {regional_teasers}
+        </div>
     </div>
 
 </main>

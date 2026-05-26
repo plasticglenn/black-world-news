@@ -753,9 +753,27 @@
             box-shadow: 1px 1px 0 #111;
         }
 
-        /* REGIONAL TEASERS */
+        /* REGIONAL TEASERS — grid layout, one column per region */
+        .teaser-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
         .region-teaser {
-            margin-bottom: 2.5rem;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .region-teaser .card {
+            margin-bottom: 0;
+            flex: 1;
+        }
+
+        .region-teaser .card-img {
+            height: 150px;
         }
 
         .region-teaser-header {
@@ -764,7 +782,7 @@
             align-items: baseline;
             border-bottom: 3px solid;
             padding-bottom: 0.4rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .region-teaser-title {
@@ -1103,7 +1121,7 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 17:52 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 17:54 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids">Kids Corner</a><span class="nav-divider">|</span><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
@@ -1269,7 +1287,8 @@
     <!-- REGIONAL TEASERS — one story per region, click through to full page -->
     <div class="container">
         <p class="section-label">Around the World</p>
-        
+        <div class="teaser-grid">
+            
         <div class="region-teaser">
             <div class="region-teaser-header">
                 <h3 class="region-teaser-title" style="color:#4d96ff;border-color:#4d96ff">North America</h3>
@@ -1341,6 +1360,7 @@
             <a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
+        </div>
         </div>
     </div>
 
