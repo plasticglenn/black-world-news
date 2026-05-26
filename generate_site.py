@@ -475,6 +475,10 @@ def build_html(stories, cache):
     <meta name="author" content="Black World News">
     <link rel="canonical" href="https://www.blackworldnews.world/">
 
+    <!-- Browser tab icon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -1653,6 +1657,8 @@ def page_shell(title, content, active=""):
     <meta name="twitter:description" content="{page_desc}">
     <meta name="author" content="Black World News">
     <link rel="canonical" href="{page_url}">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -1954,6 +1960,8 @@ def build_region_page(region_id, region, all_stories, cache):
     <meta property="og:description" content="News from {label} covering Black communities.">
     <meta name="author" content="Black World News">
     <link rel="canonical" href="https://www.blackworldnews.world/{region_id}.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -2028,6 +2036,8 @@ def build_issue_page(issue_id, issue, all_stories, cache):
     <meta property="og:description" content="News covering {label.lower()} and Black communities worldwide.">
     <meta name="author" content="Black World News">
     <link rel="canonical" href="https://www.blackworldnews.world/{issue_id}.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -2125,6 +2135,8 @@ def build_search_page():
     <title>Search | Black World News</title>
     <meta name="description" content="Search every story in the Black World News archive. Filter by topic, region, and framing.">
     <link rel="canonical" href="https://www.blackworldnews.world/search.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
