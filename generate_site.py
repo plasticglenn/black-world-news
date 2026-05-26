@@ -1584,10 +1584,10 @@ def build_html(stories, cache):
 </main>
 
 <div class="mobile-tabs" style="display:none">
-    <a href="#latest"><span class="tab-icon">🏠</span>Latest</a>
-    <a href="kids.html"><span class="tab-icon">🌍</span>Kids</a>
-    <a href="#archive"><span class="tab-icon">📰</span>Archive</a>
-    <a href="#latest"><span class="tab-icon">🔍</span>Search</a>
+    <a href="index.html"   ><span class="tab-icon">🏠</span>Home</a>
+    <a href="policing.html"><span class="tab-icon">📰</span>Topics</a>
+    <a href="africa.html"  ><span class="tab-icon">🌍</span>World</a>
+    <a href="search.html"  ><span class="tab-icon">🔍</span>Search</a>
 </div>
 
 <footer>
@@ -1977,7 +1977,7 @@ def build_region_page(region_id, region, all_stories, cache):
         .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}
         footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}}
         footer strong{{color:#8ab89a;}}
-        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}.site-nav{{display:none;}}}}
+        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}.site-nav a{{padding:0.5rem 0.65rem;font-size:0.68rem;}}.nav-divider{{padding:0 0.15rem;}}}}
     </style>
 </head>
 <body>
@@ -2069,7 +2069,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         .read-more:hover{{text-decoration:underline;}}
         footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}}
         footer strong{{color:#8ab89a;}}
-        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}.card-grid{{grid-template-columns:1fr;}}.site-nav{{display:none;}}}}
+        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}.card-grid{{grid-template-columns:1fr;}}.site-nav a{{padding:0.5rem 0.65rem;font-size:0.68rem;}}.nav-divider{{padding:0 0.15rem;}}}}
     </style>
 </head>
 <body>
