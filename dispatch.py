@@ -208,11 +208,20 @@ Respond in JSON format only with these exact fields:
 - "country": one of {COUNTRIES}
 - "category": one of {CATEGORIES}
 - "summary": 2-3 sentences in English summarizing the story
+- "title_en": the headline translated to English (if it is already English, repeat it verbatim)
+- "title_es": the headline translated to Spanish
+- "title_pt": the headline translated to Portuguese
+- "title_fr": the headline translated to French
+- "summary_es": the summary translated to Spanish
+- "summary_pt": the summary translated to Portuguese
+- "summary_fr": the summary translated to French
 - "translated": true if the original content was not in English, false otherwise
 - "explicit_racism": true if racism is directly named, false if it is implied or structural
 - "narrative_framing": one of ["Victim", "Criminal", "Statistic", "Human", "Resistant", "Exploited"]
 - "narrative_analysis": 1-2 sentences describing how Black people are framed in this story and what that framing implies
 - "structural_factors": list up to 3 systemic factors at play from ["Colonial legacy", "Drug war", "Engineered unemployment", "Alcohol industry targeting", "Land theft", "Foreign debt", "Mass incarceration", "Media bias", "Police violence", "Voter suppression", "Corporate extraction", "None identified"]
+
+Important: keep all translations natural and concise. Do not add commentary — only translated text.
 """
 
     raw = ""

@@ -212,6 +212,20 @@ def load_stories():
         return json.load(f)
 
 
+def display_title(story, lang="en"):
+    """Return the title in the requested language. Falls back to original if missing."""
+    if lang == "en":
+        return story.get("title_en") or story.get("title", "")
+    return story.get(f"title_{lang}") or story.get("title_en") or story.get("title", "")
+
+
+def display_summary(story, lang="en"):
+    """Return the summary in the requested language. Falls back to English."""
+    if lang == "en":
+        return story.get("summary", "")
+    return story.get(f"summary_{lang}") or story.get("summary", "")
+
+
 def load_highlights():
     # Curated external highlights for the homepage sidebar.
     # Edit highlights.json by hand. Format: [{title, url, image, caption, source}]
@@ -241,11 +255,11 @@ def factor_tags(factors):
 
 
 def story_card(story, featured=False, archive=False, cache=None, used_images=None):
-    title   = story.get("title", "Untitled")
+    title   = display_title(story, "en")
     url     = story.get("url", "#")
     country = story.get("country", "Other/Global")
     cat     = story.get("category", "")
-    summary = story.get("summary", "")
+    summary = display_summary(story, "en")
     framing = story.get("narrative_framing", "")
     analysis= story.get("narrative_analysis", "")
     factors = story.get("structural_factors", [])
@@ -300,9 +314,9 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
 
 
 def kids_card(story):
-    title = story.get("title", "Untitled")
-    url   = story.get("url", "#")
-    summary = story.get("summary", "")
+    title   = display_title(story, "en")
+    url     = story.get("url", "#")
+    summary = display_summary(story, "en")
     country = story.get("country", "")
     flag  = COUNTRY_FLAGS.get(country, "🌍")
     image = story.get("image", "")
@@ -391,6 +405,8 @@ def build_html(stories, cache):
         else:
             highlights_html = '<p style="color:#888;font-size:0.8rem;font-style:italic">Add curated highlights to highlights.json</p>'
 
+        hero_title   = display_title(featured, "en")
+        hero_summary = display_summary(featured, "en")
         hero_html = f'''
         <section class="hero">
             <div class="hero-text">
@@ -399,8 +415,8 @@ def build_html(stories, cache):
                     <span class="category">{featured.get("category","")}</span>
                     {framing_badge(featured.get("narrative_framing",""))}
                 </div>
-                <h2 class="hero-title"><a href="{featured.get("url","#")}" target="_blank" rel="noopener">{featured.get("title","")}</a></h2>
-                <p class="hero-summary">{featured.get("summary","")}</p>
+                <h2 class="hero-title"><a href="{featured.get("url","#")}" target="_blank" rel="noopener">{hero_title}</a></h2>
+                <p class="hero-summary">{hero_summary}</p>
                 <div class="hero-meta-bottom">
                     <span class="saved-at">{featured.get("saved_at","")}</span>
                     <a href="{featured.get("url","#")}" class="read-more" target="_blank" rel="noopener">Read original &rarr;</a>
@@ -2283,7 +2299,13 @@ def build_search_page():
 
     function matches(story) {{
         if (filters.q) {{
-            const hay = ((story.title || '') + ' ' + (story.summary || '') + ' ' + (story.country || '') + ' ' + (story.category || '')).toLowerCase();
+            const hay = (
+                (story.title_en || story.title || '') + ' ' +
+                (story.title    || '') + ' ' +
+                (story.summary  || '') + ' ' +
+                (story.country  || '') + ' ' +
+                (story.category || '')
+            ).toLowerCase();
             if (!hay.includes(filters.q)) return false;
         }}
         if (filters.topic.size > 0) {{
@@ -2307,10 +2329,13 @@ def build_search_page():
     }}
 
     function cardHtml(s) {{
-        const flag    = FLAGS[s.country] || '🌍';
-        const fcolor  = FRAMING[s.narrative_framing] || '';
-        const dot     = fcolor ? `<span class="framing-dot" style="background:${{fcolor}}" title="${{escapeHtml(s.narrative_framing)}}"></span>` : '';
-        const img     = s.image ? `<img class="card-img" src="${{escapeHtml(s.image)}}" alt="" loading="lazy" onerror="this.remove()">` : '';
+        const flag     = FLAGS[s.country] || '🌍';
+        const fcolor   = FRAMING[s.narrative_framing] || '';
+        const dot      = fcolor ? `<span class="framing-dot" style="background:${{fcolor}}" title="${{escapeHtml(s.narrative_framing)}}"></span>` : '';
+        // Use English title and summary; fall back to original
+        const title    = s.title_en || s.title || '';
+        const summary  = s.summary || '';
+        const img      = s.image ? `<img class="card-img" src="${{escapeHtml(s.image)}}" alt="" loading="lazy" onerror="this.remove()">` : '';
         return `
             <div class="card">
                 ${{img}}
@@ -2319,8 +2344,8 @@ def build_search_page():
                     <span class="category">${{escapeHtml(s.category)}}</span>
                     ${{dot}}
                 </div>
-                <h2 class="card-title"><a href="${{escapeHtml(s.url)}}" target="_blank" rel="noopener">${{escapeHtml(s.title)}}</a></h2>
-                <p class="card-summary">${{escapeHtml(s.summary)}}</p>
+                <h2 class="card-title"><a href="${{escapeHtml(s.url)}}" target="_blank" rel="noopener">${{escapeHtml(title)}}</a></h2>
+                <p class="card-summary">${{escapeHtml(summary)}}</p>
             </div>`;
     }}
 

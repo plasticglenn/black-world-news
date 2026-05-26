@@ -132,7 +132,13 @@
 
     function matches(story) {
         if (filters.q) {
-            const hay = ((story.title || '') + ' ' + (story.summary || '') + ' ' + (story.country || '') + ' ' + (story.category || '')).toLowerCase();
+            const hay = (
+                (story.title_en || story.title || '') + ' ' +
+                (story.title    || '') + ' ' +
+                (story.summary  || '') + ' ' +
+                (story.country  || '') + ' ' +
+                (story.category || '')
+            ).toLowerCase();
             if (!hay.includes(filters.q)) return false;
         }
         if (filters.topic.size > 0) {
@@ -156,10 +162,13 @@
     }
 
     function cardHtml(s) {
-        const flag    = FLAGS[s.country] || '🌍';
-        const fcolor  = FRAMING[s.narrative_framing] || '';
-        const dot     = fcolor ? `<span class="framing-dot" style="background:${fcolor}" title="${escapeHtml(s.narrative_framing)}"></span>` : '';
-        const img     = s.image ? `<img class="card-img" src="${escapeHtml(s.image)}" alt="" loading="lazy" onerror="this.remove()">` : '';
+        const flag     = FLAGS[s.country] || '🌍';
+        const fcolor   = FRAMING[s.narrative_framing] || '';
+        const dot      = fcolor ? `<span class="framing-dot" style="background:${fcolor}" title="${escapeHtml(s.narrative_framing)}"></span>` : '';
+        // Use English title and summary; fall back to original
+        const title    = s.title_en || s.title || '';
+        const summary  = s.summary || '';
+        const img      = s.image ? `<img class="card-img" src="${escapeHtml(s.image)}" alt="" loading="lazy" onerror="this.remove()">` : '';
         return `
             <div class="card">
                 ${img}
@@ -168,8 +177,8 @@
                     <span class="category">${escapeHtml(s.category)}</span>
                     ${dot}
                 </div>
-                <h2 class="card-title"><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.title)}</a></h2>
-                <p class="card-summary">${escapeHtml(s.summary)}</p>
+                <h2 class="card-title"><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(title)}</a></h2>
+                <p class="card-summary">${escapeHtml(summary)}</p>
             </div>`;
     }
 
