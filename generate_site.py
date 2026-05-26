@@ -372,29 +372,29 @@ def build_html(stories, cache):
         /* MASTHEAD */
         .masthead {{
             background: #1a3a2a;
-            padding: 1.75rem 1.5rem 1.5rem;
+            padding: 1rem 1.5rem 0.9rem;
             text-align: center;
         }}
 
         .logo-wrap {{
             display: flex;
             justify-content: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
         }}
 
         .masthead-eyebrow {{
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             color: #8ab89a;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.3rem;
             font-weight: 600;
         }}
 
         .masthead h1 {{
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-size: clamp(1.6rem, 5vw, 2.8rem);
             font-weight: 900;
             color: #ffffff;
             letter-spacing: 0.05em;
@@ -402,19 +402,19 @@ def build_html(stories, cache):
         }}
 
         .masthead-tagline {{
-            margin-top: 0.6rem;
-            font-size: 0.8rem;
+            margin-top: 0.35rem;
+            font-size: 0.72rem;
             color: #8ab89a;
             letter-spacing: 0.12em;
             text-transform: uppercase;
         }}
 
         .masthead-meta {{
-            margin-top: 1rem;
-            font-size: 0.78rem;
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
             color: #6a9a7a;
             border-top: 1px solid #2a5a3a;
-            padding-top: 0.75rem;
+            padding-top: 0.5rem;
         }}
 
         /* NAVIGATION */
@@ -486,19 +486,19 @@ def build_html(stories, cache):
         .container {{
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
+            padding: 1rem 1.5rem;
         }}
 
         .section-label {{
             font-family: 'Playfair Display', serif;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: #1a3a2a;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             border-bottom: 3px solid #1a3a2a;
-            padding-bottom: 0.4rem;
-            margin-bottom: 1.5rem;
+            padding-bottom: 0.3rem;
+            margin-bottom: 0.85rem;
         }}
 
         /* ARCHIVE CARDS — minimal, no images */
@@ -574,30 +574,30 @@ def build_html(stories, cache):
             background: #fff;
             border: 1px solid #ddd;
             border-top: 3px solid transparent;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1.25rem;
+            padding: 0.85rem 1rem;
+            margin-bottom: 0.75rem;
             transition: border-top-color 0.2s, box-shadow 0.2s;
         }}
 
         .card:hover {{
             border-top-color: #1a3a2a;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }}
 
         .card.featured {{
             background: #fff;
             border: 1px solid #bbb;
             border-top: 5px solid #1a3a2a;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
         }}
 
         .card-meta {{
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
+            gap: 0.4rem;
+            margin-bottom: 0.4rem;
         }}
 
         .flag-country {{
@@ -643,23 +643,24 @@ def build_html(stories, cache):
 
         .card-title {{
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #111;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.35rem;
             line-height: 1.3;
         }}
 
         .featured .card-title {{
-            font-size: 1.4rem;
+            font-size: 1.25rem;
         }}
 
         .card-title a:hover {{ color: #1a3a2a; }}
 
         .card-summary {{
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #444;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.35rem;
+            line-height: 1.45;
         }}
 
         .narrative-analysis {{
@@ -712,28 +713,28 @@ def build_html(stories, cache):
         /* GRID */
         .card-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0.6rem;
         }}
 
         .card-grid .card {{ margin-bottom: 0; }}
 
         /* COUNTRY SECTIONS */
-        .country-section {{ margin-bottom: 3rem; }}
+        .country-section {{ margin-bottom: 1.5rem; }}
 
         .country-heading {{
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #111;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.35rem;
             border-bottom: 2px solid #111;
         }}
 
         .country-heading .count {{
             font-family: 'Source Sans 3', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 400;
             color: #999;
         }}
@@ -1240,7 +1241,7 @@ def build_html(stories, cache):
 
 <header class="masthead">
     <div class="logo-wrap">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="72" height="72" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48" aria-hidden="true">
             <!-- Outer ring -->
             <circle cx="50" cy="50" r="47" fill="#1a3a2a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
             <!-- Globe latitude lines -->
