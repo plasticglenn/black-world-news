@@ -83,6 +83,52 @@ ISSUE_GROUPS = {
 }
 
 
+# Vibrant kid-friendly palette used for "Kids Corner" in the nav.
+# Letters cycle through these in order.
+KIDS_LETTER_COLORS = ["red", "pink", "blue", "yellow", "green", "orange", "purple"]
+
+
+def colorize_kids_text(text):
+    """Wrap each character of `text` in a coloured span so the nav link
+    becomes glossy multi-color balloon letters. Spaces become visual gaps."""
+    out = []
+    idx = 0
+    for ch in text:
+        if ch == " ":
+            out.append('<span class="kids-space"></span>')
+        else:
+            color = KIDS_LETTER_COLORS[idx % len(KIDS_LETTER_COLORS)]
+            out.append(f'<span class="kids-letter kc-{color}">{ch}</span>')
+            idx += 1
+    return "".join(out)
+
+
+# CSS for the multi-color balloon letters used on every page's "Kids Corner" link.
+# Injected into each page's <style> block.
+KIDS_LETTER_CSS = """
+.kids-letter {
+    display: inline-block;
+    background: linear-gradient(to bottom, #ffffff -20%, var(--top) 28%, var(--bot) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter:
+        drop-shadow(0 1.5px 0 var(--deep))
+        drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+    padding: 0;
+}
+.kc-red    { --top: #ff3344; --bot: #b81e30; --deep: #6f1320; }
+.kc-pink   { --top: #ff6b9d; --bot: #c2326b; --deep: #6e1b3c; }
+.kc-blue   { --top: #4d96ff; --bot: #1e5fb3; --deep: #103b73; }
+.kc-yellow { --top: #ffd83d; --bot: #c89914; --deep: #7a5d08; }
+.kc-green  { --top: #2ec167; --bot: #15803d; --deep: #0a4d24; }
+.kc-orange { --top: #ff9f43; --bot: #c46d10; --deep: #6e3d05; }
+.kc-purple { --top: #b366ff; --bot: #7a23c0; --deep: #3f0c6e; }
+.kids-space { display: inline-block; width: 0.25em; }
+"""
+
+
 def make_two_tier_nav(active_region="", active_issue=""):
     """Single-row nav: issues | regions, separated by a pipe divider."""
     issues = [
@@ -105,7 +151,7 @@ def make_two_tier_nav(active_region="", active_issue=""):
         f'<a href="{url}" class="nav-issue{" nav-active" if key == active_issue else ""}">{label}</a>'
         for label, url, key in issues
     )
-    issue_links += '<a href="kids.html" class="nav-kids">Kids Corner</a>'
+    issue_links += f'<a href="kids.html" class="nav-kids">{colorize_kids_text("Kids Corner")}</a>'
     region_links = "".join(
         f'<a href="{url}" class="nav-region{" nav-active" if key == active_region else ""}">{label}</a>'
         for label, url, key in regions
@@ -496,7 +542,7 @@ def build_html(stories, cache):
     <link rel="apple-touch-icon" href="favicon.svg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
@@ -603,18 +649,20 @@ def build_html(stories, cache):
             flex-shrink: 0;
         }}
 
-        /* Kids Corner — only item that stands out */
+        /* Kids Corner — multi-color glossy balloon letters */
         .site-nav a.nav-kids {{
-            font-family: 'Fredoka One', cursive;
-            color: #ffd93d;
-            font-size: 0.88rem;
-            letter-spacing: 0.04em;
+            font-family: 'Bagel Fat One', cursive;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
         }}
 
         .site-nav a.nav-kids:hover {{
-            color: #ffd93d;
             border-bottom-color: #ffd93d;
         }}
+
+        {KIDS_LETTER_CSS}
 
         /* BREAKING BAR */
         .breaking-bar {{
@@ -1698,7 +1746,7 @@ def page_shell(title, content, active=""):
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{ background: #f2f2f2; color: #111; font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }}
@@ -2001,7 +2049,7 @@ def build_region_page(region_id, region, all_stories, cache):
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
         body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
@@ -2014,8 +2062,9 @@ def build_region_page(region_id, region, all_stories, cache):
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .site-nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
-        .site-nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;}}
+        .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
+        {KIDS_LETTER_CSS}
         .site-nav a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
         .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
         .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
@@ -2077,7 +2126,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
         body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
@@ -2090,8 +2139,9 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .site-nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
-        .site-nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;}}
+        .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
+        {KIDS_LETTER_CSS}
         .site-nav a.nav-active{{border-bottom-color:{color};color:#fff;}}
         .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
         .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
@@ -2176,7 +2226,7 @@ def build_search_page():
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
         body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
@@ -2189,8 +2239,9 @@ def build_search_page():
         .site-nav a{{font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#888;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
         .site-nav a.nav-active{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .site-nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
-        .site-nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;}}
+        .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
+        {KIDS_LETTER_CSS}
         .site-nav a.nav-search{{color:#8ab89a;}}
         .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
 

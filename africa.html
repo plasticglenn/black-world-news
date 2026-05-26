@@ -12,7 +12,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}
@@ -25,8 +25,30 @@
         .site-nav::-webkit-scrollbar{display:none;}
         .site-nav a{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}
         .site-nav a:hover{color:#fff;border-bottom-color:#1a3a2a;}
-        .site-nav a.nav-kids{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}
-        .site-nav a.nav-kids:hover{color:#ffd93d;border-bottom-color:#ffd93d;}
+        .site-nav a.nav-kids{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;}
+        .site-nav a.nav-kids:hover{border-bottom-color:#ffd93d;}
+        
+.kids-letter {
+    display: inline-block;
+    background: linear-gradient(to bottom, #ffffff -20%, var(--top) 28%, var(--bot) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter:
+        drop-shadow(0 1.5px 0 var(--deep))
+        drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+    padding: 0;
+}
+.kc-red    { --top: #ff3344; --bot: #b81e30; --deep: #6f1320; }
+.kc-pink   { --top: #ff6b9d; --bot: #c2326b; --deep: #6e1b3c; }
+.kc-blue   { --top: #4d96ff; --bot: #1e5fb3; --deep: #103b73; }
+.kc-yellow { --top: #ffd83d; --bot: #c89914; --deep: #7a5d08; }
+.kc-green  { --top: #2ec167; --bot: #15803d; --deep: #0a4d24; }
+.kc-orange { --top: #ff9f43; --bot: #c46d10; --deep: #6e3d05; }
+.kc-purple { --top: #b366ff; --bot: #7a23c0; --deep: #3f0c6e; }
+.kids-space { display: inline-block; width: 0.25em; }
+
         .site-nav a.nav-active{border-bottom-color:#1a3a2a;color:#fff;}
         .nav-divider{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}
         .page-container{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}
@@ -44,7 +66,7 @@
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
 </header>
-<nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids">Kids Corner</a><span class="nav-divider">|</span><a href="index.html" class="nav-region">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region nav-active">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
+<nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="index.html" class="nav-region">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region nav-active">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
 <div class="page-container">
     
     <div style="border-left:5px solid #f9844a; padding-left:1.25rem; margin-bottom:2rem;">
