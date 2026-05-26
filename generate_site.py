@@ -1064,7 +1064,7 @@ def build_html(stories, cache):
     {''.join(f'<a href="#{c.lower().replace(" ", "-").replace("/", "-")}">{c}</a>' for c in REGION_ORDER if c in by_country)}
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring {total} stories across {len(by_country)} regions — updated {now}</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring {total} stories across {len(by_country)} regions. Updated {now}</div>
 
 <main>
 
@@ -1079,6 +1079,7 @@ def build_html(stories, cache):
     <!-- BREAK -->
     <div class="page-break">
         <h2>Stories That Matter. Every Day.</h2>
+
         <p>Tracking the Black experience across {len(by_country)} regions worldwide</p>
     </div>
 
@@ -1086,7 +1087,7 @@ def build_html(stories, cache):
     <div class="kids-section" id="kids">
         <div class="kids-header">
             <h2>🌍 Kids Corner!</h2>
-            <p>Big stories, easy to understand — just for you!</p>
+            <p>Big stories, easy to understand. Just for you!</p>
         </div>
         <div class="kids-grid">{kids_html}</div>
     </div>
@@ -1094,7 +1095,7 @@ def build_html(stories, cache):
     <!-- BREAK -->
     <div class="page-break-alt">
         <h2>News From Around The World</h2>
-        <p>Browse by region — {total} stories and counting</p>
+        <p>Browse by region. {total} stories and counting</p>
     </div>
 
     <!-- ARCHIVE BY REGION -->
@@ -1112,8 +1113,8 @@ def build_html(stories, cache):
 </div>
 
 <footer>
-    <p><strong>BLACK WORLD NEWS</strong> — A Pan-African media monitoring project.</p>
-    <p style="margin-top:0.5rem">Stories sourced from open web. Analysis by AI through a Pan-African lens. Links go to original sources.</p>
+    <p><strong>BLACK WORLD NEWS</strong></p>
+    <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
 </footer>
 
 <script>
@@ -1147,7 +1148,7 @@ def page_shell(title, content, active=""):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} — Black World News</title>
+    <title>{title} | Black World News</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -1196,7 +1197,7 @@ def page_shell(title, content, active=""):
 </div>
 
 <footer>
-    <p><strong>BLACK WORLD NEWS</strong> — Your World Today</p>
+    <p><strong>BLACK WORLD NEWS</strong> Your World Today</p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to original sources.</p>
 </footer>
 </body>
@@ -1209,16 +1210,19 @@ def build_about():
     <p class="page-subtitle">Who we are, what we do, and why it matters.</p>
 
     <h2 class="section-title">What is Black World News?</h2>
-    <div class="placeholder-block">Coming soon — our story and mission in plain English.</div>
+    <p>Black World News is a news aggregation service covering stories involving Black communities around the world. We monitor sources across Africa, North and South America, the Caribbean, and Europe and publish summaries daily.</p>
 
     <h2 class="section-title">How it works</h2>
-    <div class="placeholder-block">Coming soon — how we find stories, how the AI analysis works, and what the framing labels mean.</div>
+    <p>We use automated tools to search, collect, and summarize news articles from across the web. Each story is tagged by country and topic. Links always go back to the original source.</p>
+
+    <h2 class="section-title">Who it is for</h2>
+    <p>Anyone who wants to stay informed. Families, students, researchers, professionals. The site is free and open to everyone.</p>
 
     <h2 class="section-title">Who built this?</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <p>Black World News was founded by Glenn Asare in 2026.</p>
 
     <h2 class="section-title">Why it exists</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <p>News about Black communities around the world is scattered across hundreds of sources. We put it in one place. We are connected through shared experiences and this is where you come to see them.</p>
     """
     return page_shell("About", content, active="about")
 
@@ -1229,15 +1233,15 @@ def build_resources():
     <p class="page-subtitle">Books, organisations, people and films worth your time.</p>
 
     <h2 class="section-title">Books</h2>
-    <div class="placeholder-block">Coming soon — a curated reading list.</div>
+    <div class="placeholder-block">Coming soon.</div>
 
     <h2 class="section-title">Organisations</h2>
-    <div class="placeholder-block">Coming soon — groups doing real work.</div>
+    <div class="placeholder-block">Coming soon.</div>
 
     <h2 class="section-title">People to follow</h2>
-    <div class="placeholder-block">Coming soon — activists, journalists, thinkers.</div>
+    <div class="placeholder-block">Coming soon.</div>
 
-    <h2 class="section-title">Films & Documentaries</h2>
+    <h2 class="section-title">Films and Documentaries</h2>
     <div class="placeholder-block">Coming soon.</div>
     """
     return page_shell("Resources", content, active="resources")
@@ -1246,15 +1250,15 @@ def build_resources():
 def build_trends():
     content = """
     <h1 class="page-title">Trends</h1>
-    <p class="page-subtitle">How Black people are being talked about in the media — and what it tells us.</p>
+    <p class="page-subtitle">How Black people are being covered in the media and what the patterns show.</p>
 
     <h2 class="section-title">Narrative framing over time</h2>
-    <div class="placeholder-block">Coming soon — charts showing how Black people are framed across different countries and topics.</div>
+    <div class="placeholder-block">Coming soon.</div>
 
-    <h2 class="section-title">Most common forces at play</h2>
-    <div class="placeholder-block">Coming soon — which structural factors appear most in the stories we collect.</div>
+    <h2 class="section-title">Most common topics</h2>
+    <div class="placeholder-block">Coming soon.</div>
 
-    <h2 class="section-title">Country by country breakdown</h2>
+    <h2 class="section-title">Country breakdown</h2>
     <div class="placeholder-block">Coming soon.</div>
     """
     return page_shell("Trends", content, active="trends")
@@ -1266,10 +1270,10 @@ def build_community():
     <p class="page-subtitle">This space belongs to you. Share a story. Share a thought.</p>
 
     <h2 class="section-title">Submit a story tip</h2>
-    <div class="placeholder-block">Coming soon — send us a story you think we should cover.</div>
+    <div class="placeholder-block">Coming soon.</div>
 
     <h2 class="section-title">Reader voices</h2>
-    <div class="placeholder-block">Coming soon — your words, your perspective.</div>
+    <div class="placeholder-block">Coming soon.</div>
     """
     return page_shell("Community", content, active="community")
 
