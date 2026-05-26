@@ -656,6 +656,7 @@ def build_html(stories, cache):
             letter-spacing: 0.01em;
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
+            transform: translateY(-5px);
         }}
 
         .site-nav a.nav-kids:hover {{
@@ -2072,7 +2073,7 @@ def build_region_page(region_id, region, all_stories, cache):
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;transform:translateY(-5px);}}
         .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
         {KIDS_LETTER_CSS}
         .site-nav a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
@@ -2149,7 +2150,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;transform:translateY(-5px);}}
         .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
         {KIDS_LETTER_CSS}
         .site-nav a.nav-active{{border-bottom-color:{color};color:#fff;}}
@@ -2249,7 +2250,7 @@ def build_search_page():
         .site-nav a{{font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#888;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
         .site-nav a.nav-active{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;transform:translateY(-5px);}}
         .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
         {KIDS_LETTER_CSS}
         .site-nav a.nav-search{{color:#8ab89a;}}
