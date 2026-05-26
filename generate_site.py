@@ -66,11 +66,56 @@ REGION_ORDER = [
 # Groups countries into nav regions for the archive headings
 REGION_GROUPS = {
     "namerica": {"label": "North America",   "color": "#4d96ff", "countries": ["United States", "Canada"]},
-    "samerica": {"label": "South America",   "color": "#6bcb77", "countries": ["Brazil"]},
+    "samerica": {"label": "South America",   "color": "#6bcb77", "countries": ["Brazil", "Colombia"]},
     "africa":   {"label": "Africa",          "color": "#f9844a", "countries": ["Nigeria", "Ghana", "South Africa", "Other/Global"]},
     "europe":   {"label": "Europe",          "color": "#c77dff", "countries": ["United Kingdom", "France", "Germany"]},
-    "asia":     {"label": "Asia and Pacific","color": "#00d4ff", "countries": ["Australia"]},
+    "asia":     {"label": "Asia and Pacific","color": "#00d4ff", "countries": ["Australia", "India", "China", "Japan"]},
 }
+
+# Issue groups — map nav topic tabs to story categories
+ISSUE_GROUPS = {
+    "policing":   {"label": "Policing",   "categories": ["Policing", "Hate Crime"],        "color": "#e74c3c"},
+    "politics":   {"label": "Politics",   "categories": ["Politics", "Immigration"],        "color": "#2980b9"},
+    "economics":  {"label": "Economics",  "categories": ["Employment", "Housing", "Other"], "color": "#27ae60"},
+    "health":     {"label": "Health",     "categories": ["Healthcare"],                     "color": "#e67e22"},
+    "education":  {"label": "Education",  "categories": ["Education"],                      "color": "#8e44ad"},
+    "culture":    {"label": "Culture",    "categories": ["Culture"],                        "color": "#f39c12"},
+}
+
+
+def make_two_tier_nav(active_region="", active_issue=""):
+    """Returns the two-tier BBC-style nav HTML. Pass active_region or active_issue to highlight."""
+    issues = [
+        ("Policing",   "policing.html",  "policing"),
+        ("Politics",   "politics.html",  "politics"),
+        ("Economics",  "economics.html", "economics"),
+        ("Health",     "health.html",    "health"),
+        ("Education",  "education.html", "education"),
+        ("Culture",    "culture.html",   "culture"),
+    ]
+    regions = [
+        ("Latest",        "index.html",    ""),
+        ("N. America",    "namerica.html", "namerica"),
+        ("S. America",    "samerica.html", "samerica"),
+        ("Africa",        "africa.html",   "africa"),
+        ("Europe",        "europe.html",   "europe"),
+        ("Asia & Pacific","asia.html",     "asia"),
+    ]
+    issue_links = "".join(
+        f'<a href="{url}" class="nav-issue{" nav-active" if key == active_issue else ""}">{label}</a>'
+        for label, url, key in issues
+    )
+    issue_links += '<a href="kids.html" class="nav-kids">Kids Corner</a>'
+    region_links = "".join(
+        f'<a href="{url}" class="nav-region{" nav-active" if key == active_region else ""}">{label}</a>'
+        for label, url, key in regions
+    )
+    return (
+        f'<nav class="site-nav">'
+        f'<div class="nav-row nav-issues">{issue_links}</div>'
+        f'<div class="nav-row nav-regions">{region_links}</div>'
+        f'</nav>'
+    )
 
 
 def load_image_cache():
@@ -324,6 +369,8 @@ def build_html(stories, cache):
     og_title = featured.get("title", "Black World News") if featured else "Black World News"
     og_desc  = featured.get("summary", "News about Black communities around the world.")[:160] if featured else "News about Black communities around the world."
 
+    nav_block = make_two_tier_nav()  # homepage = latest, no issue active
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -417,46 +464,56 @@ def build_html(stories, cache):
             padding-top: 0.5rem;
         }}
 
-        /* NAVIGATION */
-        nav {{
+        /* TWO-TIER NAVIGATION */
+        .site-nav {{
             background: #111;
-            padding: 0 1.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 0;
             border-bottom: 3px solid #1a3a2a;
-            overflow: hidden;
         }}
 
-        nav a {{
-            font-size: 0.78rem;
+        .nav-row {{
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 0;
+        }}
+
+        .nav-issues {{
+            border-bottom: 1px solid #222;
+        }}
+
+        .nav-row a {{
+            font-size: 0.72rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #ccc;
+            color: #888;
             white-space: nowrap;
             font-weight: 600;
-            padding: 0.75rem 1rem;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -3px;
+            padding: 0.55rem 0.9rem;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
             transition: color 0.15s, border-color 0.15s;
-            flex: 1;
             text-align: center;
         }}
 
-        nav a:hover {{
+        .nav-row a:hover {{
             color: #fff;
             border-bottom-color: #1a3a2a;
         }}
 
-        /* Kids Corner is the only nav item that stands out */
-        nav a.nav-kids {{
+        .nav-row a.nav-active {{
+            color: #fff;
+            border-bottom-color: #1a3a2a;
+        }}
+
+        /* Kids Corner — only item that stands out */
+        .nav-row a.nav-kids {{
             font-family: 'Fredoka One', cursive;
             color: #ffd93d;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             letter-spacing: 0.04em;
         }}
 
-        nav a.nav-kids:hover {{
+        .nav-row a.nav-kids:hover {{
             color: #ffd93d;
             border-bottom-color: #ffd93d;
         }}
@@ -1086,7 +1143,7 @@ def build_html(stories, cache):
             }}
 
             /* HIDE desktop nav, show bottom app nav */
-            nav {{ display: none; }}
+            .site-nav {{ display: none; }}
             .breaking-bar {{ font-size: 0.68rem; padding: 0.35rem 0.75rem; }}
 
             /* BOTTOM TAB BAR */
@@ -1271,15 +1328,7 @@ def build_html(stories, cache):
     <p class="masthead-meta admin-only" style="display:none">Last updated: {now} &nbsp;|&nbsp; {total} stories in archive</p>
 </header>
 
-<nav>
-    <a href="index.html"        class="nav-latest">Latest</a>
-    <a href="kids.html"         class="nav-kids">Kids Corner</a>
-    <a href="namerica.html"     class="nav-namerica">N. America</a>
-    <a href="samerica.html"     class="nav-samerica">S. America</a>
-    <a href="africa.html"       class="nav-africa">Africa</a>
-    <a href="europe.html"       class="nav-europe">Europe</a>
-    <a href="asia.html"         class="nav-asia">Asia &amp; Pacific</a>
-</nav>
+{nav_block}
 
 <div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
 
@@ -1669,20 +1718,8 @@ def build_region_page(region_id, region, all_stories, cache):
     <div class="card-grid">{cards}</div>
     """
 
-    # Nav for region pages — highlight the active region
-    nav_links = [
-        ("Latest",       "index.html",    "nav-latest",   ""),
-        ("Kids Corner",  "kids.html",     "nav-kids",     ""),
-        ("N. America",   "namerica.html", "nav-namerica", "namerica"),
-        ("S. America",   "samerica.html", "nav-samerica", "samerica"),
-        ("Africa",       "africa.html",   "nav-africa",   "africa"),
-        ("Europe",       "europe.html",   "nav-europe",   "europe"),
-        ("Asia & Pacific","asia.html",    "nav-asia",     "asia"),
-    ]
-    nav_html = "".join(
-        f'<a href="{url}" class="{cls}{" nav-active" if rid == region_id else ""}">{lbl}</a>'
-        for lbl, url, cls, rid in nav_links
-    )
+    # Nav for region pages — highlight the active region in row 2
+    nav_html = make_two_tier_nav(active_region=region_id)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1705,19 +1742,20 @@ def build_region_page(region_id, region, all_stories, cache):
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
-        nav{{background:#0a0a0a;display:flex;justify-content:center;align-items:stretch;border-bottom:1px solid #222;overflow:hidden;}}
-        nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;padding:0.85rem 1.1rem;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;flex:1;text-align:center;color:#888;}}
-        nav a:hover{{background:#161616;}}
-        nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
-        nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.85rem;letter-spacing:0.04em;}}
-        nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
-        nav a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;}}
+        .nav-row{{display:flex;justify-content:center;align-items:stretch;gap:0;}}
+        .nav-issues{{border-bottom:1px solid #222;}}
+        .nav-row a{{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;padding:0.55rem 0.9rem;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;text-align:center;color:#888;}}
+        .nav-row a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .nav-row a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
+        .nav-row a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .nav-row a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
         .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
         .page-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}}
         .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}
         footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}}
         footer strong{{color:#8ab89a;}}
-        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}nav a{{font-size:0.6rem;padding:0.75rem 0.5rem;letter-spacing:0.06em;}}}}
+        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}.site-nav{{display:none;}}}}
     </style>
 </head>
 <body>
@@ -1727,9 +1765,105 @@ def build_region_page(region_id, region, all_stories, cache):
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
 </header>
-<nav>{nav_html}</nav>
+{nav_html}
 <div class="page-container">
     {content}
+</div>
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong></p>
+    <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
+</footer>
+</body>
+</html>"""
+
+
+def build_issue_page(issue_id, issue, all_stories, cache):
+    # Builds a full page for one issue — all matching stories, newest first
+    categories = issue["categories"]
+    color      = issue["color"]
+    label      = issue["label"]
+
+    issue_stories = [s for s in all_stories if s.get("category", "") in categories]
+    issue_stories = sorted(issue_stories, key=lambda s: s.get("saved_at", ""), reverse=True)
+    count = len(issue_stories)
+
+    used_images = set()
+    cards = "".join(story_card(s, cache=cache, used_images=used_images) for s in issue_stories)
+
+    if not cards:
+        cards = "<p style='color:#666;font-style:italic;padding:2rem 0'>No stories collected yet for this topic.</p>"
+
+    nav_html = make_two_tier_nav(active_issue=issue_id)
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{label} | Black World News</title>
+    <meta name="description" content="News covering {label.lower()} and Black communities worldwide. {count} stories and counting.">
+    <meta property="og:title" content="{label} | Black World News">
+    <meta property="og:description" content="News covering {label.lower()} and Black communities worldwide.">
+    <meta name="author" content="Black World News">
+    <link rel="canonical" href="https://www.blackworldnews.world/{issue_id}.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
+        a{{color:inherit;text-decoration:none;}}
+        .masthead{{background:#1a3a2a;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
+        .masthead h1 a:hover{{color:#c8d8c0;}}
+        .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;}}
+        .nav-row{{display:flex;justify-content:center;align-items:stretch;gap:0;}}
+        .nav-issues{{border-bottom:1px solid #222;}}
+        .nav-row a{{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;padding:0.55rem 0.9rem;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;text-align:center;color:#888;}}
+        .nav-row a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .nav-row a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
+        .nav-row a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .nav-row a.nav-active{{border-bottom-color:{color};color:#fff;}}
+        .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
+        .page-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}}
+        .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}
+        .card-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem;}}
+        .card{{background:#fff;border:1px solid #ddd;border-top:3px solid transparent;padding:1.25rem 1.5rem;transition:border-top-color 0.2s,box-shadow 0.2s;}}
+        .card:hover{{border-top-color:{color};box-shadow:0 4px 16px rgba(0,0,0,0.1);}}
+        .card-img{{width:100%;height:180px;object-fit:cover;display:block;margin-bottom:1rem;}}
+        .card-meta{{display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;margin-bottom:0.75rem;}}
+        .flag-country{{font-size:0.8rem;color:{color};font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}}
+        .category{{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;background:#f5f5f5;border:1px solid #ddd;padding:0.15rem 0.5rem;color:#555;font-weight:600;}}
+        .framing-dot{{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;cursor:default;}}
+        .card-title{{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#111;margin-bottom:0.5rem;line-height:1.3;}}
+        .card-title a:hover{{color:{color};}}
+        .card-summary{{font-size:0.88rem;color:#444;margin-bottom:0.5rem;}}
+        .narrative-analysis{{font-size:0.82rem;color:#666;font-style:italic;border-left:3px solid #ddd;padding-left:0.75rem;margin-bottom:0.5rem;}}
+        .factors{{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.5rem;}}
+        .factor{{font-size:0.62rem;color:#bbb;font-weight:600;}}
+        .card-footer{{display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid #eee;}}
+        .saved-at{{font-size:0.75rem;color:#aaa;}}
+        .read-more{{font-size:0.8rem;color:{color};font-weight:700;}}
+        .read-more:hover{{text-decoration:underline;}}
+        footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}}
+        footer strong{{color:#8ab89a;}}
+        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}.card-grid{{grid-template-columns:1fr;}}.site-nav{{display:none;}}}}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <div>
+        <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">"Let my people go, that they may serve me." &ndash; Exodus 8:1</p>
+    </div>
+</header>
+{nav_html}
+<div class="page-container">
+    <div style="border-left:5px solid {color};padding-left:1.25rem;margin-bottom:2rem;">
+        <h1 class="page-title" style="color:{color}">{label}</h1>
+        <p class="page-subtitle">{count} stories collected. Newest first.</p>
+    </div>
+    <div class="card-grid">{cards}</div>
 </div>
 <footer>
     <p><strong>BLACK WORLD NEWS</strong></p>
@@ -1769,6 +1903,13 @@ def main():
             f.write(build_region_page(region_id, region, stories, cache))
         print(f"Region page generated: {filename}")
 
+    # Build the six issue pages
+    for issue_id, issue in ISSUE_GROUPS.items():
+        filename = f"{issue_id}.html"
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(build_issue_page(issue_id, issue, stories, cache))
+        print(f"Issue page generated: {filename}")
+
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")
     print(f"Total stories: {len(stories)}")
@@ -1785,6 +1926,12 @@ def main():
   <url><loc>https://www.blackworldnews.world/africa.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
   <url><loc>https://www.blackworldnews.world/europe.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
   <url><loc>https://www.blackworldnews.world/asia.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.blackworldnews.world/policing.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/politics.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/economics.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/health.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/education.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/culture.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/kids.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/about.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/resources.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>

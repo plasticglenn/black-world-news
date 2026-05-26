@@ -19,19 +19,20 @@
         .masthead h1{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}
         .masthead h1 a:hover{color:#c8d8c0;}
         .masthead-tagline{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}
-        nav{background:#0a0a0a;display:flex;justify-content:center;align-items:stretch;border-bottom:1px solid #222;overflow:hidden;}
-        nav a{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;padding:0.85rem 1.1rem;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;flex:1;text-align:center;color:#888;}
-        nav a:hover{background:#161616;}
-        nav a:hover{color:#fff;border-bottom-color:#1a3a2a;}
-        nav a.nav-kids{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.85rem;letter-spacing:0.04em;}
-        nav a.nav-kids:hover{color:#ffd93d;border-bottom-color:#ffd93d;}
-        nav a.nav-active{border-bottom-color:#1a3a2a;color:#fff;}
+        .site-nav{background:#0a0a0a;border-bottom:3px solid #1a3a2a;}
+        .nav-row{display:flex;justify-content:center;align-items:stretch;gap:0;}
+        .nav-issues{border-bottom:1px solid #222;}
+        .nav-row a{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;padding:0.55rem 0.9rem;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;text-align:center;color:#888;}
+        .nav-row a:hover{color:#fff;border-bottom-color:#1a3a2a;}
+        .nav-row a.nav-kids{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}
+        .nav-row a.nav-kids:hover{color:#ffd93d;border-bottom-color:#ffd93d;}
+        .nav-row a.nav-active{border-bottom-color:#1a3a2a;color:#fff;}
         .page-container{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}
         .page-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}
         .page-subtitle{font-size:1rem;color:#666;margin-bottom:2rem;}
         footer{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}
         footer strong{color:#8ab89a;}
-        @media(max-width:768px){.masthead{padding:0.75rem 1rem;}.masthead h1{font-size:1.2rem;}.page-container{padding:2rem 1rem;}.page-title{font-size:1.5rem;}nav a{font-size:0.6rem;padding:0.75rem 0.5rem;letter-spacing:0.06em;}}
+        @media(max-width:768px){.masthead{padding:0.75rem 1rem;}.masthead h1{font-size:1.2rem;}.page-container{padding:2rem 1rem;}.page-title{font-size:1.5rem;}.site-nav{display:none;}}
     </style>
 </head>
 <body>
@@ -41,7 +42,7 @@
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
 </header>
-<nav><a href="index.html" class="nav-latest">Latest</a><a href="kids.html" class="nav-kids">Kids Corner</a><a href="namerica.html" class="nav-namerica">N. America</a><a href="samerica.html" class="nav-samerica nav-active">S. America</a><a href="africa.html" class="nav-africa">Africa</a><a href="europe.html" class="nav-europe">Europe</a><a href="asia.html" class="nav-asia">Asia & Pacific</a></nav>
+<nav class="site-nav"><div class="nav-row nav-issues"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids">Kids Corner</a></div><div class="nav-row nav-regions"><a href="index.html" class="nav-region">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region nav-active">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a></div></nav>
 <div class="page-container">
     
     <div style="border-left:5px solid #6bcb77; padding-left:1.25rem; margin-bottom:2rem;">

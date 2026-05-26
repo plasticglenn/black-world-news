@@ -91,46 +91,56 @@
             padding-top: 0.5rem;
         }
 
-        /* NAVIGATION */
-        nav {
+        /* TWO-TIER NAVIGATION */
+        .site-nav {
             background: #111;
-            padding: 0 1.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 0;
             border-bottom: 3px solid #1a3a2a;
-            overflow: hidden;
         }
 
-        nav a {
-            font-size: 0.78rem;
+        .nav-row {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 0;
+        }
+
+        .nav-issues {
+            border-bottom: 1px solid #222;
+        }
+
+        .nav-row a {
+            font-size: 0.72rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #ccc;
+            color: #888;
             white-space: nowrap;
             font-weight: 600;
-            padding: 0.75rem 1rem;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -3px;
+            padding: 0.55rem 0.9rem;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
             transition: color 0.15s, border-color 0.15s;
-            flex: 1;
             text-align: center;
         }
 
-        nav a:hover {
+        .nav-row a:hover {
             color: #fff;
             border-bottom-color: #1a3a2a;
         }
 
-        /* Kids Corner is the only nav item that stands out */
-        nav a.nav-kids {
+        .nav-row a.nav-active {
+            color: #fff;
+            border-bottom-color: #1a3a2a;
+        }
+
+        /* Kids Corner — only item that stands out */
+        .nav-row a.nav-kids {
             font-family: 'Fredoka One', cursive;
             color: #ffd93d;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             letter-spacing: 0.04em;
         }
 
-        nav a.nav-kids:hover {
+        .nav-row a.nav-kids:hover {
             color: #ffd93d;
             border-bottom-color: #ffd93d;
         }
@@ -760,7 +770,7 @@
             }
 
             /* HIDE desktop nav, show bottom app nav */
-            nav { display: none; }
+            .site-nav { display: none; }
             .breaking-bar { font-size: 0.68rem; padding: 0.35rem 0.75rem; }
 
             /* BOTTOM TAB BAR */
@@ -942,18 +952,10 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:49 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 16:25 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
-<nav>
-    <a href="index.html"        class="nav-latest">Latest</a>
-    <a href="kids.html"         class="nav-kids">Kids Corner</a>
-    <a href="namerica.html"     class="nav-namerica">N. America</a>
-    <a href="samerica.html"     class="nav-samerica">S. America</a>
-    <a href="africa.html"       class="nav-africa">Africa</a>
-    <a href="europe.html"       class="nav-europe">Europe</a>
-    <a href="asia.html"         class="nav-asia">Asia &amp; Pacific</a>
-</nav>
+<nav class="site-nav"><div class="nav-row nav-issues"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids">Kids Corner</a></div><div class="nav-row nav-regions"><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a></div></nav>
 
 <div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
 
