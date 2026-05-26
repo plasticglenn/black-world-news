@@ -94,20 +94,40 @@ def pexels_image(query, cache):
         cache[query] = ""
         return ""
 
-def story_image(story, cache, featured=False):
+def story_image(story, cache, featured=False, used_images=None):
+    # used_images is a set we pass around to track what has already appeared on the page.
+    # If an image URL has been used before, we skip it and try a different query.
     og = story.get("image", "")
     if og:
-        return og
-    if featured:
-        country  = story.get("country", "")
-        cat      = story.get("category", "").lower()
-        title    = story.get("title", "")[:60]
-        query    = f"Black people {cat} {country} {title}"
-    else:
-        cat     = story.get("category", "").lower()
-        country = story.get("country", "")
-        query   = f"{cat} {country} community people"
-    return pexels_image(query, cache)
+        if used_images is not None:
+            if og in used_images:
+                og = ""  # already on the page — fall through to Pexels
+            else:
+                used_images.add(og)
+                return og
+        else:
+            return og
+
+    country = story.get("country", "")
+    cat     = story.get("category", "").lower()
+    title   = story.get("title", "")[:60]
+
+    # Try progressively different queries until we get an image not already used
+    queries = [
+        f"Black people {cat} {country} {title}" if featured else f"{cat} {country} community people",
+        f"Black people {country} {cat}",
+        f"{cat} Africa community",
+        f"Black community {cat}",
+    ]
+
+    for query in queries:
+        url = pexels_image(query, cache)
+        if url and (used_images is None or url not in used_images):
+            if used_images is not None:
+                used_images.add(url)
+            return url
+
+    return ""  # nothing unique found — card will show without image
 
 def ai_image_url(story):
     title   = story.get("title", "")[:80]
@@ -144,7 +164,7 @@ def factor_tags(factors):
     return f'<div class="factors">{tags}</div>' if tags else ""
 
 
-def story_card(story, featured=False, archive=False, cache=None):
+def story_card(story, featured=False, archive=False, cache=None, used_images=None):
     title   = story.get("title", "Untitled")
     url     = story.get("url", "#")
     country = story.get("country", "Other/Global")
@@ -175,7 +195,7 @@ def story_card(story, featured=False, archive=False, cache=None):
         </div>
     </div>"""
 
-    img_src = story_image(story, cache or {}, featured=featured)
+    img_src = story_image(story, cache or {}, featured=featured, used_images=used_images)
     img_html = f'<img class="card-img{"  featured-img" if featured else ""}" src="{img_src}" alt="" loading="lazy">' if img_src else ""
 
     card_class = "card featured" if featured else "card"
@@ -259,11 +279,14 @@ def build_html(stories, cache):
         s.get("narrative_framing") in ("Human", "Resistant")][:6]
     kids_html = "".join(kids_card(s) for s in kids_stories) if kids_stories else "<p style='color:#555;padding:1rem;font-family:Fredoka One,cursive'>More kids stories coming soon!</p>"
 
+    # Track which image URLs have already been used — no duplicates on the page
+    used_images = set()
+
     # Build featured block
-    featured_html = story_card(featured, featured=True, cache=cache) if featured else ""
+    featured_html = story_card(featured, featured=True, cache=cache, used_images=used_images) if featured else ""
 
     # Build latest grid
-    latest_html = "".join(story_card(s, cache=cache) for s in latest)
+    latest_html = "".join(story_card(s, cache=cache, used_images=used_images) for s in latest)
 
     # Build country sections
     archive_sections = ""
@@ -274,7 +297,7 @@ def build_html(stories, cache):
         if country not in by_country:
             continue
         flag = COUNTRY_FLAGS.get(country, "🌍")
-        cards = "".join(story_card(s, archive=True, cache=cache) for s in by_country[country])
+        cards = "".join(story_card(s, archive=True, cache=cache, used_images=used_images) for s in by_country[country])
         archive_sections += f"""
         <section class="country-section">
             <h3 class="country-heading">{flag} {country} <span class="count">({len(by_country[country])})</span></h3>
@@ -863,6 +886,93 @@ def build_html(stories, cache):
             box-shadow: 1px 1px 0 #111;
         }}
 
+        /* FOR THE CHILDREN — portal door */
+        .kids-portal {{
+            display: block;
+            background: #0d1f14;
+            text-decoration: none;
+            overflow: hidden;
+            position: relative;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 6px solid #ffd93d;
+            border-bottom: 6px solid #ffd93d;
+        }}
+
+        .kids-portal:hover .kids-portal-glow {{
+            opacity: 1;
+            transform: scale(1.2);
+        }}
+
+        .kids-portal:hover .kids-portal-btn {{
+            background: #ffd93d;
+            color: #111;
+            letter-spacing: 0.2em;
+        }}
+
+        .kids-portal-glow {{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,217,61,0.12) 0%, transparent 70%);
+            opacity: 0.6;
+            transition: opacity 0.5s, transform 0.5s;
+            pointer-events: none;
+        }}
+
+        .kids-portal-inner {{
+            position: relative;
+            z-index: 2;
+        }}
+
+        .kids-portal-eyebrow {{
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ffd93d;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }}
+
+        .kids-portal-title {{
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }}
+
+        .kids-portal-sub {{
+            font-size: 0.9rem;
+            color: #8ab89a;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }}
+
+        .kids-portal-btn {{
+            display: inline-block;
+            border: 2px solid #ffd93d;
+            color: #ffd93d;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.75rem 2.5rem;
+            transition: background 0.2s, color 0.2s, letter-spacing 0.2s;
+        }}
+
+        @media (max-width: 768px) {{
+            .kids-portal {{ padding: 3rem 1.5rem; }}
+            .kids-portal-title {{ font-size: 2.8rem; }}
+        }}
+
         /* FOOTER */
         footer {{
             background: #111;
@@ -1095,7 +1205,7 @@ def build_html(stories, cache):
 
 <nav>
     <a href="#latest">Latest</a>
-    <a href="#kids">🌍 Kids Corner</a>
+    <a href="kids.html">For the Children</a>
     <a href="#archive">Archive</a>
     {''.join(f'<a href="#{c.lower().replace(" ", "-").replace("/", "-")}">{c}</a>' for c in REGION_ORDER if c in by_country)}
 </nav>
@@ -1112,21 +1222,16 @@ def build_html(stories, cache):
         <div class="card-grid">{latest_html}</div>
     </div>
 
-    <!-- BREAK -->
-    <div class="page-break">
-        <h2>Stories That Matter. Every Day.</h2>
-
-        <p>Tracking the Black experience across {len(by_country)} regions worldwide</p>
-    </div>
-
-    <!-- KIDS SECTION -->
-    <div class="kids-section" id="kids">
-        <div class="kids-header">
-            <h2>🌍 Kids Corner!</h2>
-            <p>Big stories, easy to understand. Just for you!</p>
+    <!-- FOR THE CHILDREN — portal door, no stock images, pure design -->
+    <a href="kids.html" class="kids-portal" aria-label="For the Children">
+        <div class="kids-portal-inner">
+            <div class="kids-portal-glow"></div>
+            <p class="kids-portal-eyebrow">A world of their own</p>
+            <h2 class="kids-portal-title">For the Children</h2>
+            <p class="kids-portal-sub">Stories, comics and videos made for young readers</p>
+            <span class="kids-portal-btn">Enter &#8594;</span>
         </div>
-        <div class="kids-grid">{kids_html}</div>
-    </div>
+    </a>
 
     <!-- BREAK -->
     <div class="page-break-alt">
@@ -1143,7 +1248,7 @@ def build_html(stories, cache):
 
 <div class="mobile-tabs" style="display:none">
     <a href="#latest"><span class="tab-icon">🏠</span>Latest</a>
-    <a href="#kids"><span class="tab-icon">🌍</span>Kids</a>
+    <a href="kids.html"><span class="tab-icon">🌍</span>Kids</a>
     <a href="#archive"><span class="tab-icon">📰</span>Archive</a>
     <a href="#latest"><span class="tab-icon">🔍</span>Search</a>
 </div>

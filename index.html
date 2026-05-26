@@ -575,6 +575,93 @@
             box-shadow: 1px 1px 0 #111;
         }
 
+        /* FOR THE CHILDREN — portal door */
+        .kids-portal {
+            display: block;
+            background: #0d1f14;
+            text-decoration: none;
+            overflow: hidden;
+            position: relative;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 6px solid #ffd93d;
+            border-bottom: 6px solid #ffd93d;
+        }
+
+        .kids-portal:hover .kids-portal-glow {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .kids-portal:hover .kids-portal-btn {
+            background: #ffd93d;
+            color: #111;
+            letter-spacing: 0.2em;
+        }
+
+        .kids-portal-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,217,61,0.12) 0%, transparent 70%);
+            opacity: 0.6;
+            transition: opacity 0.5s, transform 0.5s;
+            pointer-events: none;
+        }
+
+        .kids-portal-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .kids-portal-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ffd93d;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .kids-portal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .kids-portal-sub {
+            font-size: 0.9rem;
+            color: #8ab89a;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .kids-portal-btn {
+            display: inline-block;
+            border: 2px solid #ffd93d;
+            color: #ffd93d;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.75rem 2.5rem;
+            transition: background 0.2s, color 0.2s, letter-spacing 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            .kids-portal { padding: 3rem 1.5rem; }
+            .kids-portal-title { font-size: 2.8rem; }
+        }
+
         /* FOOTER */
         footer {
             background: #111;
@@ -802,17 +889,17 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 14:56 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:16 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
 <nav>
     <a href="#latest">Latest</a>
-    <a href="#kids">🌍 Kids Corner</a>
+    <a href="kids.html">For the Children</a>
     <a href="#archive">Archive</a>
     <a href="#united-states">United States</a><a href="#united-kingdom">United Kingdom</a><a href="#canada">Canada</a><a href="#france">France</a><a href="#nigeria">Nigeria</a><a href="#ghana">Ghana</a><a href="#south-africa">South Africa</a><a href="#other-global">Other/Global</a>
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring 207 stories across 8 regions. Updated May 26, 2026 — 14:56</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring 207 stories across 8 regions. Updated May 26, 2026 — 15:16</div>
 
 <main>
 
@@ -908,7 +995,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/12111234/pexels-photo-12111234.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <img class="card-img" src="https://images.pexels.com/photos/5439381/pexels-photo-5439381.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Employment</span>
@@ -925,7 +1012,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img" src="https://images.pexels.com/photos/12111234/pexels-photo-12111234.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
+        <img class="card-img" src="https://images.pexels.com/photos/11171617/pexels-photo-11171617.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy">
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
             <span class="category">Employment</span>
@@ -943,48 +1030,16 @@
     </div></div>
     </div>
 
-    <!-- BREAK -->
-    <div class="page-break">
-        <h2>Stories That Matter. Every Day.</h2>
-
-        <p>Tracking the Black experience across 8 regions worldwide</p>
-    </div>
-
-    <!-- KIDS SECTION -->
-    <div class="kids-section" id="kids">
-        <div class="kids-header">
-            <h2>🌍 Kids Corner!</h2>
-            <p>Big stories, easy to understand. Just for you!</p>
+    <!-- FOR THE CHILDREN — portal door, no stock images, pure design -->
+    <a href="kids.html" class="kids-portal" aria-label="For the Children">
+        <div class="kids-portal-inner">
+            <div class="kids-portal-glow"></div>
+            <p class="kids-portal-eyebrow">A world of their own</p>
+            <h2 class="kids-portal-title">For the Children</h2>
+            <p class="kids-portal-sub">Stories, comics and videos made for young readers</p>
+            <span class="kids-portal-btn">Enter &#8594;</span>
         </div>
-        <div class="kids-grid">
-    <div class="kids-card">
-        <img class="kids-img" src="https://www.myjoyonline.com/wp-content/uploads/2025/06/image-92-1024x699.png" alt="" loading="lazy">
-        <div class="kids-card-body">
-            <span class="kids-flag">🇬🇭</span>
-            <h3 class="kids-title"><a href="https://www.myjoyonline.com/ghanas-digital-future-hope-for-africas-digital-identity-and-sovereignty/" target="_blank" rel="noopener">Ghana’s Digital Future: Hope for Africa's digital</a></h3>
-            <p class="kids-summary">Ghana is investing in its digital future through initiatives such as the 1 Million Coders Initiative and a $1 billion technology hub. These efforts aim to equip Ghanaian youth with digital skills and promote digital sovereignty. The goal is to create a resilient</p>
-            <a href="https://www.myjoyonline.com/ghanas-digital-future-hope-for-africas-digital-identity-and-sovereignty/" class="kids-btn" target="_blank" rel="noopener">Read the story →</a>
-        </div>
-    </div>
-    <div class="kids-card">
-        <img class="kids-img" src="https://i0.wp.com/www.gbcghanaonline.com/wp-content/uploads/2025/10/Kente.png" alt="" loading="lazy">
-        <div class="kids-card-body">
-            <span class="kids-flag">🇬🇭</span>
-            <h3 class="kids-title"><a href="https://www.gbcghanaonline.com/features/kente-ghana/2025/" target="_blank" rel="noopener">Ghana sets the blueprint for African cultural sovereignty</a></h3>
-            <p class="kids-summary">Ghana has been granted Geographical Indication protection for Kente</p>
-            <a href="https://www.gbcghanaonline.com/features/kente-ghana/2025/" class="kids-btn" target="_blank" rel="noopener">Read the story →</a>
-        </div>
-    </div>
-    <div class="kids-card">
-        <div class="kids-img-placeholder" style="background:#f9844a"><span style="font-size:2.5rem">🌍</span></div>
-        <div class="kids-card-body">
-            <span class="kids-flag">🌍</span>
-            <h3 class="kids-title"><a href="https://theconversation.com/topics/anti-black-racism-48584" target="_blank" rel="noopener">Anti-Black racism – News, Research and Analysis – The</a></h3>
-            <p class="kids-summary">After global anti-Black racism protests in 2020</p>
-            <a href="https://theconversation.com/topics/anti-black-racism-48584" class="kids-btn" target="_blank" rel="noopener">Read the story →</a>
-        </div>
-    </div></div>
-    </div>
+    </a>
 
     <!-- BREAK -->
     <div class="page-break-alt">
@@ -3724,7 +3779,7 @@
 
 <div class="mobile-tabs" style="display:none">
     <a href="#latest"><span class="tab-icon">🏠</span>Latest</a>
-    <a href="#kids"><span class="tab-icon">🌍</span>Kids</a>
+    <a href="kids.html"><span class="tab-icon">🌍</span>Kids</a>
     <a href="#archive"><span class="tab-icon">📰</span>Archive</a>
     <a href="#latest"><span class="tab-icon">🔍</span>Search</a>
 </div>
