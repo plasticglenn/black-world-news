@@ -232,12 +232,19 @@ def build_html(stories, cache):
     # Sort newest first
     stories = sorted(stories, key=lambda s: s.get("saved_at", ""), reverse=True)
 
-    # Find featured story by keyword, fall back to most recent
-    keyword = FEATURED_KEYWORD.lower()
-    featured = next(
-        (s for s in stories if keyword in s.get("title", "").lower() or keyword in s.get("summary", "").lower()),
-        stories[0] if stories else None
-    )
+    # Find featured story — first check featured.json (set by pick_featured.py),
+    # then fall back to keyword match, then most recent
+    featured = None
+    if os.path.exists("featured.json"):
+        with open("featured.json", "r", encoding="utf-8") as _f:
+            _pick = json.load(_f)
+            featured = next((s for s in stories if s.get("url") == _pick.get("url")), None)
+    if not featured:
+        keyword = FEATURED_KEYWORD.lower()
+        featured = next(
+            (s for s in stories if keyword in s.get("title", "").lower() or keyword in s.get("summary", "").lower()),
+            stories[0] if stories else None
+        )
     remaining = [s for s in stories if s is not featured]
     latest = remaining[:6]
 
