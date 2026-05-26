@@ -297,22 +297,27 @@ def build_html(stories, cache):
     # Build latest grid
     latest_html = "".join(story_card(s, cache=cache, used_images=used_images) for s in latest)
 
-    # Build archive grouped by region with nav anchor IDs
-    archive_sections = ""
+    # Regional teasers — one featured story per region, link to region page
+    # Homepage stops here. No more long archive.
+    regional_teasers = ""
     for region_id, region in REGION_GROUPS.items():
         region_stories = []
         for country in region["countries"]:
             region_stories.extend(by_country.get(country, []))
         if not region_stories:
             continue
-        cards = "".join(story_card(s, archive=True, cache=cache, used_images=used_images) for s in region_stories)
-        archive_sections += f"""
-        <section class="country-section" id="{region_id}">
-            <h3 class="country-heading" style="border-color:{region['color']};color:{region['color']}">
-                {region['label']} <span class="count">({len(region_stories)})</span>
-            </h3>
-            <div class="card-grid">{cards}</div>
-        </section>"""
+        region_sorted = sorted(region_stories, key=lambda s: s.get("saved_at",""), reverse=True)
+        teaser = region_sorted[0]
+        teaser_card = story_card(teaser, cache=cache, used_images=used_images)
+        count = len(region_stories)
+        regional_teasers += f"""
+        <div class="region-teaser">
+            <div class="region-teaser-header">
+                <h3 class="region-teaser-title" style="color:{region['color']};border-color:{region['color']}">{region['label']}</h3>
+                <a href="{region_id}.html" class="region-more" style="color:{region['color']}">All {count} stories &rarr;</a>
+            </div>
+            {teaser_card}
+        </div>"""
 
     # Pull featured story image for Open Graph sharing
     og_image = story_image(featured, cache, featured=True) if featured else ""
@@ -911,6 +916,39 @@ def build_html(stories, cache):
             box-shadow: 1px 1px 0 #111;
         }}
 
+        /* REGIONAL TEASERS */
+        .region-teaser {{
+            margin-bottom: 2.5rem;
+        }}
+
+        .region-teaser-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 3px solid;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+        }}
+
+        .region-teaser-title {{
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }}
+
+        .region-more {{
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0.85;
+            transition: opacity 0.15s;
+        }}
+
+        .region-more:hover {{ opacity: 1; text-decoration: underline; }}
+
         /* FOR THE CHILDREN — portal door */
         .kids-portal {{
             display: block;
@@ -1229,13 +1267,13 @@ def build_html(stories, cache):
 </header>
 
 <nav>
-    <a href="#latest"      class="nav-latest">Latest</a>
-    <a href="kids.html"    class="nav-kids">Kids Corner</a>
-    <a href="#namerica"    class="nav-namerica">N. America</a>
-    <a href="#samerica"    class="nav-samerica">S. America</a>
-    <a href="#africa"      class="nav-africa">Africa</a>
-    <a href="#europe"      class="nav-europe">Europe</a>
-    <a href="#asia"        class="nav-asia">Asia &amp; Pacific</a>
+    <a href="index.html"        class="nav-latest">Latest</a>
+    <a href="kids.html"         class="nav-kids">Kids Corner</a>
+    <a href="namerica.html"     class="nav-namerica">N. America</a>
+    <a href="samerica.html"     class="nav-samerica">S. America</a>
+    <a href="africa.html"       class="nav-africa">Africa</a>
+    <a href="europe.html"       class="nav-europe">Europe</a>
+    <a href="asia.html"         class="nav-asia">Asia &amp; Pacific</a>
 </nav>
 
 <div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
@@ -1250,7 +1288,7 @@ def build_html(stories, cache):
         <div class="card-grid">{latest_html}</div>
     </div>
 
-    <!-- FOR THE CHILDREN — portal door, no stock images, pure design -->
+    <!-- FOR THE CHILDREN — portal door -->
     <a href="kids.html" class="kids-portal" aria-label="For the Children">
         <div class="kids-portal-inner">
             <div class="kids-portal-glow"></div>
@@ -1261,15 +1299,10 @@ def build_html(stories, cache):
         </div>
     </a>
 
-    <!-- BREAK -->
-    <div class="page-break-alt">
-        <h2>News From Around The World</h2>
-        <p>Browse by region. {total} stories and counting</p>
-    </div>
-
-    <!-- ARCHIVE BY REGION -->
-    <div class="container" id="archive">
-        {archive_sections}
+    <!-- REGIONAL TEASERS — one story per region, click through to full page -->
+    <div class="container">
+        <p class="section-label">Around the World</p>
+        {regional_teasers}
     </div>
 
 </main>
@@ -1584,6 +1617,127 @@ def build_community():
     return page_shell("Community", content, active="community")
 
 
+def build_region_page(region_id, region, all_stories, cache):
+    # Builds a full page for one region — all its stories, newest first
+    by_country = defaultdict(list)
+    for s in all_stories:
+        by_country[s.get("country", "Other/Global")].append(s)
+
+    region_stories = []
+    for country in region["countries"]:
+        region_stories.extend(by_country.get(country, []))
+    region_stories = sorted(region_stories, key=lambda s: s.get("saved_at",""), reverse=True)
+
+    used_images = set()
+    cards = "".join(story_card(s, cache=cache, used_images=used_images) for s in region_stories)
+
+    color = region["color"]
+    label = region["label"]
+    count = len(region_stories)
+
+    content = f"""
+    <div style="border-left:5px solid {color}; padding-left:1.25rem; margin-bottom:2rem;">
+        <h1 class="page-title" style="color:{color}">{label}</h1>
+        <p class="page-subtitle">{count} stories collected so far. Newest first.</p>
+    </div>
+    <style>
+        .card-grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1rem; }}
+        .card {{ background:#fff; border:1px solid #ddd; border-top:3px solid transparent; padding:1.25rem 1.5rem; transition:border-top-color 0.2s,box-shadow 0.2s; }}
+        .card:hover {{ border-top-color:{color}; box-shadow:0 4px 16px rgba(0,0,0,0.1); }}
+        .card-img {{ width:100%; height:180px; object-fit:cover; display:block; margin-bottom:1rem; }}
+        .card-meta {{ display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem; margin-bottom:0.75rem; }}
+        .flag-country {{ font-size:0.8rem; color:{color}; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; }}
+        .category {{ font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; background:#f5f5f5; border:1px solid #ddd; padding:0.15rem 0.5rem; color:#555; font-weight:600; }}
+        .framing-dot {{ display:inline-block; width:8px; height:8px; border-radius:50%; vertical-align:middle; cursor:default; }}
+        .card-title {{ font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#111; margin-bottom:0.5rem; line-height:1.3; }}
+        .card-title a:hover {{ color:{color}; }}
+        .card-summary {{ font-size:0.88rem; color:#444; margin-bottom:0.5rem; }}
+        .narrative-analysis {{ font-size:0.82rem; color:#666; font-style:italic; border-left:3px solid #ddd; padding-left:0.75rem; margin-bottom:0.5rem; }}
+        .factors {{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.5rem; }}
+        .factor {{ font-size:0.62rem; color:#bbb; font-weight:600; }}
+        .card-footer {{ display:flex; justify-content:space-between; align-items:center; margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid #eee; }}
+        .saved-at {{ font-size:0.75rem; color:#aaa; }}
+        .read-more {{ font-size:0.8rem; color:{color}; font-weight:700; }}
+        .read-more:hover {{ text-decoration:underline; }}
+        @media(max-width:768px) {{ .card-grid {{ grid-template-columns:1fr; }} }}
+    </style>
+    <div class="card-grid">{cards}</div>
+    """
+
+    # Nav for region pages — highlight the active region
+    nav_links = [
+        ("Latest",       "index.html",    "nav-latest",   ""),
+        ("Kids Corner",  "kids.html",     "nav-kids",     ""),
+        ("N. America",   "namerica.html", "nav-namerica", "namerica"),
+        ("S. America",   "samerica.html", "nav-samerica", "samerica"),
+        ("Africa",       "africa.html",   "nav-africa",   "africa"),
+        ("Europe",       "europe.html",   "nav-europe",   "europe"),
+        ("Asia & Pacific","asia.html",    "nav-asia",     "asia"),
+    ]
+    nav_html = "".join(
+        f'<a href="{url}" class="{cls}{" nav-active" if rid == region_id else ""}">{lbl}</a>'
+        for lbl, url, cls, rid in nav_links
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{label} | Black World News</title>
+    <meta name="description" content="News from {label} covering Black communities. {count} stories and counting.">
+    <meta property="og:title" content="{label} | Black World News">
+    <meta property="og:description" content="News from {label} covering Black communities.">
+    <meta name="author" content="Black World News">
+    <link rel="canonical" href="https://www.blackworldnews.world/{region_id}.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
+        a{{color:inherit;text-decoration:none;}}
+        .masthead{{background:#1a3a2a;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
+        .masthead h1 a:hover{{color:#c8d8c0;}}
+        .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
+        nav{{background:#0a0a0a;display:flex;justify-content:center;align-items:stretch;border-bottom:1px solid #222;overflow:hidden;}}
+        nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;padding:0.85rem 1.1rem;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;flex:1;text-align:center;color:#888;}}
+        nav a:hover{{background:#161616;}}
+        nav a.nav-latest{{color:#ffd93d;}} nav a.nav-latest:hover{{border-bottom-color:#ffd93d;}}
+        nav a.nav-kids{{color:#ff6b6b;}} nav a.nav-kids:hover{{border-bottom-color:#ff6b6b;}}
+        nav a.nav-namerica{{color:#4d96ff;}} nav a.nav-namerica:hover{{border-bottom-color:#4d96ff;}}
+        nav a.nav-samerica{{color:#6bcb77;}} nav a.nav-samerica:hover{{border-bottom-color:#6bcb77;}}
+        nav a.nav-africa{{color:#f9844a;}} nav a.nav-africa:hover{{border-bottom-color:#f9844a;}}
+        nav a.nav-europe{{color:#c77dff;}} nav a.nav-europe:hover{{border-bottom-color:#c77dff;}}
+        nav a.nav-asia{{color:#00d4ff;}} nav a.nav-asia:hover{{border-bottom-color:#00d4ff;}}
+        nav a.nav-active{{border-bottom-color:currentColor;background:#161616;}}
+        .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
+        .page-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}}
+        .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}
+        footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}}
+        footer strong{{color:#8ab89a;}}
+        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}nav a{{font-size:0.6rem;padding:0.75rem 0.5rem;letter-spacing:0.06em;}}}}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <div>
+        <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
+    </div>
+</header>
+<nav>{nav_html}</nav>
+<div class="page-container">
+    {content}
+</div>
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong></p>
+    <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
+</footer>
+</body>
+</html>"""
+
+
 def main():
     stories = load_stories()
     if not stories:
@@ -1596,7 +1750,7 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(html)
 
-    # Build the four extra pages
+    # Build the four content pages
     for filename, builder in [
         ("about.html",     build_about),
         ("resources.html", build_resources),
@@ -1606,6 +1760,13 @@ def main():
         with open(filename, "w", encoding="utf-8") as f:
             f.write(builder())
         print(f"Page generated: {filename}")
+
+    # Build the five region pages
+    for region_id, region in REGION_GROUPS.items():
+        filename = f"{region_id}.html"
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(build_region_page(region_id, region, stories, cache))
+        print(f"Region page generated: {filename}")
 
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")
@@ -1618,10 +1779,16 @@ def main():
     sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.blackworldnews.world/</loc><lastmod>{today}</lastmod><priority>1.0</priority></url>
-  <url><loc>https://www.blackworldnews.world/about.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.blackworldnews.world/resources.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.blackworldnews.world/namerica.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.blackworldnews.world/samerica.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.blackworldnews.world/africa.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.blackworldnews.world/europe.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.blackworldnews.world/asia.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.blackworldnews.world/kids.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/about.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.blackworldnews.world/resources.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.5</priority></url>
 </urlset>"""
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write(sitemap)
