@@ -1228,38 +1228,149 @@ def build_about():
 
 
 def build_resources():
-    content = """
+    books = [
+        ("The New Jim Crow", "Michelle Alexander", "How mass incarceration has become a system of racial control in the United States."),
+        ("Black Reconstruction in America", "W.E.B. Du Bois", "The definitive account of what Black people built after slavery, and how it was dismantled."),
+        ("How Europe Underdeveloped Africa", "Walter Rodney", "A clear-eyed account of how colonial extraction shaped the economic gap between Africa and the West."),
+        ("The Warmth of Other Suns", "Isabel Wilkerson", "The story of the Great Migration told through three families who left the American South."),
+        ("Homegoing", "Yaa Gyasi", "A novel tracing one family across eight generations from Ghana to the United States."),
+        ("Small Axe", "Linton Kwesi Johnson", "Poetry from the front lines of Black Britain."),
+    ]
+    orgs = [
+        ("African Union", "https://au.int", "The continental body coordinating political and economic cooperation across 55 African nations."),
+        ("Black Lives Matter Global Network", "https://blacklivesmatter.com", "A decentralised movement with chapters across the US, UK, and Canada."),
+        ("NAACP", "https://naacp.org", "The oldest civil rights organisation in the United States, focused on legal advocacy and policy."),
+        ("Runnymede Trust", "https://www.runnymedetrust.org", "The UK's leading race equality think tank."),
+        ("Institute of the Black World 21st Century", "https://ibw21.org", "Research and advocacy grounded in the Pan-African tradition."),
+    ]
+    films = [
+        ("13th", "Ava DuVernay, 2016", "Traces the history of racial inequality in the United States through the prison system."),
+        ("I Am Not Your Negro", "Raoul Peck, 2016", "James Baldwin's unfinished manuscript brought to life. Essential viewing."),
+        ("When They See Us", "Ava DuVernay, 2019", "The true story of the Central Park Five, wrongly convicted as teenagers."),
+        ("Concerning Violence", "Göran Hugo Olsson, 2014", "Frantz Fanon's writing on colonialism set against archival footage of African liberation movements."),
+        ("Black Panther: Wakanda Forever", "Ryan Coogler, 2022", "Not just a superhero film. A meditation on grief, sovereignty, and what we owe each other."),
+    ]
+
+    books_html = "".join(f"""
+        <div class="resource-item">
+            <strong>{title}</strong> <span class="resource-author">by {author}</span>
+            <p>{desc}</p>
+        </div>""" for title, author, desc in books)
+
+    orgs_html = "".join(f"""
+        <div class="resource-item">
+            <strong><a href="{url}" target="_blank" rel="noopener">{name}</a></strong>
+            <p>{desc}</p>
+        </div>""" for name, url, desc in orgs)
+
+    films_html = "".join(f"""
+        <div class="resource-item">
+            <strong>{title}</strong> <span class="resource-author">{year}</span>
+            <p>{desc}</p>
+        </div>""" for title, year, desc in films)
+
+    content = f"""
     <h1 class="page-title">Resources</h1>
-    <p class="page-subtitle">Books, organisations, people and films worth your time.</p>
+    <p class="page-subtitle">Books, organisations, and films worth your time.</p>
+
+    <style>
+        .resource-item {{ background:#fff; border-left:4px solid #1a3a2a; padding:1rem 1.25rem; margin-bottom:1rem; }}
+        .resource-item strong {{ font-size:1rem; color:#111; }}
+        .resource-item strong a:hover {{ color:#1a3a2a; text-decoration:underline; }}
+        .resource-author {{ font-size:0.85rem; color:#888; margin-left:0.5rem; }}
+        .resource-item p {{ font-size:0.9rem; color:#555; margin-top:0.4rem; line-height:1.5; }}
+    </style>
 
     <h2 class="section-title">Books</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    {books_html}
 
     <h2 class="section-title">Organisations</h2>
-    <div class="placeholder-block">Coming soon.</div>
-
-    <h2 class="section-title">People to follow</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    {orgs_html}
 
     <h2 class="section-title">Films and Documentaries</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    {films_html}
     """
     return page_shell("Resources", content, active="resources")
 
 
 def build_trends():
-    content = """
+    # Load live data from the archive
+    stories = load_stories()
+    total = len(stories)
+    if not stories:
+        return page_shell("Trends", "<p>No data yet.</p>", active="trends")
+
+    from collections import Counter
+
+    framing_counts  = Counter(s.get("narrative_framing", "") for s in stories if s.get("narrative_framing") and s.get("narrative_framing") != "None")
+    category_counts = Counter(s.get("category", "") for s in stories if s.get("category"))
+    country_counts  = Counter(s.get("country", "") for s in stories if s.get("country"))
+    factor_counts   = Counter()
+    for s in stories:
+        for f in s.get("structural_factors", []):
+            if f and f != "None identified":
+                factor_counts[f] += 1
+    explicit_count = sum(1 for s in stories if s.get("explicit_racism"))
+
+    def bar_chart(counts, colors=None, total_override=None):
+        top = counts.most_common(8)
+        max_val = top[0][1] if top else 1
+        denom = total_override or sum(v for _, v in top)
+        rows = ""
+        for label, count in top:
+            pct = round(count / denom * 100)
+            bar_pct = round(count / max_val * 100)
+            color = (colors or {}).get(label, "#1a3a2a")
+            rows += f"""
+            <div class="trend-row">
+                <div class="trend-label">{label}</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:{bar_pct}%;background:{color}"></div>
+                </div>
+                <div class="trend-count">{count} <span class="trend-pct">({pct}%)</span></div>
+            </div>"""
+        return f'<div class="trend-chart">{rows}</div>'
+
+    framing_html   = bar_chart(framing_counts, FRAMING_COLORS, total_override=total)
+    category_html  = bar_chart(category_counts)
+    country_html   = bar_chart(country_counts)
+    factor_html    = bar_chart(factor_counts)
+
+    content = f"""
     <h1 class="page-title">Trends</h1>
-    <p class="page-subtitle">How Black people are being covered in the media and what the patterns show.</p>
+    <p class="page-subtitle">Patterns across {total} stories collected so far. Updated each time the site rebuilds.</p>
 
-    <h2 class="section-title">Narrative framing over time</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <style>
+        .trend-stat {{ display:inline-block; background:#1a3a2a; color:#fff; padding:1rem 2rem; margin-bottom:2rem; text-align:center; margin-right:1rem; }}
+        .trend-stat strong {{ display:block; font-size:2rem; font-family:'Playfair Display',serif; }}
+        .trend-stat span {{ font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:#8ab89a; }}
+        .trend-chart {{ margin-bottom:1rem; }}
+        .trend-row {{ display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem; }}
+        .trend-label {{ width:160px; font-size:0.82rem; font-weight:600; color:#333; flex-shrink:0; }}
+        .trend-bar-wrap {{ flex:1; background:#eee; height:18px; }}
+        .trend-bar {{ height:18px; transition:width 0.4s; }}
+        .trend-count {{ font-size:0.82rem; color:#666; width:80px; text-align:right; flex-shrink:0; }}
+        .trend-pct {{ color:#aaa; font-size:0.75rem; }}
+        @media(max-width:600px) {{ .trend-label {{ width:100px; font-size:0.75rem; }} .trend-count {{ width:60px; }} }}
+    </style>
 
-    <h2 class="section-title">Most common topics</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <div>
+        <div class="trend-stat"><strong>{total}</strong><span>Stories collected</span></div>
+        <div class="trend-stat"><strong>{explicit_count}</strong><span>Explicit racism flagged</span></div>
+        <div class="trend-stat"><strong>{len(country_counts)}</strong><span>Countries covered</span></div>
+    </div>
 
-    <h2 class="section-title">Country breakdown</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <h2 class="section-title">How stories frame Black people</h2>
+    {framing_html}
+
+    <h2 class="section-title">Topics covered</h2>
+    {category_html}
+
+    <h2 class="section-title">Stories by country</h2>
+    {country_html}
+
+    <h2 class="section-title">Forces appearing in the stories</h2>
+    {factor_html}
     """
     return page_shell("Trends", content, active="trends")
 

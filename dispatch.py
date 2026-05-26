@@ -6,8 +6,13 @@
 # ============================================================
 
 # Tools we need — each one has a specific job
+import sys                           # used to set output encoding
 import json                          # saves and reads the archive file
 import os                            # talks to the operating system
+
+# Make sure emojis print correctly on Windows
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 from datetime import datetime        # adds timestamps to stories
 from ddgs import DDGS                # searches DuckDuckGo for articles
 import requests                      # fetches web pages
@@ -281,8 +286,15 @@ def run_agent(custom_query=None):
 
 
 # ---- START HERE ----
-# This runs when you type: python dispatch.py
+# Run manually:      python dispatch.py
+# Run in background: python dispatch.py --all
 if __name__ == "__main__":
-    query = input("Enter a search term (or press Enter to run all queries): ")
-    query = query if query else None
-    run_agent(query)
+    if "--all" in sys.argv:
+        # Skip the prompt — run all queries automatically (used for scheduled runs)
+        run_agent(None)
+    else:
+        try:
+            query = input("Enter a search term (or press Enter to run all queries): ")
+        except EOFError:
+            query = ""
+        run_agent(query if query else None)

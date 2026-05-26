@@ -50,16 +50,249 @@
 <div class="page-container">
     
     <h1 class="page-title">Trends</h1>
-    <p class="page-subtitle">How Black people are being covered in the media and what the patterns show.</p>
+    <p class="page-subtitle">Patterns across 111 stories collected so far. Updated each time the site rebuilds.</p>
 
-    <h2 class="section-title">Narrative framing over time</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <style>
+        .trend-stat { display:inline-block; background:#1a3a2a; color:#fff; padding:1rem 2rem; margin-bottom:2rem; text-align:center; margin-right:1rem; }
+        .trend-stat strong { display:block; font-size:2rem; font-family:'Playfair Display',serif; }
+        .trend-stat span { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:#8ab89a; }
+        .trend-chart { margin-bottom:1rem; }
+        .trend-row { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem; }
+        .trend-label { width:160px; font-size:0.82rem; font-weight:600; color:#333; flex-shrink:0; }
+        .trend-bar-wrap { flex:1; background:#eee; height:18px; }
+        .trend-bar { height:18px; transition:width 0.4s; }
+        .trend-count { font-size:0.82rem; color:#666; width:80px; text-align:right; flex-shrink:0; }
+        .trend-pct { color:#aaa; font-size:0.75rem; }
+        @media(max-width:600px) { .trend-label { width:100px; font-size:0.75rem; } .trend-count { width:60px; } }
+    </style>
 
-    <h2 class="section-title">Most common topics</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <div>
+        <div class="trend-stat"><strong>111</strong><span>Stories collected</span></div>
+        <div class="trend-stat"><strong>16</strong><span>Explicit racism flagged</span></div>
+        <div class="trend-stat"><strong>8</strong><span>Countries covered</span></div>
+    </div>
 
-    <h2 class="section-title">Country breakdown</h2>
-    <div class="placeholder-block">Coming soon.</div>
+    <h2 class="section-title">How stories frame Black people</h2>
+    <div class="trend-chart">
+            <div class="trend-row">
+                <div class="trend-label">Statistic</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:100%;background:#7f8c8d"></div>
+                </div>
+                <div class="trend-count">57 <span class="trend-pct">(51%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Human</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:21%;background:#27ae60"></div>
+                </div>
+                <div class="trend-count">12 <span class="trend-pct">(11%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Resistant</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:16%;background:#2980b9"></div>
+                </div>
+                <div class="trend-count">9 <span class="trend-pct">(8%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Victim</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:12%;background:#e67e22"></div>
+                </div>
+                <div class="trend-count">7 <span class="trend-pct">(6%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Criminal</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:4%;background:#e74c3c"></div>
+                </div>
+                <div class="trend-count">2 <span class="trend-pct">(2%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Exploited</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:4%;background:#f39c12"></div>
+                </div>
+                <div class="trend-count">2 <span class="trend-pct">(2%)</span></div>
+            </div></div>
+
+    <h2 class="section-title">Topics covered</h2>
+    <div class="trend-chart">
+            <div class="trend-row">
+                <div class="trend-label">Healthcare</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:100%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">25 <span class="trend-pct">(24%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Politics</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:88%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">22 <span class="trend-pct">(21%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Policing</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:48%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">12 <span class="trend-pct">(11%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Education</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:44%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">11 <span class="trend-pct">(10%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Employment</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:44%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">11 <span class="trend-pct">(10%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Housing</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:40%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">10 <span class="trend-pct">(10%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Other</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:36%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">9 <span class="trend-pct">(9%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Hate Crime</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:20%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">5 <span class="trend-pct">(5%)</span></div>
+            </div></div>
+
+    <h2 class="section-title">Stories by country</h2>
+    <div class="trend-chart">
+            <div class="trend-row">
+                <div class="trend-label">United States</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:100%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">57 <span class="trend-pct">(51%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Canada</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:30%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">17 <span class="trend-pct">(15%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Other/Global</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:28%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">16 <span class="trend-pct">(14%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">South Africa</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:12%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">7 <span class="trend-pct">(6%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Nigeria</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:9%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">5 <span class="trend-pct">(5%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Ghana</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:9%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">5 <span class="trend-pct">(5%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">United Kingdom</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:5%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">3 <span class="trend-pct">(3%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">France</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:2%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">1 <span class="trend-pct">(1%)</span></div>
+            </div></div>
+
+    <h2 class="section-title">Forces appearing in the stories</h2>
+    <div class="trend-chart">
+            <div class="trend-row">
+                <div class="trend-label">Colonial legacy</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:100%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">71 <span class="trend-pct">(27%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Mass incarceration</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:82%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">58 <span class="trend-pct">(22%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Media bias</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:54%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">38 <span class="trend-pct">(15%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Corporate extraction</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:46%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">33 <span class="trend-pct">(13%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Engineered unemployment</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:31%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">22 <span class="trend-pct">(8%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Foreign debt</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:25%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">18 <span class="trend-pct">(7%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Drug war</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:17%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">12 <span class="trend-pct">(5%)</span></div>
+            </div>
+            <div class="trend-row">
+                <div class="trend-label">Police violence</div>
+                <div class="trend-bar-wrap">
+                    <div class="trend-bar" style="width:14%;background:#1a3a2a"></div>
+                </div>
+                <div class="trend-count">10 <span class="trend-pct">(4%)</span></div>
+            </div></div>
     
 </div>
 
