@@ -281,12 +281,41 @@ def build_html(stories, cache):
             <div class="card-grid">{cards}</div>
         </section>"""
 
+    # Pull featured story image for Open Graph sharing
+    og_image = story_image(featured, cache, featured=True) if featured else ""
+    og_title = featured.get("title", "Black World News") if featured else "Black World News"
+    og_desc  = featured.get("summary", "News about Black communities around the world.")[:160] if featured else "News about Black communities around the world."
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black World News</title>
+
+    <!-- Page title — shown in browser tab and Google search results -->
+    <title>Black World News | Your World Today</title>
+
+    <!-- Meta description — shown under the link in Google search results -->
+    <meta name="description" content="News about Black communities across Africa, the Americas, the Caribbean, and Europe. Updated regularly. Free and open to everyone.">
+
+    <!-- Open Graph — controls how the link looks when shared on WhatsApp, Twitter, Facebook -->
+    <meta property="og:type"        content="website">
+    <meta property="og:site_name"   content="Black World News">
+    <meta property="og:url"         content="https://www.blackworldnews.world/">
+    <meta property="og:title"       content="{og_title}">
+    <meta property="og:description" content="{og_desc}">
+    <meta property="og:image"       content="{og_image}">
+
+    <!-- Twitter card — same idea, but for Twitter/X -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="{og_title}">
+    <meta name="twitter:description" content="{og_desc}">
+    <meta name="twitter:image"       content="{og_image}">
+
+    <!-- Tell Google who we are -->
+    <meta name="author" content="Black World News">
+    <link rel="canonical" href="https://www.blackworldnews.world/">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -1150,12 +1179,32 @@ def page_shell(title, content, active=""):
         f'<a href="{url}" class="{"active" if key == active else ""}">{label}</a>'
         for label, url, key in nav_links
     )
+    page_descriptions = {
+        "About":     "Who we are and how Black World News works. Free, open, and updated regularly.",
+        "Resources": "Books, organisations, and films about the Black experience around the world.",
+        "Trends":    "Patterns in how Black people are covered in global media. Data from our story archive.",
+        "Community": "Share a story tip or add your voice to Black World News.",
+    }
+    page_desc = page_descriptions.get(title, "Black World News covers stories involving Black communities worldwide.")
+    page_url  = f"https://www.blackworldnews.world/{title.lower()}.html"
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | Black World News</title>
+    <meta name="description" content="{page_desc}">
+    <meta property="og:type"        content="website">
+    <meta property="og:site_name"   content="Black World News">
+    <meta property="og:url"         content="{page_url}">
+    <meta property="og:title"       content="{title} | Black World News">
+    <meta property="og:description" content="{page_desc}">
+    <meta name="twitter:card"        content="summary">
+    <meta name="twitter:title"       content="{title} | Black World News">
+    <meta name="twitter:description" content="{page_desc}">
+    <meta name="author" content="Black World News">
+    <link rel="canonical" href="{page_url}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -1423,6 +1472,32 @@ def main():
     print(f"Site generated: {OUTPUT_FILE}")
     print(f"Total stories: {len(stories)}")
     print(f"Images cached: {len(cache)}")
+
+    # --- SITEMAP ---
+    # Tells Google every page that exists on the site
+    today = datetime.now().strftime("%Y-%m-%d")
+    sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.blackworldnews.world/</loc><lastmod>{today}</lastmod><priority>1.0</priority></url>
+  <url><loc>https://www.blackworldnews.world/about.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.blackworldnews.world/resources.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
+</urlset>"""
+    with open("sitemap.xml", "w", encoding="utf-8") as f:
+        f.write(sitemap)
+    print("Sitemap generated: sitemap.xml")
+
+    # --- ROBOTS.TXT ---
+    # Tells search engine crawlers they are allowed in and where the sitemap is
+    robots = """User-agent: *
+Allow: /
+
+Sitemap: https://www.blackworldnews.world/sitemap.xml
+"""
+    with open("robots.txt", "w", encoding="utf-8") as f:
+        f.write(robots)
+    print("robots.txt generated.")
 
 
 if __name__ == "__main__":
