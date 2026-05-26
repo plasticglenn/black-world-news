@@ -1370,13 +1370,23 @@ def build_html(stories, cache):
         }}
 
         .kids-portal-title {{
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 0.04em;
-            line-height: 1;
-            margin-bottom: 1rem;
+            font-family: 'Bagel Fat One', cursive;
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            line-height: 1.05;
+            margin-bottom: 1.25rem;
+        }}
+
+        /* Portal-sized balloon letters — bigger shadow than the nav-sized ones */
+        .kids-portal-title .kids-letter {{
+            filter:
+                drop-shadow(0 4px 0 var(--deep))
+                drop-shadow(0 8px 12px rgba(0,0,0,0.4));
+        }}
+
+        .kids-portal-title .kids-space {{
+            width: 0.3em;
         }}
 
         .kids-portal-sub {{
@@ -1657,7 +1667,7 @@ def build_html(stories, cache):
         <div class="kids-portal-inner">
             <div class="kids-portal-glow"></div>
             <p class="kids-portal-eyebrow">A world of their own</p>
-            <h2 class="kids-portal-title">For the Children</h2>
+            <h2 class="kids-portal-title">{colorize_kids_text("For the Children")}</h2>
             <p class="kids-portal-sub">Stories, comics and videos made for young readers</p>
             <span class="kids-portal-btn">Enter &#8594;</span>
         </div>
