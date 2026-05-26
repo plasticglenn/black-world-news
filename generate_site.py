@@ -432,8 +432,8 @@ def build_html(stories, cache):
         regional_teasers += f"""
         <div class="region-teaser">
             <div class="region-teaser-header">
-                <h3 class="region-teaser-title" style="color:{region['color']};border-color:{region['color']}">{region['label']}</h3>
-                <a href="{region_id}.html" class="region-more" style="color:{region['color']}">All {count} stories &rarr;</a>
+                <h3 class="region-teaser-title">{region['label']}</h3>
+                <a href="{region_id}.html" class="region-more">All {count} stories &rarr;</a>
             </div>
             {teaser_card}
         </div>"""
@@ -1227,7 +1227,7 @@ def build_html(stories, cache):
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            border-bottom: 3px solid;
+            border-bottom: 3px solid #1a3a2a;
             padding-bottom: 0.4rem;
             margin-bottom: 0.75rem;
         }}
@@ -1238,6 +1238,7 @@ def build_html(stories, cache):
             font-weight: 700;
             letter-spacing: 0.04em;
             text-transform: uppercase;
+            color: #1a3a2a;
         }}
 
         .region-more {{
@@ -1245,6 +1246,7 @@ def build_html(stories, cache):
             font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
+            color: #1a3a2a;
             opacity: 0.85;
             transition: opacity 0.15s;
         }}
