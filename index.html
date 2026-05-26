@@ -91,56 +91,59 @@
             padding-top: 0.5rem;
         }
 
-        /* TWO-TIER NAVIGATION */
+        /* NAVIGATION — single row, topics | regions */
         .site-nav {
             background: #111;
             border-bottom: 3px solid #1a3a2a;
-        }
-
-        .nav-row {
             display: flex;
             justify-content: center;
-            align-items: stretch;
-            gap: 0;
+            align-items: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
 
-        .nav-issues {
-            border-bottom: 1px solid #222;
-        }
+        .site-nav::-webkit-scrollbar { display: none; }
 
-        .nav-row a {
+        .site-nav a {
             font-size: 0.72rem;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.07em;
             text-transform: uppercase;
             color: #888;
             white-space: nowrap;
             font-weight: 600;
-            padding: 0.55rem 0.9rem;
+            padding: 0.65rem 0.8rem;
             border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
             transition: color 0.15s, border-color 0.15s;
-            text-align: center;
         }
 
-        .nav-row a:hover {
+        .site-nav a:hover {
             color: #fff;
             border-bottom-color: #1a3a2a;
         }
 
-        .nav-row a.nav-active {
+        .site-nav a.nav-active {
             color: #fff;
             border-bottom-color: #1a3a2a;
+        }
+
+        .nav-divider {
+            color: #444;
+            padding: 0 0.25rem;
+            font-size: 1rem;
+            user-select: none;
+            flex-shrink: 0;
         }
 
         /* Kids Corner — only item that stands out */
-        .nav-row a.nav-kids {
+        .site-nav a.nav-kids {
             font-family: 'Fredoka One', cursive;
             color: #ffd93d;
             font-size: 0.88rem;
             letter-spacing: 0.04em;
         }
 
-        .nav-row a.nav-kids:hover {
+        .site-nav a.nav-kids:hover {
             color: #ffd93d;
             border-bottom-color: #ffd93d;
         }
@@ -246,6 +249,42 @@
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: rgba(255,255,255,0.5);
+        }
+
+        /* FEATURED — two-column on desktop: image left, content right */
+        @media (min-width: 769px) {
+            .card.featured {
+                display: grid;
+                grid-template-columns: 45% 55%;
+                grid-template-rows: auto;
+                gap: 0;
+                padding: 0;
+                border-top: 5px solid #1a3a2a;
+                max-width: 900px;
+            }
+
+            .card.featured .card-img,
+            .card.featured .card-img-placeholder {
+                grid-column: 1;
+                grid-row: 1 / 99;
+                height: 100%;
+                min-height: 320px;
+                margin-bottom: 0;
+            }
+
+            .card.featured .card-meta,
+            .card.featured .card-title,
+            .card.featured .card-summary,
+            .card.featured .narrative-analysis,
+            .card.featured .factors,
+            .card.featured .card-footer {
+                grid-column: 2;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .card.featured .card-meta { padding-top: 1.5rem; }
+            .card.featured .card-footer { padding-bottom: 1.5rem; }
         }
 
         .featured .card-img,
@@ -952,10 +991,10 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 16:25 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 17:04 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
-<nav class="site-nav"><div class="nav-row nav-issues"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids">Kids Corner</a></div><div class="nav-row nav-regions"><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a></div></nav>
+<nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids">Kids Corner</a><span class="nav-divider">|</span><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a></nav>
 
 <div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
 

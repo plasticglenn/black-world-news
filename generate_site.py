@@ -84,7 +84,7 @@ ISSUE_GROUPS = {
 
 
 def make_two_tier_nav(active_region="", active_issue=""):
-    """Returns the two-tier BBC-style nav HTML. Pass active_region or active_issue to highlight."""
+    """Single-row nav: issues | regions, separated by a pipe divider."""
     issues = [
         ("Policing",   "policing.html",  "policing"),
         ("Politics",   "politics.html",  "politics"),
@@ -94,12 +94,12 @@ def make_two_tier_nav(active_region="", active_issue=""):
         ("Culture",    "culture.html",   "culture"),
     ]
     regions = [
-        ("Latest",        "index.html",    ""),
-        ("N. America",    "namerica.html", "namerica"),
-        ("S. America",    "samerica.html", "samerica"),
-        ("Africa",        "africa.html",   "africa"),
-        ("Europe",        "europe.html",   "europe"),
-        ("Asia & Pacific","asia.html",     "asia"),
+        ("Latest",         "index.html",    ""),
+        ("N. America",     "namerica.html", "namerica"),
+        ("S. America",     "samerica.html", "samerica"),
+        ("Africa",         "africa.html",   "africa"),
+        ("Europe",         "europe.html",   "europe"),
+        ("Asia & Pacific", "asia.html",     "asia"),
     ]
     issue_links = "".join(
         f'<a href="{url}" class="nav-issue{" nav-active" if key == active_issue else ""}">{label}</a>'
@@ -112,8 +112,9 @@ def make_two_tier_nav(active_region="", active_issue=""):
     )
     return (
         f'<nav class="site-nav">'
-        f'<div class="nav-row nav-issues">{issue_links}</div>'
-        f'<div class="nav-row nav-regions">{region_links}</div>'
+        f'{issue_links}'
+        f'<span class="nav-divider">|</span>'
+        f'{region_links}'
         f'</nav>'
     )
 
@@ -464,56 +465,59 @@ def build_html(stories, cache):
             padding-top: 0.5rem;
         }}
 
-        /* TWO-TIER NAVIGATION */
+        /* NAVIGATION — single row, topics | regions */
         .site-nav {{
             background: #111;
             border-bottom: 3px solid #1a3a2a;
-        }}
-
-        .nav-row {{
             display: flex;
             justify-content: center;
-            align-items: stretch;
-            gap: 0;
+            align-items: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
         }}
 
-        .nav-issues {{
-            border-bottom: 1px solid #222;
-        }}
+        .site-nav::-webkit-scrollbar {{ display: none; }}
 
-        .nav-row a {{
+        .site-nav a {{
             font-size: 0.72rem;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.07em;
             text-transform: uppercase;
             color: #888;
             white-space: nowrap;
             font-weight: 600;
-            padding: 0.55rem 0.9rem;
+            padding: 0.65rem 0.8rem;
             border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
             transition: color 0.15s, border-color 0.15s;
-            text-align: center;
         }}
 
-        .nav-row a:hover {{
+        .site-nav a:hover {{
             color: #fff;
             border-bottom-color: #1a3a2a;
         }}
 
-        .nav-row a.nav-active {{
+        .site-nav a.nav-active {{
             color: #fff;
             border-bottom-color: #1a3a2a;
+        }}
+
+        .nav-divider {{
+            color: #444;
+            padding: 0 0.25rem;
+            font-size: 1rem;
+            user-select: none;
+            flex-shrink: 0;
         }}
 
         /* Kids Corner — only item that stands out */
-        .nav-row a.nav-kids {{
+        .site-nav a.nav-kids {{
             font-family: 'Fredoka One', cursive;
             color: #ffd93d;
             font-size: 0.88rem;
             letter-spacing: 0.04em;
         }}
 
-        .nav-row a.nav-kids:hover {{
+        .site-nav a.nav-kids:hover {{
             color: #ffd93d;
             border-bottom-color: #ffd93d;
         }}
@@ -619,6 +623,42 @@ def build_html(stories, cache):
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: rgba(255,255,255,0.5);
+        }}
+
+        /* FEATURED — two-column on desktop: image left, content right */
+        @media (min-width: 769px) {{
+            .card.featured {{
+                display: grid;
+                grid-template-columns: 45% 55%;
+                grid-template-rows: auto;
+                gap: 0;
+                padding: 0;
+                border-top: 5px solid #1a3a2a;
+                max-width: 900px;
+            }}
+
+            .card.featured .card-img,
+            .card.featured .card-img-placeholder {{
+                grid-column: 1;
+                grid-row: 1 / 99;
+                height: 100%;
+                min-height: 320px;
+                margin-bottom: 0;
+            }}
+
+            .card.featured .card-meta,
+            .card.featured .card-title,
+            .card.featured .card-summary,
+            .card.featured .narrative-analysis,
+            .card.featured .factors,
+            .card.featured .card-footer {{
+                grid-column: 2;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }}
+
+            .card.featured .card-meta {{ padding-top: 1.5rem; }}
+            .card.featured .card-footer {{ padding-bottom: 1.5rem; }}
         }}
 
         .featured .card-img,
@@ -1742,14 +1782,14 @@ def build_region_page(region_id, region, all_stories, cache):
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
-        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;}}
-        .nav-row{{display:flex;justify-content:center;align-items:stretch;gap:0;}}
-        .nav-issues{{border-bottom:1px solid #222;}}
-        .nav-row a{{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;padding:0.55rem 0.9rem;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;text-align:center;color:#888;}}
-        .nav-row a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .nav-row a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
-        .nav-row a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
-        .nav-row a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:center;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}}
+        .site-nav::-webkit-scrollbar{{display:none;}}
+        .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
+        .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .site-nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
+        .site-nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .site-nav a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
+        .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
         .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
         .page-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}}
         .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}
@@ -1816,14 +1856,14 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
-        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;}}
-        .nav-row{{display:flex;justify-content:center;align-items:stretch;gap:0;}}
-        .nav-issues{{border-bottom:1px solid #222;}}
-        .nav-row a{{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;padding:0.55rem 0.9rem;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;text-align:center;color:#888;}}
-        .nav-row a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
-        .nav-row a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
-        .nav-row a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
-        .nav-row a.nav-active{{border-bottom-color:{color};color:#fff;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:center;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}}
+        .site-nav::-webkit-scrollbar{{display:none;}}
+        .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
+        .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .site-nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
+        .site-nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .site-nav a.nav-active{{border-bottom-color:{color};color:#fff;}}
+        .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
         .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
         .page-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}}
         .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}
