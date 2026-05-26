@@ -132,9 +132,11 @@ def save_image_cache(cache):
     with open(IMAGE_CACHE, "w") as f:
         json.dump(cache, f, indent=2)
 
-def pexels_image(query, cache):
-    if query in cache:
-        return cache[query]
+def pexels_image(query, cache, size="large"):
+    # Cache key separates sizes so "large" and "large2x" don't collide
+    cache_key = query if size == "large" else f"{query}::{size}"
+    if cache_key in cache:
+        return cache[cache_key]
     if not PEXELS_KEY:
         return ""
     try:
@@ -145,18 +147,22 @@ def pexels_image(query, cache):
             timeout=10
         )
         photos = r.json().get("photos", [])
-        url = photos[0]["src"]["large"] if photos else ""
-        cache[query] = url
+        src = photos[0]["src"] if photos else {}
+        url = src.get(size) or src.get("large2x") or src.get("large") or ""
+        cache[cache_key] = url
         return url
     except:
-        cache[query] = ""
+        cache[cache_key] = ""
         return ""
 
 def story_image(story, cache, featured=False, used_images=None):
     # used_images is a set we pass around to track what has already appeared on the page.
     # If an image URL has been used before, we skip it and try a different query.
+    #
+    # For featured: skip the article's og:image (often grainy) and force a clean
+    # high-res Pexels photo. For everything else, prefer og:image (article's own).
     og = story.get("image", "")
-    if og:
+    if og and not featured:
         if used_images is not None:
             if og in used_images:
                 og = ""  # already on the page — fall through to Pexels
@@ -179,7 +185,7 @@ def story_image(story, cache, featured=False, used_images=None):
     ]
 
     for query in queries:
-        url = pexels_image(query, cache)
+        url = pexels_image(query, cache, size="large2x" if featured else "large")
         if url and (used_images is None or url not in used_images):
             if used_images is not None:
                 used_images.add(url)
@@ -204,6 +210,18 @@ def load_stories():
         return []
     with open(ARCHIVE_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_highlights():
+    # Curated external highlights for the homepage sidebar.
+    # Edit highlights.json by hand. Format: [{title, url, image, caption, source}]
+    if not os.path.exists("highlights.json"):
+        return []
+    try:
+        with open("highlights.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
 
 
 def framing_badge(framing):
@@ -340,8 +358,52 @@ def build_html(stories, cache):
     # Track which image URLs have already been used — no duplicates on the page
     used_images = set()
 
-    # Build featured block
-    featured_html = story_card(featured, featured=True, cache=cache, used_images=used_images) if featured else ""
+    # Build hero block (BBC-style 3-column lead): featured text | featured image | highlights sidebar
+    hero_html = ""
+    if featured:
+        hero_img = story_image(featured, cache, featured=True, used_images=used_images)
+        hero_flag = COUNTRY_FLAGS.get(featured.get("country", ""), "🌍")
+        hero_img_html = (
+            f'<img class="hero-img" src="{hero_img}" alt="" loading="lazy">'
+            if hero_img else
+            '<div class="hero-img" style="background:#1a3a2a"></div>'
+        )
+
+        # Curated highlights from highlights.json (external, hand-picked)
+        highlights = load_highlights()
+        if highlights:
+            highlights_html = "".join(
+                f'''<div class="highlight">
+                    <img class="highlight-img" src="{h.get("image","")}" alt="" loading="lazy" onerror="this.style.display='none'">
+                    <h3 class="highlight-title"><a href="{h.get("url","#")}" target="_blank" rel="noopener">{h.get("title","")}</a></h3>
+                    <p class="highlight-caption">{h.get("caption","")}</p>
+                </div>'''
+                for h in highlights[:3]
+            )
+        else:
+            highlights_html = '<p style="color:#888;font-size:0.8rem;font-style:italic">Add curated highlights to highlights.json</p>'
+
+        hero_html = f'''
+        <section class="hero">
+            <div class="hero-text">
+                <div class="card-meta">
+                    <span class="flag-country">{hero_flag} {featured.get("country","")}</span>
+                    <span class="category">{featured.get("category","")}</span>
+                    {framing_badge(featured.get("narrative_framing",""))}
+                </div>
+                <h2 class="hero-title"><a href="{featured.get("url","#")}" target="_blank" rel="noopener">{featured.get("title","")}</a></h2>
+                <p class="hero-summary">{featured.get("summary","")}</p>
+                <div class="hero-meta-bottom">
+                    <span class="saved-at">{featured.get("saved_at","")}</span>
+                    <a href="{featured.get("url","#")}" class="read-more" target="_blank" rel="noopener">Read original &rarr;</a>
+                </div>
+            </div>
+            <div class="hero-image">{hero_img_html}</div>
+            <aside class="hero-sidebar">
+                <h4 class="sidebar-label">In Focus</h4>
+                {highlights_html}
+            </aside>
+        </section>'''
 
     # Build latest grid
     latest_html = "".join(story_card(s, cache=cache, used_images=used_images) for s in latest)
@@ -629,45 +691,137 @@ def build_html(stories, cache):
             color: rgba(255,255,255,0.5);
         }}
 
-        /* FEATURED — two-column on desktop: image left, content right */
-        @media (min-width: 769px) {{
-            .card.featured {{
-                display: grid;
-                grid-template-columns: 45% 55%;
-                grid-template-rows: auto;
-                gap: 0;
-                padding: 0;
-                border-top: 5px solid #1a3a2a;
-                max-width: 900px;
-            }}
-
-            .card.featured .card-img,
-            .card.featured .card-img-placeholder {{
-                grid-column: 1;
-                grid-row: 1 / 99;
-                height: 100%;
-                min-height: 320px;
-                margin-bottom: 0;
-            }}
-
-            .card.featured .card-meta,
-            .card.featured .card-title,
-            .card.featured .card-summary,
-            .card.featured .narrative-analysis,
-            .card.featured .factors,
-            .card.featured .card-footer {{
-                grid-column: 2;
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
-            }}
-
-            .card.featured .card-meta {{ padding-top: 1.5rem; }}
-            .card.featured .card-footer {{ padding-bottom: 1.5rem; }}
+        /* HERO — 3-column lead block: text | image | highlights sidebar */
+        .hero {{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1.6fr 1fr;
+            gap: 1.5rem;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            align-items: stretch;
         }}
 
-        .featured .card-img,
-        .featured .card-img-placeholder {{
-            height: 260px;
+        .hero-text {{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-right: 0.5rem;
+        }}
+
+        .hero-title {{
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+            font-weight: 900;
+            line-height: 1.15;
+            color: #111;
+            margin: 0.6rem 0 0.85rem;
+        }}
+
+        .hero-title a:hover {{ color: #1a3a2a; }}
+
+        .hero-summary {{
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }}
+
+        .hero-meta-bottom {{
+            margin-top: auto;
+            padding-top: 0.75rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }}
+
+        .hero-image {{
+            overflow: hidden;
+            min-height: 380px;
+            display: flex;
+        }}
+
+        .hero-img {{
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            object-fit: cover;
+            display: block;
+        }}
+
+        /* HIGHLIGHTS SIDEBAR */
+        .hero-sidebar {{
+            border-left: 1px solid #eee;
+            padding-left: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }}
+
+        .sidebar-label {{
+            font-family: 'Playfair Display', serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1a3a2a;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            border-bottom: 3px solid #1a3a2a;
+            padding-bottom: 0.35rem;
+            margin-bottom: 0.5rem;
+        }}
+
+        .highlight {{
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid #eee;
+        }}
+
+        .highlight:last-child {{
+            border-bottom: none;
+            padding-bottom: 0;
+        }}
+
+        .highlight-img {{
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 0.5rem;
+        }}
+
+        .highlight-title {{
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #111;
+            margin-bottom: 0.3rem;
+        }}
+
+        .highlight-title a:hover {{ color: #1a3a2a; }}
+
+        .highlight-caption {{
+            font-size: 0.78rem;
+            color: #666;
+            line-height: 1.4;
+        }}
+
+        @media (max-width: 900px) {{
+            .hero {{
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 1rem;
+            }}
+            .hero-image {{ min-height: 240px; order: -1; }}
+            .hero-img {{ min-height: 240px; height: 240px; }}
+            .hero-sidebar {{
+                border-left: none;
+                border-top: 1px solid #ddd;
+                padding-left: 0;
+                padding-top: 1rem;
+            }}
         }}
 
         /* CARDS */
@@ -1378,10 +1532,11 @@ def build_html(stories, cache):
 
 <main>
 
-    <!-- FEATURED + LATEST -->
+    <!-- HERO — featured text | image | highlights sidebar -->
+    {hero_html}
+
+    <!-- LATEST -->
     <div class="container" id="latest">
-        <p class="section-label">Featured Story</p>
-        {featured_html}
         <p class="section-label">Latest</p>
         <div class="card-grid">{latest_html}</div>
     </div>
