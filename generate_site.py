@@ -110,11 +110,14 @@ def make_two_tier_nav(active_region="", active_issue=""):
         f'<a href="{url}" class="nav-region{" nav-active" if key == active_region else ""}">{label}</a>'
         for label, url, key in regions
     )
+    search_link = '<a href="search.html" class="nav-search">&#x1F50D; Search</a>'
     return (
         f'<nav class="site-nav">'
         f'{issue_links}'
         f'<span class="nav-divider">|</span>'
         f'{region_links}'
+        f'<span class="nav-divider">|</span>'
+        f'{search_link}'
         f'</nav>'
     )
 
@@ -465,16 +468,17 @@ def build_html(stories, cache):
             padding-top: 0.5rem;
         }}
 
-        /* NAVIGATION — single row, topics | regions */
+        /* NAVIGATION — single row, topics | regions, left-aligned to match breaking bar */
         .site-nav {{
             background: #111;
             border-bottom: 3px solid #1a3a2a;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             flex-wrap: nowrap;
             overflow-x: auto;
             scrollbar-width: none;
+            padding-left: 0.7rem;
         }}
 
         .site-nav::-webkit-scrollbar {{ display: none; }}
@@ -1782,7 +1786,7 @@ def build_region_page(region_id, region, all_stories, cache):
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
-        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:center;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
@@ -1856,7 +1860,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
-        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:center;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
@@ -1913,6 +1917,262 @@ def build_issue_page(issue_id, issue, all_stories, cache):
 </html>"""
 
 
+def build_search_page():
+    # Fully client-side search. Fetches stories.json, filters live in the browser.
+    nav_html = make_two_tier_nav()
+
+    flags_json   = json.dumps(COUNTRY_FLAGS)
+    framing_json = json.dumps(FRAMING_COLORS)
+    regions_json = json.dumps({k: v["countries"] for k, v in REGION_GROUPS.items()})
+    topics_json  = json.dumps({k: v["categories"] for k, v in ISSUE_GROUPS.items()})
+
+    topic_chips = "".join(
+        f'<button class="chip" data-group="topic" data-value="{k}">{v["label"]}</button>'
+        for k, v in ISSUE_GROUPS.items()
+    )
+    region_chips = "".join(
+        f'<button class="chip" data-group="region" data-value="{k}">{v["label"]}</button>'
+        for k, v in REGION_GROUPS.items()
+    )
+    framing_chips = "".join(
+        f'<button class="chip" data-group="framing" data-value="{f}"><span class="chip-dot" style="background:{c}"></span>{f}</button>'
+        for f, c in FRAMING_COLORS.items()
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | Black World News</title>
+    <meta name="description" content="Search every story in the Black World News archive. Filter by topic, region, and framing.">
+    <link rel="canonical" href="https://www.blackworldnews.world/search.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
+        a{{color:inherit;text-decoration:none;}}
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem 0.9rem;text-align:center;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.2rem);font-weight:900;color:#fff;letter-spacing:0.05em;line-height:1;}}
+        .masthead h1 a:hover{{color:#c8d8c0;}}
+        .site-nav{{background:#111;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
+        .site-nav::-webkit-scrollbar{{display:none;}}
+        .site-nav a{{font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#888;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;}}
+        .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .site-nav a.nav-active{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .site-nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.88rem;letter-spacing:0.04em;}}
+        .site-nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        .site-nav a.nav-search{{color:#8ab89a;}}
+        .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
+
+        .search-bar{{background:#fff;border-bottom:1px solid #ddd;padding:1.5rem;}}
+        .search-bar-inner{{max-width:1200px;margin:0 auto;}}
+        #search-input{{width:100%;font-family:'Source Sans 3',sans-serif;font-size:1.1rem;padding:0.85rem 1rem;border:2px solid #1a3a2a;background:#fff;color:#111;outline:none;transition:border-color 0.15s;}}
+        #search-input:focus{{border-color:#0a2a1a;}}
+
+        .filters{{max-width:1200px;margin:0 auto;padding:1.5rem 1.5rem 0.5rem;}}
+        .filter-row{{margin-bottom:0.9rem;display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;}}
+        .filter-label{{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:#666;margin-right:0.4rem;min-width:75px;}}
+        .chip{{font-family:inherit;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;padding:0.35rem 0.75rem;background:#fff;border:1px solid #ccc;color:#555;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:0.35rem;}}
+        .chip:hover{{border-color:#1a3a2a;color:#1a3a2a;}}
+        .chip.chip-active{{background:#1a3a2a;color:#fff;border-color:#1a3a2a;}}
+        .chip-dot{{display:inline-block;width:8px;height:8px;border-radius:50%;}}
+
+        .results-meta{{max-width:1200px;margin:0 auto;padding:1rem 1.5rem;font-size:0.85rem;color:#666;border-top:1px solid #ddd;}}
+        .results-meta strong{{color:#1a3a2a;}}
+
+        .results-container{{max-width:1200px;margin:0 auto;padding:0 1.5rem 3rem;}}
+        .card-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.75rem;}}
+        .card{{background:#fff;border:1px solid #ddd;border-top:3px solid transparent;padding:0.85rem 1rem;transition:border-top-color 0.2s,box-shadow 0.2s;}}
+        .card:hover{{border-top-color:#1a3a2a;box-shadow:0 2px 8px rgba(0,0,0,0.08);}}
+        .card-img{{width:100%;height:160px;object-fit:cover;display:block;margin-bottom:0.75rem;}}
+        .card-meta{{display:flex;flex-wrap:wrap;align-items:center;gap:0.4rem;margin-bottom:0.4rem;}}
+        .flag-country{{font-size:0.78rem;color:#1a3a2a;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}}
+        .category{{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;background:#eef4f0;border:1px solid #c5daca;padding:0.15rem 0.5rem;color:#1a3a2a;font-weight:600;}}
+        .framing-dot{{display:inline-block;width:8px;height:8px;border-radius:50%;}}
+        .card-title{{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#111;margin-bottom:0.35rem;line-height:1.3;}}
+        .card-title a:hover{{color:#1a3a2a;}}
+        .card-summary{{font-size:0.85rem;color:#444;line-height:1.45;}}
+
+        .empty{{padding:3rem 1rem;text-align:center;color:#888;font-style:italic;}}
+        .clear-all{{background:none;border:none;color:#1a3a2a;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;padding:0.35rem 0.5rem;}}
+        .clear-all:hover{{text-decoration:underline;}}
+
+        footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;}}
+        footer strong{{color:#8ab89a;}}
+
+        @media (max-width:768px){{
+            .masthead h1{{font-size:1.3rem;}}
+            #search-input{{font-size:1rem;}}
+            .filter-label{{min-width:auto;width:100%;margin-bottom:0.25rem;}}
+            .card-grid{{grid-template-columns:1fr;}}
+        }}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+</header>
+{nav_html}
+
+<div class="search-bar">
+    <div class="search-bar-inner">
+        <input id="search-input" type="search" placeholder="Search by keyword. Try: police, Ghana, debt, students..." autocomplete="off">
+    </div>
+</div>
+
+<div class="filters">
+    <div class="filter-row">
+        <span class="filter-label">Topic</span>
+        {topic_chips}
+    </div>
+    <div class="filter-row">
+        <span class="filter-label">Region</span>
+        {region_chips}
+    </div>
+    <div class="filter-row">
+        <span class="filter-label">Framing</span>
+        {framing_chips}
+        <button class="clear-all" id="clear-all">Clear all</button>
+    </div>
+</div>
+
+<div class="results-meta">
+    Showing <strong id="result-count">0</strong> of <strong id="total-count">0</strong> stories
+</div>
+
+<div class="results-container">
+    <div id="results" class="card-grid"></div>
+</div>
+
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong></p>
+    <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to the original source.</p>
+</footer>
+
+<script>
+    const FLAGS    = {flags_json};
+    const FRAMING  = {framing_json};
+    const REGIONS  = {regions_json};
+    const TOPICS   = {topics_json};
+
+    let allStories = [];
+    let filters = {{ q: '', topic: new Set(), region: new Set(), framing: new Set() }};
+
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => document.querySelectorAll(sel);
+
+    function escapeHtml(s) {{
+        return String(s == null ? '' : s).replace(/[<>&"']/g, c => (
+            {{'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}}[c]
+        ));
+    }}
+
+    function matches(story) {{
+        if (filters.q) {{
+            const hay = ((story.title || '') + ' ' + (story.summary || '') + ' ' + (story.country || '') + ' ' + (story.category || '')).toLowerCase();
+            if (!hay.includes(filters.q)) return false;
+        }}
+        if (filters.topic.size > 0) {{
+            let hit = false;
+            for (const t of filters.topic) {{
+                if ((TOPICS[t] || []).includes(story.category)) {{ hit = true; break; }}
+            }}
+            if (!hit) return false;
+        }}
+        if (filters.region.size > 0) {{
+            let hit = false;
+            for (const r of filters.region) {{
+                if ((REGIONS[r] || []).includes(story.country)) {{ hit = true; break; }}
+            }}
+            if (!hit) return false;
+        }}
+        if (filters.framing.size > 0) {{
+            if (!filters.framing.has(story.narrative_framing)) return false;
+        }}
+        return true;
+    }}
+
+    function cardHtml(s) {{
+        const flag    = FLAGS[s.country] || '🌍';
+        const fcolor  = FRAMING[s.narrative_framing] || '';
+        const dot     = fcolor ? `<span class="framing-dot" style="background:${{fcolor}}" title="${{escapeHtml(s.narrative_framing)}}"></span>` : '';
+        const img     = s.image ? `<img class="card-img" src="${{escapeHtml(s.image)}}" alt="" loading="lazy" onerror="this.remove()">` : '';
+        return `
+            <div class="card">
+                ${{img}}
+                <div class="card-meta">
+                    <span class="flag-country">${{flag}} ${{escapeHtml(s.country)}}</span>
+                    <span class="category">${{escapeHtml(s.category)}}</span>
+                    ${{dot}}
+                </div>
+                <h2 class="card-title"><a href="${{escapeHtml(s.url)}}" target="_blank" rel="noopener">${{escapeHtml(s.title)}}</a></h2>
+                <p class="card-summary">${{escapeHtml(s.summary)}}</p>
+            </div>`;
+    }}
+
+    function render() {{
+        const matching = allStories.filter(matches);
+        $('#result-count').textContent = matching.length;
+        if (matching.length === 0) {{
+            $('#results').innerHTML = '<div class="empty">No stories match your search. Try clearing some filters.</div>';
+            return;
+        }}
+        // Cap at 150 cards for performance — enough to scroll through
+        $('#results').innerHTML = matching.slice(0, 150).map(cardHtml).join('');
+    }}
+
+    // Wire up the search input (debounced)
+    let searchTimer;
+    $('#search-input').addEventListener('input', e => {{
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {{
+            filters.q = e.target.value.toLowerCase().trim();
+            render();
+        }}, 120);
+    }});
+
+    // Wire up chips
+    $$('.chip').forEach(chip => {{
+        chip.addEventListener('click', () => {{
+            const group = chip.dataset.group;
+            const value = chip.dataset.value;
+            chip.classList.toggle('chip-active');
+            if (chip.classList.contains('chip-active')) {{
+                filters[group].add(value);
+            }} else {{
+                filters[group].delete(value);
+            }}
+            render();
+        }});
+    }});
+
+    // Clear all
+    $('#clear-all').addEventListener('click', () => {{
+        filters = {{ q: '', topic: new Set(), region: new Set(), framing: new Set() }};
+        $('#search-input').value = '';
+        $$('.chip.chip-active').forEach(c => c.classList.remove('chip-active'));
+        render();
+    }});
+
+    // Fetch and render
+    fetch('stories.json')
+        .then(r => r.json())
+        .then(stories => {{
+            allStories = stories.sort((a, b) => (b.saved_at || '').localeCompare(a.saved_at || ''));
+            $('#total-count').textContent = stories.length;
+            render();
+        }})
+        .catch(() => {{
+            $('#results').innerHTML = '<div class="empty">Could not load stories. Try refreshing the page.</div>';
+        }});
+</script>
+
+</body>
+</html>"""
+
+
 def main():
     stories = load_stories()
     if not stories:
@@ -1950,6 +2210,11 @@ def main():
             f.write(build_issue_page(issue_id, issue, stories, cache))
         print(f"Issue page generated: {filename}")
 
+    # Build the search page (client-side, reads stories.json in browser)
+    with open("search.html", "w", encoding="utf-8") as f:
+        f.write(build_search_page())
+    print("Search page generated: search.html")
+
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")
     print(f"Total stories: {len(stories)}")
@@ -1973,6 +2238,7 @@ def main():
   <url><loc>https://www.blackworldnews.world/education.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/culture.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/kids.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/search.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.blackworldnews.world/about.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/resources.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
