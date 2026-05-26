@@ -610,7 +610,7 @@ def build_html(stories, cache):
             border-bottom: 3px solid #1a3a2a;
             display: flex;
             justify-content: flex-start;
-            align-items: center;
+            align-items: flex-end;
             flex-wrap: nowrap;
             overflow-x: auto;
             scrollbar-width: none;
@@ -2068,7 +2068,7 @@ def build_region_page(region_id, region, all_stories, cache):
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
-        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:flex-end;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
@@ -2145,7 +2145,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
-        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:flex-end;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
         .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
