@@ -889,7 +889,7 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:16 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:17 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
 <nav>
@@ -899,7 +899,7 @@
     <a href="#united-states">United States</a><a href="#united-kingdom">United Kingdom</a><a href="#canada">Canada</a><a href="#france">France</a><a href="#nigeria">Nigeria</a><a href="#ghana">Ghana</a><a href="#south-africa">South Africa</a><a href="#other-global">Other/Global</a>
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring 207 stories across 8 regions. Updated May 26, 2026 — 15:16</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
 
 <main>
 
@@ -3790,6 +3790,12 @@
 </footer>
 
 <script>
+  // Always show today's date in the breaking bar — runs in the visitor's browser
+  const today = new Date();
+  const options = { month: 'long', day: 'numeric', year: 'numeric' };
+  const dateEl = document.getElementById('live-date');
+  if (dateEl) dateEl.textContent = today.toLocaleDateString('en-US', options);
+
   // If the URL contains ?admin — show the hidden stats
   // Example: https://www.blackworldnews.world?admin
   if (window.location.search.includes('admin')) {

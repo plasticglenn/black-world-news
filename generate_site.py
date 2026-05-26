@@ -1210,7 +1210,7 @@ def build_html(stories, cache):
     {''.join(f'<a href="#{c.lower().replace(" ", "-").replace("/", "-")}">{c}</a>' for c in REGION_ORDER if c in by_country)}
 </nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring {total} stories across {len(by_country)} regions. Updated {now}</div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
 
 <main>
 
@@ -1259,6 +1259,12 @@ def build_html(stories, cache):
 </footer>
 
 <script>
+  // Always show today's date in the breaking bar — runs in the visitor's browser
+  const today = new Date();
+  const options = {{ month: 'long', day: 'numeric', year: 'numeric' }};
+  const dateEl = document.getElementById('live-date');
+  if (dateEl) dateEl.textContent = today.toLocaleDateString('en-US', options);
+
   // If the URL contains ?admin — show the hidden stats
   // Example: https://www.blackworldnews.world?admin
   if (window.location.search.includes('admin')) {{
