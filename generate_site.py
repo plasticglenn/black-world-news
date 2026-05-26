@@ -419,46 +419,47 @@ def build_html(stories, cache):
 
         /* NAVIGATION */
         nav {{
-            background: #0a0a0a;
+            background: #111;
+            padding: 0 1.5rem;
             display: flex;
             justify-content: center;
-            align-items: stretch;
-            border-bottom: 1px solid #222;
+            gap: 0;
+            border-bottom: 3px solid #1a3a2a;
             overflow: hidden;
         }}
 
         nav a {{
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #888;
+            color: #ccc;
             white-space: nowrap;
-            padding: 0.85rem 1.1rem;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
             border-bottom: 3px solid transparent;
-            margin-bottom: -1px;
-            transition: color 0.15s, border-color 0.15s, background 0.15s;
+            margin-bottom: -3px;
+            transition: color 0.15s, border-color 0.15s;
             flex: 1;
             text-align: center;
         }}
 
-        nav a:hover {{ background: #161616; }}
+        nav a:hover {{
+            color: #fff;
+            border-bottom-color: #1a3a2a;
+        }}
 
-        nav a.nav-latest          {{ color: #ffd93d; }}
-        nav a.nav-latest:hover    {{ border-bottom-color: #ffd93d; color: #ffd93d; }}
-        nav a.nav-kids            {{ color: #ff6b6b; }}
-        nav a.nav-kids:hover      {{ border-bottom-color: #ff6b6b; color: #ff6b6b; }}
-        nav a.nav-namerica        {{ color: #4d96ff; }}
-        nav a.nav-namerica:hover  {{ border-bottom-color: #4d96ff; color: #4d96ff; }}
-        nav a.nav-samerica        {{ color: #6bcb77; }}
-        nav a.nav-samerica:hover  {{ border-bottom-color: #6bcb77; color: #6bcb77; }}
-        nav a.nav-africa          {{ color: #f9844a; }}
-        nav a.nav-africa:hover    {{ border-bottom-color: #f9844a; color: #f9844a; }}
-        nav a.nav-europe          {{ color: #c77dff; }}
-        nav a.nav-europe:hover    {{ border-bottom-color: #c77dff; color: #c77dff; }}
-        nav a.nav-asia            {{ color: #00d4ff; }}
-        nav a.nav-asia:hover      {{ border-bottom-color: #00d4ff; color: #00d4ff; }}
+        /* Kids Corner is the only nav item that stands out */
+        nav a.nav-kids {{
+            font-family: 'Fredoka One', cursive;
+            color: #ffd93d;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+        }}
+
+        nav a.nav-kids:hover {{
+            color: #ffd93d;
+            border-bottom-color: #ffd93d;
+        }}
 
         /* BREAKING BAR */
         .breaking-bar {{
@@ -1691,7 +1692,7 @@ def build_region_page(region_id, region, all_stories, cache):
     <meta name="author" content="Black World News">
     <link rel="canonical" href="https://www.blackworldnews.world/{region_id}.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
         body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
@@ -1703,14 +1704,10 @@ def build_region_page(region_id, region, all_stories, cache):
         nav{{background:#0a0a0a;display:flex;justify-content:center;align-items:stretch;border-bottom:1px solid #222;overflow:hidden;}}
         nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;padding:0.85rem 1.1rem;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;flex:1;text-align:center;color:#888;}}
         nav a:hover{{background:#161616;}}
-        nav a.nav-latest{{color:#ffd93d;}} nav a.nav-latest:hover{{border-bottom-color:#ffd93d;}}
-        nav a.nav-kids{{color:#ff6b6b;}} nav a.nav-kids:hover{{border-bottom-color:#ff6b6b;}}
-        nav a.nav-namerica{{color:#4d96ff;}} nav a.nav-namerica:hover{{border-bottom-color:#4d96ff;}}
-        nav a.nav-samerica{{color:#6bcb77;}} nav a.nav-samerica:hover{{border-bottom-color:#6bcb77;}}
-        nav a.nav-africa{{color:#f9844a;}} nav a.nav-africa:hover{{border-bottom-color:#f9844a;}}
-        nav a.nav-europe{{color:#c77dff;}} nav a.nav-europe:hover{{border-bottom-color:#c77dff;}}
-        nav a.nav-asia{{color:#00d4ff;}} nav a.nav-asia:hover{{border-bottom-color:#00d4ff;}}
-        nav a.nav-active{{border-bottom-color:currentColor;background:#161616;}}
+        nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        nav a.nav-kids{{font-family:'Fredoka One',cursive;color:#ffd93d;font-size:0.85rem;letter-spacing:0.04em;}}
+        nav a.nav-kids:hover{{color:#ffd93d;border-bottom-color:#ffd93d;}}
+        nav a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
         .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
         .page-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}}
         .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}

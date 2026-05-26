@@ -93,46 +93,47 @@
 
         /* NAVIGATION */
         nav {
-            background: #0a0a0a;
+            background: #111;
+            padding: 0 1.5rem;
             display: flex;
             justify-content: center;
-            align-items: stretch;
-            border-bottom: 1px solid #222;
+            gap: 0;
+            border-bottom: 3px solid #1a3a2a;
             overflow: hidden;
         }
 
         nav a {
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #888;
+            color: #ccc;
             white-space: nowrap;
-            padding: 0.85rem 1.1rem;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
             border-bottom: 3px solid transparent;
-            margin-bottom: -1px;
-            transition: color 0.15s, border-color 0.15s, background 0.15s;
+            margin-bottom: -3px;
+            transition: color 0.15s, border-color 0.15s;
             flex: 1;
             text-align: center;
         }
 
-        nav a:hover { background: #161616; }
+        nav a:hover {
+            color: #fff;
+            border-bottom-color: #1a3a2a;
+        }
 
-        nav a.nav-latest          { color: #ffd93d; }
-        nav a.nav-latest:hover    { border-bottom-color: #ffd93d; color: #ffd93d; }
-        nav a.nav-kids            { color: #ff6b6b; }
-        nav a.nav-kids:hover      { border-bottom-color: #ff6b6b; color: #ff6b6b; }
-        nav a.nav-namerica        { color: #4d96ff; }
-        nav a.nav-namerica:hover  { border-bottom-color: #4d96ff; color: #4d96ff; }
-        nav a.nav-samerica        { color: #6bcb77; }
-        nav a.nav-samerica:hover  { border-bottom-color: #6bcb77; color: #6bcb77; }
-        nav a.nav-africa          { color: #f9844a; }
-        nav a.nav-africa:hover    { border-bottom-color: #f9844a; color: #f9844a; }
-        nav a.nav-europe          { color: #c77dff; }
-        nav a.nav-europe:hover    { border-bottom-color: #c77dff; color: #c77dff; }
-        nav a.nav-asia            { color: #00d4ff; }
-        nav a.nav-asia:hover      { border-bottom-color: #00d4ff; color: #00d4ff; }
+        /* Kids Corner is the only nav item that stands out */
+        nav a.nav-kids {
+            font-family: 'Fredoka One', cursive;
+            color: #ffd93d;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+        }
+
+        nav a.nav-kids:hover {
+            color: #ffd93d;
+            border-bottom-color: #ffd93d;
+        }
 
         /* BREAKING BAR */
         .breaking-bar {
@@ -937,7 +938,7 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:31 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:38 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
 <nav>
