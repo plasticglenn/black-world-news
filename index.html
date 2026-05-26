@@ -93,31 +93,46 @@
 
         /* NAVIGATION */
         nav {
-            background: #111;
-            padding: 0 1.5rem;
+            background: #0a0a0a;
             display: flex;
-            gap: 0;
-            overflow-x: auto;
-            border-bottom: 3px solid #1a3a2a;
+            justify-content: center;
+            align-items: stretch;
+            border-bottom: 1px solid #222;
+            overflow: hidden;
         }
 
         nav a {
-            font-size: 0.78rem;
-            letter-spacing: 0.08em;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #ccc;
+            color: #888;
             white-space: nowrap;
-            font-weight: 600;
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1.1rem;
             border-bottom: 3px solid transparent;
-            margin-bottom: -3px;
-            transition: color 0.15s, border-color 0.15s;
+            margin-bottom: -1px;
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
+            flex: 1;
+            text-align: center;
         }
 
-        nav a:hover {
-            color: #fff;
-            border-bottom-color: #1a3a2a;
-        }
+        nav a:hover { background: #161616; }
+
+        nav a.nav-latest          { color: #ffd93d; }
+        nav a.nav-latest:hover    { border-bottom-color: #ffd93d; color: #ffd93d; }
+        nav a.nav-kids            { color: #ff6b6b; }
+        nav a.nav-kids:hover      { border-bottom-color: #ff6b6b; color: #ff6b6b; }
+        nav a.nav-namerica        { color: #4d96ff; }
+        nav a.nav-namerica:hover  { border-bottom-color: #4d96ff; color: #4d96ff; }
+        nav a.nav-samerica        { color: #6bcb77; }
+        nav a.nav-samerica:hover  { border-bottom-color: #6bcb77; color: #6bcb77; }
+        nav a.nav-africa          { color: #f9844a; }
+        nav a.nav-africa:hover    { border-bottom-color: #f9844a; color: #f9844a; }
+        nav a.nav-europe          { color: #c77dff; }
+        nav a.nav-europe:hover    { border-bottom-color: #c77dff; color: #c77dff; }
+        nav a.nav-asia            { color: #00d4ff; }
+        nav a.nav-asia:hover      { border-bottom-color: #00d4ff; color: #00d4ff; }
 
         /* BREAKING BAR */
         .breaking-bar {
@@ -889,14 +904,17 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:17 &nbsp;|&nbsp; 207 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 26, 2026 — 15:21 &nbsp;|&nbsp; 207 stories in archive</p>
 </header>
 
 <nav>
-    <a href="#latest">Latest</a>
-    <a href="kids.html">For the Children</a>
-    <a href="#archive">Archive</a>
-    <a href="#united-states">United States</a><a href="#united-kingdom">United Kingdom</a><a href="#canada">Canada</a><a href="#france">France</a><a href="#nigeria">Nigeria</a><a href="#ghana">Ghana</a><a href="#south-africa">South Africa</a><a href="#other-global">Other/Global</a>
+    <a href="#latest"      class="nav-latest">Latest</a>
+    <a href="kids.html"    class="nav-kids">Kids Corner</a>
+    <a href="#namerica"    class="nav-namerica">N. America</a>
+    <a href="#samerica"    class="nav-samerica">S. America</a>
+    <a href="#africa"      class="nav-africa">Africa</a>
+    <a href="#europe"      class="nav-europe">Europe</a>
+    <a href="#asia"        class="nav-asia">Asia &amp; Pacific</a>
 </nav>
 
 <div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
@@ -1050,8 +1068,10 @@
     <!-- ARCHIVE BY REGION -->
     <div class="container" id="archive">
         
-        <section class="country-section">
-            <h3 class="country-heading">🇺🇸 United States <span class="count">(91)</span></h3>
+        <section class="country-section" id="namerica">
+            <h3 class="country-heading" style="border-color:#4d96ff;color:#4d96ff">
+                North America <span class="count">(110)</span>
+            </h3>
             <div class="card-grid">
     <div class="card archive-card">
         <div class="card-meta">
@@ -2235,54 +2255,7 @@
             <span class="saved-at">2026-05-12 14:56</span>
             <a href="https://tminstituteldf.org/what-project-2025-means-for-black-communities/" class="read-more" target="_blank" rel="noopener">Read →</a>
         </div>
-    </div></div>
-        </section>
-        <section class="country-section">
-            <h3 class="country-heading">🇬🇧 United Kingdom <span class="count">(3)</span></h3>
-            <div class="card-grid">
-    <div class="card archive-card">
-        <div class="card-meta">
-            <span class="flag-country">🇬🇧 United Kingdom</span>
-            <span class="category">Healthcare</span>
-            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
-        </div>
-        <h2 class="card-title"><a href="https://ahauk.org/race-and-alcohol-addiction-treatment-services/" target="_blank" rel="noopener">Race and alcohol addiction treatment services - Alcohol Health</a></h2>
-        <p class="card-summary">The article discusses the barriers faced by individuals from Black and Asian backgrounds seeking support for alcohol addiction treatment. The drug and alcohol recovery support service BAC-IN explores these barriers and aims to provide more inclusive services. The article highlights the need for culturally sensitive support services to address the unique challenges faced by these communities.</p>
-        <div class="card-footer">
-            <span class="saved-at">2026-05-19 19:49</span>
-            <a href="https://ahauk.org/race-and-alcohol-addiction-treatment-services/" class="read-more" target="_blank" rel="noopener">Read →</a>
-        </div>
     </div>
-    <div class="card archive-card">
-        <div class="card-meta">
-            <span class="flag-country">🇬🇧 United Kingdom</span>
-            <span class="category">Healthcare</span>
-            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
-        </div>
-        <h2 class="card-title"><a href="https://www.drinkanddrugsnews.com/a-new-model/" target="_blank" rel="noopener">A New Model - Drink and Drugs News</a></h2>
-        <p class="card-summary">The UK government has acquired investment to tackle drug dependence</p>
-        <div class="card-footer">
-            <span class="saved-at">2026-05-19 19:49</span>
-            <a href="https://www.drinkanddrugsnews.com/a-new-model/" class="read-more" target="_blank" rel="noopener">Read →</a>
-        </div>
-    </div>
-    <div class="card archive-card">
-        <div class="card-meta">
-            <span class="flag-country">🇬🇧 United Kingdom</span>
-            <span class="category">Housing</span>
-            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
-        </div>
-        <h2 class="card-title"><a href="https://www.theguardian.com/society/2025/jul/11/race-homelessness-social-housing-study-england-uk" target="_blank" rel="noopener">Black people in England four times as likely to face homelessness, study finds | Homelessness | The Guardian</a></h2>
-        <p class="card-summary">Black people in England are four times as likely to face homelessness as white people</p>
-        <div class="card-footer">
-            <span class="saved-at">2026-05-19 19:48</span>
-            <a href="https://www.theguardian.com/society/2025/jul/11/race-homelessness-social-housing-study-england-uk" class="read-more" target="_blank" rel="noopener">Read →</a>
-        </div>
-    </div></div>
-        </section>
-        <section class="country-section">
-            <h3 class="country-heading">🇨🇦 Canada <span class="count">(19)</span></h3>
-            <div class="card-grid">
     <div class="card archive-card">
         <div class="card-meta">
             <span class="flag-country">🇨🇦 Canada</span>
@@ -2531,25 +2504,10 @@
         </div>
     </div></div>
         </section>
-        <section class="country-section">
-            <h3 class="country-heading">🇫🇷 France <span class="count">(1)</span></h3>
-            <div class="card-grid">
-    <div class="card archive-card">
-        <div class="card-meta">
-            <span class="flag-country">🇫🇷 France</span>
-            <span class="category">Politics</span>
-            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
-        </div>
-        <h2 class="card-title"><a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" target="_blank" rel="noopener">Macron’s China-bashing in Africa: a case... - Friends of Socialist China</a></h2>
-        <p class="card-summary">French President Emmanuel Macron accused China of operating with a</p>
-        <div class="card-footer">
-            <span class="saved-at">2026-05-19 19:54</span>
-            <a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" class="read-more" target="_blank" rel="noopener">Read →</a>
-        </div>
-    </div></div>
-        </section>
-        <section class="country-section">
-            <h3 class="country-heading">🇳🇬 Nigeria <span class="count">(11)</span></h3>
+        <section class="country-section" id="africa">
+            <h3 class="country-heading" style="border-color:#f9844a;color:#f9844a">
+                Africa <span class="count">(93)</span>
+            </h3>
             <div class="card-grid">
     <div class="card archive-card">
         <div class="card-meta">
@@ -2693,11 +2651,7 @@
             <span class="saved-at">2026-05-19 19:52</span>
             <a href="https://www.otowngist.com/2018/08/nigeria-deep-30tr-global-loss-inequality/" class="read-more" target="_blank" rel="noopener">Read →</a>
         </div>
-    </div></div>
-        </section>
-        <section class="country-section">
-            <h3 class="country-heading">🇬🇭 Ghana <span class="count">(12)</span></h3>
-            <div class="card-grid">
+    </div>
     <div class="card archive-card">
         <div class="card-meta">
             <span class="flag-country">🇬🇭 Ghana</span>
@@ -2853,11 +2807,7 @@
             <span class="saved-at">2026-05-19 19:53</span>
             <a href="https://techafricanews.com/2025/05/02/digital-sovereignty-first-ghana-launches-ai-centric-tech-reforms/" class="read-more" target="_blank" rel="noopener">Read →</a>
         </div>
-    </div></div>
-        </section>
-        <section class="country-section">
-            <h3 class="country-heading">🇿🇦 South Africa <span class="count">(14)</span></h3>
-            <div class="card-grid">
+    </div>
     <div class="card archive-card">
         <div class="card-meta">
             <span class="flag-country">🇿🇦 South Africa</span>
@@ -3039,11 +2989,7 @@
             <span class="saved-at">2026-05-19 19:48</span>
             <a href="https://www.bloomberg.com/news/features/2025-04-23/south-africa-cape-town-granny-flats-expand-affordable-housing-in-poor-townships" class="read-more" target="_blank" rel="noopener">Read →</a>
         </div>
-    </div></div>
-        </section>
-        <section class="country-section">
-            <h3 class="country-heading">🌍 Other/Global <span class="count">(56)</span></h3>
-            <div class="card-grid">
+    </div>
     <div class="card archive-card">
         <div class="card-meta">
             <span class="flag-country">🌍 Other/Global</span>
@@ -3770,6 +3716,64 @@
         <div class="card-footer">
             <span class="saved-at">2026-05-12 10:59</span>
             <a href="https://grokipedia.com/page/Anti-Black_racism_in_Vietnam" class="read-more" target="_blank" rel="noopener">Read →</a>
+        </div>
+    </div></div>
+        </section>
+        <section class="country-section" id="europe">
+            <h3 class="country-heading" style="border-color:#c77dff;color:#c77dff">
+                Europe <span class="count">(4)</span>
+            </h3>
+            <div class="card-grid">
+    <div class="card archive-card">
+        <div class="card-meta">
+            <span class="flag-country">🇬🇧 United Kingdom</span>
+            <span class="category">Healthcare</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+        </div>
+        <h2 class="card-title"><a href="https://ahauk.org/race-and-alcohol-addiction-treatment-services/" target="_blank" rel="noopener">Race and alcohol addiction treatment services - Alcohol Health</a></h2>
+        <p class="card-summary">The article discusses the barriers faced by individuals from Black and Asian backgrounds seeking support for alcohol addiction treatment. The drug and alcohol recovery support service BAC-IN explores these barriers and aims to provide more inclusive services. The article highlights the need for culturally sensitive support services to address the unique challenges faced by these communities.</p>
+        <div class="card-footer">
+            <span class="saved-at">2026-05-19 19:49</span>
+            <a href="https://ahauk.org/race-and-alcohol-addiction-treatment-services/" class="read-more" target="_blank" rel="noopener">Read →</a>
+        </div>
+    </div>
+    <div class="card archive-card">
+        <div class="card-meta">
+            <span class="flag-country">🇬🇧 United Kingdom</span>
+            <span class="category">Healthcare</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+        </div>
+        <h2 class="card-title"><a href="https://www.drinkanddrugsnews.com/a-new-model/" target="_blank" rel="noopener">A New Model - Drink and Drugs News</a></h2>
+        <p class="card-summary">The UK government has acquired investment to tackle drug dependence</p>
+        <div class="card-footer">
+            <span class="saved-at">2026-05-19 19:49</span>
+            <a href="https://www.drinkanddrugsnews.com/a-new-model/" class="read-more" target="_blank" rel="noopener">Read →</a>
+        </div>
+    </div>
+    <div class="card archive-card">
+        <div class="card-meta">
+            <span class="flag-country">🇬🇧 United Kingdom</span>
+            <span class="category">Housing</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
+        </div>
+        <h2 class="card-title"><a href="https://www.theguardian.com/society/2025/jul/11/race-homelessness-social-housing-study-england-uk" target="_blank" rel="noopener">Black people in England four times as likely to face homelessness, study finds | Homelessness | The Guardian</a></h2>
+        <p class="card-summary">Black people in England are four times as likely to face homelessness as white people</p>
+        <div class="card-footer">
+            <span class="saved-at">2026-05-19 19:48</span>
+            <a href="https://www.theguardian.com/society/2025/jul/11/race-homelessness-social-housing-study-england-uk" class="read-more" target="_blank" rel="noopener">Read →</a>
+        </div>
+    </div>
+    <div class="card archive-card">
+        <div class="card-meta">
+            <span class="flag-country">🇫🇷 France</span>
+            <span class="category">Politics</span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
+        </div>
+        <h2 class="card-title"><a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" target="_blank" rel="noopener">Macron’s China-bashing in Africa: a case... - Friends of Socialist China</a></h2>
+        <p class="card-summary">French President Emmanuel Macron accused China of operating with a</p>
+        <div class="card-footer">
+            <span class="saved-at">2026-05-19 19:54</span>
+            <a href="https://socialistchina.org/2026/05/13/macrons-china-bashing-in-africa-a-case-of-projection/" class="read-more" target="_blank" rel="noopener">Read →</a>
         </div>
     </div></div>
         </section>

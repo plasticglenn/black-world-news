@@ -63,6 +63,15 @@ REGION_ORDER = [
     "Other/Global",
 ]
 
+# Groups countries into nav regions for the archive headings
+REGION_GROUPS = {
+    "namerica": {"label": "North America",   "color": "#4d96ff", "countries": ["United States", "Canada"]},
+    "samerica": {"label": "South America",   "color": "#6bcb77", "countries": ["Brazil"]},
+    "africa":   {"label": "Africa",          "color": "#f9844a", "countries": ["Nigeria", "Ghana", "South Africa", "Other/Global"]},
+    "europe":   {"label": "Europe",          "color": "#c77dff", "countries": ["United Kingdom", "France", "Germany"]},
+    "asia":     {"label": "Asia and Pacific","color": "#00d4ff", "countries": ["Australia"]},
+}
+
 
 def load_image_cache():
     if os.path.exists(IMAGE_CACHE):
@@ -288,19 +297,20 @@ def build_html(stories, cache):
     # Build latest grid
     latest_html = "".join(story_card(s, cache=cache, used_images=used_images) for s in latest)
 
-    # Build country sections
+    # Build archive grouped by region with nav anchor IDs
     archive_sections = ""
-    seen_countries = set(REGION_ORDER)
-    ordered = REGION_ORDER + [c for c in by_country if c not in seen_countries]
-
-    for country in ordered:
-        if country not in by_country:
+    for region_id, region in REGION_GROUPS.items():
+        region_stories = []
+        for country in region["countries"]:
+            region_stories.extend(by_country.get(country, []))
+        if not region_stories:
             continue
-        flag = COUNTRY_FLAGS.get(country, "🌍")
-        cards = "".join(story_card(s, archive=True, cache=cache, used_images=used_images) for s in by_country[country])
+        cards = "".join(story_card(s, archive=True, cache=cache, used_images=used_images) for s in region_stories)
         archive_sections += f"""
-        <section class="country-section">
-            <h3 class="country-heading">{flag} {country} <span class="count">({len(by_country[country])})</span></h3>
+        <section class="country-section" id="{region_id}">
+            <h3 class="country-heading" style="border-color:{region['color']};color:{region['color']}">
+                {region['label']} <span class="count">({len(region_stories)})</span>
+            </h3>
             <div class="card-grid">{cards}</div>
         </section>"""
 
@@ -404,31 +414,46 @@ def build_html(stories, cache):
 
         /* NAVIGATION */
         nav {{
-            background: #111;
-            padding: 0 1.5rem;
+            background: #0a0a0a;
             display: flex;
-            gap: 0;
-            overflow-x: auto;
-            border-bottom: 3px solid #1a3a2a;
+            justify-content: center;
+            align-items: stretch;
+            border-bottom: 1px solid #222;
+            overflow: hidden;
         }}
 
         nav a {{
-            font-size: 0.78rem;
-            letter-spacing: 0.08em;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #ccc;
+            color: #888;
             white-space: nowrap;
-            font-weight: 600;
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1.1rem;
             border-bottom: 3px solid transparent;
-            margin-bottom: -3px;
-            transition: color 0.15s, border-color 0.15s;
+            margin-bottom: -1px;
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
+            flex: 1;
+            text-align: center;
         }}
 
-        nav a:hover {{
-            color: #fff;
-            border-bottom-color: #1a3a2a;
-        }}
+        nav a:hover {{ background: #161616; }}
+
+        nav a.nav-latest          {{ color: #ffd93d; }}
+        nav a.nav-latest:hover    {{ border-bottom-color: #ffd93d; color: #ffd93d; }}
+        nav a.nav-kids            {{ color: #ff6b6b; }}
+        nav a.nav-kids:hover      {{ border-bottom-color: #ff6b6b; color: #ff6b6b; }}
+        nav a.nav-namerica        {{ color: #4d96ff; }}
+        nav a.nav-namerica:hover  {{ border-bottom-color: #4d96ff; color: #4d96ff; }}
+        nav a.nav-samerica        {{ color: #6bcb77; }}
+        nav a.nav-samerica:hover  {{ border-bottom-color: #6bcb77; color: #6bcb77; }}
+        nav a.nav-africa          {{ color: #f9844a; }}
+        nav a.nav-africa:hover    {{ border-bottom-color: #f9844a; color: #f9844a; }}
+        nav a.nav-europe          {{ color: #c77dff; }}
+        nav a.nav-europe:hover    {{ border-bottom-color: #c77dff; color: #c77dff; }}
+        nav a.nav-asia            {{ color: #00d4ff; }}
+        nav a.nav-asia:hover      {{ border-bottom-color: #00d4ff; color: #00d4ff; }}
 
         /* BREAKING BAR */
         .breaking-bar {{
@@ -1204,10 +1229,13 @@ def build_html(stories, cache):
 </header>
 
 <nav>
-    <a href="#latest">Latest</a>
-    <a href="kids.html">For the Children</a>
-    <a href="#archive">Archive</a>
-    {''.join(f'<a href="#{c.lower().replace(" ", "-").replace("/", "-")}">{c}</a>' for c in REGION_ORDER if c in by_country)}
+    <a href="#latest"      class="nav-latest">Latest</a>
+    <a href="kids.html"    class="nav-kids">Kids Corner</a>
+    <a href="#namerica"    class="nav-namerica">N. America</a>
+    <a href="#samerica"    class="nav-samerica">S. America</a>
+    <a href="#africa"      class="nav-africa">Africa</a>
+    <a href="#europe"      class="nav-europe">Europe</a>
+    <a href="#asia"        class="nav-asia">Asia &amp; Pacific</a>
 </nav>
 
 <div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
