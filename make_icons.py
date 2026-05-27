@@ -14,7 +14,9 @@ import math
 ICON_DIR = "icons"
 os.makedirs(ICON_DIR, exist_ok=True)
 
+# BWN brand palette
 GREEN = (26, 58, 42, 255)       # #1a3a2a
+GOLD  = (255, 216, 61, 255)     # #ffd83d
 BLACK = (0, 0, 0, 255)
 WHITE = (255, 255, 255, 255)
 
@@ -61,47 +63,40 @@ def africa_polygon(cx, cy, scale):
 
 
 def draw_full_logo(draw, cx, cy, radius):
-    """Draws the complete BWN logo with globe, Africa, star, and monogram."""
-    line_thin  = max(1, int(radius * 0.012))
-    line_outer = max(1, int(radius * 0.025))
+    """BWN logo: green ring, faint globe lines, gold Africa, black star, BWN."""
+    line_thin = max(1, int(radius * 0.012))
 
     draw.ellipse(
         [cx - radius, cy - radius, cx + radius, cy + radius],
         fill=GREEN,
-        outline=(255, 255, 255, 38),
-        width=line_outer,
     )
     draw.ellipse(
         [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
-        outline=(255, 255, 255, 30), width=line_thin,
-    )
-    draw.ellipse(
-        [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
-        outline=(255, 255, 255, 20), width=line_thin,
+        outline=(255, 255, 255, 22), width=line_thin,
     )
     draw.ellipse(
         [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
-        outline=(255, 255, 255, 30), width=line_thin,
+        outline=(255, 255, 255, 22), width=line_thin,
     )
     draw.line(
-        [(cx - radius, cy), (cx + radius, cy)],
-        fill=(255, 255, 255, 38), width=line_thin,
+        [(cx - radius * 0.97, cy), (cx + radius * 0.97, cy)],
+        fill=(255, 255, 255, 30), width=line_thin,
     )
     draw.polygon(
         africa_polygon(cx, cy, radius / 50),
-        fill=(255, 255, 255, 56), outline=(255, 255, 255, 25),
+        fill=GOLD,
     )
 
-    star_outer = radius * 0.18
-    star_inner = star_outer * 0.45
-    star_cy    = cy - radius * 0.72
+    star_outer = radius * 0.20
+    star_inner = star_outer * 0.42
+    star_cy    = cy - radius * 0.70
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
-        fill=BLACK, outline=(255, 255, 255, 110),
+        fill=BLACK,
     )
 
-    # BWN monogram
-    target_h = int(radius * 0.42)
+    # BWN monogram — green text on gold Africa
+    target_h = int(radius * 0.40)
     font = None
     for path in ["C:/Windows/Fonts/georgiab.ttf", "C:/Windows/Fonts/timesbd.ttf",
                  "C:/Windows/Fonts/arialbd.ttf", "georgiab.ttf"]:
@@ -117,8 +112,8 @@ def draw_full_logo(draw, cx, cy, radius):
     w = bbox[2] - bbox[0]
     h = bbox[3] - bbox[1]
     draw.text(
-        (cx - w / 2 - bbox[0], cy + radius * 0.12 - h / 2 - bbox[1]),
-        "BWN", fill=(255, 255, 255, 235), font=font,
+        (cx - w / 2 - bbox[0], cy + radius * 0.18 - h / 2 - bbox[1]),
+        "BWN", fill=GREEN, font=font,
     )
 
 

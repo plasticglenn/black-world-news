@@ -23,10 +23,12 @@ from PIL import Image, ImageDraw, ImageFont
 BRAND_DIR = "brand"
 os.makedirs(BRAND_DIR, exist_ok=True)
 
-GREEN  = (26, 58, 42, 255)
-WHITE  = (255, 255, 255, 255)
+# BWN brand palette — green, gold, black
+GREEN  = (26, 58, 42, 255)      # #1a3a2a
+GOLD   = (255, 216, 61, 255)    # #ffd83d
 BLACK  = (0, 0, 0, 255)
-ACCENT = (138, 184, 154, 255)   # #8ab89a — the soft green used for taglines
+WHITE  = (255, 255, 255, 255)
+ACCENT = (138, 184, 154, 255)   # #8ab89a — soft green for taglines
 
 
 def find_font(*candidates):
@@ -119,70 +121,58 @@ def africa_polygon(cx, cy, scale):
 
 
 def draw_logo(draw, cx, cy, radius):
-    """Draws the full BWN logo: outer ring, globe lines, Africa shape, star, BWN."""
-    line_w_thin  = max(1, int(radius * 0.012))
-    line_w_outer = max(1, int(radius * 0.025))
+    """BWN logo: green ring, faint globe lines, gold Africa, black star, BWN."""
+    line_w_thin = max(1, int(radius * 0.012))
 
-    # Outer ring
+    # Solid green circle
     draw.ellipse(
         [cx - radius, cy - radius, cx + radius, cy + radius],
         fill=GREEN,
-        outline=(255, 255, 255, 38),
-        width=line_w_outer,
     )
 
-    # Globe latitude lines — wider in the middle, narrower toward poles
+    # Minimal globe lines — just enough to read as a globe, not enough to fight the Africa shape
     draw.ellipse(
         [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
-        outline=(255, 255, 255, 30),
+        outline=(255, 255, 255, 22),
         width=line_w_thin,
     )
-    draw.ellipse(
-        [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
-        outline=(255, 255, 255, 20),
-        width=line_w_thin,
-    )
-
-    # Globe longitude line
     draw.ellipse(
         [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
-        outline=(255, 255, 255, 30),
+        outline=(255, 255, 255, 22),
         width=line_w_thin,
     )
-
-    # Equator
+    # Equator line
     draw.line(
-        [(cx - radius, cy), (cx + radius, cy)],
-        fill=(255, 255, 255, 38),
+        [(cx - radius * 0.97, cy), (cx + radius * 0.97, cy)],
+        fill=(255, 255, 255, 30),
         width=line_w_thin,
     )
 
-    # Africa silhouette
+    # Africa silhouette — solid gold, the brand colour
     africa = africa_polygon(cx, cy, radius / 50)
-    draw.polygon(africa, fill=(255, 255, 255, 56), outline=(255, 255, 255, 25))
+    draw.polygon(africa, fill=GOLD)
 
-    # Black Star — top portion of the globe
-    star_outer = radius * 0.18
-    star_inner = star_outer * 0.45
-    star_cy    = cy - radius * 0.72
+    # Black Star — top portion of the globe, no outline
+    star_outer = radius * 0.20
+    star_inner = star_outer * 0.42
+    star_cy    = cy - radius * 0.70
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
         fill=BLACK,
-        outline=(255, 255, 255, 110),
     )
 
-    # BWN monogram — centered horizontally, slightly below center
+    # BWN monogram — centered horizontally, on top of the Africa silhouette
     if SERIF_BOLD:
-        font_size = int(radius * 0.42)
+        font_size = int(radius * 0.40)
         font = ImageFont.truetype(SERIF_BOLD, font_size)
         text = "BWN"
         bbox = draw.textbbox((0, 0), text, font=font)
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         draw.text(
-            (cx - w / 2 - bbox[0], cy + radius * 0.12 - h / 2 - bbox[1]),
+            (cx - w / 2 - bbox[0], cy + radius * 0.18 - h / 2 - bbox[1]),
             text,
-            fill=(255, 255, 255, 235),
+            fill=GREEN,   # green over gold reads as the brand
             font=font,
         )
 
