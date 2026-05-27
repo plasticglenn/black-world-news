@@ -88,6 +88,16 @@ ISSUE_GROUPS = {
 KIDS_LETTER_COLORS = ["red", "pink", "blue", "yellow", "green", "orange", "purple"]
 
 
+# Cloudflare Web Analytics — injected at the bottom of every page.
+# Privacy-respecting, no cookies, no GDPR banner needed.
+CLOUDFLARE_ANALYTICS = (
+    "<!-- Cloudflare Web Analytics -->"
+    "<script defer src='https://static.cloudflareinsights.com/beacon.min.js' "
+    "data-cf-beacon='{\"token\": \"e3ec5487cf654658b68643a2cb7cfc40\"}'></script>"
+    "<!-- End Cloudflare Web Analytics -->"
+)
+
+
 def colorize_kids_text(text):
     """Wrap each character of `text` in a coloured span so the nav link
     becomes glossy multi-color balloon letters. Spaces become visual gaps."""
@@ -1710,6 +1720,7 @@ def build_html(stories, cache):
   }}
 </script>
 
+{CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
 
@@ -1812,6 +1823,7 @@ def page_shell(title, content, active=""):
     <p><strong>BLACK WORLD NEWS</strong> Your World Today</p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to original sources.</p>
 </footer>
+{CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
 
@@ -2111,6 +2123,7 @@ def build_region_page(region_id, region, all_stories, cache):
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
 </footer>
+{CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
 
@@ -2215,6 +2228,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
 </footer>
+{CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
 
@@ -2492,6 +2506,7 @@ def build_search_page():
         }});
 </script>
 
+{CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
 
