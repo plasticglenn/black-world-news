@@ -1763,7 +1763,10 @@ def page_shell(title, content, active=""):
         body {{ background: #f2f2f2; color: #111; font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }}
         a {{ color: inherit; text-decoration: none; }}
 
-        .masthead {{ background: #1a3a2a; border-bottom: 3px solid #111; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; }}
+        .masthead {{ background: #1a3a2a; border-bottom: 3px solid #111; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; }}
+        .masthead-logo-link, .masthead-spacer {{ flex: 0 0 50px; display: flex; align-items: center; justify-content: center; }}
+        .masthead-logo {{ width: 50px; height: 50px; display: block; }}
+        .masthead-center {{ flex: 1; text-align: center; }}
         .masthead h1 {{ font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: #fff; letter-spacing: 0.04em; }}
         .masthead h1 a:hover {{ color: #c8d8c0; }}
         .masthead-tagline {{ font-size: 0.65rem; color: #8ab89a; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }}
@@ -1792,10 +1795,12 @@ def page_shell(title, content, active=""):
 </head>
 <body>
 <header class="masthead">
-    <div>
+    <a href="/black-world-news/index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
         <h1><a href="/black-world-news/index.html">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">What matters to you today</p>
+        <p class="masthead-tagline">What matters to you, today</p>
     </div>
+    <div class="masthead-spacer"></div>
 </header>
 <nav>{nav_html}</nav>
 
@@ -2065,7 +2070,10 @@ def build_region_page(region_id, region, all_stories, cache):
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
         body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
         a{{color:inherit;text-decoration:none;}}
-        .masthead{{background:#1a3a2a;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead-logo-link,.masthead-spacer{{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}}
+        .masthead-logo{{width:50px;height:50px;display:block;}}
+        .masthead-center{{flex:1;text-align:center;}}
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
@@ -2088,10 +2096,12 @@ def build_region_page(region_id, region, all_stories, cache):
 </head>
 <body>
 <header class="masthead">
-    <div>
+    <a href="index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">What matters to you today</p>
+        <p class="masthead-tagline">What matters to you, today</p>
     </div>
+    <div class="masthead-spacer"></div>
 </header>
 {nav_html}
 <div class="page-container">
@@ -2142,7 +2152,10 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
         body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
         a{{color:inherit;text-decoration:none;}}
-        .masthead{{background:#1a3a2a;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead-logo-link,.masthead-spacer{{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}}
+        .masthead-logo{{width:50px;height:50px;display:block;}}
+        .masthead-center{{flex:1;text-align:center;}}
         .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
         .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
@@ -2183,10 +2196,12 @@ def build_issue_page(issue_id, issue, all_stories, cache):
 </head>
 <body>
 <header class="masthead">
-    <div>
+    <a href="index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">What matters to you today</p>
+        <p class="masthead-tagline">What matters to you, today</p>
     </div>
+    <div class="masthead-spacer"></div>
 </header>
 {nav_html}
 <div class="page-container">
@@ -2242,9 +2257,13 @@ def build_search_page():
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
         body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
         a{{color:inherit;text-decoration:none;}}
-        .masthead{{background:#1a3a2a;padding:1rem 1.5rem 0.9rem;text-align:center;}}
-        .masthead h1{{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.2rem);font-weight:900;color:#fff;letter-spacing:0.05em;line-height:1;}}
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead-logo-link,.masthead-spacer{{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}}
+        .masthead-logo{{width:50px;height:50px;display:block;}}
+        .masthead-center{{flex:1;text-align:center;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,1.8rem);font-weight:900;color:#fff;letter-spacing:0.05em;line-height:1;}}
         .masthead h1 a:hover{{color:#c8d8c0;}}
+        .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.25rem;}}
         .site-nav{{background:#111;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
         .site-nav::-webkit-scrollbar{{display:none;}}
         .site-nav a{{font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#888;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;}}
@@ -2302,7 +2321,12 @@ def build_search_page():
 </head>
 <body>
 <header class="masthead">
-    <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+    <a href="index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
+        <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">What matters to you, today</p>
+    </div>
+    <div class="masthead-spacer"></div>
 </header>
 {nav_html}
 

@@ -17,7 +17,10 @@
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}
         a{color:inherit;text-decoration:none;}
-        .masthead{background:#1a3a2a;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+        .masthead{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+        .masthead-logo-link,.masthead-spacer{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}
+        .masthead-logo{width:50px;height:50px;display:block;}
+        .masthead-center{flex:1;text-align:center;}
         .masthead h1{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}
         .masthead h1 a:hover{color:#c8d8c0;}
         .masthead-tagline{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}
@@ -79,10 +82,12 @@
 </head>
 <body>
 <header class="masthead">
-    <div>
+    <a href="index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">What matters to you today</p>
+        <p class="masthead-tagline">What matters to you, today</p>
     </div>
+    <div class="masthead-spacer"></div>
 </header>
 <nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue nav-active">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
 <div class="page-container">
