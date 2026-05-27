@@ -73,6 +73,7 @@
 - [x] Custom domain `blackworldnews.world` on Namecheap
 - [x] GitHub Pages hosting from `main` branch
 - [x] Google Search Console verification
+- [x] Cloudflare Web Analytics (privacy-respecting visitor tracking)
 
 ### Admin
 - [x] Hidden stats via `?admin` URL parameter
