@@ -78,8 +78,8 @@
 ### Platforms
 - [x] **Web** — blackworldnews.world (live)
 - [x] **PWA** — installable on Android Chrome and iOS Safari (Add to Home Screen)
-- [ ] **Social media accounts** — IG, X, TikTok, Threads (next)
-- [ ] **Social posting pipeline** — `social_post.py` to draft/queue per-platform posts
+- [ ] **Social media accounts** — IG, X, TikTok, Threads (you sign up; pipeline ready)
+- [x] **Social posting pipeline** — `social_post.py` drafts per-platform posts ✅
 - [ ] **Android app** — Capacitor wrapper, Google Play Store ($25 one-time)
 - [ ] **iOS app** — Capacitor wrapper, App Store ($99/year, much later)
 
