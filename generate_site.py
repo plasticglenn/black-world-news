@@ -1541,7 +1541,7 @@ def build_html(stories, cache):
             }}
 
             .mobile-tabs a:first-child {{ color: #8ab89a; }}
-            .mobile-tabs a .tab-icon {{ font-size: 1.1rem; }}
+            .mobile-tabs a .tab-icon {{ width: 22px; height: 22px; display: block; }}
 
             /* FEATURED — full bleed hero card */
             .card.featured {{
@@ -1723,10 +1723,32 @@ def build_html(stories, cache):
 </main>
 
 <div class="mobile-tabs" style="display:none">
-    <a href="index.html"   ><span class="tab-icon">🏠</span>Home</a>
-    <a href="policing.html"><span class="tab-icon">📰</span>Topics</a>
-    <a href="africa.html"  ><span class="tab-icon">🌍</span>World</a>
-    <a href="search.html"  ><span class="tab-icon">🔍</span>Search</a>
+    <a href="index.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11l9-7 9 7v9a2 2 0 0 1-2 2h-3v-7h-8v7H5a2 2 0 0 1-2-2v-9z"/>
+        </svg>
+        Home
+    </a>
+    <a href="policing.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h10"/>
+        </svg>
+        Topics
+    </a>
+    <a href="africa.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>
+        </svg>
+        World
+    </a>
+    <a href="search.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M21 21l-4.3-4.3"/>
+        </svg>
+        Search
+    </a>
 </div>
 
 <footer>

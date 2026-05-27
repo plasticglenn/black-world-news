@@ -1029,7 +1029,7 @@
             }
 
             .mobile-tabs a:first-child { color: #8ab89a; }
-            .mobile-tabs a .tab-icon { font-size: 1.1rem; }
+            .mobile-tabs a .tab-icon { width: 22px; height: 22px; display: block; }
 
             /* FEATURED — full bleed hero card */
             .card.featured {
@@ -1171,7 +1171,7 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: May 27, 2026 — 11:54 &nbsp;|&nbsp; 208 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: May 27, 2026 — 12:04 &nbsp;|&nbsp; 208 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
@@ -1441,10 +1441,32 @@
 </main>
 
 <div class="mobile-tabs" style="display:none">
-    <a href="index.html"   ><span class="tab-icon">🏠</span>Home</a>
-    <a href="policing.html"><span class="tab-icon">📰</span>Topics</a>
-    <a href="africa.html"  ><span class="tab-icon">🌍</span>World</a>
-    <a href="search.html"  ><span class="tab-icon">🔍</span>Search</a>
+    <a href="index.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11l9-7 9 7v9a2 2 0 0 1-2 2h-3v-7h-8v7H5a2 2 0 0 1-2-2v-9z"/>
+        </svg>
+        Home
+    </a>
+    <a href="policing.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h10"/>
+        </svg>
+        Topics
+    </a>
+    <a href="africa.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>
+        </svg>
+        World
+    </a>
+    <a href="search.html">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M21 21l-4.3-4.3"/>
+        </svg>
+        Search
+    </a>
 </div>
 
 <footer>
