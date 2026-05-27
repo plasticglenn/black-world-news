@@ -1795,7 +1795,7 @@ def page_shell(title, content, active=""):
 </head>
 <body>
 <header class="masthead">
-    <a href="/black-world-news/index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <a href="/black-world-news/index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
     <div class="masthead-center">
         <h1><a href="/black-world-news/index.html">BLACK WORLD NEWS</a></h1>
         <p class="masthead-tagline">What matters to you, today</p>
@@ -2096,7 +2096,7 @@ def build_region_page(region_id, region, all_stories, cache):
 </head>
 <body>
 <header class="masthead">
-    <a href="index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
     <div class="masthead-center">
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
         <p class="masthead-tagline">What matters to you, today</p>
@@ -2196,7 +2196,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
 </head>
 <body>
 <header class="masthead">
-    <a href="index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
     <div class="masthead-center">
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
         <p class="masthead-tagline">What matters to you, today</p>
@@ -2321,7 +2321,7 @@ def build_search_page():
 </head>
 <body>
 <header class="masthead">
-    <a href="index.html" class="masthead-logo-link"><img src="favicon.svg" alt="BWN" class="masthead-logo"></a>
+    <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
     <div class="masthead-center">
         <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
         <p class="masthead-tagline">What matters to you, today</p>
