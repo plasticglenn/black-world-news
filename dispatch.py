@@ -340,11 +340,42 @@ DIRECT_SOURCES = [
     },
     {
         # The Japan Times — Japan's main English daily.
-        # Africa coverage limited but useful for Asia-Africa angle when present.
         "name":    "The Japan Times",
         "url":     "https://www.japantimes.co.jp/tag/africa/",
         "base":    "https://www.japantimes.co.jp",
         "link_selector": "article a, h2 a, h3 a, .article_list a",
+        "country": "Other/Global",
+    },
+    {
+        # BBC Africa — major English-language Africa desk.
+        "name":    "BBC Africa",
+        "url":     "https://www.bbc.com/news/world/africa",
+        "base":    "https://www.bbc.com",
+        "link_selector": "a[href*='/news/articles/'], a[href*='/news/world-africa-'], h2 a, h3 a",
+        "country": "Other/Global",
+    },
+    {
+        # Reuters Africa — newswire, most cited Africa source globally.
+        "name":    "Reuters Africa",
+        "url":     "https://www.reuters.com/world/africa/",
+        "base":    "https://www.reuters.com",
+        "link_selector": "a[href*='/world/africa/'], a[data-testid*='Heading'], h3 a",
+        "country": "Other/Global",
+    },
+    {
+        # Al Jazeera English — strong Africa, Caribbean, diaspora coverage.
+        "name":    "Al Jazeera",
+        "url":     "https://www.aljazeera.com/africa/",
+        "base":    "https://www.aljazeera.com",
+        "link_selector": "a[href*='/news/'], a[href*='/features/'], h3 a, .gc__title a",
+        "country": "Other/Global",
+    },
+    {
+        # AllAfrica — aggregator of every major African newspaper.
+        "name":    "AllAfrica",
+        "url":     "https://allafrica.com/latest/",
+        "base":    "https://allafrica.com",
+        "link_selector": "a[href*='/stories/'], a[href*='/view/group/'], h3 a, .headline a",
         "country": "Other/Global",
     },
 ]
