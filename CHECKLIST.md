@@ -1,0 +1,175 @@
+# BLACK WORLD NEWS — Project Checklist
+
+> Live tracker for what's built, what's next, and what's parked.
+> Edit this file directly when you complete or change anything.
+> Last updated: 2026-05-27
+
+---
+
+## ✅ LIVE & WORKING
+
+### Core engine
+- [x] News agent (`dispatch.py`) — 96 search queries + 8 direct sources
+- [x] AI analysis per story (Pan-African lens, Groq Llama 3.3 70B)
+- [x] 208+ stories archived in `stories.json`
+- [x] Featured story picker (`pick_featured.py` → `featured.json`)
+- [x] In Focus highlights, hand-curated (`highlights.json`)
+- [x] Single-URL ingest helper (`add_url.py`)
+- [x] Site generator (`generate_site.py`)
+- [x] Auto-publish pipeline (`run_all.bat`)
+- [x] Windows Task Scheduler — every 3 days at 3am
+
+### Direct sources (scraped every run)
+- [x] GhanaWeb — Ghana
+- [x] Brasil de Fato — Brazil
+- [x] Alma Preta — Brazil (Afro-Brazilian focus)
+- [x] RAYA — Colombia (Black + Indigenous focus)
+- [x] El Heraldo — Colombia (Caribbean coast)
+- [x] South China Morning Post — China-Africa angle
+- [x] Dawn — Pakistan
+- [x] The Wire — India
+- [x] The Japan Times — Africa coverage
+
+### Homepage
+- [x] Sticky masthead with full BWN logo + Black Star
+- [x] "Let my people go" — Exodus 8:1 tagline
+- [x] Two-tier nav: topics | regions | search (left-aligned)
+- [x] Breaking bar with live date
+- [x] Hero block (3-column: text | image | In Focus sidebar)
+- [x] Featured image at Pexels large2x (sharp, not grainy)
+- [x] Latest grid (6 newest stories with images)
+- [x] "For the Children" portal door (multi-color balloon paint title)
+- [x] "Around the World" regional teasers grid (neutral colors)
+
+### Topic pages
+- [x] 5 region pages (N. America, S. America, Africa, Europe, Asia & Pacific)
+- [x] 6 issue pages (Policing, Politics, Economics, Health, Education, Culture)
+- [x] Centered masthead with full logo, "What matters to you, today" tagline
+- [x] Cards filtered by country/category, newest first
+
+### Search & content pages
+- [x] `search.html` — text search + topic/region/framing filter chips
+- [x] About, Resources, Trends, Community pages
+
+### Visual identity
+- [x] BWN logo with Marcus Garvey Black Star
+- [x] Browser tab favicon
+- [x] Multi-color balloon paint "Kids Corner" in nav, every page
+- [x] Multi-color balloon paint "For the Children" portal title
+- [x] All images clickable, link to story
+
+### Mobile
+- [x] Sticky compact masthead
+- [x] Bottom tab bar on homepage (Home / Topics / World / Search)
+- [x] Horizontal scroll nav on topic pages
+- [x] Hero collapses cleanly (image first, text, sidebar)
+- [x] Latest cards become horizontal swipe strip
+
+### SEO & infrastructure
+- [x] `sitemap.xml` with all pages
+- [x] `robots.txt`
+- [x] Open Graph + Twitter card meta tags
+- [x] Canonical URLs
+- [x] Custom domain `blackworldnews.world` on Namecheap
+- [x] GitHub Pages hosting from `main` branch
+- [x] Google Search Console verification
+
+### Admin
+- [x] Hidden stats via `?admin` URL parameter
+- [x] API keys stored in Windows env vars (never in files)
+
+---
+
+## 🔄 IN PROGRESS
+
+- [ ] Translation backfill — 176 of 208 stories translated, **blocked by Groq daily token limit**
+  - Resumes automatically tomorrow when tokens refresh
+  - All future stories translated on ingestion
+
+---
+
+## 🚧 NEXT UP (priority order)
+
+### 1. Tomorrow when Groq resets
+- [ ] Finish translating the remaining 32 stories
+- [ ] Run `python dispatch.py --all` with the 8 new direct sources
+- [ ] Ingest any specific articles via `python add_url.py <url>`
+
+### 2. For the Children — full page build
+This is the big one. Door is up, room behind it is empty. Plan was drafted earlier — confirm before we build:
+
+- [ ] **Phase 1** — Static `kids.html` with hand-curated content
+  - 3 historical figures ("Meet Someone Special")
+  - 3 featured countries ("A Place to Know")
+  - 3 news stories rewritten for kid language ("From the Big News")
+  - Word of the Day vocab (Twi, Swahili, Yoruba, Portuguese, etc.)
+  - Two age lanes toggle (Little Ones 3-7 / Bigger Kids 8-13)
+- [ ] **Phase 2** — `kids_content.py` auto-rewrites news at 3rd-grade reading level
+- [ ] **Phase 3** — Pollinations AI comic panels (Comic of the Week)
+- [ ] **Phase 4** — Quiz module (JS only, no backend)
+- [ ] **Phase 5** — Browser text-to-speech reading aloud (deferred — app-level)
+
+### 3. More direct sources (optional, low priority)
+- [ ] Africa Report (Africa-focused English journalism)
+- [ ] AllAfrica.com (continent aggregator)
+- [ ] Daily Maverick (South Africa)
+- [ ] The Root (US Black community)
+- [ ] Caribbean National Weekly
+
+---
+
+## 💭 LATER (planned, not urgent)
+
+- [ ] **Rotate highlights** — bigger pool in `highlights.json`, randomly show 3 per visit
+- [ ] **Weekly digest email** — readers subscribe, get a Sunday roundup
+- [ ] **Original articles** — you write with AI assistance, with framing guidance
+- [ ] **Social media accounts** — IG, X, TikTok (AI-generated assets per platform)
+- [ ] **Story submission form** — Community page placeholder is up, needs backend
+- [ ] **Comment section / Reader voices** — moderated discussion under stories
+- [ ] **Multilingual UI** — French, Portuguese, Spanish editions
+- [ ] **Newsletter signup** in footer
+- [ ] **Donation / patron support** — Ko-fi or Patreon link
+
+---
+
+## 🤔 MAYBE / FUTURE
+
+- [ ] Native mobile app (iOS + Android)
+- [ ] Audio articles (text-to-speech for adult section too)
+- [ ] Translation toggle per story (read in English / read in original)
+- [ ] Story reactions (emoji-based, no accounts)
+- [ ] Switch from Groq to DeepSeek if rate-limits keep blocking
+- [ ] Duplicate detection by content similarity (currently URL-based only)
+
+---
+
+## 📂 FILE MAP (for reference)
+
+| File | Purpose |
+|------|---------|
+| `dispatch.py` | News agent — searches, scrapes, analyzes, saves |
+| `add_url.py` | Ingest a single URL on demand |
+| `pick_featured.py` | Pick the homepage featured story |
+| `generate_site.py` | Build every HTML page from the archive |
+| `run_all.bat` | Full pipeline: agent → site → commit → push |
+| `stories.json` | Master archive (208+ stories) |
+| `image_cache.json` | Cached Pexels image URLs |
+| `highlights.json` | Curated In Focus sidebar items |
+| `featured.json` | Chosen featured story for homepage |
+| `logo.svg` | Full BWN logo (used in mastheads) |
+| `favicon.svg` | Simplified logo for browser tabs |
+| `CHECKLIST.md` | This file |
+| `README.md` | Project bible |
+
+---
+
+## 🎯 RIGHT NOW — WHAT TO DECIDE
+
+To unblock the next build sprint, I need answers on:
+
+1. **For the Children Phase 1** — approve the structure (two age lanes / 5 modules / "What's News for Kids" tone)?
+2. **First 3 historical figures** for the kids page — suggestion: Marcus Garvey, Kwame Nkrumah, Sojourner Truth
+3. **First 3 featured countries** for "A Place to Know" — suggestion: Ghana, Brazil, Jamaica
+4. **Direct sources beyond the current 9** — add any from the "More direct sources" list?
+
+Once you answer those, I can start building For the Children Phase 1 the next time we sit down.
