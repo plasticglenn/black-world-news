@@ -82,9 +82,10 @@
 
 ## 🔄 IN PROGRESS
 
-- [ ] Translation backfill — 176 of 208 stories translated, **blocked by Groq daily token limit**
-  - Resumes automatically tomorrow when tokens refresh
-  - All future stories translated on ingestion
+- [x] ✅ Translation backfill — **208 of 208 stories now translated to English** (completed 2026-05-27)
+  - Original-language version preserved in `title` / `summary`
+  - English in `title_en` / `summary_en`
+  - All future stories translated on ingestion via `dispatch.py`
 
 ---
 
