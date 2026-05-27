@@ -75,47 +75,114 @@ def star_points(cx, cy, outer_r, inner_r, points=5, rotation=-math.pi / 2):
     return pts
 
 
+def quad_bezier(p0, p1, p2, steps=22):
+    """Interpolate a quadratic Bezier curve into a list of points."""
+    out = []
+    for i in range(steps + 1):
+        t = i / steps
+        x = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0]
+        y = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1]
+        out.append((x, y))
+    return out
+
+
+def africa_polygon(cx, cy, scale):
+    """
+    Reconstructs the Africa silhouette from the SVG path. The original SVG uses
+    a 100x100 viewBox with the Africa shape inside, so we map each path point
+    back into pixel coordinates.
+    """
+    def pt(x, y):
+        # SVG (0,0) is top-left; map into our coordinate system
+        return (cx - 50 * scale + x * scale, cy - 50 * scale + y * scale)
+
+    # Each tuple = (control point, end point) for one quadratic Bezier segment
+    start = pt(46, 28)
+    segments = [
+        (pt(52, 26), pt(55, 32)),
+        (pt(60, 36), pt(58, 44)),
+        (pt(62, 50), pt(60, 57)),
+        (pt(58, 65), pt(54, 70)),
+        (pt(50, 74), pt(47, 70)),
+        (pt(42, 64), pt(41, 57)),
+        (pt(38, 50), pt(40, 44)),
+        (pt(39, 36), pt(43, 30)),
+    ]
+
+    points = [start]
+    current = start
+    for ctrl, end in segments:
+        # Skip the first point of each segment to avoid duplicates
+        points.extend(quad_bezier(current, ctrl, end)[1:])
+        current = end
+    return points
+
+
 def draw_logo(draw, cx, cy, radius):
-    """Draws the BWN logo (green circle + Black Star + BWN text) centered."""
-    # Outer green circle
+    """Draws the full BWN logo: outer ring, globe lines, Africa shape, star, BWN."""
+    line_w_thin  = max(1, int(radius * 0.012))
+    line_w_outer = max(1, int(radius * 0.025))
+
+    # Outer ring
     draw.ellipse(
         [cx - radius, cy - radius, cx + radius, cy + radius],
         fill=GREEN,
+        outline=(255, 255, 255, 38),
+        width=line_w_outer,
+    )
+
+    # Globe latitude lines — wider in the middle, narrower toward poles
+    draw.ellipse(
+        [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
         outline=(255, 255, 255, 30),
-        width=max(1, int(radius * 0.02)),
-    )
-    # Faint globe lines for richness
-    draw.ellipse(
-        [cx - radius, cy - radius * 0.45, cx + radius, cy + radius * 0.45],
-        outline=(255, 255, 255, 22),
-        width=max(1, int(radius * 0.01)),
+        width=line_w_thin,
     )
     draw.ellipse(
-        [cx - radius * 0.45, cy - radius, cx + radius * 0.45, cy + radius],
-        outline=(255, 255, 255, 22),
-        width=max(1, int(radius * 0.01)),
+        [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
+        outline=(255, 255, 255, 20),
+        width=line_w_thin,
     )
-    # Black Star — top portion
-    star_outer = radius * 0.22
+
+    # Globe longitude line
+    draw.ellipse(
+        [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
+        outline=(255, 255, 255, 30),
+        width=line_w_thin,
+    )
+
+    # Equator
+    draw.line(
+        [(cx - radius, cy), (cx + radius, cy)],
+        fill=(255, 255, 255, 38),
+        width=line_w_thin,
+    )
+
+    # Africa silhouette
+    africa = africa_polygon(cx, cy, radius / 50)
+    draw.polygon(africa, fill=(255, 255, 255, 56), outline=(255, 255, 255, 25))
+
+    # Black Star — top portion of the globe
+    star_outer = radius * 0.18
     star_inner = star_outer * 0.45
-    star_cy    = cy - radius * 0.58
+    star_cy    = cy - radius * 0.72
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
         fill=BLACK,
-        outline=(255, 255, 255, 100),
+        outline=(255, 255, 255, 110),
     )
-    # BWN monogram
+
+    # BWN monogram — centered horizontally, slightly below center
     if SERIF_BOLD:
-        font_size = int(radius * 0.55)
+        font_size = int(radius * 0.42)
         font = ImageFont.truetype(SERIF_BOLD, font_size)
         text = "BWN"
         bbox = draw.textbbox((0, 0), text, font=font)
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         draw.text(
-            (cx - w / 2 - bbox[0], cy + radius * 0.05 - h / 2 - bbox[1]),
+            (cx - w / 2 - bbox[0], cy + radius * 0.12 - h / 2 - bbox[1]),
             text,
-            fill=WHITE,
+            fill=(255, 255, 255, 235),
             font=font,
         )
 

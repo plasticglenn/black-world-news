@@ -20,7 +20,6 @@ WHITE = (255, 255, 255, 255)
 
 
 def star_points(cx, cy, outer_r, inner_r, points=5, rotation=-math.pi / 2):
-    """Return polygon points for an N-pointed star."""
     pts = []
     for i in range(points * 2):
         r = outer_r if i % 2 == 0 else inner_r
@@ -29,68 +28,115 @@ def star_points(cx, cy, outer_r, inner_r, points=5, rotation=-math.pi / 2):
     return pts
 
 
-def make_icon(size, filename, maskable=False, rounded=False):
-    """
-    Render the BWN logo at the given pixel size.
-    - maskable: keep all content inside the central 80% safe-zone
-                so adaptive Android masks don't crop it.
-    - rounded: clip into a circle (used for non-maskable iOS-style icons)
-    """
-    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
+def quad_bezier(p0, p1, p2, steps=22):
+    out = []
+    for i in range(steps + 1):
+        t = i / steps
+        x = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0]
+        y = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1]
+        out.append((x, y))
+    return out
 
-    # Background fill — square for maskable, circle for normal
-    if maskable:
-        draw.rectangle([0, 0, size, size], fill=GREEN)
-        usable = size * 0.8        # center-80% safe zone
-        offset = size * 0.1
-    else:
-        draw.ellipse([0, 0, size, size], fill=GREEN)
-        usable = size
-        offset = 0
 
-    cx = size / 2
-    cy = size / 2
+def africa_polygon(cx, cy, scale):
+    def pt(x, y):
+        return (cx - 50 * scale + x * scale, cy - 50 * scale + y * scale)
+    start = pt(46, 28)
+    segments = [
+        (pt(52, 26), pt(55, 32)),
+        (pt(60, 36), pt(58, 44)),
+        (pt(62, 50), pt(60, 57)),
+        (pt(58, 65), pt(54, 70)),
+        (pt(50, 74), pt(47, 70)),
+        (pt(42, 64), pt(41, 57)),
+        (pt(38, 50), pt(40, 44)),
+        (pt(39, 36), pt(43, 30)),
+    ]
+    points = [start]
+    current = start
+    for ctrl, end in segments:
+        points.extend(quad_bezier(current, ctrl, end)[1:])
+        current = end
+    return points
 
-    # Black Star — top portion of the icon
-    star_cy   = offset + usable * 0.30
-    star_outer = usable * 0.16
-    star_inner = star_outer * 0.45
+
+def draw_full_logo(draw, cx, cy, radius):
+    """Draws the complete BWN logo with globe, Africa, star, and monogram."""
+    line_thin  = max(1, int(radius * 0.012))
+    line_outer = max(1, int(radius * 0.025))
+
+    draw.ellipse(
+        [cx - radius, cy - radius, cx + radius, cy + radius],
+        fill=GREEN,
+        outline=(255, 255, 255, 38),
+        width=line_outer,
+    )
+    draw.ellipse(
+        [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
+        outline=(255, 255, 255, 30), width=line_thin,
+    )
+    draw.ellipse(
+        [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
+        outline=(255, 255, 255, 20), width=line_thin,
+    )
+    draw.ellipse(
+        [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
+        outline=(255, 255, 255, 30), width=line_thin,
+    )
+    draw.line(
+        [(cx - radius, cy), (cx + radius, cy)],
+        fill=(255, 255, 255, 38), width=line_thin,
+    )
     draw.polygon(
-        star_points(cx, star_cy, star_outer, star_inner),
-        fill=BLACK,
-        outline=(255, 255, 255, 100),
+        africa_polygon(cx, cy, radius / 50),
+        fill=(255, 255, 255, 56), outline=(255, 255, 255, 25),
     )
 
-    # BWN monogram — center / lower portion
-    text = "BWN"
-    target_h = int(usable * 0.32)
-    # Try to find a usable font
+    star_outer = radius * 0.18
+    star_inner = star_outer * 0.45
+    star_cy    = cy - radius * 0.72
+    draw.polygon(
+        star_points(cx, star_cy, star_outer, star_inner),
+        fill=BLACK, outline=(255, 255, 255, 110),
+    )
+
+    # BWN monogram
+    target_h = int(radius * 0.42)
     font = None
-    for font_path in ["arial.ttf", "Arial.ttf", "DejaVuSans-Bold.ttf",
-                      "C:/Windows/Fonts/arialbd.ttf", "C:/Windows/Fonts/arial.ttf"]:
+    for path in ["C:/Windows/Fonts/georgiab.ttf", "C:/Windows/Fonts/timesbd.ttf",
+                 "C:/Windows/Fonts/arialbd.ttf", "georgiab.ttf"]:
         try:
-            font = ImageFont.truetype(font_path, target_h)
+            font = ImageFont.truetype(path, target_h)
             break
         except (OSError, IOError):
             continue
     if font is None:
         font = ImageFont.load_default()
 
-    # Center the text horizontally and place it lower-center
-    bbox  = draw.textbbox((0, 0), text, font=font)
-    tw    = bbox[2] - bbox[0]
-    th    = bbox[3] - bbox[1]
-    text_cy = offset + usable * 0.65
+    bbox = draw.textbbox((0, 0), "BWN", font=font)
+    w = bbox[2] - bbox[0]
+    h = bbox[3] - bbox[1]
     draw.text(
-        (cx - tw / 2 - bbox[0], text_cy - th / 2 - bbox[1]),
-        text,
-        fill=WHITE,
-        font=font,
+        (cx - w / 2 - bbox[0], cy + radius * 0.12 - h / 2 - bbox[1]),
+        "BWN", fill=(255, 255, 255, 235), font=font,
     )
 
+
+def make_icon(size, filename, maskable=False, rounded=False):
+    """Render the BWN logo at the given pixel size."""
+    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+
+    if maskable:
+        # Maskable: square green background, logo in center-80% safe zone
+        draw.rectangle([0, 0, size, size], fill=GREEN)
+        radius = size * 0.4    # logo within the 80% safe zone
+    else:
+        radius = size / 2 - 2
+
+    draw_full_logo(draw, size / 2, size / 2, radius)
     img.save(filename, "PNG")
-    print(f"  ✅ {filename} ({size}x{size})")
+    print(f"  {filename} ({size}x{size})")
 
 
 # Standard PWA sizes Chrome / Android / iOS expect
