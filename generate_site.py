@@ -88,6 +88,33 @@ ISSUE_GROUPS = {
 KIDS_LETTER_COLORS = ["red", "pink", "blue", "yellow", "green", "orange", "purple"]
 
 
+# PWA — manifest, theme color, iOS meta tags. Injected into <head> of every page.
+PWA_META = """
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a3a2a">
+<meta name="application-name" content="Black World News">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BWN">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<!-- /PWA -->
+"""
+
+# Service worker registration — injected at the bottom of every page.
+PWA_SCRIPT = """
+<script>
+  if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+  }
+</script>
+"""
+
 # Cloudflare Web Analytics — injected at the bottom of every page.
 # Privacy-respecting, no cookies, no GDPR banner needed.
 CLOUDFLARE_ANALYTICS = (
@@ -550,6 +577,7 @@ def build_html(stories, cache):
     <!-- Browser tab icon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
@@ -1720,6 +1748,7 @@ def build_html(stories, cache):
   }}
 </script>
 
+{PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
@@ -1767,6 +1796,7 @@ def page_shell(title, content, active=""):
     <link rel="canonical" href="{page_url}">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
@@ -1823,6 +1853,7 @@ def page_shell(title, content, active=""):
     <p><strong>BLACK WORLD NEWS</strong> Your World Today</p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to original sources.</p>
 </footer>
+{PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
@@ -2076,6 +2107,7 @@ def build_region_page(region_id, region, all_stories, cache):
     <link rel="canonical" href="https://www.blackworldnews.world/{region_id}.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
@@ -2123,6 +2155,7 @@ def build_region_page(region_id, region, all_stories, cache):
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
 </footer>
+{PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
@@ -2159,6 +2192,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
     <link rel="canonical" href="https://www.blackworldnews.world/{issue_id}.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
@@ -2228,6 +2262,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
 </footer>
+{PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
@@ -2265,6 +2300,7 @@ def build_search_page():
     <link rel="canonical" href="https://www.blackworldnews.world/search.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
@@ -2506,6 +2542,7 @@ def build_search_page():
         }});
 </script>
 
+{PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
 </body>
 </html>"""
