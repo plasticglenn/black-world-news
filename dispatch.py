@@ -45,8 +45,7 @@ CATEGORIES = [
 
 # ---- SEARCH QUERIES ----
 # These are the searches we run every time the agent collects stories.
-# Each one is designed with a Pan-African lens — we're looking at root causes,
-# not repeating Western media framing.
+# Each one is designed to look at root causes, not repeat Western media framing.
 
 QUERIES = [
     # Explicit racism
@@ -196,9 +195,9 @@ def analyze_story(title, url, snippet, article_text):
 
     # This is the instruction we send to the AI — it tells it who it is
     # and exactly what format we want back.
-    prompt = f"""You are a Pan-African media analyst. Your job is to analyze news stories through the lens of how Black communities globally are affected by systemic racism, colonial legacy, and economic exploitation.
+    prompt = f"""You are a media analyst for a news service covering Black communities globally. Analyze news stories through the lens of how Black communities are affected by structural inequality, colonial legacy, and economic exploitation.
 
-You understand that anti-Black racism is rarely explicit — it often appears in how stories about poverty, crime, drugs, alcohol, unemployment, and healthcare are framed when Black people are involved.
+You understand that anti-Black racism is rarely explicit. It often appears in how stories about poverty, crime, drugs, alcohol, unemployment, and healthcare are framed when Black people are involved.
 
 Title: {title}
 URL: {url}

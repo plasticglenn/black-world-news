@@ -1918,7 +1918,7 @@ def build_resources():
         ("Black Lives Matter Global Network", "https://blacklivesmatter.com", "A decentralised movement with chapters across the US, UK, and Canada."),
         ("NAACP", "https://naacp.org", "The oldest civil rights organisation in the United States, focused on legal advocacy and policy."),
         ("Runnymede Trust", "https://www.runnymedetrust.org", "The UK's leading race equality think tank."),
-        ("Institute of the Black World 21st Century", "https://ibw21.org", "Research and advocacy grounded in the Pan-African tradition."),
+        ("Institute of the Black World 21st Century", "https://ibw21.org", "Research and advocacy grounded in the long tradition of Black freedom thought."),
     ]
     films = [
         ("13th", "Ava DuVernay, 2016", "Traces the history of racial inequality in the United States through the prison system."),

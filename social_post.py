@@ -74,7 +74,7 @@ def draft_for(story):
 
     country_tag = country_hashtag(country)
 
-    prompt = f"""You are a social media editor for Black World News — a Pan-African news outlet.
+    prompt = f"""You are a social media editor for Black World News — a news outlet covering Black communities globally.
 Draft posts in a neutral, serious tone (think BBC, not buzzword Twitter).
 The site links readers to the original article, not to BWN itself, so always cite the source story.
 
@@ -93,7 +93,7 @@ Respond in JSON only with these exact fields:
 Rules:
 - No emojis in any post.
 - No hyphens anywhere.
-- Never use the words "Pan-African", "systemic", or "narrative framing" in posts.
+- Never use the words "Pan-African", "Pan African", "systemic", "narrative", "framing", or "diaspora" in posts.
 - Plain, direct, wire-service tone."""
 
     raw = ""
