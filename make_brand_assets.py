@@ -31,6 +31,29 @@ WHITE  = (255, 255, 255, 255)
 ACCENT = (138, 184, 154, 255)   # #8ab89a — soft green for taglines
 
 
+def blend_on_green(white_alpha):
+    """Returns the solid colour that looks like white-over-green at the given alpha.
+    PIL paints pixels rather than blending, so we pre-compute the blend ourselves."""
+    a = white_alpha / 255.0
+    return (
+        int(GREEN[0] * (1 - a) + 255 * a),
+        int(GREEN[1] * (1 - a) + 255 * a),
+        int(GREEN[2] * (1 - a) + 255 * a),
+        255,
+    )
+
+
+# Pre-blended palette — faded white over the green disc
+LINE_OUTER_RING = blend_on_green(38)   # subtle outer ring stroke
+LINE_LAT_MAIN   = blend_on_green(30)   # main latitude line (equator-ish)
+LINE_LAT_FAINT  = blend_on_green(20)   # outer latitude line
+LINE_LON        = blend_on_green(30)   # longitude line
+LINE_EQUATOR    = blend_on_green(38)   # equator
+AFRICA_FILL     = blend_on_green(56)   # faded Africa silhouette
+AFRICA_EDGE     = blend_on_green(25)   # Africa hairline edge
+BWN_COLOR       = blend_on_green(230)  # nearly white BWN monogram
+
+
 def find_font(*candidates):
     for path in candidates:
         try:
@@ -121,53 +144,52 @@ def africa_polygon(cx, cy, scale):
 
 
 def draw_logo(draw, cx, cy, radius):
-    """The original BWN logo: green disc, globe lines, faint white Africa,
-    black star with a hairline white edge, white BWN monogram."""
+    """The original BWN logo. Uses pre-blended colours so PIL renders
+    the faded white-on-green correctly without alpha compositing."""
     line_thin = max(1, int(radius * 0.012))
 
-    # Green disc with subtle outer ring stroke
+    # Solid green disc with subtle outer ring
     draw.ellipse(
         [cx - radius, cy - radius, cx + radius, cy + radius],
         fill=GREEN,
-        outline=(255, 255, 255, 38),
+        outline=LINE_OUTER_RING,
         width=max(1, int(radius * 0.018)),
     )
 
-    # Latitude lines — two of them, both faint
+    # Latitude lines — two of them
     draw.ellipse(
         [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
-        outline=(255, 255, 255, 30), width=line_thin,
+        outline=LINE_LAT_MAIN, width=line_thin,
     )
     draw.ellipse(
         [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
-        outline=(255, 255, 255, 20), width=line_thin,
+        outline=LINE_LAT_FAINT, width=line_thin,
     )
     # Longitude line
     draw.ellipse(
         [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
-        outline=(255, 255, 255, 30), width=line_thin,
+        outline=LINE_LON, width=line_thin,
     )
     # Equator
     draw.line(
         [(cx - radius * 0.97, cy), (cx + radius * 0.97, cy)],
-        fill=(255, 255, 255, 38), width=line_thin,
+        fill=LINE_EQUATOR, width=line_thin,
     )
 
-    # Africa silhouette — soft white at ~22% opacity, hairline edge
+    # Africa silhouette — pre-blended faded white
     africa = africa_polygon(cx, cy, radius / 50)
-    draw.polygon(africa, fill=(255, 255, 255, 56), outline=(255, 255, 255, 25))
+    draw.polygon(africa, fill=AFRICA_FILL, outline=AFRICA_EDGE)
 
-    # Black Star — with the hairline white edge from the original SVG
+    # Black Star — solid, no outline (per brand direction)
     star_outer = radius * 0.20
     star_inner = star_outer * 0.42
     star_cy    = cy - radius * 0.72
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
         fill=BLACK,
-        outline=(255, 255, 255, 100),
     )
 
-    # BWN monogram — white at ~90% opacity, slightly below center
+    # BWN monogram — pre-blended near-white, sits below the equator
     if SERIF_BOLD:
         font_size = int(radius * 0.42)
         font = ImageFont.truetype(SERIF_BOLD, font_size)
@@ -176,9 +198,9 @@ def draw_logo(draw, cx, cy, radius):
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         draw.text(
-            (cx - w / 2 - bbox[0], cy + radius * 0.10 - h / 2 - bbox[1]),
+            (cx - w / 2 - bbox[0], cy + radius * 0.18 - h / 2 - bbox[1]),
             text,
-            fill=(255, 255, 255, 230),
+            fill=BWN_COLOR,
             font=font,
         )
 
