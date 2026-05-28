@@ -43,18 +43,16 @@ def quad_bezier(p0, p1, p2, steps=22):
 def africa_polygon(cx, cy, scale):
     def pt(x, y):
         return (cx - 50 * scale + x * scale, cy - 50 * scale + y * scale)
-    start = pt(36, 22)
+    start = pt(46, 28)
     segments = [
-        (pt(50, 17), pt(60, 22)),   # Mediterranean coast
-        (pt(64, 28), pt(66, 34)),   # NE corner
-        (pt(70, 40), pt(70, 46)),   # Horn of Africa
-        (pt(67, 52), pt(64, 60)),   # East coast
-        (pt(60, 70), pt(53, 76)),   # Mozambique
-        (pt(48, 79), pt(44, 76)),   # South cape
-        (pt(40, 70), pt(39, 62)),   # Up west
-        (pt(35, 52), pt(33, 42)),   # SW to West bulge
-        (pt(31, 32), pt(34, 25)),   # NW Africa
-        (pt(34, 22), pt(36, 22)),   # Close
+        (pt(52, 26), pt(55, 32)),
+        (pt(60, 36), pt(58, 44)),
+        (pt(62, 50), pt(60, 57)),
+        (pt(58, 65), pt(54, 70)),
+        (pt(50, 74), pt(47, 70)),
+        (pt(42, 64), pt(41, 57)),
+        (pt(38, 50), pt(40, 44)),
+        (pt(39, 36), pt(43, 30)),
     ]
     points = [start]
     current = start
