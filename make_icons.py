@@ -43,16 +43,18 @@ def quad_bezier(p0, p1, p2, steps=22):
 def africa_polygon(cx, cy, scale):
     def pt(x, y):
         return (cx - 50 * scale + x * scale, cy - 50 * scale + y * scale)
-    start = pt(46, 28)
+    start = pt(36, 22)
     segments = [
-        (pt(52, 26), pt(55, 32)),
-        (pt(60, 36), pt(58, 44)),
-        (pt(62, 50), pt(60, 57)),
-        (pt(58, 65), pt(54, 70)),
-        (pt(50, 74), pt(47, 70)),
-        (pt(42, 64), pt(41, 57)),
-        (pt(38, 50), pt(40, 44)),
-        (pt(39, 36), pt(43, 30)),
+        (pt(50, 17), pt(60, 22)),   # Mediterranean coast
+        (pt(64, 28), pt(66, 34)),   # NE corner
+        (pt(70, 40), pt(70, 46)),   # Horn of Africa
+        (pt(67, 52), pt(64, 60)),   # East coast
+        (pt(60, 70), pt(53, 76)),   # Mozambique
+        (pt(48, 79), pt(44, 76)),   # South cape
+        (pt(40, 70), pt(39, 62)),   # Up west
+        (pt(35, 52), pt(33, 42)),   # SW to West bulge
+        (pt(31, 32), pt(34, 25)),   # NW Africa
+        (pt(34, 22), pt(36, 22)),   # Close
     ]
     points = [start]
     current = start
@@ -63,40 +65,55 @@ def africa_polygon(cx, cy, scale):
 
 
 def draw_full_logo(draw, cx, cy, radius):
-    """BWN logo: green ring, faint globe lines, gold Africa, black star, BWN."""
+    """Original BWN logo: green disc, globe lines, faint white Africa,
+    black star with hairline edge, white BWN."""
     line_thin = max(1, int(radius * 0.012))
 
+    # Green disc with subtle outer ring
     draw.ellipse(
         [cx - radius, cy - radius, cx + radius, cy + radius],
         fill=GREEN,
+        outline=(255, 255, 255, 38),
+        width=max(1, int(radius * 0.018)),
     )
+    # Latitude lines
     draw.ellipse(
         [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
-        outline=(255, 255, 255, 22), width=line_thin,
+        outline=(255, 255, 255, 30), width=line_thin,
     )
     draw.ellipse(
-        [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
-        outline=(255, 255, 255, 22), width=line_thin,
+        [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
+        outline=(255, 255, 255, 20), width=line_thin,
     )
+    # Longitude
+    draw.ellipse(
+        [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
+        outline=(255, 255, 255, 30), width=line_thin,
+    )
+    # Equator
     draw.line(
         [(cx - radius * 0.97, cy), (cx + radius * 0.97, cy)],
-        fill=(255, 255, 255, 30), width=line_thin,
+        fill=(255, 255, 255, 38), width=line_thin,
     )
+    # Africa silhouette — soft white, hairline edge
     draw.polygon(
         africa_polygon(cx, cy, radius / 50),
-        fill=GOLD,
+        fill=(255, 255, 255, 56),
+        outline=(255, 255, 255, 25),
     )
 
+    # Black Star with hairline white edge
     star_outer = radius * 0.20
     star_inner = star_outer * 0.42
-    star_cy    = cy - radius * 0.70
+    star_cy    = cy - radius * 0.72
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
         fill=BLACK,
+        outline=(255, 255, 255, 100),
     )
 
-    # BWN monogram — green text on gold Africa
-    target_h = int(radius * 0.40)
+    # BWN monogram — white at 90% opacity
+    target_h = int(radius * 0.42)
     font = None
     for path in ["C:/Windows/Fonts/georgiab.ttf", "C:/Windows/Fonts/timesbd.ttf",
                  "C:/Windows/Fonts/arialbd.ttf", "georgiab.ttf"]:
@@ -112,8 +129,8 @@ def draw_full_logo(draw, cx, cy, radius):
     w = bbox[2] - bbox[0]
     h = bbox[3] - bbox[1]
     draw.text(
-        (cx - w / 2 - bbox[0], cy + radius * 0.18 - h / 2 - bbox[1]),
-        "BWN", fill=GREEN, font=font,
+        (cx - w / 2 - bbox[0], cy + radius * 0.10 - h / 2 - bbox[1]),
+        "BWN", fill=(255, 255, 255, 230), font=font,
     )
 
 

@@ -99,16 +99,19 @@ def africa_polygon(cx, cy, scale):
         return (cx - 50 * scale + x * scale, cy - 50 * scale + y * scale)
 
     # Each tuple = (control point, end point) for one quadratic Bezier segment
-    start = pt(46, 28)
+    # West African bulge top, Horn of Africa east, Cape point south
+    start = pt(36, 22)
     segments = [
-        (pt(52, 26), pt(55, 32)),
-        (pt(60, 36), pt(58, 44)),
-        (pt(62, 50), pt(60, 57)),
-        (pt(58, 65), pt(54, 70)),
-        (pt(50, 74), pt(47, 70)),
-        (pt(42, 64), pt(41, 57)),
-        (pt(38, 50), pt(40, 44)),
-        (pt(39, 36), pt(43, 30)),
+        (pt(50, 17), pt(60, 22)),   # Mediterranean coast
+        (pt(64, 28), pt(66, 34)),   # NE corner (Egypt down)
+        (pt(70, 40), pt(70, 46)),   # Horn of Africa (east bulge)
+        (pt(67, 52), pt(64, 60)),   # East coast south
+        (pt(60, 70), pt(53, 76)),   # Mozambique
+        (pt(48, 79), pt(44, 76)),   # South cape point
+        (pt(40, 70), pt(39, 62)),   # Up west of south
+        (pt(35, 52), pt(33, 42)),   # SW to West African bulge
+        (pt(31, 32), pt(34, 25)),   # NW Africa
+        (pt(34, 22), pt(36, 22)),   # Close back to start
     ]
 
     points = [start]
@@ -121,58 +124,64 @@ def africa_polygon(cx, cy, scale):
 
 
 def draw_logo(draw, cx, cy, radius):
-    """BWN logo: green ring, faint globe lines, gold Africa, black star, BWN."""
-    line_w_thin = max(1, int(radius * 0.012))
+    """The original BWN logo: green disc, globe lines, faint white Africa,
+    black star with a hairline white edge, white BWN monogram."""
+    line_thin = max(1, int(radius * 0.012))
 
-    # Solid green circle
+    # Green disc with subtle outer ring stroke
     draw.ellipse(
         [cx - radius, cy - radius, cx + radius, cy + radius],
         fill=GREEN,
+        outline=(255, 255, 255, 38),
+        width=max(1, int(radius * 0.018)),
     )
 
-    # Minimal globe lines — just enough to read as a globe, not enough to fight the Africa shape
+    # Latitude lines — two of them, both faint
     draw.ellipse(
         [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
-        outline=(255, 255, 255, 22),
-        width=line_w_thin,
+        outline=(255, 255, 255, 30), width=line_thin,
     )
     draw.ellipse(
-        [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
-        outline=(255, 255, 255, 22),
-        width=line_w_thin,
+        [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
+        outline=(255, 255, 255, 20), width=line_thin,
     )
-    # Equator line
+    # Longitude line
+    draw.ellipse(
+        [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
+        outline=(255, 255, 255, 30), width=line_thin,
+    )
+    # Equator
     draw.line(
         [(cx - radius * 0.97, cy), (cx + radius * 0.97, cy)],
-        fill=(255, 255, 255, 30),
-        width=line_w_thin,
+        fill=(255, 255, 255, 38), width=line_thin,
     )
 
-    # Africa silhouette — solid gold, the brand colour
+    # Africa silhouette — soft white at ~22% opacity, hairline edge
     africa = africa_polygon(cx, cy, radius / 50)
-    draw.polygon(africa, fill=GOLD)
+    draw.polygon(africa, fill=(255, 255, 255, 56), outline=(255, 255, 255, 25))
 
-    # Black Star — top portion of the globe, no outline
+    # Black Star — with the hairline white edge from the original SVG
     star_outer = radius * 0.20
     star_inner = star_outer * 0.42
-    star_cy    = cy - radius * 0.70
+    star_cy    = cy - radius * 0.72
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
         fill=BLACK,
+        outline=(255, 255, 255, 100),
     )
 
-    # BWN monogram — centered horizontally, on top of the Africa silhouette
+    # BWN monogram — white at ~90% opacity, slightly below center
     if SERIF_BOLD:
-        font_size = int(radius * 0.40)
+        font_size = int(radius * 0.42)
         font = ImageFont.truetype(SERIF_BOLD, font_size)
         text = "BWN"
         bbox = draw.textbbox((0, 0), text, font=font)
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         draw.text(
-            (cx - w / 2 - bbox[0], cy + radius * 0.18 - h / 2 - bbox[1]),
+            (cx - w / 2 - bbox[0], cy + radius * 0.10 - h / 2 - bbox[1]),
             text,
-            fill=GREEN,   # green over gold reads as the brand
+            fill=(255, 255, 255, 230),
             font=font,
         )
 
