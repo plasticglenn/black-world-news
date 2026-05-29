@@ -2290,9 +2290,11 @@ def build_kids():
 
         /* Age toggle */
         .age-toggle{{display:flex;justify-content:center;gap:0.5rem;margin:1.5rem auto 0;}}
-        .age-btn{{font-family:'Fredoka One',cursive;font-size:1rem;padding:0.6rem 1.4rem;border:3px solid #1a3a2a;background:#fff;color:#1a3a2a;border-radius:999px;cursor:pointer;transition:all 0.15s;}}
+        .age-btn{{font-family:'Bagel Fat One',cursive;font-size:1.15rem;padding:0.55rem 1.5rem;border:3px solid #1a3a2a;background:#fff;color:#1a3a2a;border-radius:999px;cursor:pointer;transition:all 0.15s;line-height:1.2;}}
         .age-btn:hover{{background:#eef4f0;}}
         .age-btn.active{{background:#1a3a2a;color:#fff;}}
+        /* Bubble letters inside the Little Ones button keep their colour on any background */
+        .age-btn .kids-letter{{filter:drop-shadow(0 1.5px 0 var(--deep)) drop-shadow(0 2px 2px rgba(0,0,0,0.2));}}
 
         /* Lane visibility — controlled by body class */
         .big-only{{display:none;}}
@@ -2379,10 +2381,10 @@ def build_kids():
 
 <section class="kids-hero">
     <h1 class="kids-hero-title">{title_balloon}</h1>
-    <p class="kids-hero-sub">You are brave. You are beautiful. You are made exactly right. This is your place to grow strong and proud.</p>
+    <p class="kids-hero-sub">You are brave. You are beautiful. You belong to a family that reaches all around the world. This is your place to grow strong and proud, together.</p>
     <div class="age-toggle">
-        <button class="age-btn active" data-lane="little">Little Ones (3 to 7)</button>
-        <button class="age-btn" data-lane="big">Bigger Kids (8 to 13)</button>
+        <button class="age-btn active" data-lane="little">{colorize_kids_text("Little Ones")}</button>
+        <button class="age-btn" data-lane="big">Bigger Kids</button>
     </div>
 </section>
 

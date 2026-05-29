@@ -137,8 +137,14 @@ Door is up. **Phase 1 is LIVE** (see DONE 2026-05-29 above). Remaining phases be
   - Quiz (JavaScript only)
 - [ ] **Phase 2** — `kids_content.py` auto-rewrites news at 3rd-grade reading level
 - [ ] **Phase 3** — Pollinations AI comic panels (Comic of the Week)
-- [ ] **Phase 4** — Quiz module (JS only, no backend)
+- [x] **Phase 4** — Quiz module (JS only, no backend) — shipped in Phase 1
 - [ ] **Phase 5** — Browser text-to-speech reading aloud (deferred — app-level)
+
+**Future vision (Glenn):** the kids section becomes a *portal* — to an online comic and to
+videos we generate from scripts we write/generate. The current kids.html is the doorway; the
+comic and video experiences live behind it. Tone throughout: **belonging, not difference** —
+our children are part of a global community of shared values (building a zeitgeist), brave,
+beautiful, and beautifully made.
 
 ### 3. More direct sources (optional, low priority)
 - [ ] Africa Report (Africa-focused English journalism)
