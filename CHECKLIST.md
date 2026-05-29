@@ -2,7 +2,7 @@
 
 > Live tracker for what's built, what's next, and what's parked.
 > Edit this file directly when you complete or change anything.
-> Last updated: 2026-05-27
+> Last updated: 2026-05-29
 
 ---
 
@@ -13,7 +13,9 @@
 - [x] AI analysis per story (Pan-African lens, Groq Llama 3.3 70B)
 - [x] 208+ stories archived in `stories.json`
 - [x] Featured story picker (`pick_featured.py` → `featured.json`)
-- [x] In Focus highlights, hand-curated (`highlights.json`)
+- [x] In Focus highlights — current news, hand-curated (`highlights.json`)
+- [x] Servants of the Continent — tribute section below the news (`servants.json`)
+- [x] 268 stories archived in `stories.json`
 - [x] Single-URL ingest helper (`add_url.py`)
 - [x] Site generator (`generate_site.py`)
 - [x] Auto-publish pipeline (`run_all.bat`)
@@ -86,6 +88,16 @@
 ### Admin
 - [x] Hidden stats via `?admin` URL parameter
 - [x] API keys stored in Windows env vars (never in files)
+
+---
+
+## 🆕 DONE 2026-05-29
+- [x] Logo consolidated — one source of truth (`logo.svg`), homepage no longer has its own copy
+- [x] Bugfix: news agent was crashing on startup (UTF-8 encoding in `load_archive`). Fixed.
+- [x] News run added 60 stories (208 → 268)
+- [x] In Focus now shows current events (African Development Bank, Brazil race quotas, Windrush), not Wikipedia bios
+- [x] New "Servants of the Continent" tribute at foot of homepage — Garvey, Lumumba, Marley
+  - Edit `servants.json` to change people. Add an `image` and `url` to each when our own articles exist; cards become clickable once `url` is filled.
 
 ---
 
