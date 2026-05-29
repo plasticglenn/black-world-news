@@ -1673,20 +1673,17 @@ def build_html(stories, cache):
             <!-- Globe latitude lines -->
             <ellipse cx="50" cy="50" rx="47" ry="22" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
             <ellipse cx="50" cy="50" rx="47" ry="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-            <!-- Globe longitude lines -->
+            <!-- Globe longitude line -->
             <ellipse cx="50" cy="50" rx="22" ry="47" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
             <!-- Equator -->
             <line x1="3" y1="50" x2="97" y2="50" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <!-- Africa shape — simplified -->
-            <path d="M46 28 Q52 26 55 32 Q60 36 58 44 Q62 50 60 57 Q58 65 54 70 Q50 74 47 70 Q42 64 41 57 Q38 50 40 44 Q39 36 43 30 Z"
-                  fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
-            <!-- Black Star — in honour of Marcus Garvey -->
-            <polygon points="50,6 52.2,12.9 59.5,12.9 53.7,17.1 55.9,24 50,19.8 44.1,24 46.3,17.1 40.5,12.9 47.8,12.9"
-                     fill="#000000" stroke="rgba(255,255,255,0.4)" stroke-width="0.6"/>
+            <!-- Black Star — prominent, top centre -->
+            <polygon points="50,8 53.8,19.5 66,19.5 56.1,26.5 59.9,38 50,31 40.1,38 43.9,26.5 34,19.5 46.2,19.5"
+                     fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
             <!-- BWN monogram -->
-            <text x="50" y="58" text-anchor="middle"
+            <text x="50" y="62" text-anchor="middle"
                   font-family="Georgia, 'Times New Roman', serif"
-                  font-size="17" font-weight="bold" fill="white" opacity="0.9">BWN</text>
+                  font-size="20" font-weight="bold" fill="white" opacity="0.95">BWN</text>
         </svg>
     </div>
     <p class="masthead-eyebrow">Your World Today</p>
