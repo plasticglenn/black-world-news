@@ -1494,7 +1494,7 @@ def build_html(stories, cache):
             }}
 
             .logo-wrap {{ margin-bottom: 0; }}
-            .logo-wrap svg {{ width: 36px; height: 36px; }}
+            .logo-wrap img {{ width: 36px; height: 36px; }}
 
             .masthead-eyebrow {{ display: none; }}
             .masthead-tagline {{ display: block; font-size: 0.6rem; letter-spacing: 0.06em; margin-top: 0.2rem; color: #8ab89a; }}
@@ -1667,24 +1667,8 @@ def build_html(stories, cache):
 
 <header class="masthead">
     <div class="logo-wrap">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48" aria-hidden="true">
-            <!-- Outer ring -->
-            <circle cx="50" cy="50" r="47" fill="#1a3a2a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-            <!-- Globe latitude lines -->
-            <ellipse cx="50" cy="50" rx="47" ry="22" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-            <ellipse cx="50" cy="50" rx="47" ry="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-            <!-- Globe longitude line -->
-            <ellipse cx="50" cy="50" rx="22" ry="47" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-            <!-- Equator -->
-            <line x1="3" y1="50" x2="97" y2="50" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <!-- Black Star — prominent, top centre -->
-            <polygon points="50,8 53.8,19.5 66,19.5 56.1,26.5 59.9,38 50,31 40.1,38 43.9,26.5 34,19.5 46.2,19.5"
-                     fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
-            <!-- BWN monogram -->
-            <text x="50" y="62" text-anchor="middle"
-                  font-family="Georgia, 'Times New Roman', serif"
-                  font-size="20" font-weight="bold" fill="white" opacity="0.95">BWN</text>
-        </svg>
+        <!-- One logo for the whole site: edit logo.svg to change it everywhere. -->
+        <img src="logo.svg" alt="Black World News" width="48" height="48">
     </div>
     <p class="masthead-eyebrow">Your World Today</p>
     <div class="masthead-text">
