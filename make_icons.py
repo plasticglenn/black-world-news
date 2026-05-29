@@ -111,20 +111,18 @@ def draw_full_logo(draw, cx, cy, radius):
         [(cx - radius * 0.97, cy), (cx + radius * 0.97, cy)],
         fill=LINE_EQUATOR, width=line_thin,
     )
-    draw.polygon(
-        africa_polygon(cx, cy, radius / 50),
-        fill=AFRICA_FILL, outline=AFRICA_EDGE,
-    )
-
-    star_outer = radius * 0.20
-    star_inner = star_outer * 0.42
-    star_cy    = cy - radius * 0.72
+    # Black Star — large, prominent, top centre
+    star_outer = radius * 0.39
+    star_inner = star_outer * 0.45
+    star_cy    = cy - radius * 0.40
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
         fill=BLACK,
+        outline=(255, 255, 255, 90),
     )
 
-    target_h = int(radius * 0.42)
+    # BWN — large, below star
+    target_h = int(radius * 0.52)
     font = None
     for path in ["C:/Windows/Fonts/georgiab.ttf", "C:/Windows/Fonts/timesbd.ttf",
                  "C:/Windows/Fonts/arialbd.ttf", "georgiab.ttf"]:
@@ -140,7 +138,7 @@ def draw_full_logo(draw, cx, cy, radius):
     w = bbox[2] - bbox[0]
     h = bbox[3] - bbox[1]
     draw.text(
-        (cx - w / 2 - bbox[0], cy + radius * 0.18 - h / 2 - bbox[1]),
+        (cx - w / 2 - bbox[0], cy + radius * 0.25 - h / 2 - bbox[1]),
         "BWN", fill=BWN_COLOR, font=font,
     )
 

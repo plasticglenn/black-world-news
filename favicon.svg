@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="47" fill="#1a3a2a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
     <ellipse cx="50" cy="50" rx="47" ry="22" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <ellipse cx="50" cy="50" rx="47" ry="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
     <ellipse cx="50" cy="50" rx="22" ry="47" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-    <path d="M42 18 Q54 14 62 18 Q67 24 68 33 Q71 41 68 47 Q65 56 61 63 Q56 72 50 76 Q45 77 41 73 Q37 65 35 56 Q29 46 27 38 Q27 30 32 24 Q37 19 42 18 Z"
-          fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
-    <polygon points="50,6 52.2,12.9 59.5,12.9 53.7,17.1 55.9,24 50,19.8 44.1,24 46.3,17.1 40.5,12.9 47.8,12.9"
-             fill="#000000" stroke="rgba(255,255,255,0.4)" stroke-width="0.6"/>
-    <text x="50" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="17" font-weight="bold" fill="white" opacity="0.9">BWN</text>
+    <line x1="3" y1="50" x2="97" y2="50" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <polygon points="50,8 53.8,19.5 66,19.5 56.1,26.5 59.9,38 50,31 40.1,38 43.9,26.5 34,19.5 46.2,19.5"
+             fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+    <text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="white" opacity="0.95">BWN</text>
 </svg>

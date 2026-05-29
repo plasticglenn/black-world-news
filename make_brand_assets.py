@@ -147,11 +147,10 @@ def africa_polygon(cx, cy, scale):
 
 
 def draw_logo(draw, cx, cy, radius):
-    """The original BWN logo. Uses pre-blended colours so PIL renders
-    the faded white-on-green correctly without alpha compositing."""
+    """BWN logo: green globe, prominent Black Star top centre, BWN below."""
     line_thin = max(1, int(radius * 0.012))
 
-    # Solid green disc with subtle outer ring
+    # Green disc
     draw.ellipse(
         [cx - radius, cy - radius, cx + radius, cy + radius],
         fill=GREEN,
@@ -159,7 +158,7 @@ def draw_logo(draw, cx, cy, radius):
         width=max(1, int(radius * 0.018)),
     )
 
-    # Latitude lines — two of them
+    # Globe lines
     draw.ellipse(
         [cx - radius, cy - radius * 0.47, cx + radius, cy + radius * 0.47],
         outline=LINE_LAT_MAIN, width=line_thin,
@@ -168,40 +167,36 @@ def draw_logo(draw, cx, cy, radius):
         [cx - radius, cy - radius * 0.85, cx + radius, cy + radius * 0.85],
         outline=LINE_LAT_FAINT, width=line_thin,
     )
-    # Longitude line
     draw.ellipse(
         [cx - radius * 0.47, cy - radius, cx + radius * 0.47, cy + radius],
         outline=LINE_LON, width=line_thin,
     )
-    # Equator
     draw.line(
         [(cx - radius * 0.97, cy), (cx + radius * 0.97, cy)],
         fill=LINE_EQUATOR, width=line_thin,
     )
 
-    # Africa silhouette — pre-blended faded white
-    africa = africa_polygon(cx, cy, radius / 50)
-    draw.polygon(africa, fill=AFRICA_FILL, outline=AFRICA_EDGE)
-
-    # Black Star — solid, no outline (per brand direction)
-    star_outer = radius * 0.20
-    star_inner = star_outer * 0.42
-    star_cy    = cy - radius * 0.72
+    # Black Star — large, prominent, top centre
+    # Maps SVG viewBox points (50,8 / 53.8,19.5 / 66,19.5 / etc.) to pixel space
+    star_outer = radius * 0.39   # outer points tip (matches the large star in SVG)
+    star_inner = star_outer * 0.45
+    star_cy    = cy - radius * 0.40   # sits in the upper portion
     draw.polygon(
         star_points(cx, star_cy, star_outer, star_inner),
         fill=BLACK,
+        outline=(255, 255, 255, 90),
     )
 
-    # BWN monogram — pre-blended near-white, sits below the equator
+    # BWN monogram — large, centred below the star
     if SERIF_BOLD:
-        font_size = int(radius * 0.42)
+        font_size = int(radius * 0.52)
         font = ImageFont.truetype(SERIF_BOLD, font_size)
         text = "BWN"
         bbox = draw.textbbox((0, 0), text, font=font)
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         draw.text(
-            (cx - w / 2 - bbox[0], cy + radius * 0.18 - h / 2 - bbox[1]),
+            (cx - w / 2 - bbox[0], cy + radius * 0.25 - h / 2 - bbox[1]),
             text,
             fill=BWN_COLOR,
             font=font,

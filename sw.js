@@ -2,7 +2,7 @@
 // Caches the shell and recently-visited pages so the app works offline.
 // Bumps CACHE_NAME whenever we want the user's browser to fetch fresh files.
 
-const CACHE_NAME = "bwn-v6";
+const CACHE_NAME = "bwn-v7";
 
 // Core shell — pages we want available even with no internet.
 const SHELL = [
