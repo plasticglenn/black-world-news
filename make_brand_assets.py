@@ -122,16 +122,19 @@ def africa_polygon(cx, cy, scale):
         return (cx - 50 * scale + x * scale, cy - 50 * scale + y * scale)
 
     # Each tuple = (control point, end point) for one quadratic Bezier segment
-    start = pt(46, 28)
+    # Mediterranean top, Horn east, Senegal west, Cape south
+    start = pt(42, 18)
     segments = [
-        (pt(52, 26), pt(55, 32)),
-        (pt(60, 36), pt(58, 44)),
-        (pt(62, 50), pt(60, 57)),
-        (pt(58, 65), pt(54, 70)),
-        (pt(50, 74), pt(47, 70)),
-        (pt(42, 64), pt(41, 57)),
-        (pt(38, 50), pt(40, 44)),
-        (pt(39, 36), pt(43, 30)),
+        (pt(54, 14), pt(62, 18)),   # Mediterranean coast E
+        (pt(67, 24), pt(68, 33)),   # NE down Red Sea
+        (pt(71, 41), pt(68, 47)),   # Horn of Africa
+        (pt(65, 56), pt(61, 63)),   # East coast
+        (pt(56, 72), pt(50, 76)),   # South to Cape
+        (pt(45, 77), pt(41, 73)),   # Cape west side
+        (pt(37, 65), pt(35, 56)),   # SW Africa
+        (pt(29, 46), pt(27, 38)),   # Gulf of Guinea / Senegal
+        (pt(27, 30), pt(32, 24)),   # NW bulge back up
+        (pt(37, 19), pt(42, 18)),   # Close NW
     ]
 
     points = [start]
