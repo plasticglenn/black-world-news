@@ -135,6 +135,57 @@ QUERIES = [
     "Black British alcohol addiction systemic 2025",
     "Afro-French alcohol drug community impact 2025",
 
+    # ---- RESOURCE EXTRACTION & BUSINESS TRANSACTIONS ----
+    # Who is signing deals over African land and resources — and on what terms.
+    "Africa mining deal contract foreign company 2026",
+    "Congo DRC cobalt lithium mining deal 2026",
+    "West Africa gold mining extraction deal 2026",
+    "South Africa platinum mining investment 2026",
+    "Africa oil gas contract extraction revenue 2026",
+    "Africa cocoa coffee commodities trade price 2026",
+    "Africa rare earth minerals foreign acquisition 2026",
+    "Nigeria oil revenue corruption contracts 2026",
+    "Ghana gold cocoa export deal foreign 2026",
+    "African resources sovereign wealth fund 2026",
+
+    # ---- LARGE-SCALE FINANCIAL DECISIONS ----
+    # IMF conditions, World Bank loans, bilateral agreements, bond markets.
+    "IMF loan conditions Africa austerity 2026",
+    "World Bank Africa development loan conditions 2026",
+    "African Development Bank investment decision 2026",
+    "G7 G20 Africa investment pledge 2026",
+    "Africa sovereign debt restructuring default 2026",
+    "EU Africa trade partnership deal 2026",
+    "Africa bilateral trade agreement signed 2026",
+    "Africa bond market foreign investor 2026",
+    "African currency devaluation economic impact 2026",
+    "Black community federal investment United States 2026",
+    "opportunity zone Black neighborhood investment United States 2026",
+
+    # ---- FACTORY CLOSURES & ECONOMIC DISPLACEMENT ----
+    # When jobs leave — who bears the cost.
+    "factory closure Black community United States 2026",
+    "manufacturing plant closure Africa job losses 2026",
+    "company layoffs Black workers 2026",
+    "South Africa manufacturing closure unemployment 2026",
+    "Nigeria factory closure economic crisis 2026",
+    "deindustrialisation Black community 2026",
+    "mine closure Africa community jobs 2026",
+    "corporate divestment Africa 2026",
+
+    # ---- CONFLICT & DISPLACEMENT ----
+    # Armed conflict, humanitarian crisis, displacement affecting Black communities.
+    "Sudan conflict war displacement crisis 2026",
+    "Congo DRC conflict war minerals displacement 2026",
+    "Sahel conflict security crisis 2026",
+    "Somalia conflict humanitarian crisis 2026",
+    "Mozambique insurgency conflict 2026",
+    "Haiti gang violence crisis humanitarian 2026",
+    "Ethiopia conflict displacement 2026",
+    "Nigeria Boko Haram banditry conflict 2026",
+    "Mali Burkina Faso conflict coup 2026",
+    "Africa refugee displaced persons conflict 2026",
+
     # Asia and Pacific — Africa trade and geopolitics
     # Our angle: how do the largest Asian economies shape conditions on the African continent?
     "China Africa investment debt sovereignty 2025",
