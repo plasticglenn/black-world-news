@@ -344,8 +344,9 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
     cat     = story.get("category", "")
     summary = display_summary(story, "en")
     framing = story.get("narrative_framing", "")
-    analysis= story.get("narrative_analysis", "")
-    factors = story.get("structural_factors", [])
+    analysis   = story.get("narrative_analysis", "")
+    cui_bono   = story.get("cui_bono", "")
+    factors    = story.get("structural_factors", [])
     saved   = story.get("saved_at", "")
     flag    = COUNTRY_FLAGS.get(country, "🌍")
     explicit= story.get("explicit_racism", False)
@@ -388,6 +389,7 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
         <h2 class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>
         <p class="card-summary">{summary}</p>
         {'<p class="narrative-analysis">' + analysis + '</p>' if analysis else ''}
+        {'<p class="cui-bono">' + cui_bono + '</p>' if cui_bono and cui_bono.lower() != "unclear." and cui_bono.lower() != "unclear" else ''}
         {factor_tags(factors)}
         <div class="card-footer">
             <span class="saved-at">Collected: {saved}</span>
@@ -1055,6 +1057,15 @@ def build_html(stories, cache):
             border-left: 3px solid #c5daca;
             padding-left: 0.75rem;
             margin-bottom: 0.6rem;
+        }}
+
+        .cui-bono {{
+            font-size: 0.72rem;
+            color: #aaa;
+            font-style: italic;
+            padding-left: 0.75rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.01em;
         }}
 
         .factors {{
@@ -2102,6 +2113,7 @@ def build_region_page(region_id, region, all_stories, cache):
         .card-title a:hover {{ color:{color}; }}
         .card-summary {{ font-size:0.88rem; color:#444; margin-bottom:0.5rem; }}
         .narrative-analysis {{ font-size:0.82rem; color:#666; font-style:italic; border-left:3px solid #ddd; padding-left:0.75rem; margin-bottom:0.5rem; }}
+        .cui-bono{{font-size:0.72rem;color:#aaa;font-style:italic;padding-left:0.75rem;margin-bottom:0.5rem;letter-spacing:0.01em;}}
         .factors {{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.5rem; }}
         .factor {{ font-size:0.62rem; color:#bbb; font-weight:600; }}
         .card-footer {{ display:flex; justify-content:space-between; align-items:center; margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid #eee; }}

@@ -270,6 +270,7 @@ Respond in JSON format only with these exact fields:
 - "narrative_framing": one of ["Victim", "Criminal", "Statistic", "Human", "Resistant", "Exploited"]
 - "narrative_analysis": 1-2 sentences describing how Black people are framed in this story and what that framing implies
 - "structural_factors": list up to 3 systemic factors at play from ["Colonial legacy", "Drug war", "Engineered unemployment", "Alcohol industry targeting", "Land theft", "Foreign debt", "Mass incarceration", "Media bias", "Police violence", "Voter suppression", "Corporate extraction", "None identified"]
+- "cui_bono": one plain sentence, maximum 15 words, naming the specific entity or group that benefits most from the conditions described. Name the corporation, government, or industry. If genuinely unclear write "Unclear." No moralizing. Just who gains.
 
 Important: keep all translations natural and concise. Do not add commentary — only translated text.
 """
