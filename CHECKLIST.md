@@ -98,6 +98,13 @@
 - [x] In Focus now shows current events (African Development Bank, Brazil race quotas, Windrush), not Wikipedia bios
 - [x] New "Servants of the Continent" tribute at foot of homepage — Garvey, Lumumba, Marley
   - Edit `servants.json` to change people. Add an `image` and `url` to each when our own articles exist; cards become clickable once `url` is filled.
+- [x] **For the Children — Phase 1 LIVE** (`kids.html`). The broken kids link is fixed.
+  - Confidence-first mission: teach our children they are brave, beautiful, and beautifully made.
+  - Modules: Say It Out Loud (affirmations) → Meet Someone Special (Garvey, Toussaint, Yaa Asantewaa) → A Place to Know (Jamaica, Haiti, Ghana — flags) → From the Big News → Learn a Word → Quiz Time → safe footer.
+  - Two age lanes (Little Ones 3-7 / Bigger Kids 8-13) toggle at the top.
+  - All content hand-curated in `kids_affirmations.json`, `kids_figures.json`, `kids_countries.json`, `kids_vocab.json`, `kids_news.json`. Edit those to change content — no code needed.
+  - Safety: no comments, no chat, no sign-ups, no data collection, no ads.
+  - Yaa Asantewaa uses an initials circle (no free-licensed photo exists). Add a portrait URL to `kids_figures.json` if one is ever found.
 
 ---
 
@@ -118,14 +125,16 @@
 - [ ] Ingest any specific articles via `python add_url.py <url>`
 
 ### 2. For the Children — full page build
-This is the big one. Door is up, room behind it is empty. Plan was drafted earlier — confirm before we build:
+Door is up. **Phase 1 is LIVE** (see DONE 2026-05-29 above). Remaining phases below.
 
-- [ ] **Phase 1** — Static `kids.html` with hand-curated content
+- [x] **Phase 1** — Static `kids.html` with hand-curated content ✅ LIVE
+  - Say It Out Loud affirmations (confidence-first)
   - 3 historical figures ("Meet Someone Special")
   - 3 featured countries ("A Place to Know")
   - 3 news stories rewritten for kid language ("From the Big News")
-  - Word of the Day vocab (Twi, Swahili, Yoruba, Portuguese, etc.)
+  - Word of the Day vocab
   - Two age lanes toggle (Little Ones 3-7 / Bigger Kids 8-13)
+  - Quiz (JavaScript only)
 - [ ] **Phase 2** — `kids_content.py` auto-rewrites news at 3rd-grade reading level
 - [ ] **Phase 3** — Pollinations AI comic panels (Comic of the Week)
 - [ ] **Phase 4** — Quiz module (JS only, no backend)

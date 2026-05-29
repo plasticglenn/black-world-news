@@ -1,0 +1,29 @@
+[
+  {
+    "word": "Akwaaba",
+    "lang": "Twi",
+    "place": "Ghana",
+    "flag": "🇬🇭",
+    "say": "ah · KWAH · bah",
+    "means": "welcome",
+    "example": "Akwaaba! Come inside and sit with us."
+  },
+  {
+    "word": "Sak pasé",
+    "lang": "Haitian Creole",
+    "place": "Haiti",
+    "flag": "🇭🇹",
+    "say": "sak pa · SAY",
+    "means": "what is happening, like saying hello",
+    "example": "Sak pasé! How is your day going?"
+  },
+  {
+    "word": "Wah gwaan",
+    "lang": "Patois",
+    "place": "Jamaica",
+    "flag": "🇯🇲",
+    "say": "wah GWAHN",
+    "means": "what is going on, like saying hello",
+    "example": "Wah gwaan! It is good to see you."
+  }
+]

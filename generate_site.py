@@ -334,6 +334,18 @@ def load_servants():
         return []
 
 
+def load_json_file(filename):
+    # Simple, safe loader for the hand-curated kids content files.
+    # Returns [] if the file is missing or broken, so the page never crashes.
+    if not os.path.exists(filename):
+        return []
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
 def framing_badge(framing):
     # A small coloured dot — hints at the framing without announcing it
     if not framing:
@@ -1748,7 +1760,7 @@ def build_html(stories, cache):
             <div class="kids-portal-glow"></div>
             <p class="kids-portal-eyebrow">A world of their own</p>
             <h2 class="kids-portal-title">{colorize_kids_text("For the Children")}</h2>
-            <p class="kids-portal-sub">Stories, comics and videos made for young readers</p>
+            <p class="kids-portal-sub">A place for our children to grow brave, proud, and strong</p>
             <span class="kids-portal-btn">Enter &#8594;</span>
         </div>
     </a>
@@ -2106,6 +2118,375 @@ def build_community():
     <div class="placeholder-block">Coming soon.</div>
     """
     return page_shell("Community", content, active="community")
+
+
+def build_kids():
+    # "For the Children" — a safe, colourful room for kids 3 to 13.
+    # All content is hand-curated in the kids_*.json files. No live news, no AI here.
+    # Two age lanes (Little Ones / Bigger Kids) toggle with a button at the top.
+    figures      = load_json_file("kids_figures.json")
+    countries    = load_json_file("kids_countries.json")
+    vocab        = load_json_file("kids_vocab.json")
+    news         = load_json_file("kids_news.json")
+    affirmations = load_json_file("kids_affirmations.json")
+
+    title_balloon = colorize_kids_text("For the Children")
+
+    # --- Module: Say It Out Loud (affirmations) ---
+    # The heart of the page. Big, bold cards a child reads aloud to build confidence.
+    affirm_cards = ""
+    for a in affirmations:
+        color = a.get("color", "#1a3a2a")
+        affirm_cards += f"""
+        <div class="affirm-card" style="background:{color}">
+            <span class="affirm-text">{a.get("text","")}</span>
+        </div>"""
+
+    # --- Module: Meet Someone Special (historical figures) ---
+    figure_cards = ""
+    for f in figures:
+        initials = f.get("initials", "")
+        color    = f.get("color", "#1a3a2a")
+        image    = f.get("image", "")
+        # The initials circle is always present as a fallback. If a photo is set,
+        # show it; if that photo fails to load, onerror reveals the circle instead
+        # of leaving an empty ring.
+        circle = f'<div class="kid-portrait kid-portrait-initials" style="background:{color}{{disp}}">{initials}</div>'
+        if image:
+            portrait = (
+                f'<img class="kid-portrait" src="{image}" alt="{f.get("name","")}" loading="lazy" '
+                f'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+                + circle.format(disp=";display:none")
+            )
+        else:
+            portrait = circle.format(disp="")
+        facts = "".join(f'<li>{fact}</li>' for fact in f.get("facts", []))
+        figure_cards += f"""
+        <div class="kid-card">
+            {portrait}
+            <h3 class="kid-card-name">{f.get("name","")}</h3>
+            <p class="kid-card-place">{f.get("flag","")} {f.get("place","")}</p>
+            <p class="kid-text little-only">{f.get("little","")}</p>
+            <div class="big-only">
+                <p class="kid-text">{f.get("big","")}</p>
+                <ul class="kid-facts">{facts}</ul>
+                <p class="kid-quote">&ldquo;{f.get("quote","")}&rdquo;</p>
+            </div>
+        </div>"""
+
+    # --- Module: A Place to Know (countries) ---
+    country_cards = ""
+    for c in countries:
+        color = c.get("color", "#1a3a2a")
+        image = c.get("image", "")
+        banner = (
+            f'<img class="kid-place-img" src="{image}" alt="{c.get("name","")}" loading="lazy">'
+            if image else
+            f'<div class="kid-place-img kid-place-flag" style="background:{color}">{c.get("flag","")}</div>'
+        )
+        country_cards += f"""
+        <div class="kid-card">
+            {banner}
+            <h3 class="kid-card-name">{c.get("flag","")} {c.get("name","")}</h3>
+            <p class="kid-text little-only">{c.get("little","")}</p>
+            <div class="big-only">
+                <p class="kid-text">{c.get("big","")}</p>
+            </div>
+            <p class="kid-oneline"><strong>Did you know?</strong> {c.get("oneThing","")}</p>
+            <p class="kid-oneline"><strong>A word from here:</strong> {c.get("oneWord","")}</p>
+        </div>"""
+
+    # --- Module: From the Big News (rewritten for kids) ---
+    news_cards = ""
+    for n in news:
+        # Bigger Kids get a "read with a grown-up" link out. Little Ones do not.
+        link = (
+            f'<a class="kid-news-link big-only" href="{n.get("url","#")}" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>'
+            if n.get("url") else ""
+        )
+        news_cards += f"""
+        <div class="kid-news-card">
+            <h3 class="kid-card-name">{n.get("title","")}</h3>
+            <p class="kid-text">{n.get("text","")}</p>
+            {link}
+        </div>"""
+
+    # --- Module: Learn a Word ---
+    vocab_cards = ""
+    for v in vocab:
+        vocab_cards += f"""
+        <div class="kid-word-card">
+            <p class="kid-word">{v.get("word","")}</p>
+            <p class="kid-word-say">say it: {v.get("say","")}</p>
+            <p class="kid-word-means">{v.get("means","")}</p>
+            <p class="kid-word-from">{v.get("flag","")} {v.get("lang","")}, from {v.get("place","")}</p>
+            <p class="kid-word-example">&ldquo;{v.get("example","")}&rdquo;</p>
+        </div>"""
+
+    # --- Module: Quiz Time (built from the curated content, JS only) ---
+    # Three simple questions whose answers live on this very page.
+    quiz = [
+        {
+            "q": "Where was Marcus Garvey born?",
+            "options": ["Jamaica", "Canada", "Australia"],
+            "answer": 0,
+        },
+        {
+            "q": "Which country was the first where free Black people ruled themselves?",
+            "options": ["Haiti", "Germany", "Japan"],
+            "answer": 0,
+        },
+        {
+            "q": "What does the word Akwaaba mean?",
+            "options": ["goodbye", "welcome", "run"],
+            "answer": 1,
+        },
+    ]
+    quiz_json = json.dumps(quiz)
+
+    nav_html = make_two_tier_nav()
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For the Children | Black World News</title>
+    <meta name="description" content="A safe, colourful place for children to learn about the Black world. Stories, people, places, and words for kids of all ages.">
+    <link rel="canonical" href="https://www.blackworldnews.world/kids.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Fredoka+One&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#fff;color:#222;font-family:'Source Sans 3',sans-serif;font-size:18px;line-height:1.6;}}
+        a{{color:inherit;text-decoration:none;}}
+
+        /* Masthead — same green DNA as the rest of the site */
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead-logo-link,.masthead-spacer{{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}}
+        .masthead-logo{{width:50px;height:50px;display:block;}}
+        .masthead-center{{flex:1;text-align:center;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
+        .masthead h1 a:hover{{color:#c8d8c0;}}
+        .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:flex-end;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
+        .site-nav::-webkit-scrollbar{{display:none;}}
+        .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
+        .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;transform:translateY(-2px);}}
+        .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
+        {KIDS_LETTER_CSS}
+        .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
+
+        /* Hero */
+        .kids-hero{{text-align:center;padding:2.5rem 1.5rem 1.5rem;background:linear-gradient(180deg,#fffdf5 0%,#ffffff 100%);}}
+        .kids-hero-title{{font-family:'Bagel Fat One',cursive;font-size:clamp(2.2rem,8vw,4.5rem);line-height:1.1;margin-bottom:0.5rem;}}
+        .kids-hero-title .kids-letter{{filter:drop-shadow(0 3px 0 var(--deep)) drop-shadow(0 6px 8px rgba(0,0,0,0.2));}}
+        .kids-hero-title .kids-space{{width:0.3em;}}
+        .kids-hero-sub{{font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;}}
+
+        /* Age toggle */
+        .age-toggle{{display:flex;justify-content:center;gap:0.5rem;margin:1.5rem auto 0;}}
+        .age-btn{{font-family:'Fredoka One',cursive;font-size:1rem;padding:0.6rem 1.4rem;border:3px solid #1a3a2a;background:#fff;color:#1a3a2a;border-radius:999px;cursor:pointer;transition:all 0.15s;}}
+        .age-btn:hover{{background:#eef4f0;}}
+        .age-btn.active{{background:#1a3a2a;color:#fff;}}
+
+        /* Lane visibility — controlled by body class */
+        .big-only{{display:none;}}
+        body.lane-big .big-only{{display:block;}}
+        body.lane-big .little-only{{display:none;}}
+
+        /* Layout */
+        .kids-main{{max-width:1100px;margin:0 auto;padding:1rem 1.5rem 4rem;}}
+        .kids-section{{margin-top:3rem;}}
+        .kids-section-title{{font-family:'Fredoka One',cursive;font-size:1.8rem;color:#1a3a2a;margin-bottom:0.3rem;}}
+        .kids-section-sub{{font-size:1rem;color:#888;margin-bottom:1.5rem;}}
+        .kids-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}}
+
+        /* Say It Out Loud — confidence affirmations */
+        .affirm-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}}
+        .affirm-card{{border-radius:20px;padding:2rem 1.5rem;min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.12);}}
+        .affirm-text{{font-family:'Fredoka One',cursive;font-size:1.4rem;line-height:1.3;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.18);}}
+
+        /* Cards */
+        .kid-card{{background:#fff;border:2px solid #f0f0f0;border-radius:18px;padding:1.5rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.05);}}
+        .kid-portrait{{width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 1rem;border:4px solid #fff;box-shadow:0 0 0 3px #1a3a2a;}}
+        .kid-portrait-initials{{display:flex;align-items:center;justify-content:center;font-family:'Bagel Fat One',cursive;font-size:2.5rem;color:#fff;}}
+        .kid-card-name{{font-family:'Fredoka One',cursive;font-size:1.3rem;color:#222;margin-bottom:0.2rem;}}
+        .kid-card-place{{font-size:0.95rem;color:#777;margin-bottom:0.8rem;}}
+        .kid-text{{font-size:1.05rem;color:#333;margin-bottom:0.8rem;}}
+        .kid-facts{{text-align:left;margin:0 auto 0.8rem;max-width:90%;padding-left:1.2rem;color:#444;font-size:0.95rem;}}
+        .kid-facts li{{margin-bottom:0.3rem;}}
+        .kid-quote{{font-style:italic;color:#1a3a2a;font-weight:600;border-top:2px dashed #eee;padding-top:0.8rem;}}
+        .kid-oneline{{font-size:0.95rem;color:#444;margin-top:0.5rem;}}
+
+        /* Place cards */
+        .kid-place-img{{width:100%;height:140px;object-fit:cover;border-radius:14px;display:block;margin-bottom:1rem;}}
+        .kid-place-flag{{display:flex;align-items:center;justify-content:center;font-size:4rem;}}
+
+        /* News cards */
+        .kid-news-card{{background:#fffdf5;border:2px solid #ffe9a8;border-radius:18px;padding:1.5rem;}}
+        .kid-news-card .kid-card-name{{font-size:1.15rem;margin-bottom:0.6rem;}}
+        .kid-news-link{{display:inline-block;margin-top:0.5rem;font-family:'Fredoka One',cursive;font-size:0.9rem;color:#1a3a2a;}}
+        .kid-news-link:hover{{text-decoration:underline;}}
+
+        /* Word cards */
+        .kid-word-card{{background:#f4f9ff;border:2px solid #cfe5ff;border-radius:18px;padding:1.5rem;text-align:center;}}
+        .kid-word{{font-family:'Bagel Fat One',cursive;font-size:2rem;color:#1e5fb3;margin-bottom:0.2rem;}}
+        .kid-word-say{{font-size:0.9rem;color:#888;font-style:italic;margin-bottom:0.6rem;}}
+        .kid-word-means{{font-size:1.15rem;color:#222;font-weight:600;margin-bottom:0.4rem;}}
+        .kid-word-from{{font-size:0.85rem;color:#777;margin-bottom:0.6rem;}}
+        .kid-word-example{{font-style:italic;color:#444;}}
+
+        /* Quiz */
+        .quiz-box{{background:#1a3a2a;border-radius:20px;padding:2rem;color:#fff;}}
+        .quiz-q{{margin-bottom:1.5rem;}}
+        .quiz-q:last-child{{margin-bottom:0;}}
+        .quiz-q-text{{font-family:'Fredoka One',cursive;font-size:1.2rem;margin-bottom:0.8rem;}}
+        .quiz-options{{display:flex;flex-wrap:wrap;gap:0.6rem;}}
+        .quiz-opt{{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:600;padding:0.6rem 1.2rem;border:2px solid #fff;background:transparent;color:#fff;border-radius:999px;cursor:pointer;transition:all 0.15s;}}
+        .quiz-opt:hover{{background:rgba(255,255,255,0.15);}}
+        .quiz-opt.right{{background:#2ec167;border-color:#2ec167;}}
+        .quiz-opt.wrong{{background:#e63946;border-color:#e63946;}}
+        .quiz-feedback{{margin-top:0.6rem;font-weight:700;min-height:1.4rem;}}
+
+        /* Safe footer */
+        .kids-safe-footer{{background:#fffdf5;border-top:3px dashed #ffe9a8;text-align:center;padding:2.5rem 1.5rem;margin-top:3rem;}}
+        .kids-safe-footer p{{max-width:600px;margin:0.4rem auto;color:#666;}}
+        .kids-safe-footer .big-heart{{font-size:2rem;}}
+        .kids-back-home{{display:inline-block;margin-top:1rem;font-family:'Fredoka One',cursive;color:#1a3a2a;border:3px solid #1a3a2a;border-radius:999px;padding:0.6rem 1.6rem;}}
+        .kids-back-home:hover{{background:#1a3a2a;color:#fff;}}
+
+        @media(max-width:768px){{
+            .masthead h1{{font-size:1.2rem;}}
+            .kids-grid{{grid-template-columns:1fr;}}
+        }}
+    </style>
+</head>
+<body class="lane-little">
+<header class="masthead">
+    <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
+        <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">A world of their own</p>
+    </div>
+    <div class="masthead-spacer"></div>
+</header>
+{nav_html}
+
+<section class="kids-hero">
+    <h1 class="kids-hero-title">{title_balloon}</h1>
+    <p class="kids-hero-sub">You are brave. You are beautiful. You are made exactly right. This is your place to grow strong and proud.</p>
+    <div class="age-toggle">
+        <button class="age-btn active" data-lane="little">Little Ones (3 to 7)</button>
+        <button class="age-btn" data-lane="big">Bigger Kids (8 to 13)</button>
+    </div>
+</section>
+
+<main class="kids-main">
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Say It Out Loud</h2>
+        <p class="kids-section-sub">Read these out loud. Every one of them is true about you.</p>
+        <div class="affirm-grid">{affirm_cards}</div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Meet Someone Special</h2>
+        <p class="kids-section-sub">Brave people who show us how to stand tall.</p>
+        <div class="kids-grid">{figure_cards}</div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">A Place to Know</h2>
+        <p class="kids-section-sub">Wonderful places around the Black world.</p>
+        <div class="kids-grid">{country_cards}</div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">From the Big News</h2>
+        <p class="kids-section-sub">Good things happening, told just for you.</p>
+        <div class="kids-grid">{news_cards}</div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Learn a Word</h2>
+        <p class="kids-section-sub">New words from across the Black world.</p>
+        <div class="kids-grid">{vocab_cards}</div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Quiz Time</h2>
+        <p class="kids-section-sub">See what you remember. There is no score. Just have fun.</p>
+        <div class="quiz-box" id="quiz"></div>
+    </section>
+
+</main>
+
+<footer class="kids-safe-footer">
+    <p class="big-heart">&#10084;&#65039;</p>
+    <p><strong>Ask a grown-up if you have any questions.</strong></p>
+    <p>This page is just for you. There are no comments, no chats, and no sign-ups. We never collect anything about you.</p>
+    <a href="index.html" class="kids-back-home">&larr; Back to the main page</a>
+</footer>
+
+<script>
+    // Age-lane toggle — switches a class on the body. No data saved.
+    document.querySelectorAll('.age-btn').forEach(btn => {{
+        btn.addEventListener('click', () => {{
+            const lane = btn.dataset.lane;
+            document.body.className = 'lane-' + lane;
+            document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }});
+    }});
+
+    // Quiz — built from the curated questions. No grading, no saving.
+    const QUIZ = {quiz_json};
+    const quizBox = document.getElementById('quiz');
+    QUIZ.forEach((item, qi) => {{
+        const q = document.createElement('div');
+        q.className = 'quiz-q';
+        const qt = document.createElement('p');
+        qt.className = 'quiz-q-text';
+        qt.textContent = (qi + 1) + '. ' + item.q;
+        q.appendChild(qt);
+        const opts = document.createElement('div');
+        opts.className = 'quiz-options';
+        const feedback = document.createElement('p');
+        feedback.className = 'quiz-feedback';
+        item.options.forEach((opt, oi) => {{
+            const b = document.createElement('button');
+            b.className = 'quiz-opt';
+            b.textContent = opt;
+            b.addEventListener('click', () => {{
+                // Clear previous marks on this question
+                opts.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('right','wrong'));
+                if (oi === item.answer) {{
+                    b.classList.add('right');
+                    feedback.textContent = 'Right! Well done.';
+                    feedback.style.color = '#2ec167';
+                }} else {{
+                    b.classList.add('wrong');
+                    feedback.textContent = 'Try again!';
+                    feedback.style.color = '#ffd93d';
+                }}
+            }});
+            opts.appendChild(b);
+        }});
+        q.appendChild(opts);
+        q.appendChild(feedback);
+        quizBox.appendChild(q);
+    }});
+</script>
+
+{PWA_SCRIPT}
+{CLOUDFLARE_ANALYTICS}
+</body>
+</html>"""
 
 
 def build_region_page(region_id, region, all_stories, cache):
@@ -2654,6 +3035,11 @@ def main():
     with open("search.html", "w", encoding="utf-8") as f:
         f.write(build_search_page())
     print("Search page generated: search.html")
+
+    # Build the kids page (hand-curated content from kids_*.json)
+    with open("kids.html", "w", encoding="utf-8") as f:
+        f.write(build_kids())
+    print("Kids page generated: kids.html")
 
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")

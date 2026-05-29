@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For the Children | Black World News</title>
+    <meta name="description" content="A safe, colourful place for children to learn about the Black world. Stories, people, places, and words for kids of all ages.">
+    <link rel="canonical" href="https://www.blackworldnews.world/kids.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a3a2a">
+<meta name="application-name" content="Black World News">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BWN">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<!-- /PWA -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Fredoka+One&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        body{background:#fff;color:#222;font-family:'Source Sans 3',sans-serif;font-size:18px;line-height:1.6;}
+        a{color:inherit;text-decoration:none;}
+
+        /* Masthead — same green DNA as the rest of the site */
+        .masthead{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+        .masthead-logo-link,.masthead-spacer{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}
+        .masthead-logo{width:50px;height:50px;display:block;}
+        .masthead-center{flex:1;text-align:center;}
+        .masthead h1{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}
+        .masthead h1 a:hover{color:#c8d8c0;}
+        .masthead-tagline{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}
+        .site-nav{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:flex-end;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}
+        .site-nav::-webkit-scrollbar{display:none;}
+        .site-nav a{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}
+        .site-nav a:hover{color:#fff;border-bottom-color:#1a3a2a;}
+        .site-nav a.nav-kids{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;transform:translateY(-2px);}
+        .site-nav a.nav-kids:hover{border-bottom-color:#ffd93d;}
+        
+.kids-letter {
+    display: inline-block;
+    background: linear-gradient(to bottom, #ffffff -20%, var(--top) 28%, var(--bot) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter:
+        drop-shadow(0 1.5px 0 var(--deep))
+        drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+    padding: 0;
+}
+.kc-red    { --top: #ff3344; --bot: #b81e30; --deep: #6f1320; }
+.kc-pink   { --top: #ff6b9d; --bot: #c2326b; --deep: #6e1b3c; }
+.kc-blue   { --top: #4d96ff; --bot: #1e5fb3; --deep: #103b73; }
+.kc-yellow { --top: #ffd83d; --bot: #c89914; --deep: #7a5d08; }
+.kc-green  { --top: #2ec167; --bot: #15803d; --deep: #0a4d24; }
+.kc-orange { --top: #ff9f43; --bot: #c46d10; --deep: #6e3d05; }
+.kc-purple { --top: #b366ff; --bot: #7a23c0; --deep: #3f0c6e; }
+.kids-space { display: inline-block; width: 0.25em; }
+
+        .nav-divider{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}
+
+        /* Hero */
+        .kids-hero{text-align:center;padding:2.5rem 1.5rem 1.5rem;background:linear-gradient(180deg,#fffdf5 0%,#ffffff 100%);}
+        .kids-hero-title{font-family:'Bagel Fat One',cursive;font-size:clamp(2.2rem,8vw,4.5rem);line-height:1.1;margin-bottom:0.5rem;}
+        .kids-hero-title .kids-letter{filter:drop-shadow(0 3px 0 var(--deep)) drop-shadow(0 6px 8px rgba(0,0,0,0.2));}
+        .kids-hero-title .kids-space{width:0.3em;}
+        .kids-hero-sub{font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;}
+
+        /* Age toggle */
+        .age-toggle{display:flex;justify-content:center;gap:0.5rem;margin:1.5rem auto 0;}
+        .age-btn{font-family:'Fredoka One',cursive;font-size:1rem;padding:0.6rem 1.4rem;border:3px solid #1a3a2a;background:#fff;color:#1a3a2a;border-radius:999px;cursor:pointer;transition:all 0.15s;}
+        .age-btn:hover{background:#eef4f0;}
+        .age-btn.active{background:#1a3a2a;color:#fff;}
+
+        /* Lane visibility — controlled by body class */
+        .big-only{display:none;}
+        body.lane-big .big-only{display:block;}
+        body.lane-big .little-only{display:none;}
+
+        /* Layout */
+        .kids-main{max-width:1100px;margin:0 auto;padding:1rem 1.5rem 4rem;}
+        .kids-section{margin-top:3rem;}
+        .kids-section-title{font-family:'Fredoka One',cursive;font-size:1.8rem;color:#1a3a2a;margin-bottom:0.3rem;}
+        .kids-section-sub{font-size:1rem;color:#888;margin-bottom:1.5rem;}
+        .kids-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+
+        /* Say It Out Loud — confidence affirmations */
+        .affirm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}
+        .affirm-card{border-radius:20px;padding:2rem 1.5rem;min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.12);}
+        .affirm-text{font-family:'Fredoka One',cursive;font-size:1.4rem;line-height:1.3;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.18);}
+
+        /* Cards */
+        .kid-card{background:#fff;border:2px solid #f0f0f0;border-radius:18px;padding:1.5rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.05);}
+        .kid-portrait{width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 1rem;border:4px solid #fff;box-shadow:0 0 0 3px #1a3a2a;}
+        .kid-portrait-initials{display:flex;align-items:center;justify-content:center;font-family:'Bagel Fat One',cursive;font-size:2.5rem;color:#fff;}
+        .kid-card-name{font-family:'Fredoka One',cursive;font-size:1.3rem;color:#222;margin-bottom:0.2rem;}
+        .kid-card-place{font-size:0.95rem;color:#777;margin-bottom:0.8rem;}
+        .kid-text{font-size:1.05rem;color:#333;margin-bottom:0.8rem;}
+        .kid-facts{text-align:left;margin:0 auto 0.8rem;max-width:90%;padding-left:1.2rem;color:#444;font-size:0.95rem;}
+        .kid-facts li{margin-bottom:0.3rem;}
+        .kid-quote{font-style:italic;color:#1a3a2a;font-weight:600;border-top:2px dashed #eee;padding-top:0.8rem;}
+        .kid-oneline{font-size:0.95rem;color:#444;margin-top:0.5rem;}
+
+        /* Place cards */
+        .kid-place-img{width:100%;height:140px;object-fit:cover;border-radius:14px;display:block;margin-bottom:1rem;}
+        .kid-place-flag{display:flex;align-items:center;justify-content:center;font-size:4rem;}
+
+        /* News cards */
+        .kid-news-card{background:#fffdf5;border:2px solid #ffe9a8;border-radius:18px;padding:1.5rem;}
+        .kid-news-card .kid-card-name{font-size:1.15rem;margin-bottom:0.6rem;}
+        .kid-news-link{display:inline-block;margin-top:0.5rem;font-family:'Fredoka One',cursive;font-size:0.9rem;color:#1a3a2a;}
+        .kid-news-link:hover{text-decoration:underline;}
+
+        /* Word cards */
+        .kid-word-card{background:#f4f9ff;border:2px solid #cfe5ff;border-radius:18px;padding:1.5rem;text-align:center;}
+        .kid-word{font-family:'Bagel Fat One',cursive;font-size:2rem;color:#1e5fb3;margin-bottom:0.2rem;}
+        .kid-word-say{font-size:0.9rem;color:#888;font-style:italic;margin-bottom:0.6rem;}
+        .kid-word-means{font-size:1.15rem;color:#222;font-weight:600;margin-bottom:0.4rem;}
+        .kid-word-from{font-size:0.85rem;color:#777;margin-bottom:0.6rem;}
+        .kid-word-example{font-style:italic;color:#444;}
+
+        /* Quiz */
+        .quiz-box{background:#1a3a2a;border-radius:20px;padding:2rem;color:#fff;}
+        .quiz-q{margin-bottom:1.5rem;}
+        .quiz-q:last-child{margin-bottom:0;}
+        .quiz-q-text{font-family:'Fredoka One',cursive;font-size:1.2rem;margin-bottom:0.8rem;}
+        .quiz-options{display:flex;flex-wrap:wrap;gap:0.6rem;}
+        .quiz-opt{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:600;padding:0.6rem 1.2rem;border:2px solid #fff;background:transparent;color:#fff;border-radius:999px;cursor:pointer;transition:all 0.15s;}
+        .quiz-opt:hover{background:rgba(255,255,255,0.15);}
+        .quiz-opt.right{background:#2ec167;border-color:#2ec167;}
+        .quiz-opt.wrong{background:#e63946;border-color:#e63946;}
+        .quiz-feedback{margin-top:0.6rem;font-weight:700;min-height:1.4rem;}
+
+        /* Safe footer */
+        .kids-safe-footer{background:#fffdf5;border-top:3px dashed #ffe9a8;text-align:center;padding:2.5rem 1.5rem;margin-top:3rem;}
+        .kids-safe-footer p{max-width:600px;margin:0.4rem auto;color:#666;}
+        .kids-safe-footer .big-heart{font-size:2rem;}
+        .kids-back-home{display:inline-block;margin-top:1rem;font-family:'Fredoka One',cursive;color:#1a3a2a;border:3px solid #1a3a2a;border-radius:999px;padding:0.6rem 1.6rem;}
+        .kids-back-home:hover{background:#1a3a2a;color:#fff;}
+
+        @media(max-width:768px){
+            .masthead h1{font-size:1.2rem;}
+            .kids-grid{grid-template-columns:1fr;}
+        }
+    </style>
+</head>
+<body class="lane-little">
+<header class="masthead">
+    <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
+        <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">A world of their own</p>
+    </div>
+    <div class="masthead-spacer"></div>
+</header>
+<nav class="site-nav"><a href="policing.html" class="nav-issue">Policing</a><a href="politics.html" class="nav-issue">Politics</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="culture.html" class="nav-issue">Culture</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="index.html" class="nav-region nav-active">Latest</a><a href="namerica.html" class="nav-region">N. America</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
+
+<section class="kids-hero">
+    <h1 class="kids-hero-title"><span class="kids-letter kc-red">F</span><span class="kids-letter kc-pink">o</span><span class="kids-letter kc-blue">r</span><span class="kids-space"></span><span class="kids-letter kc-yellow">t</span><span class="kids-letter kc-green">h</span><span class="kids-letter kc-orange">e</span><span class="kids-space"></span><span class="kids-letter kc-purple">C</span><span class="kids-letter kc-red">h</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">l</span><span class="kids-letter kc-yellow">d</span><span class="kids-letter kc-green">r</span><span class="kids-letter kc-orange">e</span><span class="kids-letter kc-purple">n</span></h1>
+    <p class="kids-hero-sub">You are brave. You are beautiful. You are made exactly right. This is your place to grow strong and proud.</p>
+    <div class="age-toggle">
+        <button class="age-btn active" data-lane="little">Little Ones (3 to 7)</button>
+        <button class="age-btn" data-lane="big">Bigger Kids (8 to 13)</button>
+    </div>
+</section>
+
+<main class="kids-main">
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Say It Out Loud</h2>
+        <p class="kids-section-sub">Read these out loud. Every one of them is true about you.</p>
+        <div class="affirm-grid">
+        <div class="affirm-card" style="background:#e63946">
+            <span class="affirm-text">I am beautifully made.</span>
+        </div>
+        <div class="affirm-card" style="background:#f4a261">
+            <span class="affirm-text">I am brave, even when things are hard.</span>
+        </div>
+        <div class="affirm-card" style="background:#2a9d8f">
+            <span class="affirm-text">My skin is beautiful.</span>
+        </div>
+        <div class="affirm-card" style="background:#4d96ff">
+            <span class="affirm-text">Being different makes me special.</span>
+        </div>
+        <div class="affirm-card" style="background:#b366ff">
+            <span class="affirm-text">I am proud of who I am.</span>
+        </div>
+        <div class="affirm-card" style="background:#2ec167">
+            <span class="affirm-text">I can do anything I work hard for.</span>
+        </div></div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Meet Someone Special</h2>
+        <p class="kids-section-sub">Brave people who show us how to stand tall.</p>
+        <div class="kids-grid">
+        <div class="kid-card">
+            <img class="kid-portrait" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Marcus_Garvey_1924-08-05_%28cropped%29.jpg" alt="Marcus Garvey" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#e63946;display:none">MG</div>
+            <h3 class="kid-card-name">Marcus Garvey</h3>
+            <p class="kid-card-place">🇯🇲 Jamaica</p>
+            <p class="kid-text little-only">A man from Jamaica who told every Black child to stand tall and be proud.</p>
+            <div class="big-only">
+                <p class="kid-text">Marcus Garvey was born in Jamaica. He travelled the world telling Black people one big thing: be proud of who you are. He taught that your skin, your hair, and your story are beautiful. He started the Black Star Line so the Black world could stand together. The black star on our logo comes from him. He would tell you: you are somebody.</p>
+                <ul class="kid-facts"><li>He was born in Jamaica in 1887.</li><li>He told millions of people to be proud to be Black.</li><li>The black star on our logo is his idea.</li></ul>
+                <p class="kid-quote">&ldquo;Up, you mighty people. You can do what you will.&rdquo;</p>
+            </div>
+        </div>
+        <div class="kid-card">
+            <img class="kid-portrait" src="https://upload.wikimedia.org/wikipedia/commons/3/32/G%C3%A9n%C3%A9ral_Toussaint_Louverture.jpg" alt="Toussaint Louverture" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#1d3557;display:none">TL</div>
+            <h3 class="kid-card-name">Toussaint Louverture</h3>
+            <p class="kid-card-place">🇭🇹 Haiti</p>
+            <p class="kid-text little-only">A brave leader who showed that you are never too small to do something big.</p>
+            <div class="big-only">
+                <p class="kid-text">Toussaint Louverture lived in Haiti long ago. People told him he could not be free. He did not believe them. He was clever, he was brave, and he never gave up. He led his people until Haiti became the first country in the world where free Black people ruled themselves. He shows us that being brave can change everything.</p>
+                <ul class="kid-facts"><li>He was born in Haiti around 1743.</li><li>He taught himself to read and became a great leader.</li><li>He helped make Haiti the first free Black country.</li></ul>
+                <p class="kid-quote">&ldquo;You can cut the tree, but the roots of freedom will grow again.&rdquo;</p>
+            </div>
+        </div>
+        <div class="kid-card">
+            <div class="kid-portrait kid-portrait-initials" style="background:#2a9d8f">YA</div>
+            <h3 class="kid-card-name">Yaa Asantewaa</h3>
+            <p class="kid-card-place">🇬🇭 Ghana</p>
+            <p class="kid-text little-only">A queen in Ghana who was brave and stood up tall for her people.</p>
+            <div class="big-only">
+                <p class="kid-text">Yaa Asantewaa was a queen mother of the Asante people in Ghana. When her people were afraid, she stood up and was brave for everyone. She showed that girls can be strong leaders too. She helped protect the Golden Stool, the heart of her kingdom. She teaches us to be brave even when others are scared.</p>
+                <ul class="kid-facts"><li>She was a queen mother of the Asante people in Ghana.</li><li>She was a brave leader when her people needed her most.</li><li>She shows that girls can be strong and lead.</li></ul>
+                <p class="kid-quote">&ldquo;If the men will not go forward, then we women will.&rdquo;</p>
+            </div>
+        </div></div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">A Place to Know</h2>
+        <p class="kids-section-sub">Wonderful places around the Black world.</p>
+        <div class="kids-grid">
+        <div class="kid-card">
+            <div class="kid-place-img kid-place-flag" style="background:#2ec167">🇯🇲</div>
+            <h3 class="kid-card-name">🇯🇲 Jamaica</h3>
+            <p class="kid-text little-only">An island in the warm Caribbean Sea where reggae music was born.</p>
+            <div class="big-only">
+                <p class="kid-text">Jamaica is a beautiful island in the warm Caribbean Sea. It is the home of reggae music and the famous singer Bob Marley. People there enjoy the sunshine, the sea, and tasty food like rice and peas.</p>
+            </div>
+            <p class="kid-oneline"><strong>Did you know?</strong> Reggae music was born in Jamaica.</p>
+            <p class="kid-oneline"><strong>A word from here:</strong> Wah gwaan means hello.</p>
+        </div>
+        <div class="kid-card">
+            <div class="kid-place-img kid-place-flag" style="background:#4d96ff">🇭🇹</div>
+            <h3 class="kid-card-name">🇭🇹 Haiti</h3>
+            <p class="kid-text little-only">The first country where free Black people ruled themselves.</p>
+            <div class="big-only">
+                <p class="kid-text">Haiti is a country in the Caribbean Sea. Long ago, the people of Haiti won their freedom and made the first country in the world ruled by free Black people. People there speak Haitian Creole and French, and they love music and art.</p>
+            </div>
+            <p class="kid-oneline"><strong>Did you know?</strong> Haiti was the first free Black republic in the world.</p>
+            <p class="kid-oneline"><strong>A word from here:</strong> Sak pasé means what is happening.</p>
+        </div>
+        <div class="kid-card">
+            <div class="kid-place-img kid-place-flag" style="background:#ffd93d">🇬🇭</div>
+            <h3 class="kid-card-name">🇬🇭 Ghana</h3>
+            <p class="kid-text little-only">A country in West Africa famous for gold and colourful cloth.</p>
+            <div class="big-only">
+                <p class="kid-text">Ghana is a country in West Africa. It is famous for shiny gold, colourful kente cloth, and the black star on its flag. Children there play a fun game with seeds called oware.</p>
+            </div>
+            <p class="kid-oneline"><strong>Did you know?</strong> The black star on Ghana's flag stands for African freedom.</p>
+            <p class="kid-oneline"><strong>A word from here:</strong> Akwaaba means welcome.</p>
+        </div></div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">From the Big News</h2>
+        <p class="kids-section-sub">Good things happening, told just for you.</p>
+        <div class="kids-grid">
+        <div class="kid-news-card">
+            <h3 class="kid-card-name">A Jamaican football star has her best year ever</h3>
+            <p class="kid-text">Khadija Shaw, who people call Bunny, is a football player from Jamaica. This year she scored more goals than ever before. People all over Jamaica are proud of her. She shows that practice and hard work can take you very far.</p>
+            <a class="kid-news-link big-only" href="https://www.jamaicaobserver.com/2026/05/29/hinds-hails-bunny-shaws-historic-season-triumph-jamaican-sports/" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>
+        </div>
+        <div class="kid-news-card">
+            <h3 class="kid-card-name">A man climbs the tallest mountain in the world</h3>
+            <p class="kid-text">Paul Hodge wanted to do something very hard and very brave. So he climbed Mount Everest, the tallest mountain on Earth. It was cold and steep, but he did not give up. He reached the top and showed that big dreams are worth trying for.</p>
+            <a class="kid-news-link big-only" href="https://www.voice-online.co.uk/post/video/section/interviews/paul-hodge-i-climbed-everest-to-redeem-myself/" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>
+        </div>
+        <div class="kid-news-card">
+            <h3 class="kid-card-name">A dance group celebrates 25 years of joy</h3>
+            <p class="kid-text">Boy Blue is a dance group in Britain. This year they celebrate 25 years of dancing together. They teach young people to dance and to believe in themselves. Their new show is full of music, movement, and happiness.</p>
+            <a class="kid-news-link big-only" href="https://www.voice-online.co.uk/post/video/section/interviews/boy-blue-kick-off-25-year-anniversary-celebrations-with-cycles/" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>
+        </div></div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Learn a Word</h2>
+        <p class="kids-section-sub">New words from across the Black world.</p>
+        <div class="kids-grid">
+        <div class="kid-word-card">
+            <p class="kid-word">Akwaaba</p>
+            <p class="kid-word-say">say it: ah · KWAH · bah</p>
+            <p class="kid-word-means">welcome</p>
+            <p class="kid-word-from">🇬🇭 Twi, from Ghana</p>
+            <p class="kid-word-example">&ldquo;Akwaaba! Come inside and sit with us.&rdquo;</p>
+        </div>
+        <div class="kid-word-card">
+            <p class="kid-word">Sak pasé</p>
+            <p class="kid-word-say">say it: sak pa · SAY</p>
+            <p class="kid-word-means">what is happening, like saying hello</p>
+            <p class="kid-word-from">🇭🇹 Haitian Creole, from Haiti</p>
+            <p class="kid-word-example">&ldquo;Sak pasé! How is your day going?&rdquo;</p>
+        </div>
+        <div class="kid-word-card">
+            <p class="kid-word">Wah gwaan</p>
+            <p class="kid-word-say">say it: wah GWAHN</p>
+            <p class="kid-word-means">what is going on, like saying hello</p>
+            <p class="kid-word-from">🇯🇲 Patois, from Jamaica</p>
+            <p class="kid-word-example">&ldquo;Wah gwaan! It is good to see you.&rdquo;</p>
+        </div></div>
+    </section>
+
+    <section class="kids-section">
+        <h2 class="kids-section-title">Quiz Time</h2>
+        <p class="kids-section-sub">See what you remember. There is no score. Just have fun.</p>
+        <div class="quiz-box" id="quiz"></div>
+    </section>
+
+</main>
+
+<footer class="kids-safe-footer">
+    <p class="big-heart">&#10084;&#65039;</p>
+    <p><strong>Ask a grown-up if you have any questions.</strong></p>
+    <p>This page is just for you. There are no comments, no chats, and no sign-ups. We never collect anything about you.</p>
+    <a href="index.html" class="kids-back-home">&larr; Back to the main page</a>
+</footer>
+
+<script>
+    // Age-lane toggle — switches a class on the body. No data saved.
+    document.querySelectorAll('.age-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lane = btn.dataset.lane;
+            document.body.className = 'lane-' + lane;
+            document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+
+    // Quiz — built from the curated questions. No grading, no saving.
+    const QUIZ = [{"q": "Where was Marcus Garvey born?", "options": ["Jamaica", "Canada", "Australia"], "answer": 0}, {"q": "Which country was the first where free Black people ruled themselves?", "options": ["Haiti", "Germany", "Japan"], "answer": 0}, {"q": "What does the word Akwaaba mean?", "options": ["goodbye", "welcome", "run"], "answer": 1}];
+    const quizBox = document.getElementById('quiz');
+    QUIZ.forEach((item, qi) => {
+        const q = document.createElement('div');
+        q.className = 'quiz-q';
+        const qt = document.createElement('p');
+        qt.className = 'quiz-q-text';
+        qt.textContent = (qi + 1) + '. ' + item.q;
+        q.appendChild(qt);
+        const opts = document.createElement('div');
+        opts.className = 'quiz-options';
+        const feedback = document.createElement('p');
+        feedback.className = 'quiz-feedback';
+        item.options.forEach((opt, oi) => {
+            const b = document.createElement('button');
+            b.className = 'quiz-opt';
+            b.textContent = opt;
+            b.addEventListener('click', () => {
+                // Clear previous marks on this question
+                opts.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('right','wrong'));
+                if (oi === item.answer) {
+                    b.classList.add('right');
+                    feedback.textContent = 'Right! Well done.';
+                    feedback.style.color = '#2ec167';
+                } else {
+                    b.classList.add('wrong');
+                    feedback.textContent = 'Try again!';
+                    feedback.style.color = '#ffd93d';
+                }
+            });
+            opts.appendChild(b);
+        });
+        q.appendChild(opts);
+        q.appendChild(feedback);
+        quizBox.appendChild(q);
+    });
+</script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+  }
+</script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e3ec5487cf654658b68643a2cb7cfc40"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

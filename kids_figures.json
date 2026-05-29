@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Marcus Garvey",
+    "place": "Jamaica",
+    "flag": "🇯🇲",
+    "initials": "MG",
+    "color": "#e63946",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Marcus_Garvey_1924-08-05_%28cropped%29.jpg",
+    "little": "A man from Jamaica who told every Black child to stand tall and be proud.",
+    "big": "Marcus Garvey was born in Jamaica. He travelled the world telling Black people one big thing: be proud of who you are. He taught that your skin, your hair, and your story are beautiful. He started the Black Star Line so the Black world could stand together. The black star on our logo comes from him. He would tell you: you are somebody.",
+    "facts": [
+      "He was born in Jamaica in 1887.",
+      "He told millions of people to be proud to be Black.",
+      "The black star on our logo is his idea."
+    ],
+    "quote": "Up, you mighty people. You can do what you will."
+  },
+  {
+    "name": "Toussaint Louverture",
+    "place": "Haiti",
+    "flag": "🇭🇹",
+    "initials": "TL",
+    "color": "#1d3557",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/32/G%C3%A9n%C3%A9ral_Toussaint_Louverture.jpg",
+    "little": "A brave leader who showed that you are never too small to do something big.",
+    "big": "Toussaint Louverture lived in Haiti long ago. People told him he could not be free. He did not believe them. He was clever, he was brave, and he never gave up. He led his people until Haiti became the first country in the world where free Black people ruled themselves. He shows us that being brave can change everything.",
+    "facts": [
+      "He was born in Haiti around 1743.",
+      "He taught himself to read and became a great leader.",
+      "He helped make Haiti the first free Black country."
+    ],
+    "quote": "You can cut the tree, but the roots of freedom will grow again."
+  },
+  {
+    "name": "Yaa Asantewaa",
+    "place": "Ghana",
+    "flag": "🇬🇭",
+    "initials": "YA",
+    "color": "#2a9d8f",
+    "image": "",
+    "little": "A queen in Ghana who was brave and stood up tall for her people.",
+    "big": "Yaa Asantewaa was a queen mother of the Asante people in Ghana. When her people were afraid, she stood up and was brave for everyone. She showed that girls can be strong leaders too. She helped protect the Golden Stool, the heart of her kingdom. She teaches us to be brave even when others are scared.",
+    "facts": [
+      "She was a queen mother of the Asante people in Ghana.",
+      "She was a brave leader when her people needed her most.",
+      "She shows that girls can be strong and lead."
+    ],
+    "quote": "If the men will not go forward, then we women will."
+  }
+]

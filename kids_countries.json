@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Jamaica",
+    "flag": "🇯🇲",
+    "color": "#2ec167",
+    "image": "",
+    "little": "An island in the warm Caribbean Sea where reggae music was born.",
+    "big": "Jamaica is a beautiful island in the warm Caribbean Sea. It is the home of reggae music and the famous singer Bob Marley. People there enjoy the sunshine, the sea, and tasty food like rice and peas.",
+    "oneThing": "Reggae music was born in Jamaica.",
+    "oneWord": "Wah gwaan means hello."
+  },
+  {
+    "name": "Haiti",
+    "flag": "🇭🇹",
+    "color": "#4d96ff",
+    "image": "",
+    "little": "The first country where free Black people ruled themselves.",
+    "big": "Haiti is a country in the Caribbean Sea. Long ago, the people of Haiti won their freedom and made the first country in the world ruled by free Black people. People there speak Haitian Creole and French, and they love music and art.",
+    "oneThing": "Haiti was the first free Black republic in the world.",
+    "oneWord": "Sak pasé means what is happening."
+  },
+  {
+    "name": "Ghana",
+    "flag": "🇬🇭",
+    "color": "#ffd93d",
+    "image": "",
+    "little": "A country in West Africa famous for gold and colourful cloth.",
+    "big": "Ghana is a country in West Africa. It is famous for shiny gold, colourful kente cloth, and the black star on its flag. Children there play a fun game with seeds called oware.",
+    "oneThing": "The black star on Ghana's flag stands for African freedom.",
+    "oneWord": "Akwaaba means welcome."
+  }
+]
