@@ -207,13 +207,13 @@ def make_two_tier_nav(active_region="", active_issue=""):
 
 def load_image_cache():
     if os.path.exists(IMAGE_CACHE):
-        with open(IMAGE_CACHE, "r") as f:
+        with open(IMAGE_CACHE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
 def save_image_cache(cache):
-    with open(IMAGE_CACHE, "w") as f:
-        json.dump(cache, f, indent=2)
+    with open(IMAGE_CACHE, "w", encoding="utf-8") as f:
+        json.dump(cache, f, indent=2, ensure_ascii=False)
 
 def pexels_image(query, cache, size="large"):
     # Cache key separates sizes so "large" and "large2x" don't collide
@@ -316,6 +316,19 @@ def load_highlights():
         return []
     try:
         with open("highlights.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def load_servants():
+    # "Servants of the Continent" tribute at the foot of the homepage.
+    # Edit servants.json by hand. Format: [{name, years, caption, image, url}]
+    # Leave url blank for now — we will write our own articles and link them later.
+    if not os.path.exists("servants.json"):
+        return []
+    try:
+        with open("servants.json", "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return []
@@ -538,6 +551,42 @@ def build_html(stories, cache):
             </div>
             {teaser_card}
         </div>"""
+
+    # Servants of the Continent — tribute block at the foot of the homepage.
+    # Reads servants.json. Cards link out only when a url is provided (our own articles, later).
+    servants = load_servants()
+    servants_section = ""
+    if servants:
+        servant_cards = ""
+        for p in servants:
+            name    = p.get("name", "")
+            years   = p.get("years", "")
+            caption = p.get("caption", "")
+            image   = p.get("image", "")
+            url     = p.get("url", "")
+            img_html = (
+                f'<img class="servant-img" src="{image}" alt="{name}" loading="lazy" onerror="this.style.display=\'none\'">'
+                if image else
+                '<div class="servant-img servant-img-empty"></div>'
+            )
+            inner = f"""{img_html}
+                <h3 class="servant-name">{name}</h3>
+                <p class="servant-years">{years}</p>
+                <p class="servant-caption">{caption}</p>"""
+            # Whole card is a link only once we have written the article.
+            if url:
+                servant_cards += f'<a href="{url}" class="servant-card servant-card-link">{inner}</a>'
+            else:
+                servant_cards += f'<div class="servant-card">{inner}</div>'
+        servants_section = f"""
+    <!-- SERVANTS OF THE CONTINENT — tribute, below the news -->
+    <div class="container servants">
+        <p class="section-label">Servants of the Continent</p>
+        <p class="servants-intro">The great ones who carried the Black world forward. Their stories live on.</p>
+        <div class="servants-grid">
+            {servant_cards}
+        </div>
+    </div>"""
 
     # Pull featured story image for Open Graph sharing
     og_image = story_image(featured, cache, featured=True) if featured else ""
@@ -1711,6 +1760,7 @@ def build_html(stories, cache):
             {regional_teasers}
         </div>
     </div>
+{servants_section}
 
 </main>
 

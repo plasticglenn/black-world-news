@@ -1,20 +1,23 @@
 [
   {
-    "title": "Marcus Garvey and the Black Star",
-    "url": "https://en.wikipedia.org/wiki/Marcus_Garvey",
-    "image": "https://images.pexels.com/photos/6266285/pexels-photo-6266285.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "caption": "The man behind the star on our logo. He launched the Black Star Line to connect the Black world."
+    "title": "African Development Bank meets as aid shrinks",
+    "url": "https://www.scmp.com/news/world/africa/article/3354795/african-development-bank-meets-shrinking-aid-ebola-cast-long-shadows",
+    "image": "https://cdn.i-scmp.com/sites/default/files/styles/og_image_scmp_generic/public/d8/images/canvas/2026/05/25/12cb7551-abfc-45bd-9a53-e720882a3ccc_adabc8f1.jpg?itok=FQeWde_N&v=1779716214",
+    "caption": "The bank looks to Africa's own resources to close a 400 billion dollar yearly financing gap.",
+    "source": "South China Morning Post"
   },
   {
-    "title": "Patrice Lumumba: a voice for sovereignty",
-    "url": "https://en.wikipedia.org/wiki/Patrice_Lumumba",
-    "image": "https://images.pexels.com/photos/3030298/pexels-photo-3030298.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "caption": "The first prime minister of independent Congo and what his removal meant for Africa."
+    "title": "Brazil moves to tighten race checks for election quotas",
+    "url": "https://almapreta.com.br/sessao/politica/comissao-camara-proposta-cotas-raciais-eleicoes/",
+    "image": "https://almapreta.com.br/images/2026/05/Comissao-da-Camara-aprova-proposta-que-amplia-controle-sobre-cotas-raciais-nas-eleicoes.webp",
+    "caption": "A new proposal would require candidates to self declare their race to stop fraud in racial quotas.",
+    "source": "Alma Preta"
   },
   {
-    "title": "Bob Marley and the message of Redemption",
-    "url": "https://en.wikipedia.org/wiki/Bob_Marley",
-    "image": "https://images.pexels.com/photos/3771836/pexels-photo-3771836.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "caption": "How a son of Jamaica carried Black freedom songs to the world."
+    "title": "Directory launched for Windrush compensation claims",
+    "url": "https://www.voice-online.co.uk/news/uk-news/2026/05/29/support-directory/",
+    "image": "https://www.voice-online.co.uk/wp-content/uploads/2026/05/PROTEST.jpg",
+    "caption": "The Black Equity Organisation builds a guide to help scandal victims reach legal advice and redress.",
+    "source": "The Voice"
   }
 ]

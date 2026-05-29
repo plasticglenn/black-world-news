@@ -203,16 +203,18 @@ QUERIES = [
 
 def load_archive():
     # Open the saved stories file. If it doesn't exist yet, start with empty list.
+    # encoding="utf-8" so foreign characters (Chinese, Portuguese, etc.) read correctly.
     if os.path.exists(ARCHIVE_FILE):
-        with open(ARCHIVE_FILE, "r") as f:
+        with open(ARCHIVE_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return []
 
 
 def save_archive(stories):
     # Write the full list of stories to the file on your drive.
-    with open(ARCHIVE_FILE, "w") as f:
-        json.dump(stories, f, indent=2)
+    # encoding="utf-8" + ensure_ascii=False keep foreign characters readable, not escaped.
+    with open(ARCHIVE_FILE, "w", encoding="utf-8") as f:
+        json.dump(stories, f, indent=2, ensure_ascii=False)
 
 
 def search_stories(query, max_results=10):
