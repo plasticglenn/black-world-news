@@ -346,6 +346,101 @@ DIRECT_SOURCES = [
         "link_selector": "article a, h2 a, h3 a, .article_list a",
         "country": "Other/Global",
     },
+
+    # ---- UNITED STATES ----
+    {
+        # The Root — largest Black American news and culture platform.
+        "name":    "The Root",
+        "url":     "https://www.theroot.com/",
+        "base":    "https://www.theroot.com",
+        "link_selector": "h2 a, h3 a, article a, .headline a",
+        "country": "United States",
+    },
+    {
+        # The Grio — Black American news, politics, entertainment.
+        "name":    "The Grio",
+        "url":     "https://thegrio.com/",
+        "base":    "https://thegrio.com",
+        "link_selector": "h2 a, h3 a, article a, .entry-title a",
+        "country": "United States",
+    },
+
+    # ---- UNITED KINGDOM ----
+    {
+        # The Voice — the UK's leading Black newspaper since 1982.
+        "name":    "The Voice UK",
+        "url":     "https://www.voice-online.co.uk/news/",
+        "base":    "https://www.voice-online.co.uk",
+        "link_selector": "h2 a, h3 a, article a, .post-title a",
+        "country": "United Kingdom",
+    },
+
+    # ---- CARIBBEAN ----
+    {
+        # Jamaica Observer — Jamaica's leading daily.
+        "name":    "Jamaica Observer",
+        "url":     "https://www.jamaicaobserver.com/latest-news/",
+        "base":    "https://www.jamaicaobserver.com",
+        "link_selector": "h2 a, h3 a, article a, .story-title a",
+        "country": "Other/Global",
+    },
+    {
+        # Caribbean National Weekly — diaspora-focused Caribbean news.
+        "name":    "Caribbean National Weekly",
+        "url":     "https://www.caribbeannationalweekly.com/",
+        "base":    "https://www.caribbeannationalweekly.com",
+        "link_selector": "h2 a, h3 a, article a, .entry-title a",
+        "country": "Other/Global",
+    },
+
+    # ---- SOUTH AFRICA ----
+    {
+        # Daily Maverick — South Africa's best investigative outlet.
+        "name":    "Daily Maverick",
+        "url":     "https://www.dailymaverick.co.za/",
+        "base":    "https://www.dailymaverick.co.za",
+        "link_selector": "h2 a, h3 a, article a, .article-title a",
+        "country": "South Africa",
+    },
+
+    # ---- NIGERIA ----
+    {
+        # Premium Times — Nigeria's top investigative newspaper.
+        "name":    "Premium Times Nigeria",
+        "url":     "https://www.premiumtimesng.com/",
+        "base":    "https://www.premiumtimesng.com",
+        "link_selector": "h2 a, h3 a, article a, .post-title a",
+        "country": "Nigeria",
+    },
+    {
+        # The Punch — Nigeria's highest-circulation daily.
+        "name":    "The Punch Nigeria",
+        "url":     "https://punchng.com/",
+        "base":    "https://punchng.com",
+        "link_selector": "h2 a, h3 a, article a, .post-title a",
+        "country": "Nigeria",
+    },
+
+    # ---- FRANCE / FRANCOPHONE AFRICA ----
+    {
+        # RFI English — Radio France Internationale, best Francophone Africa coverage in English.
+        "name":    "RFI English",
+        "url":     "https://www.rfi.fr/en/africa/",
+        "base":    "https://www.rfi.fr",
+        "link_selector": "h2 a, h3 a, article a, .article__title a",
+        "country": "Other/Global",
+    },
+
+    # ---- BROADER AFRICA ----
+    {
+        # Africa Report — pan-African business and politics, English.
+        "name":    "Africa Report",
+        "url":     "https://www.theafricareport.com/",
+        "base":    "https://www.theafricareport.com",
+        "link_selector": "h2 a, h3 a, article a, .entry-title a",
+        "country": "Other/Global",
+    },
+
     {
         # BBC Africa — major English-language Africa desk.
         "name":    "BBC Africa",
