@@ -346,6 +346,18 @@ def load_json_file(filename):
         return []
 
 
+def kids_portrait_url(prompt, seed=7):
+    # Build a Pollinations image URL for a warm, kid-friendly illustrated portrait.
+    # Free, no API key, no hotlinking worries. Same prompt + seed = same picture.
+    import urllib.parse  # local import keeps this self-contained
+    style = ("warm friendly children's book illustration portrait of "
+             f"{prompt}, proud and dignified, colourful, soft lighting, "
+             "head and shoulders, simple background")
+    encoded = urllib.parse.quote(style, safe="")
+    return (f"https://image.pollinations.ai/prompt/{encoded}"
+            f"?width=400&height=400&nologo=true&seed={seed}")
+
+
 def framing_badge(framing):
     # A small coloured dot — hints at the framing without announcing it
     if not framing:
@@ -2148,6 +2160,11 @@ def build_kids():
         initials = f.get("initials", "")
         color    = f.get("color", "#1a3a2a")
         image    = f.get("image", "")
+        # If no explicit image is set but a portrait_prompt is, generate an
+        # illustrated portrait with our own image generator (Pollinations).
+        # This avoids hotlinking other sites' photos.
+        if not image and f.get("portrait_prompt"):
+            image = kids_portrait_url(f["portrait_prompt"])
         # The initials circle is always present as a fallback. If a photo is set,
         # show it; if that photo fails to load, onerror reveals the circle instead
         # of leaving an empty ring.

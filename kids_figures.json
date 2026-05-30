@@ -5,7 +5,8 @@
     "flag": "🇯🇲",
     "initials": "MG",
     "color": "#e63946",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Marcus_Garvey_1924-08-05_%28cropped%29.jpg",
+    "image": "",
+    "portrait_prompt": "Marcus Garvey, Black Jamaican leader from the 1920s wearing a smart dark suit and a tall plumed ceremonial hat, kind confident face",
     "little": "A man from Jamaica who told every Black child to stand tall and be proud.",
     "big": "Marcus Garvey was born in Jamaica. He travelled the world telling Black people one big thing: be proud of who you are. He taught that your skin, your hair, and your story are beautiful. He started the Black Star Line so the Black world could stand together. The black star on our logo comes from him. He would tell you: you are somebody.",
     "facts": [
@@ -21,7 +22,8 @@
     "flag": "🇭🇹",
     "initials": "TL",
     "color": "#1d3557",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/3/32/G%C3%A9n%C3%A9ral_Toussaint_Louverture.jpg",
+    "image": "",
+    "portrait_prompt": "Toussaint Louverture, Black Haitian leader from the 1790s wearing a blue and gold military general's coat, brave and wise face",
     "little": "A brave leader who showed that you are never too small to do something big.",
     "big": "Toussaint Louverture lived in Haiti long ago. People told him he could not be free. He did not believe them. He was clever, he was brave, and he never gave up. He led his people until Haiti became the first country in the world where free Black people ruled themselves. He shows us that being brave can change everything.",
     "facts": [
@@ -38,6 +40,7 @@
     "initials": "YA",
     "color": "#2a9d8f",
     "image": "",
+    "portrait_prompt": "Yaa Asantewaa, Black Ashanti queen mother from Ghana wearing colourful kente cloth and gold jewellery, strong and proud face",
     "little": "A queen in Ghana who was brave and stood up tall for her people.",
     "big": "Yaa Asantewaa was a queen mother of the Asante people in Ghana. When her people were afraid, she stood up and was brave for everyone. She showed that girls can be strong leaders too. She helped protect the Golden Stool, the heart of her kingdom. She teaches us to be brave even when others are scared.",
     "facts": [
