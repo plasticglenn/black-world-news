@@ -13,6 +13,11 @@ PEXELS_KEY    = os.environ.get("PEXELS_API_KEY", "")
 # --- Change this to set the featured story ---
 FEATURED_KEYWORD = "Youth Unemployment"
 
+# The single brand colour used across every section (region and issue pages).
+# Change it here once and the whole site stays uniform. The kids page is the
+# only place that intentionally uses bright, playful colour.
+BRAND = "#1a3a2a"
+
 FRAMING_COLORS = {
     "Criminal":  "#e74c3c",
     "Victim":    "#e67e22",
@@ -57,9 +62,16 @@ REGION_ORDER = [
     "Germany",
     "Brazil",
     "Caribbean",
-    "Nigeria",
     "Ghana",
+    "Nigeria",
+    "Kenya",
     "South Africa",
+    "Senegal",
+    "Mali",
+    "Cameroon",
+    "Niger",
+    "Ivory Coast",
+    "Burkina Faso",
     "Australia",
     "Other/Global",
 ]
@@ -75,13 +87,15 @@ REGION_GROUPS = {
 }
 
 # Issue groups — map nav topic tabs to story categories
+    # Order matters — this is the order shown in the nav after "Home".
+    # Policing is deliberately last. One uniform brand colour across all.
 ISSUE_GROUPS = {
-    "policing":   {"label": "Policing",   "categories": ["Policing", "Hate Crime"],        "color": "#e74c3c"},
-    "politics":   {"label": "Politics",   "categories": ["Politics", "Immigration"],        "color": "#2980b9"},
-    "economics":  {"label": "Economics",  "categories": ["Employment", "Housing", "Other"], "color": "#27ae60"},
-    "health":     {"label": "Health",     "categories": ["Healthcare"],                     "color": "#e67e22"},
-    "education":  {"label": "Education",  "categories": ["Education"],                      "color": "#8e44ad"},
-    "culture":    {"label": "Culture",    "categories": ["Culture"],                        "color": "#f39c12"},
+    "economics":  {"label": "Economics",  "categories": ["Employment", "Housing", "Other"], "color": BRAND},
+    "health":     {"label": "Health",     "categories": ["Healthcare"],                     "color": BRAND},
+    "education":  {"label": "Education",   "categories": ["Education"],                      "color": BRAND},
+    "politics":   {"label": "Politics",   "categories": ["Politics", "Immigration"],        "color": BRAND},
+    "culture":    {"label": "Culture",    "categories": ["Culture"],                        "color": BRAND},
+    "policing":   {"label": "Policing",   "categories": ["Policing", "Hate Crime"],         "color": BRAND},
 }
 
 
@@ -170,21 +184,23 @@ KIDS_LETTER_CSS = """
 
 def make_two_tier_nav(active_region="", active_issue=""):
     """Single-row nav: issues | regions, separated by a pipe divider."""
+    # Home first, Policing last (per editorial direction).
     issues = [
-        ("Policing",   "policing.html",  "policing"),
-        ("Politics",   "politics.html",  "politics"),
+        ("Home",       "index.html",     "home"),
         ("Economics",  "economics.html", "economics"),
         ("Health",     "health.html",    "health"),
         ("Education",  "education.html", "education"),
+        ("Politics",   "politics.html",  "politics"),
         ("Culture",    "culture.html",   "culture"),
+        ("Policing",   "policing.html",  "policing"),
     ]
     regions = [
-        ("Latest",         "index.html",    ""),
-        ("N. America",     "namerica.html", "namerica"),
-        ("S. America",     "samerica.html", "samerica"),
-        ("Africa",         "africa.html",   "africa"),
-        ("Europe",         "europe.html",   "europe"),
-        ("Asia & Pacific", "asia.html",     "asia"),
+        ("N. America",     "namerica.html",  "namerica"),
+        ("Caribbean",      "caribbean.html", "caribbean"),
+        ("S. America",     "samerica.html",  "samerica"),
+        ("Africa",         "africa.html",    "africa"),
+        ("Europe",         "europe.html",    "europe"),
+        ("Asia & Pacific", "asia.html",      "asia"),
     ]
     issue_links = "".join(
         f'<a href="{url}" class="nav-issue{" nav-active" if key == active_issue else ""}">{label}</a>'
@@ -240,6 +256,21 @@ def pexels_image(query, cache, size="large"):
         cache[cache_key] = ""
         return ""
 
+# Hosts that serve a "no hotlinking" placeholder image when their photo is
+# loaded from another site. We never use their og:image — we generate our own
+# instead, so a card never shows that ugly red "blocked" graphic.
+HOTLINK_BLOCKED_HOSTS = {
+    "voice-online.co.uk",
+}
+
+
+def _img_host(url):
+    try:
+        return urllib.parse.urlparse(url).netloc.replace("www.", "").lower()
+    except Exception:
+        return ""
+
+
 def story_image(story, cache, featured=False, used_images=None):
     # used_images is a set we pass around to track what has already appeared on the page.
     # If an image URL has been used before, we skip it and try a different query.
@@ -247,6 +278,10 @@ def story_image(story, cache, featured=False, used_images=None):
     # For featured: skip the article's og:image (often grainy) and force a clean
     # high-res Pexels photo. For everything else, prefer og:image (article's own).
     og = story.get("image", "")
+    # Never trust an og:image from a host that blocks hotlinking — it would show
+    # their placeholder. Drop it and fall through to our own image instead.
+    if og and _img_host(og) in HOTLINK_BLOCKED_HOSTS:
+        og = ""
     if og and not featured:
         if used_images is not None:
             if og in used_images:
@@ -276,7 +311,12 @@ def story_image(story, cache, featured=False, used_images=None):
                 used_images.add(url)
             return url
 
-    return ""  # nothing unique found — card will show without image
+    # Last resort: generate our own image so a card is NEVER blank and never
+    # shows a blocked-hotlink placeholder.
+    gen = ai_image_url(story)
+    if used_images is not None:
+        used_images.add(gen)
+    return gen
 
 def ai_image_url(story):
     title   = story.get("title", "")[:80]
@@ -2510,6 +2550,29 @@ def build_kids():
 </html>"""
 
 
+SECTION_BANNER_CSS = """
+.section-banner{display:flex;align-items:center;justify-content:center;gap:0.6rem;flex-wrap:wrap;
+    padding:1.4rem 1rem;background:#fff;border-bottom:1px solid #e5e5e5;}
+.section-banner-brand{font-family:'Playfair Display',serif;font-weight:900;
+    font-size:1.05rem;letter-spacing:0.04em;color:#1a3a2a;text-transform:uppercase;}
+.section-banner-sep{color:#bbb;font-size:1.1rem;line-height:1;}
+.section-banner-name{font-family:'Playfair Display',serif;font-weight:700;
+    font-size:1.05rem;color:#222;}
+.section-subtitle{text-align:center;font-size:0.85rem;color:#888;padding:0.7rem 1rem 0;margin:0;}
+"""
+
+
+def section_banner(label):
+    """BBC-style breadcrumb path: BLACK WORLD NEWS > Section."""
+    return (
+        '<div class="section-banner">'
+        '<span class="section-banner-brand">Black World News</span>'
+        '<span class="section-banner-sep">&rsaquo;</span>'
+        f'<span class="section-banner-name">{label}</span>'
+        '</div>'
+    )
+
+
 def build_region_page(region_id, region, all_stories, cache):
     # Builds a full page for one region — all its stories, newest first
     by_country = defaultdict(list)
@@ -2529,12 +2592,11 @@ def build_region_page(region_id, region, all_stories, cache):
     count = len(region_stories)
 
     content = f"""
-    <div style="border-left:5px solid {color}; padding-left:1.25rem; margin-bottom:2rem;">
-        <h1 class="page-title" style="color:{color}">{label}</h1>
-        <p class="page-subtitle">{count} stories collected so far. Newest first.</p>
-    </div>
+    {section_banner(label)}
+    <p class="section-subtitle">{count} stories collected so far. Newest first.</p>
     <style>
-        .card-grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1rem; }}
+        {SECTION_BANNER_CSS}
+        .card-grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1rem; margin-top:1.5rem; }}
         .card {{ background:#fff; border:1px solid #ddd; border-top:3px solid transparent; padding:1.25rem 1.5rem; transition:border-top-color 0.2s,box-shadow 0.2s; }}
         .card:hover {{ border-top-color:{color}; box-shadow:0 4px 16px rgba(0,0,0,0.1); }}
         .card-img {{ width:100%; height:180px; object-fit:cover; display:block; margin-bottom:1rem; }}
@@ -2719,10 +2781,8 @@ def build_issue_page(issue_id, issue, all_stories, cache):
 </header>
 {nav_html}
 <div class="page-container">
-    <div style="border-left:5px solid {color};padding-left:1.25rem;margin-bottom:2rem;">
-        <h1 class="page-title" style="color:{color}">{label}</h1>
-        <p class="page-subtitle">{count} stories collected. Newest first.</p>
-    </div>
+    {section_banner(label)}
+    <p class="section-subtitle">{count} stories collected. Newest first.</p>
     <div class="card-grid">{cards}</div>
 </div>
 <footer>
