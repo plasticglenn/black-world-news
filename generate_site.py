@@ -56,6 +56,7 @@ REGION_ORDER = [
     "France",
     "Germany",
     "Brazil",
+    "Caribbean",
     "Nigeria",
     "Ghana",
     "South Africa",
@@ -65,11 +66,12 @@ REGION_ORDER = [
 
 # Groups countries into nav regions for the archive headings
 REGION_GROUPS = {
-    "namerica": {"label": "North America",   "color": "#4d96ff", "countries": ["United States", "Canada"]},
-    "samerica": {"label": "South America",   "color": "#6bcb77", "countries": ["Brazil", "Colombia"]},
-    "africa":   {"label": "Africa",          "color": "#f9844a", "countries": ["Nigeria", "Ghana", "South Africa", "Other/Global"]},
-    "europe":   {"label": "Europe",          "color": "#c77dff", "countries": ["United Kingdom", "France", "Germany"]},
-    "asia":     {"label": "Asia and Pacific","color": "#00d4ff", "countries": ["Australia", "India", "China", "Japan"]},
+    "namerica":  {"label": "North America",   "color": "#4d96ff", "countries": ["United States", "Canada"]},
+    "caribbean": {"label": "Caribbean",       "color": "#00b894", "countries": ["Caribbean"]},
+    "samerica":  {"label": "South America",   "color": "#6bcb77", "countries": ["Brazil", "Colombia"]},
+    "africa":    {"label": "Africa",          "color": "#f9844a", "countries": ["Nigeria", "Ghana", "South Africa", "Other/Global"]},
+    "europe":    {"label": "Europe",          "color": "#c77dff", "countries": ["United Kingdom", "France", "Germany"]},
+    "asia":      {"label": "Asia and Pacific","color": "#00d4ff", "countries": ["Australia", "India", "China", "Japan"]},
 }
 
 # Issue groups — map nav topic tabs to story categories
@@ -3072,6 +3074,7 @@ def main():
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.blackworldnews.world/</loc><lastmod>{today}</lastmod><priority>1.0</priority></url>
   <url><loc>https://www.blackworldnews.world/namerica.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.blackworldnews.world/caribbean.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
   <url><loc>https://www.blackworldnews.world/samerica.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
   <url><loc>https://www.blackworldnews.world/africa.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>
   <url><loc>https://www.blackworldnews.world/europe.html</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>

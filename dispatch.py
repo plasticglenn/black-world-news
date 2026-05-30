@@ -34,7 +34,8 @@ client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 # The countries we sort stories into
 COUNTRIES = [
     "Canada", "United States", "United Kingdom", "France", "Germany",
-    "Brazil", "South Africa", "Nigeria", "Ghana", "Australia", "Other/Global"
+    "Brazil", "Colombia", "Caribbean", "South Africa", "Nigeria", "Ghana",
+    "Australia", "Other/Global"
 ]
 
 # The topics we sort stories into
@@ -256,9 +257,15 @@ Title: {title}
 URL: {url}
 Content: {content}
 
-Respond in JSON format only with these exact fields:
-- "country": one of {COUNTRIES}
+Respond in JSON format only with these exact fields, in this order:
+- "country": one of {COUNTRIES}. Use "Caribbean" for stories about Jamaica, Barbados, Trinidad and Tobago, Haiti, the Bahamas, Guyana, or any Caribbean nation.
 - "category": one of {CATEGORIES}
+- "narrative_framing": one of ["Victim", "Criminal", "Statistic", "Human", "Resistant", "Exploited"]
+- "narrative_analysis": ONE complete, self-contained sentence (about 20 to 35 words) describing how Black people are portrayed in this story and what that portrayal implies. It MUST be a finished sentence ending in a period — never cut off mid-thought.
+  Vary your opening every time. DO NOT begin with "The story frames" or "This story frames". Instead open in different natural ways, for example: "Black Americans appear here mainly as...", "By reducing the crisis to numbers, the coverage...", "Readers meet these communities as...", "The framing leans on...", "Portrayed as resilient, the people in this story...", "Notably absent is...", "Statistics stand in for people when...". Choose wording that fits THIS story specifically.
+- "cui_bono": one plain sentence, maximum 15 words, naming the specific entity or group that benefits most from the conditions described. Name the corporation, government, or industry. If genuinely unclear write "Unclear." No moralizing. Just who gains.
+- "structural_factors": list up to 3 systemic factors at play from ["Colonial legacy", "Drug war", "Engineered unemployment", "Alcohol industry targeting", "Land theft", "Foreign debt", "Mass incarceration", "Media bias", "Police violence", "Voter suppression", "Corporate extraction", "None identified"]
+- "explicit_racism": true if racism is directly named, false if it is implied or structural
 - "summary": 2-3 sentences in English summarizing the story
 - "title_en": the headline translated to English (if it is already English, repeat it verbatim)
 - "title_es": the headline translated to Spanish
@@ -268,20 +275,17 @@ Respond in JSON format only with these exact fields:
 - "summary_pt": the summary translated to Portuguese
 - "summary_fr": the summary translated to French
 - "translated": true if the original content was not in English, false otherwise
-- "explicit_racism": true if racism is directly named, false if it is implied or structural
-- "narrative_framing": one of ["Victim", "Criminal", "Statistic", "Human", "Resistant", "Exploited"]
-- "narrative_analysis": 1-2 sentences describing how Black people are framed in this story and what that framing implies
-- "structural_factors": list up to 3 systemic factors at play from ["Colonial legacy", "Drug war", "Engineered unemployment", "Alcohol industry targeting", "Land theft", "Foreign debt", "Mass incarceration", "Media bias", "Police violence", "Voter suppression", "Corporate extraction", "None identified"]
-- "cui_bono": one plain sentence, maximum 15 words, naming the specific entity or group that benefits most from the conditions described. Name the corporation, government, or industry. If genuinely unclear write "Unclear." No moralizing. Just who gains.
 
-Important: keep all translations natural and concise. Do not add commentary — only translated text.
+Important: keep all translations natural and concise. Do not add commentary — only translated text. Make sure the JSON is complete and valid.
 """
 
     raw = ""
     try:
-        # Send the prompt to Groq and get the AI's response
+        # Send the prompt to Groq and get the AI's response.
+        # max_tokens is generous so the JSON is never cut off mid-field.
         response = client.chat.completions.create(
             model=MODEL,
+            max_tokens=1200,
             messages=[{"role": "user", "content": prompt}]
         )
         raw = response.choices[0].message.content
@@ -436,7 +440,47 @@ DIRECT_SOURCES = [
         "url":     "https://www.jamaicaobserver.com/latest-news/",
         "base":    "https://www.jamaicaobserver.com",
         "link_selector": "h2 a, h3 a, article a, .story-title a",
-        "country": "Other/Global",
+        "country": "Caribbean",
+    },
+    {
+        # The Gleaner — Jamaica's oldest newspaper (since 1834).
+        "name":    "Jamaica Gleaner",
+        "url":     "https://jamaica-gleaner.com/latest",
+        "base":    "https://jamaica-gleaner.com",
+        "link_selector": "h2 a, h3 a, article a, .teaser-title a, .views-field a",
+        "country": "Caribbean",
+    },
+    {
+        # Nation News — Barbados' leading daily.
+        "name":    "Nation News Barbados",
+        "url":     "https://www.nationnews.com/",
+        "base":    "https://www.nationnews.com",
+        "link_selector": "h2 a, h3 a, article a, .tnt-headline a",
+        "country": "Caribbean",
+    },
+    {
+        # Loop Barbados — major Caribbean digital news network.
+        "name":    "Loop Barbados",
+        "url":     "https://barbados.loopnews.com/",
+        "base":    "https://barbados.loopnews.com",
+        "link_selector": "h2 a, h3 a, article a, .card a",
+        "country": "Caribbean",
+    },
+    {
+        # Trinidad and Tobago Guardian — Trinidad's daily of record.
+        "name":    "Trinidad Guardian",
+        "url":     "https://www.guardian.co.tt/",
+        "base":    "https://www.guardian.co.tt",
+        "link_selector": "h2 a, h3 a, article a, .article-title a",
+        "country": "Caribbean",
+    },
+    {
+        # Trinidad and Tobago Newsday — widely-read Trinidad daily.
+        "name":    "Trinidad Newsday",
+        "url":     "https://newsday.co.tt/",
+        "base":    "https://newsday.co.tt",
+        "link_selector": "h2 a, h3 a, article a, .post-title a, .td-module-title a",
+        "country": "Caribbean",
     },
     {
         # Caribbean National Weekly — diaspora-focused Caribbean news.
@@ -444,7 +488,7 @@ DIRECT_SOURCES = [
         "url":     "https://www.caribbeannationalweekly.com/",
         "base":    "https://www.caribbeannationalweekly.com",
         "link_selector": "h2 a, h3 a, article a, .entry-title a",
-        "country": "Other/Global",
+        "country": "Caribbean",
     },
 
     # ---- SOUTH AFRICA ----
