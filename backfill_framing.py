@@ -9,11 +9,20 @@
 # ============================================================
 import json, os, sys
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-from groq import Groq
 from json_repair import repair_json
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-MODEL = "llama-3.3-70b-versatile"
+# Prefer DeepSeek (pay-as-you-go, no daily wall) if its key is set; else Groq.
+if os.environ.get("DEEPSEEK_API_KEY"):
+    from openai import OpenAI
+    client = OpenAI(api_key=os.environ["DEEPSEEK_API_KEY"],
+                    base_url="https://api.deepseek.com")
+    MODEL  = "deepseek-chat"
+    print("AI provider: DeepSeek (deepseek-chat)")
+else:
+    from groq import Groq
+    client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+    MODEL  = "llama-3.3-70b-versatile"
+    print("AI provider: Groq (llama-3.3-70b-versatile)")
 ARCHIVE = "stories.json"
 
 

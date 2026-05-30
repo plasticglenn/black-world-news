@@ -25,16 +25,29 @@ from json_repair import repair_json  # fixes AI responses that aren't perfect JS
 # Where stories get saved
 ARCHIVE_FILE = "stories.json"
 
-# Which AI model to use (running on Groq's free servers)
-MODEL = "llama-3.3-70b-versatile"
+# ---- AI PROVIDER ----
+# Prefer DeepSeek if its key is set (pay-as-you-go, no daily wall, cheap).
+# Fall back to Groq's free tier otherwise. Both use the same chat API, so the
+# rest of the code does not change.
+if os.environ.get("DEEPSEEK_API_KEY"):
+    from openai import OpenAI
+    client   = OpenAI(api_key=os.environ["DEEPSEEK_API_KEY"],
+                      base_url="https://api.deepseek.com")
+    MODEL    = "deepseek-chat"
+    PROVIDER = "DeepSeek"
+else:
+    client   = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+    MODEL    = "llama-3.3-70b-versatile"
+    PROVIDER = "Groq"
 
-# Connect to Groq using your API key (stored safely in Windows, not here)
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+print(f"AI provider: {PROVIDER} ({MODEL})")
 
 # The countries we sort stories into
 COUNTRIES = [
     "Canada", "United States", "United Kingdom", "France", "Germany",
-    "Brazil", "Colombia", "Caribbean", "South Africa", "Nigeria", "Ghana",
+    "Brazil", "Colombia", "Caribbean",
+    "Ghana", "Nigeria", "Kenya", "South Africa", "Senegal", "Mali",
+    "Cameroon", "Niger", "Ivory Coast", "Burkina Faso",
     "Australia", "Other/Global"
 ]
 
@@ -258,7 +271,7 @@ URL: {url}
 Content: {content}
 
 Respond in JSON format only with these exact fields, in this order:
-- "country": one of {COUNTRIES}. Use "Caribbean" for stories about Jamaica, Barbados, Trinidad and Tobago, Haiti, the Bahamas, Guyana, or any Caribbean nation.
+- "country": one of {COUNTRIES}. Use "Caribbean" for stories about Jamaica, Barbados, Trinidad and Tobago, Haiti, the Bahamas, Guyana, or any Caribbean nation. For African stories, always pick the specific country (Ghana, Nigeria, Kenya, South Africa, Senegal, Mali, Cameroon, Niger, Ivory Coast, Burkina Faso) — only use "Other/Global" when the story is genuinely continent-wide or about a country not in the list.
 - "category": one of {CATEGORIES}
 - "narrative_framing": one of ["Victim", "Criminal", "Statistic", "Human", "Resistant", "Exploited"]
 - "narrative_analysis": ONE complete, self-contained sentence (about 20 to 35 words) describing how Black people are portrayed in this story and what that portrayal implies. It MUST be a finished sentence ending in a period — never cut off mid-thought.
@@ -517,6 +530,50 @@ DIRECT_SOURCES = [
         "base":    "https://punchng.com",
         "link_selector": "h2 a, h3 a, article a, .post-title a",
         "country": "Nigeria",
+    },
+    {
+        # The Cable — Nigerian investigative outlet, accountability journalism.
+        "name":    "The Cable Nigeria",
+        "url":     "https://www.thecable.ng/",
+        "base":    "https://www.thecable.ng",
+        "link_selector": "h2 a, h3 a, article a, .jeg_post_title a",
+        "country": "Nigeria",
+    },
+
+    # ---- GHANA ----
+    {
+        # MyJoyOnline — one of Ghana's most-read news sites, strong civic coverage.
+        "name":    "MyJoyOnline",
+        "url":     "https://www.myjoyonline.com/news/",
+        "base":    "https://www.myjoyonline.com",
+        "link_selector": "h2 a, h3 a, article a, .jeg_post_title a, .home-section a",
+        "country": "Ghana",
+    },
+    {
+        # Modern Ghana — independent Ghanaian news and opinion.
+        "name":    "Modern Ghana",
+        "url":     "https://www.modernghana.com/news/",
+        "base":    "https://www.modernghana.com",
+        "link_selector": "h2 a, h3 a, article a, .article-title a",
+        "country": "Ghana",
+    },
+
+    # ---- KENYA ----
+    {
+        # Nation Africa — Kenya's paper of record, East Africa's largest.
+        "name":    "Nation Africa",
+        "url":     "https://nation.africa/kenya",
+        "base":    "https://nation.africa",
+        "link_selector": "h2 a, h3 a, article a, .teaser-image-large a, .article-teaser a",
+        "country": "Kenya",
+    },
+    {
+        # The Standard — Kenya's oldest newspaper, strong investigative desk.
+        "name":    "The Standard Kenya",
+        "url":     "https://www.standardmedia.co.ke/",
+        "base":    "https://www.standardmedia.co.ke",
+        "link_selector": "h2 a, h3 a, article a, .news-title a",
+        "country": "Kenya",
     },
 
     # ---- FRANCE / FRANCOPHONE AFRICA ----
