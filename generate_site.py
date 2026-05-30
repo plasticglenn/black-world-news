@@ -18,6 +18,18 @@ FEATURED_KEYWORD = "Youth Unemployment"
 # only place that intentionally uses bright, playful colour.
 BRAND = "#1a3a2a"
 
+# ---------------------------------------------------------------------------
+# CONTENT CHANNELS — single source of truth for where the BWN Kids portal sends
+# people. This is the distribution "machine": fill a URL in when the channel
+# goes live and the site wires it up everywhere. Leave "" for a calm
+# "Coming soon" door (still shown, just not clickable yet). No other file
+# needs editing.
+# ---------------------------------------------------------------------------
+YOUTUBE_URL  = ""   # e.g. "https://www.youtube.com/@blackworldnews"
+TIKTOK_URL   = ""   # e.g. "https://www.tiktok.com/@blackworldnews"
+WHATSAPP_URL = ""   # e.g. a WhatsApp channel invite link
+COMICS_URL   = ""   # comics destination — on-site page or external, decide later
+
 FRAMING_COLORS = {
     "Criminal":  "#e74c3c",
     "Victim":    "#e67e22",
@@ -2312,6 +2324,34 @@ def build_kids():
     ]
     quiz_json = json.dumps(quiz)
 
+    # --- BWN Kids launchpad: two doors → Comics and our videos (YouTube/TikTok) ---
+    # Driven entirely by the COMICS_URL / YOUTUBE_URL / TIKTOK_URL constants up top.
+    # An unset destination renders as a calm, non-clickable "Coming soon" door, so
+    # the portal looks finished long before the content exists.
+    def _kids_door(href, icon, title, sub, klass, chips=""):
+        if href:
+            tgt = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+            return (f'<a class="kids-door {klass}" href="{href}"{tgt}>'
+                    f'<span class="kids-door-icon">{icon}</span>'
+                    f'<span class="kids-door-title">{title}</span>'
+                    f'<span class="kids-door-sub">{sub}</span>{chips}</a>')
+        return (f'<div class="kids-door {klass} kids-door-soon" aria-disabled="true">'
+                f'<span class="kids-door-icon">{icon}</span>'
+                f'<span class="kids-door-title">{title}</span>'
+                f'<span class="kids-door-sub">Coming soon</span></div>')
+
+    comics_door = _kids_door(COMICS_URL, "&#128214;", "Comics",
+                             "Our stories, told in pictures", "kids-door-comics")
+    chips = ""
+    if YOUTUBE_URL:
+        chips += '<span class="kids-chip">YouTube</span>'
+    if TIKTOK_URL:
+        chips += '<span class="kids-chip">TikTok</span>'
+    if chips:
+        chips = f'<span class="kids-chips">{chips}</span>'
+    watch_door = _kids_door(YOUTUBE_URL or TIKTOK_URL, "&#9654;&#65039;", "Watch &amp; Learn",
+                            "Videos about our world", "kids-door-watch", chips)
+
     nav_html = make_two_tier_nav()
 
     return f"""<!DOCTYPE html>
@@ -2375,6 +2415,20 @@ def build_kids():
         .kids-section-title{{font-family:'Fredoka One',cursive;font-size:1.8rem;color:#1a3a2a;margin-bottom:0.3rem;}}
         .kids-section-sub{{font-size:1rem;color:#888;margin-bottom:1.5rem;}}
         .kids-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}}
+
+        /* BWN Kids launchpad — the two doors (Comics + Watch & Learn) */
+        .kids-portals{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;}}
+        .kids-door{{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.4rem;padding:2.5rem 1.5rem;border-radius:26px;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.16);transition:transform 0.15s,box-shadow 0.15s;min-height:200px;}}
+        .kids-door:hover{{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.22);}}
+        .kids-door-comics{{background:linear-gradient(150deg,#e8602c,#c8341a);}}
+        .kids-door-watch{{background:linear-gradient(150deg,#7a3cc0,#4a2398);}}
+        .kids-door-icon{{font-size:3rem;line-height:1;}}
+        .kids-door-title{{font-family:'Bagel Fat One',cursive;font-size:1.8rem;}}
+        .kids-door-sub{{font-size:1rem;opacity:0.95;}}
+        .kids-door-soon{{background:#cfcabe;color:#5a554a;box-shadow:none;cursor:default;}}
+        .kids-door-soon:hover{{transform:none;box-shadow:none;}}
+        .kids-chips{{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:0.3rem;}}
+        .kids-chip{{background:rgba(255,255,255,0.22);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.8rem;font-weight:700;}}
 
         /* Say It Out Loud — confidence affirmations */
         .affirm-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}}
@@ -2457,6 +2511,12 @@ def build_kids():
 </section>
 
 <main class="kids-main">
+
+    <section class="kids-section kids-portals-section">
+        <h2 class="kids-section-title">Choose a door</h2>
+        <p class="kids-section-sub">Tap to begin.</p>
+        <div class="kids-portals">{comics_door}{watch_door}</div>
+    </section>
 
     <section class="kids-section">
         <h2 class="kids-section-title">Say It Out Loud</h2>

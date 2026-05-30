@@ -129,6 +129,7 @@
 ---
 
 ## 🆕 DONE 2026-05-30
+- [x] **BWN Kids portal → launchpad ("the machine")** — `kids.html` now opens with a two-door "Choose a door" launchpad: **Comics** and **Watch & Learn** (our YouTube/TikTok videos). Distribution rails only — content comes later. Single source of truth at the top of `generate_site.py`: `COMICS_URL`, `YOUTUBE_URL`, `TIKTOK_URL`, `WHATSAPP_URL`. Empty = a calm "Coming soon" door (shown but not clickable). Fill a URL → site wires it up everywhere, no other edits. No separate seniors section by design — seniors are an audience for our social videos, not a site build target.
 - [x] **Android app packaging decided + scaffolded** — going with a **Trusted Web Activity (Bubblewrap)**, not Capacitor (wraps the existing PWA, auto-updates from the live site, lowest Play rejection risk). Done: PWA confirmed TWA-ready, `@bubblewrap/cli` installed, `.well-known/assetlinks.json` placeholder + `.nojekyll` in place, full build runbook in **`ANDROID.md`**. Remaining steps are user-run (Bubblewrap is interactive — needs a real terminal) + $25 Play account. Keystore must live OUTSIDE this public repo.
 - [x] **Caribbean is now its own region** (Jamaica, Barbados, Trinidad & Tobago, Haiti, Bahamas, Guyana) — not lumped into Other/Global. New `caribbean.html`, nav tab, search filter, 🌴 flag.
   - New direct sources scanned every run: Jamaica Gleaner, Nation News (Barbados), Loop Barbados, Trinidad Guardian, Trinidad Newsday (plus existing Jamaica Observer + Caribbean National Weekly).

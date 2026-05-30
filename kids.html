@@ -94,6 +94,20 @@
         .kids-section-sub{font-size:1rem;color:#888;margin-bottom:1.5rem;}
         .kids-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
 
+        /* BWN Kids launchpad — the two doors (Comics + Watch & Learn) */
+        .kids-portals{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;}
+        .kids-door{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.4rem;padding:2.5rem 1.5rem;border-radius:26px;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.16);transition:transform 0.15s,box-shadow 0.15s;min-height:200px;}
+        .kids-door:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.22);}
+        .kids-door-comics{background:linear-gradient(150deg,#e8602c,#c8341a);}
+        .kids-door-watch{background:linear-gradient(150deg,#7a3cc0,#4a2398);}
+        .kids-door-icon{font-size:3rem;line-height:1;}
+        .kids-door-title{font-family:'Bagel Fat One',cursive;font-size:1.8rem;}
+        .kids-door-sub{font-size:1rem;opacity:0.95;}
+        .kids-door-soon{background:#cfcabe;color:#5a554a;box-shadow:none;cursor:default;}
+        .kids-door-soon:hover{transform:none;box-shadow:none;}
+        .kids-chips{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:0.3rem;}
+        .kids-chip{background:rgba(255,255,255,0.22);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.8rem;font-weight:700;}
+
         /* Say It Out Loud — confidence affirmations */
         .affirm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}
         .affirm-card{border-radius:20px;padding:2rem 1.5rem;min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.12);}
@@ -175,6 +189,12 @@
 </section>
 
 <main class="kids-main">
+
+    <section class="kids-section kids-portals-section">
+        <h2 class="kids-section-title">Choose a door</h2>
+        <p class="kids-section-sub">Tap to begin.</p>
+        <div class="kids-portals"><div class="kids-door kids-door-comics kids-door-soon" aria-disabled="true"><span class="kids-door-icon">&#128214;</span><span class="kids-door-title">Comics</span><span class="kids-door-sub">Coming soon</span></div><div class="kids-door kids-door-watch kids-door-soon" aria-disabled="true"><span class="kids-door-icon">&#9654;&#65039;</span><span class="kids-door-title">Watch &amp; Learn</span><span class="kids-door-sub">Coming soon</span></div></div>
+    </section>
 
     <section class="kids-section">
         <h2 class="kids-section-title">Say It Out Loud</h2>
