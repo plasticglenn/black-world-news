@@ -78,12 +78,12 @@ REGION_ORDER = [
 
 # Groups countries into nav regions for the archive headings
 REGION_GROUPS = {
-    "namerica":  {"label": "North America",   "color": "#4d96ff", "countries": ["United States", "Canada"]},
-    "caribbean": {"label": "Caribbean",       "color": "#00b894", "countries": ["Caribbean"]},
-    "samerica":  {"label": "South America",   "color": "#6bcb77", "countries": ["Brazil", "Colombia"]},
-    "africa":    {"label": "Africa",          "color": "#f9844a", "countries": ["Nigeria", "Ghana", "South Africa", "Other/Global"]},
-    "europe":    {"label": "Europe",          "color": "#c77dff", "countries": ["United Kingdom", "France", "Germany"]},
-    "asia":      {"label": "Asia and Pacific","color": "#00d4ff", "countries": ["Australia", "India", "China", "Japan"]},
+    "namerica":  {"label": "North America",   "color": BRAND, "countries": ["United States", "Canada"]},
+    "caribbean": {"label": "Caribbean",       "color": BRAND, "countries": ["Caribbean"]},
+    "samerica":  {"label": "South America",   "color": BRAND, "countries": ["Brazil", "Colombia"]},
+    "africa":    {"label": "Africa",          "color": BRAND, "countries": ["Ghana", "Nigeria", "Kenya", "South Africa", "Senegal", "Mali", "Cameroon", "Niger", "Ivory Coast", "Burkina Faso", "Other/Global"]},
+    "europe":    {"label": "Europe",          "color": BRAND, "countries": ["United Kingdom", "France", "Germany"]},
+    "asia":      {"label": "Asia and Pacific","color": BRAND, "countries": ["Australia", "India", "China", "Japan"]},
 }
 
 # Issue groups — map nav topic tabs to story categories
