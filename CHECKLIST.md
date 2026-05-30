@@ -34,7 +34,7 @@
 
 **Editorial rules (never break):** no hyphens in visible copy; no buzzwords ("Pan-African", "systemic"); neutral wire-service tone. Kids tone = **belonging, not difference** (a global family of shared values — a zeitgeist); brave, beautiful, beautifully made. Framing analysis = one complete sentence, varied opener (never "The story frames…").
 
-**Current state (2026-05-30):** 933 stories. DeepSeek run added 665. Caribbean (88) + 10 African countries with flags are live. Last commit `c18f013`, clean + synced.
+**Current state (2026-05-30):** 933 stories. DeepSeek run added 665. Caribbean (88) + 10 African countries with flags are live. Last code commit `c18f013` (country flags); `b620f35` added this handoff block. **Synced with `origin/main`** (the live branch). NOTE: local `main` tracks the stale `origin/master`, so `git status` falsely reports "ahead 92" — verify with `git rev-list --left-right --count main...origin/main` (should be `0  0`), and push with `git push origin main`.
 
 **Next priorities:**
 1. Re-tag the ~245 Africa "Other/Global" stories to specific countries (cheap DeepSeek backfill).
