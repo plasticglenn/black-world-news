@@ -119,7 +119,7 @@
 - [x] **PWA** — installable on Android Chrome and iOS Safari (Add to Home Screen)
 - [ ] **Social media accounts** — IG, X, TikTok, Threads (you sign up; pipeline ready)
 - [x] **Social posting pipeline** — `social_post.py` drafts per-platform posts ✅
-- [ ] **Android app** — Capacitor wrapper, Google Play Store ($25 one-time)
+- [~] **Android app** — **TWA via Bubblewrap** (not Capacitor — TWA auto-updates from the live site, Google-endorsed, lower rejection risk). Scaffolded; build steps in `ANDROID.md`. Blocked on user-run terminal (Bubblewrap is interactive) + $25 Play account.
 - [ ] **iOS app** — Capacitor wrapper, App Store ($99/year, much later)
 
 ### Admin
@@ -129,6 +129,7 @@
 ---
 
 ## 🆕 DONE 2026-05-30
+- [x] **Android app packaging decided + scaffolded** — going with a **Trusted Web Activity (Bubblewrap)**, not Capacitor (wraps the existing PWA, auto-updates from the live site, lowest Play rejection risk). Done: PWA confirmed TWA-ready, `@bubblewrap/cli` installed, `.well-known/assetlinks.json` placeholder + `.nojekyll` in place, full build runbook in **`ANDROID.md`**. Remaining steps are user-run (Bubblewrap is interactive — needs a real terminal) + $25 Play account. Keystore must live OUTSIDE this public repo.
 - [x] **Caribbean is now its own region** (Jamaica, Barbados, Trinidad & Tobago, Haiti, Bahamas, Guyana) — not lumped into Other/Global. New `caribbean.html`, nav tab, search filter, 🌴 flag.
   - New direct sources scanned every run: Jamaica Gleaner, Nation News (Barbados), Loop Barbados, Trinidad Guardian, Trinidad Newsday (plus existing Jamaica Observer + Caribbean National Weekly).
 - [x] **Framing analysis overhauled** — `narrative_analysis` must be ONE complete sentence with a varied opener (banned the repetitive "The story frames..."). `max_tokens=1200` so JSON never truncates mid-sentence. All FUTURE stories use this.
