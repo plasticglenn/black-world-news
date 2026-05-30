@@ -29,16 +29,24 @@ be prepared safely already has been (see "Already done").
 - PWA manifest verified TWA-ready (standalone, theme `#1a3a2a`, 192/512/maskable-512 icons live).
 - `.well-known/assetlinks.json` created with **placeholder** fingerprints (you fill these in step 6).
 - `.nojekyll` confirmed present, so GitHub Pages serves the `.well-known/` directory.
-- `@bubblewrap/cli` installed globally.
+- `@bubblewrap/cli` installed globally (159 MB on C:).
+- **Low-disk setup:** `~/.bubblewrap` is junctioned to `D:\bwn-android\.bubblewrap`, so the
+  JDK + Android SDK download to the external T7 drive (605 GB free), not the C: SSD.
 
 ---
 
 ## 📦 Build steps (run in a real PowerShell window)
 
-### 1. Make a build folder OUTSIDE this repo
+### 1. Go to the build folder on the external drive (D:)
+Everything heavy lives on **D:\ (T7 Shield)** to spare the C: SSD:
+- `D:\bwn-android\.bubblewrap` — junctioned from `~/.bubblewrap`, so the JDK 17 + Android SDK
+  (~1 GB) download here automatically. **Already set up.**
+- The TWA project + Gradle cache also go here (below).
+
 ```powershell
-mkdir C:\Users\glenn\bwn-android
-cd C:\Users\glenn\bwn-android
+cd D:\bwn-android
+# keep Gradle's cache off C: for this build too:
+$env:GRADLE_USER_HOME = "D:\bwn-android\.gradle"
 ```
 
 ### 2. Initialise the TWA from the live manifest
