@@ -91,6 +91,13 @@
 
 ---
 
+## 🆕 DONE 2026-05-30
+- [x] **Caribbean is now its own region** (Jamaica, Barbados, Trinidad & Tobago, Haiti, Bahamas, Guyana) — not lumped into Other/Global. New `caribbean.html`, nav tab, search filter, 🌴 flag.
+  - New direct sources scanned every run: Jamaica Gleaner, Nation News (Barbados), Loop Barbados, Trinidad Guardian, Trinidad Newsday (plus existing Jamaica Observer + Caribbean National Weekly).
+- [x] **Framing analysis overhauled** — `narrative_analysis` must be ONE complete sentence with a varied opener (banned the repetitive "The story frames..."). `max_tokens=1200` so JSON never truncates mid-sentence. All FUTURE stories use this.
+- [x] **Kids portraits** — real public-domain photos of Garvey & Toussaint served locally from `images/` (fixes the Wikimedia hotlink block). Yaa keeps her generated portrait.
+- [~] **Framing backfill in progress** — `backfill_framing.py` re-writes old truncated/repetitive analyses + fills missing `cui_bono`. ~half done (boring openers 178→84, truncated 177→92, cui_bono 140→213). **Groq daily limit hit — re-run `python backfill_framing.py` after it resets to finish the rest.**
+
 ## 🆕 DONE 2026-05-29
 - [x] Logo consolidated — one source of truth (`logo.svg`), homepage no longer has its own copy
 - [x] Bugfix: news agent was crashing on startup (UTF-8 encoding in `load_archive`). Fixed.

@@ -3243,7 +3243,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The Black African youth in this story are framed as statistics",
+    "narrative_analysis": "Apparently",
     "structural_factors": [
       "Colonial legacy",
       "Engineered unemployment",
@@ -3253,7 +3253,8 @@
     "url": "https://open.uct.ac.za/items/a0f98b60-064a-4f46-a2df-6f4f4de08d86",
     "saved_at": "2026-05-26 11:40",
     "image": "",
-    "title_en": "Relatability: the hidden force behind Black African youth employment..."
+    "title_en": "Relatability: the hidden force behind Black African youth employment...",
+    "cui_bono": "Employers benefit."
   },
   {
     "country": "Other/Global",
@@ -3262,7 +3263,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The narrative framing of this story presents unemployment as a statistical issue",
+    "narrative_analysis": "Black people are absent from this statistical report on Nordic unemployment rates.",
     "structural_factors": [
       "Engineered unemployment",
       "Media bias",
@@ -3272,7 +3273,8 @@
     "url": "https://www.statista.com/statistics/1201604/unemployment-rate-forecasts-in-the-nordics/",
     "saved_at": "2026-05-26 11:40",
     "image": "https://cdn.statcdn.com/Statistic/1200000/1201604-blank-355.png",
-    "title_en": "Unemployment rate in the Nordics 1980-2031| Statista"
+    "title_en": "Unemployment rate in the Nordics 1980-2031| Statista",
+    "cui_bono": "Nordic governments."
   },
   {
     "country": "Other/Global",
@@ -3306,7 +3308,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The narrative framing of unemployment as mere statistics can obscure the structural factors affecting Black communities",
+    "narrative_analysis": "Readers meet these communities as statistics",
     "structural_factors": [
       "Engineered unemployment",
       "Colonial legacy",
@@ -3316,7 +3318,8 @@
     "url": "https://tradingeconomics.com/country-list/unemployment-rate",
     "saved_at": "2026-05-26 11:40",
     "image": "",
-    "title_en": "Unemployment Rate - Countries - List | G20"
+    "title_en": "Unemployment Rate - Countries - List | G20",
+    "cui_bono": "Governments."
   },
   {
     "country": "United States",
@@ -3325,7 +3328,7 @@
     "translated": false,
     "explicit_racism": true,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The story frames Black people as statistics",
+    "narrative_analysis": "By focusing on statistics",
     "structural_factors": [
       "Engineered unemployment",
       "Mass incarceration",
@@ -3335,7 +3338,8 @@
     "url": "https://www.modernghana.com/news/641127/african-american-jobless-rate-remains-high.html",
     "saved_at": "2026-05-26 11:40",
     "image": "https://cdn.modernghana.com/images/content/a17hxl3wwr_images_7.jpg",
-    "title_en": "African American Jobless Rate Remains High"
+    "title_en": "African American Jobless Rate Remains High",
+    "cui_bono": "Government agencies."
   },
   {
     "country": "United States",
@@ -3344,7 +3348,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The framing of African-Americans as a mere statistic implies a lack of agency and ignores the structural factors contributing to their economic marginalization. This narrative reinforces the notion that Black people are inherently disadvantaged",
+    "narrative_analysis": "By focusing on unemployment rates",
     "structural_factors": [
       "Engineered unemployment",
       "Mass incarceration",
@@ -3354,7 +3358,8 @@
     "url": "https://www.youtube.com/watch?v=r7Rlfb0EET4",
     "saved_at": "2026-05-26 11:40",
     "image": "https://i.ytimg.com/vi/r7Rlfb0EET4/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-BIAC6AKKAgwIABABGGUgTyhCMA8=&rs=AOn4CLDtfo5iVa0Bex2yVAKYZJtqnYaXSg",
-    "title_en": "African-American jobless rate tops 16% - YouTube"
+    "title_en": "African-American jobless rate tops 16% - YouTube",
+    "cui_bono": "Government agencies."
   },
   {
     "country": "United States",
@@ -3363,7 +3368,7 @@
     "translated": false,
     "explicit_racism": true,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The story frames African Americans as statistics",
+    "narrative_analysis": "Historically disenfranchised groups are shown facing severe economic disparities quietly",
     "structural_factors": [
       "Engineered unemployment",
       "Mass incarceration",
@@ -3379,7 +3384,8 @@
     "title_fr": "Le taux de chômage des Afro-Américains reste élevé – Workers World",
     "summary_es": "La tasa de desempleo para los afroamericanos sigue siendo más del doble que la de los blancos, con una tasa nacional del 9,1% en comparación con el 4,6% para los blancos. Esta disparidad es un síntoma del racismo institucional y la opresión nacional, perpetuado por factores como el cierre de instalaciones industriales y la prohibición de la acción afirmativa. La falta de acción del gobierno federal para abordar esta crisis ha exacerbado el problema.",
     "summary_pt": "A taxa de desemprego para os afro-americanos permanece mais de duas vezes a dos brancos, com uma taxa nacional de 9,1% em comparação com 4,6% para os brancos. Esta disparidade é um sintoma do racismo institucional e da opressão nacional, perpetuada por fatores como o fechamento de instalações industriais e a proibição da ação afirmativa. A falha do governo federal em abordar esta crise exacerbou a questão.",
-    "summary_fr": "Le taux de chômage des Afro-Américains reste plus du double de celui des Blancs, avec un taux national de 9,1 % par rapport à 4,6 % pour les Blancs. Cette disparité est un symptôme du racisme institutionnel et de l'oppression nationale, perpétuée par des facteurs tels que la fermeture d'installations industrielles et l'interdiction de l'action positive. L'échec du gouvernement fédéral à résoudre cette crise a exacerbé le problème."
+    "summary_fr": "Le taux de chômage des Afro-Américains reste plus du double de celui des Blancs, avec un taux national de 9,1 % par rapport à 4,6 % pour les Blancs. Cette disparité est un symptôme du racisme institutionnel et de l'oppression nationale, perpétuée par des facteurs tels que la fermeture d'installations industrielles et l'interdiction de l'action positive. L'échec du gouvernement fédéral à résoudre cette crise a exacerbé le problème.",
+    "cui_bono": "Corporate America"
   },
   {
     "country": "United States",
@@ -3388,7 +3394,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The story frames Black people primarily as statistics",
+    "narrative_analysis": "By focusing on statistics",
     "structural_factors": [
       "Mass incarceration",
       "Engineered unemployment",
@@ -3398,7 +3404,8 @@
     "url": "https://newsone.com/4226501/black-unemployment-rate-facts/",
     "saved_at": "2026-05-26 11:40",
     "image": "https://newsone.com/wp-content/uploads/sites/22/2021/10/16336512512584.jpg?quality=80&strip=all&w=594&crop=0,0,100,403px",
-    "title_en": "Black Unemployment Facts: Why African American Jobless Rate Is..."
+    "title_en": "Black Unemployment Facts: Why African American Jobless Rate Is...",
+    "cui_bono": "US government."
   },
   {
     "country": "United States",
@@ -3407,7 +3414,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "This story frames Black people primarily as statistics",
+    "narrative_analysis": "By highlighting low unemployment",
     "structural_factors": [
       "Engineered unemployment",
       "Mass incarceration",
@@ -3417,7 +3424,8 @@
     "url": "https://dallasweekly.com/2023/05/african-american-jobless-rate-hits-lowest-in-u-s-history/",
     "saved_at": "2026-05-26 11:40",
     "image": "https://dallasweekly.com/wp-content/uploads/2023/05/energyjobsreport-business-34092_pexels_web-810x463-1.jpg",
-    "title_en": "African American Jobless Rate Hits Lowest in... - Dallas Weekly"
+    "title_en": "African American Jobless Rate Hits Lowest in... - Dallas Weekly",
+    "cui_bono": "US government benefits."
   },
   {
     "country": "Nigeria",
@@ -3426,7 +3434,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The story frames Nigeria as an attractive destination for foreign investment, implying a sense of economic viability and potential for growth, but does not explicitly consider the potential impact on Black Nigerians or the structural factors that may be driving this investment. This framing overlooks the historical and ongoing effects of colonial legacy and corporate extraction on Nigeria's economy.",
+    "narrative_analysis": "Nigeria is portrayed as an attractive investment opportunity for foreign investors globally.",
     "structural_factors": [
       "Colonial legacy",
       "Corporate extraction",
@@ -3436,7 +3444,8 @@
     "url": "https://www.vanguardngr.com/2026/01/nigeria-attracts-14bn-in-foreign-investments-in-first-nine-months-of-2025-fmiti/",
     "saved_at": "2026-05-26 11:40",
     "image": "",
-    "title_en": "Nigeria attracts $14bn in foreign investments in first nine ..."
+    "title_en": "Nigeria attracts $14bn in foreign investments in first nine ...",
+    "cui_bono": "Nigerian government."
   },
   {
     "country": "Nigeria",
@@ -3445,7 +3454,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "This story does not provide a direct narrative about Black people, but the lack of access to information on Nigeria's investment climate may imply a lack of transparency or priority on African economies. The framing of Nigeria's investment climate as a statistical report may reduce the complexity of the country's economic situation to mere numbers.",
+    "narrative_analysis": "Notably absent is any mention of Black people in this technical issue sentence.",
     "structural_factors": [
       "Colonial legacy",
       "Corporate extraction",
@@ -3455,7 +3464,8 @@
     "url": "https://www.state.gov/reports/2025-investment-climate-statements/nigeria/",
     "saved_at": "2026-05-26 11:40",
     "image": "",
-    "title_en": "Nigeria - United States Department of State"
+    "title_en": "Nigeria - United States Department of State",
+    "cui_bono": "United States Department of State"
   },
   {
     "country": "Nigeria",
@@ -3464,7 +3474,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The story frames Nigeria's economic situation through statistics",
+    "narrative_analysis": "Black Nigerians are portrayed as lacking economic opportunity and investment potential.",
     "structural_factors": [
       "Colonial legacy",
       "Foreign debt",
@@ -3480,7 +3490,8 @@
     "title_fr": "Les IDE restent en dessous de 4% malgré les 23,22 milliards de dollars de capitalize étrangère du Nigéria",
     "summary_es": "La inversión extranjera directa en Nigeria se mantuvo por debajo del 4% del capital total importado en 2025, a pesar de que el país recibió $23.220 millones en capital extranjero. Esto sugiere que la inversión extranjera en Nigeria no se utiliza de manera efectiva para impulsar el crecimiento económico. El bajo porcentaje de IED puede indicar una falta de confianza de los inversores extranjeros en la economía nigeriana.",
     "summary_pt": "O investimento estrangeiro direto na Nigéria permaneceu abaixo de 4% do capital total importado em 2025, apesar do país ter recebido $23,22 bilhões em capital estrangeiro. Isso sugere que o investimento estrangeiro na Nigéria não está sendo utilizado de forma eficaz para impulsionar o crescimento econômico. A baixa porcentagem de IED pode indicar uma falta de confiança dos investidores estrangeiros na economia nigeriana.",
-    "summary_fr": "L'investissement direct étranger au Nigéria est resté en dessous de 4% du capital total importé en 2025, malgré le fait que le pays ait reçu 23,22 milliards de dollars de capital étranger. Cela suggère que l'investissement étranger au Nigéria n'est pas utilisé de manière efficace pour stimuler la croissance économique. Le faible pourcentage d'IDE peut indiquer un manque de confiance des investisseurs étrangers dans l'économie nigériane."
+    "summary_fr": "L'investissement direct étranger au Nigéria est resté en dessous de 4% du capital total importé en 2025, malgré le fait que le pays ait reçu 23,22 milliards de dollars de capital étranger. Cela suggère que l'investissement étranger au Nigéria n'est pas utilisé de manière efficace pour stimuler la croissance économique. Le faible pourcentage d'IDE peut indiquer un manque de confiance des investisseurs étrangers dans l'économie nigériane.",
+    "cui_bono": "Multinational corporations benefit."
   },
   {
     "country": "Nigeria",
@@ -3489,7 +3500,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The story frames Nigeria as an attractive investment destination, implying that the country is on a path to economic growth and development, but it overlooks the potential exploitative nature of foreign investment and its impact on Black communities. The framing also neglects to consider the historical and ongoing systemic factors that have contributed to Nigeria's economic struggles.",
+    "narrative_analysis": "Nigeria's economy is portrayed as thriving due to investor confidence and reforms",
     "structural_factors": [
       "Colonial legacy",
       "Foreign debt",
@@ -3499,7 +3510,8 @@
     "url": "https://punchng.com/investor-confidence-lifts-foreign-inflows-to-14bn-fg/",
     "saved_at": "2026-05-26 11:41",
     "image": "https://cdn.punchng.com/wp-content/uploads/2023/05/19144648/Federal-Ministry-of-Industry-Trade-and-Investment.png",
-    "title_en": "Foreign Inflows to Nigeria Hit $14bn on Investor Confidence"
+    "title_en": "Foreign Inflows to Nigeria Hit $14bn on Investor Confidence",
+    "cui_bono": "Nigerian government"
   },
   {
     "country": "Nigeria",
@@ -3508,7 +3520,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The story frames Nigeria as an attractive investment destination, implying that the country is a passive recipient of foreign capital. This framing obscures the historical and ongoing structural factors that have shaped Nigeria's economic relationships with foreign powers.",
+    "narrative_analysis": "Foreign investors are seen driving Nigeria's economic growth suddenly.",
     "structural_factors": [
       "Colonial legacy",
       "Corporate extraction",
@@ -3518,7 +3530,8 @@
     "url": "https://www.reuters.com/world/africa/nigerias-capital-inflows-jump-90-2025-foreign-investors-chase-high-returns-2026-03-26/",
     "saved_at": "2026-05-26 11:41",
     "image": "",
-    "title_en": "Nigeria's capital inflows jump 90% in 2025 as foreign ..."
+    "title_en": "Nigeria's capital inflows jump 90% in 2025 as foreign ...",
+    "cui_bono": "Foreign investors"
   },
   {
     "country": "Other/Global",
@@ -3527,7 +3540,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Human",
-    "narrative_analysis": "This story frames Black people as deserving of human rights and dignity",
+    "narrative_analysis": "South Africa's government appears to prioritize human rights promotion effectively now.",
     "structural_factors": [
       "Colonial legacy",
       "Corporate extraction",
@@ -3543,7 +3556,8 @@
     "title_fr": "La Commission africaine des droits de l'homme et des peuples accueille...",
     "summary_es": "La Comisión Africana de Derechos Humanos y de los Pueblos ha dado la bienvenida a los esfuerzos de Sudáfrica para promover los derechos humanos. La Comisión fue establecida para promover y proteger los derechos humanos en África. El trabajo de la Comisión incluye investigar violaciones de derechos humanos y promover la democracia y la gobernanza.",
     "summary_pt": "A Comissão Africana de Direitos Humanos e dos Povos deu as boas-vindas aos esforços da África do Sul para promover os direitos humanos. A Comissão foi estabelecida para promover e proteger os direitos humanos na África. O trabalho da Comissão inclui investigar violações de direitos humanos e promover a democracia e a governança.",
-    "summary_fr": "La Commission africaine des droits de l'homme et des peuples a accueilli favorablement les efforts de l'Afrique du Sud pour promouvoir les droits de l'homme. La Commission a été créée pour promouvoir et protéger les droits de l'homme en Afrique. Les travaux de la Commission comprennent l'enquête sur les violations des droits de l'homme et la promotion de la démocratie et de la gouvernance."
+    "summary_fr": "La Commission africaine des droits de l'homme et des peuples a accueilli favorablement les efforts de l'Afrique du Sud pour promouvoir les droits de l'homme. La Commission a été créée pour promouvoir et protéger les droits de l'homme en Afrique. Les travaux de la Commission comprennent l'enquête sur les violations des droits de l'homme et la promotion de la démocratie et de la gouvernance.",
+    "cui_bono": "South African government"
   },
   {
     "country": "South Africa",
@@ -3552,7 +3566,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Statistic",
-    "narrative_analysis": "The framing of Black people in this story is largely statistical",
+    "narrative_analysis": "South Africans appear primarily as victims of historical injustices perpetuated by colonizers.",
     "structural_factors": [
       "Colonial legacy",
       "Land theft",
@@ -3562,7 +3576,8 @@
     "url": "https://www.ijr.org.za/home/wp-content/uploads/2025/05/The-IJR-weekly-lens_21-May-2025.pdf",
     "saved_at": "2026-05-26 11:41",
     "image": "",
-    "title_en": "The IJR weekly lens_21 May 2025"
+    "title_en": "The IJR weekly lens_21 May 2025",
+    "cui_bono": "White landowners."
   },
   {
     "country": "South Africa",
@@ -3590,7 +3605,7 @@
     "translated": false,
     "explicit_racism": false,
     "narrative_framing": "Resistant",
-    "narrative_analysis": "The story frames Black people",
+    "narrative_analysis": "Black South Africans appear as primary agents of land reform efforts globally",
     "structural_factors": [
       "Colonial legacy",
       "Land theft",
@@ -3600,7 +3615,8 @@
     "url": "https://nu.org.za/urban-land-justice-gathering-2025/",
     "saved_at": "2026-05-26 11:41",
     "image": "https://nu.org.za/wp-content/uploads/2025/08/Banner-Urban-Land-Justice-Gathering-Full-Program-1200-x-600-px-A4-Landscape.png",
-    "title_en": "URBAN LAND JUSTICE GATHERING 2025 - Ndifuna Ukwazi"
+    "title_en": "URBAN LAND JUSTICE GATHERING 2025 - Ndifuna Ukwazi",
+    "cui_bono": "Ndifuna Ukwazi"
   },
   {
     "country": "South Africa",
