@@ -2,7 +2,44 @@
 
 > Live tracker for what's built, what's next, and what's parked.
 > Edit this file directly when you complete or change anything.
-> Last updated: 2026-05-29
+> Last updated: 2026-05-30
+
+---
+
+## 🧭 START HERE (new session, read this first)
+
+**What this is:** news aggregation for Black communities globally + a confidence-first kids section. Live at **blackworldnews.world**. Repo `plasticglenn/black-world-news`, branch `main`, GitHub Pages auto-deploys ~2 min after push. All code in `C:\Users\glenn\dispatch-agent`.
+
+**The pipeline:**
+- `python dispatch.py --all` → collect + AI-analyze stories into `stories.json`
+- `python generate_site.py` → build every HTML page from `stories.json`
+- `git add -A && git commit && git push` → goes live
+- After ANY change: build (confirm `EXIT=0`), commit, push, verify `git rev-parse HEAD` == `origin/main`.
+
+**AI provider:** DeepSeek (pay-as-you-go, no daily wall) — auto-used when `DEEPSEEK_API_KEY` is set, else falls back to Groq. Key is set at Windows User level. NOTE: a persistent Bash shell may have a stale env; PowerShell picks it up fresh, or inject with `$env:DEEPSEEK_API_KEY = [System.Environment]::GetEnvironmentVariable("DEEPSEEK_API_KEY","User")`.
+
+**⚠️ GOTCHAS (these bit us — don't repeat):**
+1. **Always open `stories.json` (and all JSON) with `encoding="utf-8"`.** Default Windows cp1252 crashes on foreign characters.
+2. **Never let two processes write `stories.json` at once** (e.g. agent + backfill). Concurrent writes corrupt it and break the build. Run one at a time.
+3. **The Edit tool silently no-ops if whitespace doesn't match exactly** — several edits "succeeded" but reverted this project. After editing `generate_site.py`, VERIFY with a runtime check: `python -c "import generate_site as g; print(g.SOMETHING)"`, not just by re-reading.
+4. **Hotlink-blocked image hosts** (e.g. The Voice) serve a red "blocked" placeholder. Add the host to `HOTLINK_BLOCKED_HOSTS` in `generate_site.py`; we generate our own Pollinations image instead.
+5. **PowerShell writes UTF-16 logs** — decode when reading (`open(path,'rb').read().decode('utf-16')`). Prefer redirecting Python output to a UTF-8 file.
+6. **Preview server** (`mcp__Claude_Preview__preview_start`, config `bwn-static` in `C:\Users\glenn\.claude\launch.json`) gets stuck — stop/restart it; it's flaky but the HTML on disk is the source of truth.
+
+**Single sources of truth to edit (no code needed):**
+- `BRAND = "#1a3a2a"` in `generate_site.py` — one colour across all sections (kids page is the only colourful one).
+- `COUNTRY_FLAGS`, `REGION_GROUPS`, `ISSUE_GROUPS` (nav order: Home, Economics, Health, Education, Politics, Culture, Policing — Policing last).
+- Kids content: `kids_affirmations.json`, `kids_figures.json`, `kids_countries.json`, `kids_vocab.json`, `kids_news.json`.
+- `servants.json` (homepage tribute), `highlights.json` (In Focus).
+
+**Editorial rules (never break):** no hyphens in visible copy; no buzzwords ("Pan-African", "systemic"); neutral wire-service tone. Kids tone = **belonging, not difference** (a global family of shared values — a zeitgeist); brave, beautiful, beautifully made. Framing analysis = one complete sentence, varied opener (never "The story frames…").
+
+**Current state (2026-05-30):** 933 stories. DeepSeek run added 665. Caribbean (88) + 10 African countries with flags are live. Last commit `c18f013`, clean + synced.
+
+**Next priorities:**
+1. Re-tag the ~245 Africa "Other/Global" stories to specific countries (cheap DeepSeek backfill).
+2. Prune/fix the ~18 direct sources that returned 0 headlines last run (GhanaWeb, The Voice, MyJoyOnline, Modern Ghana, Nation Africa, Daily Maverick, RAYA, SCMP, Reuters Africa, RFI, The Root, The Grio, Dawn, The Wire, Japan Times, Jamaica Gleaner, Loop Barbados, Trinidad Guardian).
+3. Finish any remaining old-story framing backfill: `python backfill_framing.py`.
 
 ---
 
