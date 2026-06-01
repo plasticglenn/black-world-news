@@ -25,10 +25,34 @@ BRAND = "#1a3a2a"
 # "Coming soon" door (still shown, just not clickable yet). No other file
 # needs editing.
 # ---------------------------------------------------------------------------
-YOUTUBE_URL  = ""   # e.g. "https://www.youtube.com/@blackworldnews"
-TIKTOK_URL   = ""   # e.g. "https://www.tiktok.com/@blackworldnews"
-WHATSAPP_URL = ""   # e.g. a WhatsApp channel invite link
-COMICS_URL   = ""   # comics destination — on-site page or external, decide later
+YOUTUBE_URL   = ""   # e.g. "https://www.youtube.com/@blackworldnews"
+TIKTOK_URL    = ""   # e.g. "https://www.tiktok.com/@blackworldnews"
+INSTAGRAM_URL = ""   # e.g. "https://www.instagram.com/blackworldnews"
+FACEBOOK_URL  = ""   # e.g. "https://www.facebook.com/blackworldnews"
+X_URL         = ""   # e.g. "https://x.com/blackworldnews"
+WHATSAPP_URL  = ""   # e.g. a WhatsApp channel invite link
+COMICS_URL    = ""   # comics destination — on-site page or external, decide later
+
+
+def social_bar_html():
+    # Footer social row. Shows ONLY channels with a URL set, so the adult site
+    # stays clean until accounts exist. Self-contained inline styles (no CSS
+    # edits). The kids page never gets this bar — safety rule.
+    live = [(n, u) for n, u in (
+        ("YouTube", YOUTUBE_URL), ("TikTok", TIKTOK_URL),
+        ("Instagram", INSTAGRAM_URL), ("Facebook", FACEBOOK_URL),
+        ("X", X_URL), ("WhatsApp", WHATSAPP_URL),
+    ) if u]
+    if not live:
+        return ""
+    links = "".join(
+        f'<a href="{u}" target="_blank" rel="noopener" '
+        f'style="color:#8ab89a;font-weight:600;text-decoration:none;">{n}</a>'
+        for n, u in live
+    )
+    return ('<nav aria-label="Our channels" style="margin-top:0.9rem;display:flex;'
+            'gap:0.5rem 1.1rem;justify-content:center;flex-wrap:wrap;">' + links + '</nav>')
+
 
 FRAMING_COLORS = {
     "Criminal":  "#e74c3c",
@@ -1883,6 +1907,7 @@ def build_html(stories, cache):
 <footer>
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
+    {social_bar_html()}
 </footer>
 
 <script>
@@ -2003,6 +2028,7 @@ def page_shell(title, content, active=""):
 <footer>
     <p><strong>BLACK WORLD NEWS</strong> Your World Today</p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to original sources.</p>
+    {social_bar_html()}
 </footer>
 {PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
@@ -2752,6 +2778,7 @@ def build_region_page(region_id, region, all_stories, cache):
 <footer>
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
+    {social_bar_html()}
 </footer>
 {PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
@@ -2857,6 +2884,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
 <footer>
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
+    {social_bar_html()}
 </footer>
 {PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
@@ -3009,6 +3037,7 @@ def build_search_page():
 <footer>
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to the original source.</p>
+    {social_bar_html()}
 </footer>
 
 <script>
