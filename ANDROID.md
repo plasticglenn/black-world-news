@@ -128,9 +128,8 @@ in Play Console and complete the store listing (next section).
 - **Feature graphic** 1024×500 PNG.
 - **Phone screenshots** — at least 2 (grab from the live site on a phone, or Chrome DevTools device mode).
 - **Short description** (≤80 chars) + **full description**.
-- **Privacy policy URL** — **required.** We don't have one yet → add a `/privacy` page to the site
-  (see TODO below). Must state what's collected. We collect essentially nothing; analytics is
-  Cloudflare's privacy-respecting, cookieless tracking.
+- **Privacy policy URL** — **required. DONE:** live at `https://blackworldnews.world/privacy.html`.
+  (Change the contact email in `build_privacy()` if `hello@blackworldnews.world` isn't right.)
 - **Data safety form** — declare: no account, no personal data collected/shared; only anonymous
   Cloudflare Web Analytics. No ads.
 - **Content rating questionnaire** — likely "Everyone." Answer truthfully (no violence/gambling/etc.).
@@ -153,6 +152,6 @@ bubblewrap build
 ```
 
 ## TODO before submitting
-- [ ] Add a `/privacy` page to the site (generate_site.py) — required for the listing.
+- [x] Add a `/privacy` page to the site — live at /privacy.html.
 - [ ] Decide target-audience age range (mixed vs includes-children) — see warning above.
 - [ ] Capture phone screenshots + make the 1024×500 feature graphic.

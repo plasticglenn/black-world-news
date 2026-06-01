@@ -54,6 +54,13 @@ def social_bar_html():
             'gap:0.5rem 1.1rem;justify-content:center;flex-wrap:wrap;">' + links + '</nav>')
 
 
+def footer_legal_html():
+    # Tiny privacy link for every public footer (kids page excluded — it has no
+    # social bar and states its own no-data policy).
+    return ('<p style="margin-top:0.6rem;font-size:0.72rem;">'
+            '<a href="/privacy.html" style="color:#666;text-decoration:none;">Privacy</a></p>')
+
+
 FRAMING_COLORS = {
     "Criminal":  "#e74c3c",
     "Victim":    "#e67e22",
@@ -1908,6 +1915,7 @@ def build_html(stories, cache):
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
     {social_bar_html()}
+    {footer_legal_html()}
 </footer>
 
 <script>
@@ -2029,6 +2037,7 @@ def page_shell(title, content, active=""):
     <p><strong>BLACK WORLD NEWS</strong> Your World Today</p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to original sources.</p>
     {social_bar_html()}
+    {footer_legal_html()}
 </footer>
 {PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
@@ -2057,6 +2066,40 @@ def build_about():
     <p>News about Black communities around the world is scattered across hundreds of sources. We put it in one place. We are connected through shared experiences and this is where you come to see them.</p>
     """
     return page_shell("About", content, active="about")
+
+
+def build_privacy():
+    # Simple, honest privacy policy. Required for the Google Play listing.
+    # CHANGE the contact email below to whatever address you'll actually use.
+    content = """
+    <h1 class="page-title">Privacy</h1>
+    <p class="page-subtitle">Last updated June 2026. Plain and simple: we do not collect your personal information.</p>
+
+    <h2 class="section-title">The short version</h2>
+    <p>Black World News does not ask you to sign up, log in, or hand over any personal details. There are no accounts, no comments, no chat, and no advertising. We do not sell or share data about you, because we do not collect it.</p>
+
+    <h2 class="section-title">What we measure</h2>
+    <p>We use Cloudflare Web Analytics to count visits so we know which stories people read. It is privacy first: no cookies, no fingerprinting, and no tracking of you across other websites. The numbers we see are anonymous and added together. We cannot identify you from them.</p>
+
+    <h2 class="section-title">No advertising</h2>
+    <p>There are no ads on this site and no advertising networks. Nothing on this page is here to follow you around the web.</p>
+
+    <h2 class="section-title">Children</h2>
+    <p>Our children's section collects nothing at all. There are no sign-ups, no comments, no chat, and no data of any kind gathered from young readers. Videos and comics we make live on our own channels, and we link to them clearly.</p>
+
+    <h2 class="section-title">Links to other sites</h2>
+    <p>News links always go to the original source. Those websites have their own privacy practices, which we do not control.</p>
+
+    <h2 class="section-title">Our app</h2>
+    <p>Our Android app simply loads this website. The same practices on this page apply there too. The app itself requests no special permissions and collects no personal data.</p>
+
+    <h2 class="section-title">Changes</h2>
+    <p>If this policy changes, we will update the date at the top of this page.</p>
+
+    <h2 class="section-title">Contact</h2>
+    <p>Questions? Email <a href="mailto:hello@blackworldnews.world" style="color:#1a3a2a;font-weight:600;">hello@blackworldnews.world</a>.</p>
+    """
+    return page_shell("Privacy", content, active="")
 
 
 def build_resources():
@@ -2779,6 +2822,7 @@ def build_region_page(region_id, region, all_stories, cache):
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
     {social_bar_html()}
+    {footer_legal_html()}
 </footer>
 {PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
@@ -2885,6 +2929,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. AI summaries. Links always go to the original source.</p>
     {social_bar_html()}
+    {footer_legal_html()}
 </footer>
 {PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
@@ -3038,6 +3083,7 @@ def build_search_page():
     <p><strong>BLACK WORLD NEWS</strong></p>
     <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to the original source.</p>
     {social_bar_html()}
+    {footer_legal_html()}
 </footer>
 
 <script>
@@ -3191,6 +3237,7 @@ def main():
         ("resources.html", build_resources),
         ("trends.html",    build_trends),
         ("community.html", build_community),
+        ("privacy.html",   build_privacy),
     ]:
         with open(filename, "w", encoding="utf-8") as f:
             f.write(builder())
@@ -3249,6 +3296,7 @@ def main():
   <url><loc>https://www.blackworldnews.world/resources.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.5</priority></url>
+  <url><loc>https://www.blackworldnews.world/privacy.html</loc><lastmod>{today}</lastmod><priority>0.3</priority></url>
 </urlset>"""
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write(sitemap)
