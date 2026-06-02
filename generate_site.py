@@ -31,7 +31,7 @@ INSTAGRAM_URL = ""   # e.g. "https://www.instagram.com/blackworldnews"
 FACEBOOK_URL  = "https://www.facebook.com/profile.php?id=61590158803177"   # live (numeric ID until a username is claimed)
 X_URL         = ""   # e.g. "https://x.com/blackworldnews"
 WHATSAPP_URL  = ""   # e.g. a WhatsApp channel invite link
-COMICS_URL    = ""   # comics destination — on-site page or external, decide later
+COMICS_URL    = "comics.html"   # on-site comics page (placeholder until first strip ships)
 
 
 def social_bar_html():
@@ -2102,6 +2102,92 @@ def build_privacy():
     return page_shell("Privacy", content, active="")
 
 
+def build_comics():
+    # BWN Kids — Comics. Placeholder home for the first strip, in the same warm,
+    # colourful world as kids.html. No social bar, no data collection (kids-safety).
+    # The cast preview is pulled from kids_figures.json so it stays in sync.
+    figures = load_json_file("kids_figures.json")
+    cast = ""
+    for f in figures:
+        cast += f"""
+        <div class="cast-card">
+            <div class="cast-face" style="background:{f.get('color','#1a3a2a')}">{f.get('initials','')}</div>
+            <p class="cast-name">{f.get('flag','')} {f.get('name','')}</p>
+        </div>"""
+    # plus one original guide character who walks young readers through the history
+    cast += """
+        <div class="cast-card">
+            <div class="cast-face" style="background:#e8602c">KA</div>
+            <p class="cast-name">🌍 Kojo &amp; Ama, our guides</p>
+        </div>"""
+
+    title = colorize_kids_text("Comics")
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comics | Black World News</title>
+    <meta name="description" content="Comics for our children: real history and big ideas, told in pictures. Coming soon.">
+    <link rel="canonical" href="https://www.blackworldnews.world/comics.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Bagel+Fat+One&family=Fredoka+One&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#fffdf5;color:#222;font-family:'Source Sans 3',sans-serif;font-size:18px;line-height:1.6;}}
+        a{{color:inherit;text-decoration:none;}}
+        {KIDS_LETTER_CSS}
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;justify-content:center;}}
+        .masthead img{{width:50px;height:50px;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
+        .comics-hero{{text-align:center;padding:3rem 1.5rem 1.5rem;}}
+        .comics-title{{font-family:'Bagel Fat One',cursive;font-size:clamp(2.5rem,9vw,5rem);line-height:1.1;}}
+        .comics-title .kids-letter{{filter:drop-shadow(0 3px 0 var(--deep)) drop-shadow(0 6px 8px rgba(0,0,0,0.2));}}
+        .comics-title .kids-space{{width:0.3em;}}
+        .comics-sub{{font-size:1.15rem;color:#555;max-width:620px;margin:1rem auto 0;}}
+        .soon-badge{{display:inline-block;margin-top:1.4rem;background:#e8602c;color:#fff;font-weight:700;padding:0.5rem 1.3rem;border-radius:999px;}}
+        .cast{{max-width:760px;margin:2.5rem auto;padding:0 1.5rem;}}
+        .cast h2{{text-align:center;font-family:'Fredoka One',cursive;color:#1a3a2a;margin-bottom:1.2rem;}}
+        .cast-grid{{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}}
+        .cast-card{{text-align:center;width:130px;}}
+        .cast-face{{width:84px;height:84px;border-radius:50%;margin:0 auto 0.5rem;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fredoka One',cursive;font-size:1.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);}}
+        .cast-name{{font-weight:600;font-size:0.92rem;}}
+        .kids-safe-footer{{background:#fff;border-top:3px dashed #ffe9a8;text-align:center;padding:2.5rem 1.5rem;margin-top:2rem;}}
+        .kids-safe-footer p{{max-width:600px;margin:0.4rem auto;color:#666;}}
+        .back-home{{display:inline-block;margin-top:1rem;background:#1a3a2a;color:#fff;padding:0.6rem 1.4rem;border-radius:999px;font-weight:700;}}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <a href="index.html"><img src="logo.svg" alt="Black World News"></a>
+    <h1>Black World News</h1>
+</header>
+
+<section class="comics-hero">
+    <h1 class="comics-title">{title}</h1>
+    <p class="comics-sub">Real history and big ideas, told in pictures. Stories of brave people from all around the Black world, made just for our children. Our first comic is on its way.</p>
+    <span class="soon-badge">First strip coming soon</span>
+</section>
+
+<section class="cast">
+    <h2>Meet the cast</h2>
+    <div class="cast-grid">{cast}</div>
+</section>
+
+<footer class="kids-safe-footer">
+    <p>&#10084;&#65039;</p>
+    <p>This page is just for you. No comments, no chats, no sign-ups. We never collect anything about you.</p>
+    <a href="kids.html" class="back-home">&larr; Back to BWN Kids</a>
+</footer>
+{PWA_SCRIPT}
+{CLOUDFLARE_ANALYTICS}
+</body>
+</html>"""
+
+
 def build_resources():
     books = [
         ("The New Jim Crow", "Michelle Alexander", "How mass incarceration has become a system of racial control in the United States."),
@@ -3238,6 +3324,7 @@ def main():
         ("trends.html",    build_trends),
         ("community.html", build_community),
         ("privacy.html",   build_privacy),
+        ("comics.html",    build_comics),
     ]:
         with open(filename, "w", encoding="utf-8") as f:
             f.write(builder())
@@ -3297,6 +3384,7 @@ def main():
   <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.blackworldnews.world/privacy.html</loc><lastmod>{today}</lastmod><priority>0.3</priority></url>
+  <url><loc>https://www.blackworldnews.world/comics.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
 </urlset>"""
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write(sitemap)
