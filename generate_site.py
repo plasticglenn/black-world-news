@@ -102,6 +102,7 @@ COUNTRY_FLAGS = {
     "Niger":          "🇳🇪",
     "Ivory Coast":    "🇨🇮",
     "Burkina Faso":   "🇧🇫",
+    "Zimbabwe":       "🇿🇼",
     "Australia":      "🇦🇺",
     "Other/Global":   "🌍",
 }
@@ -124,6 +125,7 @@ REGION_ORDER = [
     "Niger",
     "Ivory Coast",
     "Burkina Faso",
+    "Zimbabwe",
     "Australia",
     "Other/Global",
 ]
@@ -133,7 +135,7 @@ REGION_GROUPS = {
     "namerica":  {"label": "North America",   "color": BRAND, "countries": ["United States", "Canada"]},
     "caribbean": {"label": "Caribbean",       "color": BRAND, "countries": ["Caribbean"]},
     "samerica":  {"label": "South America",   "color": BRAND, "countries": ["Brazil", "Colombia"]},
-    "africa":    {"label": "Africa",          "color": BRAND, "countries": ["Ghana", "Nigeria", "Kenya", "South Africa", "Senegal", "Mali", "Cameroon", "Niger", "Ivory Coast", "Burkina Faso", "Other/Global"]},
+    "africa":    {"label": "Africa",          "color": BRAND, "countries": ["Ghana", "Nigeria", "Kenya", "South Africa", "Senegal", "Mali", "Cameroon", "Niger", "Ivory Coast", "Burkina Faso", "Zimbabwe", "Other/Global"]},
     "europe":    {"label": "Europe",          "color": BRAND, "countries": ["United Kingdom", "France", "Germany"]},
     "asia":      {"label": "Asia and Pacific","color": BRAND, "countries": ["Australia", "India", "China", "Japan"]},
 }

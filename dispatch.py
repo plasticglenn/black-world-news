@@ -47,7 +47,7 @@ COUNTRIES = [
     "Canada", "United States", "United Kingdom", "France", "Germany",
     "Brazil", "Colombia", "Caribbean",
     "Ghana", "Nigeria", "Kenya", "South Africa", "Senegal", "Mali",
-    "Cameroon", "Niger", "Ivory Coast", "Burkina Faso",
+    "Cameroon", "Niger", "Ivory Coast", "Burkina Faso", "Zimbabwe",
     "Australia", "Other/Global"
 ]
 
@@ -271,7 +271,7 @@ URL: {url}
 Content: {content}
 
 Respond in JSON format only with these exact fields, in this order:
-- "country": one of {COUNTRIES}. Use "Caribbean" for stories about Jamaica, Barbados, Trinidad and Tobago, Haiti, the Bahamas, Guyana, or any Caribbean nation. For African stories, always pick the specific country (Ghana, Nigeria, Kenya, South Africa, Senegal, Mali, Cameroon, Niger, Ivory Coast, Burkina Faso) — only use "Other/Global" when the story is genuinely continent-wide or about a country not in the list.
+- "country": one of {COUNTRIES}. Use "Caribbean" for stories about Jamaica, Barbados, Trinidad and Tobago, Haiti, the Bahamas, Guyana, or any Caribbean nation. For African stories, always pick the specific country (Ghana, Nigeria, Kenya, South Africa, Senegal, Mali, Cameroon, Niger, Ivory Coast, Burkina Faso, Zimbabwe) — only use "Other/Global" when the story is genuinely continent-wide or about a country not in the list.
 - "category": one of {CATEGORIES}
 - "narrative_framing": one of ["Victim", "Criminal", "Statistic", "Human", "Resistant", "Exploited"]
 - "narrative_analysis": ONE complete, self-contained sentence (about 20 to 35 words) describing how Black people are portrayed in this story and what that portrayal implies. It MUST be a finished sentence ending in a period — never cut off mid-thought.
