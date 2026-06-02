@@ -28,7 +28,7 @@ BRAND = "#1a3a2a"
 YOUTUBE_URL   = ""   # e.g. "https://www.youtube.com/@blackworldnews"
 TIKTOK_URL    = "https://www.tiktok.com/@blackworldnews"   # live
 INSTAGRAM_URL = ""   # e.g. "https://www.instagram.com/blackworldnews"
-FACEBOOK_URL  = ""   # e.g. "https://www.facebook.com/blackworldnews"
+FACEBOOK_URL  = "https://www.facebook.com/profile.php?id=61590158803177"   # live (numeric ID until a username is claimed)
 X_URL         = ""   # e.g. "https://x.com/blackworldnews"
 WHATSAPP_URL  = ""   # e.g. a WhatsApp channel invite link
 COMICS_URL    = ""   # comics destination — on-site page or external, decide later
