@@ -30,6 +30,36 @@
 <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
 <!-- /PWA -->
+<!-- Flag emoji: show real flags on devices that render them (phones, Mac, the app),
+     strip the broken two-letter fallback on devices that don't (Windows). The country
+     name already sits beside each flag, so nothing meaningful is lost. -->
+<script>
+(function(){
+  function flagsOK(){
+    try{
+      var x=document.createElement('canvas').getContext('2d');
+      x.font='20px sans-serif';
+      var pair=x.measureText('\uD83C\uDDE8\uD83C\uDDE6').width;  // CA flag
+      var one =x.measureText('\uD83C\uDDE8').width;                // single indicator
+      return pair < one*1.5;  // supported: pair forms ~one glyph; unsupported: ~two letters
+    }catch(e){return true;}
+  }
+  if(flagsOK()) return;
+  document.documentElement.className+=' no-flags';
+  var rx=/\uD83C[\uDDE6-\uDDFF]/g;  // regional-indicator (flag) characters
+  function strip(root){
+    if(!root) return;
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,a=[];
+    while(n=w.nextNode())a.push(n);
+    a.forEach(function(t){
+      if(rx.test(t.nodeValue)) t.nodeValue=t.nodeValue.replace(rx,'').replace(/\s{2,}/g,' ').replace(/^\s+/,'');
+    });
+  }
+  window.__bwnStripFlags=strip;
+  if(document.body) strip(document.body);
+  else document.addEventListener('DOMContentLoaded',function(){strip(document.body);});
+})();
+</script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
