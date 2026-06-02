@@ -25,7 +25,7 @@ BRAND = "#1a3a2a"
 # "Coming soon" door (still shown, just not clickable yet). No other file
 # needs editing.
 # ---------------------------------------------------------------------------
-YOUTUBE_URL   = ""   # e.g. "https://www.youtube.com/@blackworldnews"
+YOUTUBE_URL   = "https://www.youtube.com/channel/UCddUUCREEHYOLoEzmCfobKQ"   # live (Channel ID; swap to @handle once it activates)
 TIKTOK_URL    = "https://www.tiktok.com/@blackworldnews"   # live
 INSTAGRAM_URL = ""   # e.g. "https://www.instagram.com/blackworldnews"
 FACEBOOK_URL  = "https://www.facebook.com/profile.php?id=61590158803177"   # live (numeric ID until a username is claimed)
