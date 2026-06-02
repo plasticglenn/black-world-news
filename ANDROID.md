@@ -35,11 +35,27 @@ be prepared safely already has been (see "Already done").
 
 ---
 
-## 📦 Build steps (run in a real PowerShell window)
+## ✅ RECOMMENDED: PWABuilder (cloud — no install, no Node, no SDK)
 
-> **Easiest:** double-click **`C:\Users\glenn\build-android-bwn.bat`** — it opens a real
-> terminal and runs the init + build for you (answer the few prompts below). The manual
-> commands are documented here too if you prefer.
+Build the same TWA on Microsoft's servers. No local toolchain, ~5 MB download — ideal for a
+low-disk machine, and it sidesteps the Node-24 crash below.
+
+1. Go to **https://www.pwabuilder.com**, enter **https://blackworldnews.world** → **Start**.
+   (Manifest + icons already pass — checked.)
+2. **Package For Stores → Android.**
+3. Set **Package ID** `world.blackworldnews.twa`, **App name** `Black World News`; leave the rest default.
+4. **Download** the zip → it contains `app-release-signed.aab` (upload to Play), the **signing key**
+   (BACK IT UP — losing it means you can't update the app), and a ready-made `assetlinks.json`
+   with the SHA-256 already filled in.
+5. Hand over that `assetlinks.json` (or the SHA-256) to wire into this repo, then continue at
+   **step 5 below** (Play Console + Digital Asset Links).
+
+> ⚠️ **Node 24 gotcha (why local build fails here):** `@bubblewrap/cli` 1.24.1 ships
+> `inquirer` 8.2.7, whose old `readline` usage crashes on **Node 24** (`readline was closed`) the
+> instant it shows a prompt. So `bubblewrap init`/`build` cannot run on this machine as-is.
+> PWABuilder avoids it. To build locally you'd first need Node 18/20 (nvm-windows).
+
+## 🛠️ Alternative: build locally with Bubblewrap (needs Node 18 or 20, not 24)
 
 ### 1. Go to the build folder on the external drive (D:)
 Everything heavy lives on **D:\ (T7 Shield)** to spare the C: SSD:
