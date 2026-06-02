@@ -37,6 +37,10 @@ be prepared safely already has been (see "Already done").
 
 ## 📦 Build steps (run in a real PowerShell window)
 
+> **Easiest:** double-click **`C:\Users\glenn\build-android-bwn.bat`** — it opens a real
+> terminal and runs the init + build for you (answer the few prompts below). The manual
+> commands are documented here too if you prefer.
+
 ### 1. Go to the build folder on the external drive (D:)
 Everything heavy lives on **D:\ (T7 Shield)** to spare the C: SSD:
 - `D:\bwn-android\.bubblewrap` — junctioned from `~/.bubblewrap`, so the JDK 17 + Android SDK

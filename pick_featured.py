@@ -39,9 +39,19 @@ EXCLUDE = {
     "brookings.edu", "epi.org", "finance.yahoo.com", "antiracismnewsletter.com",
 }
 
-FRAMING_INTEREST = {
-    "Resistant": 18, "Human": 15, "Exploited": 12,
-    "Victim": 6, "Criminal": 6, "Statistic": 3,
+# Editorial weighting (selection only — published copy stays neutral).
+# Prefer stories with structural depth, a sense of people's agency, and a clear
+# account of who benefits, over passive or numbers-only coverage.
+FRAMING_WEIGHT = {
+    "Resistant": 30, "Exploited": 26, "Human": 14,
+    "Victim": 8, "Criminal": 6, "Statistic": 2,
+}
+# Structural signals that mark a story as substantive rather than surface.
+FACTOR_WEIGHT = {
+    "Colonial legacy": 12, "Corporate extraction": 12, "Land theft": 12,
+    "Foreign debt": 12, "Engineered unemployment": 12,
+    "Mass incarceration": 8, "Drug war": 8, "Alcohol industry targeting": 8,
+    "Voter suppression": 8, "Police violence": 8, "Media bias": 6,
 }
 
 
@@ -55,18 +65,22 @@ def domain(url):
 
 def score(s):
     sc = 0
-    d = domain(s.get("url", ""))
-    if d in BIG_PUBS:
-        sc += 100
+    # Reputable publication — keeps the hero credible and shareable.
+    if domain(s.get("url", "")) in BIG_PUBS:
+        sc += 60
     if s.get("image"):
-        sc += 12
-    sc += FRAMING_INTEREST.get(s.get("narrative_framing", ""), 5)
-    if s.get("structural_factors"):
-        sc += 5
+        sc += 8
+    # Depth of the story: framing, structural factors, and whether it names who benefits.
+    sc += FRAMING_WEIGHT.get(s.get("narrative_framing", ""), 5)
+    for f in (s.get("structural_factors") or [])[:3]:
+        sc += FACTOR_WEIGHT.get(f, 0)
+    cb = (s.get("cui_bono") or "").strip().lower()
+    if cb and cb not in ("unclear", "unclear.", "none", "none."):
+        sc += 15
     if len((s.get("title_en") or s.get("title") or "")) > 25:
-        sc += 3
+        sc += 2
     if (s.get("summary_en") or s.get("summary")):
-        sc += 3
+        sc += 2
     return sc
 
 
