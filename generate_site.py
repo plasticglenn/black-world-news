@@ -26,7 +26,7 @@ BRAND = "#1a3a2a"
 # needs editing.
 # ---------------------------------------------------------------------------
 YOUTUBE_URL   = ""   # e.g. "https://www.youtube.com/@blackworldnews"
-TIKTOK_URL    = ""   # e.g. "https://www.tiktok.com/@blackworldnews"
+TIKTOK_URL    = "https://www.tiktok.com/@blackworldnews"   # live
 INSTAGRAM_URL = ""   # e.g. "https://www.instagram.com/blackworldnews"
 FACEBOOK_URL  = ""   # e.g. "https://www.facebook.com/blackworldnews"
 X_URL         = ""   # e.g. "https://x.com/blackworldnews"
