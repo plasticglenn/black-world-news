@@ -1,0 +1,23 @@
+Drop the finished Garvey strip art here, named EXACTLY like this
+(comics.json points at these filenames):
+
+    cover.png      <- the shelf cover / share image (portrait, ~4:5)
+    panel-1.png    <- the find (backyard, glowing star)
+    panel-2.png    <- the lift (golden light)
+    panel-3.png    <- arrival (1920s Jamaican street)
+    panel-4.png    <- the meeting (Garvey kneels)
+    panel-5.png    <- the ships (harbour, Black Star flag)
+    panel-6.png    <- home, prouder (backyard)
+
+Generate the art CLEAN (no speech bubbles in the image) -- the dialogue is
+drawn on top by the site from comics.json, so it stays editable and translatable.
+Leave calm "headroom" (sky / plain area) top and bottom of each panel for the
+bubbles to sit in.
+
+When all seven are in this folder:
+  1. open comics.json, set  "published": true  on the Garvey strip
+  2. python generate_site.py   (confirm EXIT=0)
+  3. commit + push
+
+Until then the strip stays off the live shelf, and comic-kojo-ama-meet-marcus-garvey.html
+previews with friendly "art coming" placeholders so you can check bubble placement.

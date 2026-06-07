@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For the Children | Black World News</title>
-    <meta name="description" content="A safe, colourful place for children to learn about the Black world. Stories, people, places, and words for kids of all ages.">
+    <meta name="description" content="A safe, colourful place for young children to learn about the Black world. Stories, people, places, and words for our little ones.">
     <link rel="canonical" href="https://www.blackworldnews.world/kids.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
@@ -104,19 +104,6 @@
         .kids-hero-title .kids-space{width:0.3em;}
         .kids-hero-sub{font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;}
 
-        /* Age toggle */
-        .age-toggle{display:flex;justify-content:center;gap:0.5rem;margin:1.5rem auto 0;}
-        .age-btn{font-family:'Bagel Fat One',cursive;font-size:1.15rem;padding:0.55rem 1.5rem;border:3px solid #1a3a2a;background:#fff;color:#1a3a2a;border-radius:999px;cursor:pointer;transition:all 0.15s;line-height:1.2;}
-        .age-btn:hover{background:#eef4f0;}
-        .age-btn.active{background:#1a3a2a;color:#fff;}
-        /* Bubble letters inside the Little Ones button keep their colour on any background */
-        .age-btn .kids-letter{filter:drop-shadow(0 1.5px 0 var(--deep)) drop-shadow(0 2px 2px rgba(0,0,0,0.2));}
-
-        /* Lane visibility — controlled by body class */
-        .big-only{display:none;}
-        body.lane-big .big-only{display:block;}
-        body.lane-big .little-only{display:none;}
-
         /* Layout */
         .kids-main{max-width:1100px;margin:0 auto;padding:1rem 1.5rem 4rem;}
         .kids-section{margin-top:3rem;}
@@ -198,7 +185,7 @@
         }
     </style>
 </head>
-<body class="lane-little">
+<body>
 <header class="masthead">
     <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
     <div class="masthead-center">
@@ -212,10 +199,6 @@
 <section class="kids-hero">
     <h1 class="kids-hero-title"><span class="kids-letter kc-red">F</span><span class="kids-letter kc-pink">o</span><span class="kids-letter kc-blue">r</span><span class="kids-space"></span><span class="kids-letter kc-yellow">t</span><span class="kids-letter kc-green">h</span><span class="kids-letter kc-orange">e</span><span class="kids-space"></span><span class="kids-letter kc-purple">C</span><span class="kids-letter kc-red">h</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">l</span><span class="kids-letter kc-yellow">d</span><span class="kids-letter kc-green">r</span><span class="kids-letter kc-orange">e</span><span class="kids-letter kc-purple">n</span></h1>
     <p class="kids-hero-sub">You are brave. You are beautiful. You belong to a family that reaches all around the world. This is your place to grow strong and proud, together.</p>
-    <div class="age-toggle">
-        <button class="age-btn active" data-lane="little"><span class="kids-letter kc-red">L</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">t</span><span class="kids-letter kc-yellow">t</span><span class="kids-letter kc-green">l</span><span class="kids-letter kc-orange">e</span><span class="kids-space"></span><span class="kids-letter kc-purple">O</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">s</span></button>
-        <button class="age-btn" data-lane="big">Bigger Kids</button>
-    </div>
 </section>
 
 <main class="kids-main">
@@ -258,34 +241,22 @@
             <img class="kid-portrait" src="images/marcus-garvey.jpg" alt="Marcus Garvey" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#e63946;display:none">MG</div>
             <h3 class="kid-card-name">Marcus Garvey</h3>
             <p class="kid-card-place">🇯🇲 Jamaica</p>
-            <p class="kid-text little-only">A man from Jamaica who told every Black child to stand tall and be proud.</p>
-            <div class="big-only">
-                <p class="kid-text">Marcus Garvey was born in Jamaica. He travelled the world telling Black people one big thing: be proud of who you are. He taught that your skin, your hair, and your story are beautiful. He started the Black Star Line so the Black world could stand together. The black star on our logo comes from him. He would tell you: you are somebody.</p>
-                <ul class="kid-facts"><li>He was born in Jamaica in 1887.</li><li>He told millions of people to be proud to be Black.</li><li>The black star on our logo is his idea.</li></ul>
-                <p class="kid-quote">&ldquo;Up, you mighty people. You can do what you will.&rdquo;</p>
-            </div>
+            <p class="kid-text">A man from Jamaica who told every Black child to stand tall and be proud.</p>
+            <p class="kid-quote">&ldquo;Up, you mighty people. You can do what you will.&rdquo;</p>
         </div>
         <div class="kid-card">
             <img class="kid-portrait" src="images/toussaint-louverture.jpg" alt="Toussaint Louverture" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#1d3557;display:none">TL</div>
             <h3 class="kid-card-name">Toussaint Louverture</h3>
             <p class="kid-card-place">🇭🇹 Haiti</p>
-            <p class="kid-text little-only">A brave leader who showed that you are never too small to do something big.</p>
-            <div class="big-only">
-                <p class="kid-text">Toussaint Louverture lived in Haiti long ago. People told him he could not be free. He did not believe them. He was clever, he was brave, and he never gave up. He led his people until Haiti became the first country in the world where free Black people ruled themselves. He shows us that being brave can change everything.</p>
-                <ul class="kid-facts"><li>He was born in Haiti around 1743.</li><li>He taught himself to read and became a great leader.</li><li>He helped make Haiti the first free Black country.</li></ul>
-                <p class="kid-quote">&ldquo;You can cut the tree, but the roots of freedom will grow again.&rdquo;</p>
-            </div>
+            <p class="kid-text">A brave leader who showed that you are never too small to do something big.</p>
+            <p class="kid-quote">&ldquo;You can cut the tree, but the roots of freedom will grow again.&rdquo;</p>
         </div>
         <div class="kid-card">
             <img class="kid-portrait" src="https://image.pollinations.ai/prompt/warm%20friendly%20children%27s%20book%20illustration%20portrait%20of%20Yaa%20Asantewaa%2C%20Black%20Ashanti%20queen%20mother%20from%20Ghana%20wearing%20colourful%20kente%20cloth%20and%20gold%20jewellery%2C%20strong%20and%20proud%20face%2C%20proud%20and%20dignified%2C%20colourful%2C%20soft%20lighting%2C%20head%20and%20shoulders%2C%20simple%20background?width=400&height=400&nologo=true&seed=7" alt="Yaa Asantewaa" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#2a9d8f;display:none">YA</div>
             <h3 class="kid-card-name">Yaa Asantewaa</h3>
             <p class="kid-card-place">🇬🇭 Ghana</p>
-            <p class="kid-text little-only">A queen in Ghana who was brave and stood up tall for her people.</p>
-            <div class="big-only">
-                <p class="kid-text">Yaa Asantewaa was a queen mother of the Asante people in Ghana. When her people were afraid, she stood up and was brave for everyone. She showed that girls can be strong leaders too. She helped protect the Golden Stool, the heart of her kingdom. She teaches us to be brave even when others are scared.</p>
-                <ul class="kid-facts"><li>She was a queen mother of the Asante people in Ghana.</li><li>She was a brave leader when her people needed her most.</li><li>She shows that girls can be strong and lead.</li></ul>
-                <p class="kid-quote">&ldquo;If the men will not go forward, then we women will.&rdquo;</p>
-            </div>
+            <p class="kid-text">A queen in Ghana who was brave and stood up tall for her people.</p>
+            <p class="kid-quote">&ldquo;If the men will not go forward, then we women will.&rdquo;</p>
         </div></div>
     </section>
 
@@ -296,30 +267,21 @@
         <div class="kid-card">
             <div class="kid-place-img kid-place-flag" style="background:#2ec167">🇯🇲</div>
             <h3 class="kid-card-name">🇯🇲 Jamaica</h3>
-            <p class="kid-text little-only">An island in the warm Caribbean Sea where reggae music was born.</p>
-            <div class="big-only">
-                <p class="kid-text">Jamaica is a beautiful island in the warm Caribbean Sea. It is the home of reggae music and the famous singer Bob Marley. People there enjoy the sunshine, the sea, and tasty food like rice and peas.</p>
-            </div>
+            <p class="kid-text">An island in the warm Caribbean Sea where reggae music was born.</p>
             <p class="kid-oneline"><strong>Did you know?</strong> Reggae music was born in Jamaica.</p>
             <p class="kid-oneline"><strong>A word from here:</strong> Wah gwaan means hello.</p>
         </div>
         <div class="kid-card">
             <div class="kid-place-img kid-place-flag" style="background:#4d96ff">🇭🇹</div>
             <h3 class="kid-card-name">🇭🇹 Haiti</h3>
-            <p class="kid-text little-only">The first country where free Black people ruled themselves.</p>
-            <div class="big-only">
-                <p class="kid-text">Haiti is a country in the Caribbean Sea. Long ago, the people of Haiti won their freedom and made the first country in the world ruled by free Black people. People there speak Haitian Creole and French, and they love music and art.</p>
-            </div>
+            <p class="kid-text">The first country where free Black people ruled themselves.</p>
             <p class="kid-oneline"><strong>Did you know?</strong> Haiti was the first free Black republic in the world.</p>
             <p class="kid-oneline"><strong>A word from here:</strong> Sak pasé means what is happening.</p>
         </div>
         <div class="kid-card">
             <div class="kid-place-img kid-place-flag" style="background:#ffd93d">🇬🇭</div>
             <h3 class="kid-card-name">🇬🇭 Ghana</h3>
-            <p class="kid-text little-only">A country in West Africa famous for gold and colourful cloth.</p>
-            <div class="big-only">
-                <p class="kid-text">Ghana is a country in West Africa. It is famous for shiny gold, colourful kente cloth, and the black star on its flag. Children there play a fun game with seeds called oware.</p>
-            </div>
+            <p class="kid-text">A country in West Africa famous for gold and colourful cloth.</p>
             <p class="kid-oneline"><strong>Did you know?</strong> The black star on Ghana's flag stands for African freedom.</p>
             <p class="kid-oneline"><strong>A word from here:</strong> Akwaaba means welcome.</p>
         </div></div>
@@ -332,17 +294,14 @@
         <div class="kid-news-card">
             <h3 class="kid-card-name">A Jamaican football star has her best year ever</h3>
             <p class="kid-text">Khadija Shaw, who people call Bunny, is a football player from Jamaica. This year she scored more goals than ever before. People all over Jamaica are proud of her. She shows that practice and hard work can take you very far.</p>
-            <a class="kid-news-link big-only" href="https://www.jamaicaobserver.com/2026/05/29/hinds-hails-bunny-shaws-historic-season-triumph-jamaican-sports/" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>
         </div>
         <div class="kid-news-card">
             <h3 class="kid-card-name">A man climbs the tallest mountain in the world</h3>
             <p class="kid-text">Paul Hodge wanted to do something very hard and very brave. So he climbed Mount Everest, the tallest mountain on Earth. It was cold and steep, but he did not give up. He reached the top and showed that big dreams are worth trying for.</p>
-            <a class="kid-news-link big-only" href="https://www.voice-online.co.uk/post/video/section/interviews/paul-hodge-i-climbed-everest-to-redeem-myself/" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>
         </div>
         <div class="kid-news-card">
             <h3 class="kid-card-name">A dance group celebrates 25 years of joy</h3>
             <p class="kid-text">Boy Blue is a dance group in Britain. This year they celebrate 25 years of dancing together. They teach young people to dance and to believe in themselves. Their new show is full of music, movement, and happiness.</p>
-            <a class="kid-news-link big-only" href="https://www.voice-online.co.uk/post/video/section/interviews/boy-blue-kick-off-25-year-anniversary-celebrations-with-cycles/" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>
         </div></div>
     </section>
 
@@ -389,16 +348,6 @@
 </footer>
 
 <script>
-    // Age-lane toggle — switches a class on the body. No data saved.
-    document.querySelectorAll('.age-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const lane = btn.dataset.lane;
-            document.body.className = 'lane-' + lane;
-            document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        });
-    });
-
     // Quiz — built from the curated questions. No grading, no saving.
     const QUIZ = [{"q": "Where was Marcus Garvey born?", "options": ["Jamaica", "Canada", "Australia"], "answer": 0}, {"q": "Which country was the first where free Black people ruled themselves?", "options": ["Haiti", "Germany", "Japan"], "answer": 0}, {"q": "What does the word Akwaaba mean?", "options": ["goodbye", "welcome", "run"], "answer": 1}];
     const quizBox = document.getElementById('quiz');

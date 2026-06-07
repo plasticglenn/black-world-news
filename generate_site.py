@@ -2134,10 +2134,134 @@ def build_privacy():
     return page_shell("Privacy", content, active="")
 
 
+def comic_slug_page(slug):
+    # The on-disk filename for a single strip's reader page.
+    return f"comic-{slug}.html"
+
+
+def published_comics():
+    # Strips marked ready to show on the live shelf. Order: newest first
+    # (latest entry in comics.json appears first on the shelf).
+    strips = load_json_file("comics.json")
+    return list(reversed([s for s in strips if s.get("published")]))
+
+
+def build_comic_reader(strip):
+    # One strip rendered as a vertical webtoon: panels stacked top to bottom,
+    # speech rendered as real HTML over each panel from comics.json (editable,
+    # translatable, accessible). If a panel image isn't there yet, the panel
+    # degrades to a friendly "art coming" placeholder so the page never breaks.
+    speakers = strip.get("speakers", {})
+    panels_html = ""
+    for i, panel in enumerate(strip.get("panels", []), start=1):
+        bubbles = ""
+        for b in panel.get("bubbles", []):
+            who = b.get("speaker", "")
+            colour = speakers.get(who, "#1a3a2a")
+            anchor = b.get("anchor", "top-left")
+            bubbles += (
+                f'<div class="bubble b-{anchor}">'
+                f'<span class="who" style="color:{colour}">{who}</span>'
+                f'{b.get("text","")}</div>'
+            )
+        alt = panel.get("alt", "").replace('"', "&quot;")
+        panels_html += f"""
+        <div class="panel">
+            <img src="{panel.get('img','')}" alt="{alt}" loading="lazy"
+                 onerror="this.closest('.panel').classList.add('panel-pending')">
+            <div class="pending-note">Panel {i}<br>art coming</div>
+            {bubbles}
+        </div>"""
+
+    title = strip.get("title", "Comic")
+    blurb = strip.get("blurb", "")
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} | Black World News</title>
+    <meta name="description" content="{blurb}">
+    <link rel="canonical" href="https://www.blackworldnews.world/{comic_slug_page(strip.get('slug',''))}">
+    <meta property="og:title" content="{title}">
+    <meta property="og:description" content="{blurb}">
+    <meta property="og:image" content="https://www.blackworldnews.world/{strip.get('cover','')}">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Fredoka+One&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#fffdf5;color:#222;font-family:'Source Sans 3',sans-serif;font-size:18px;line-height:1.6;}}
+        a{{color:inherit;text-decoration:none;}}
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;justify-content:center;}}
+        .masthead img{{width:50px;height:50px;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
+        .reader-hero{{text-align:center;padding:2.2rem 1.5rem 1rem;}}
+        .reader-hero h2{{font-family:'Fredoka One',cursive;color:#1a3a2a;font-size:clamp(1.6rem,6vw,2.6rem);line-height:1.15;}}
+        .reader-hero p{{color:#666;max-width:600px;margin:0.7rem auto 0;}}
+        .strip{{max-width:760px;margin:1.5rem auto;padding:0 1rem;}}
+        .panel{{position:relative;max-width:720px;margin:0 auto 1.1rem;border-radius:16px;overflow:hidden;
+                background:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.12);}}
+        .panel img{{display:block;width:100%;height:auto;}}
+        .panel-pending{{min-height:380px;display:flex;align-items:center;justify-content:center;
+                background:repeating-linear-gradient(45deg,#fff,#fff 14px,#fdf6e3 14px,#fdf6e3 28px);}}
+        .panel-pending img{{display:none;}}
+        .pending-note{{display:none;text-align:center;color:#b08900;font-family:'Fredoka One',cursive;
+                font-size:1.3rem;line-height:1.4;}}
+        .panel-pending .pending-note{{display:block;}}
+        .bubble{{position:absolute;max-width:46%;background:rgba(255,255,255,0.96);border-radius:18px;
+                padding:0.5rem 0.8rem;box-shadow:0 4px 14px rgba(0,0,0,0.20);
+                font-size:clamp(0.82rem,2.7vw,1.05rem);line-height:1.3;}}
+        .bubble .who{{display:block;font-family:'Fredoka One',cursive;font-size:0.72em;margin-bottom:0.05rem;}}
+        .b-top-left{{top:4%;left:4%;}}
+        .b-top-right{{top:4%;right:4%;}}
+        .b-bottom-left{{bottom:4%;left:4%;}}
+        .b-bottom-right{{bottom:4%;right:4%;}}
+        .b-top-center{{top:4%;left:50%;transform:translateX(-50%);max-width:80%;text-align:center;}}
+        .b-bottom-center{{bottom:4%;left:50%;transform:translateX(-50%);max-width:80%;text-align:center;}}
+        .reader-end{{text-align:center;padding:1.5rem;}}
+        .back-home{{display:inline-block;margin:0.4rem;background:#1a3a2a;color:#fff;padding:0.6rem 1.4rem;border-radius:999px;font-weight:700;}}
+        .kids-safe-footer{{background:#fff;border-top:3px dashed #ffe9a8;text-align:center;padding:2.5rem 1.5rem;margin-top:1rem;}}
+        .kids-safe-footer p{{max-width:600px;margin:0.4rem auto;color:#666;}}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <a href="index.html"><img src="logo.svg" alt="Black World News"></a>
+    <h1>Black World News</h1>
+</header>
+
+<section class="reader-hero">
+    <h2>{title}</h2>
+    <p>{blurb}</p>
+</section>
+
+<section class="strip">{panels_html}
+</section>
+
+<section class="reader-end">
+    <p>&#11088;</p>
+    <a href="comics.html" class="back-home">&larr; More comics</a>
+    <a href="kids.html" class="back-home">BWN Kids</a>
+</section>
+
+<footer class="kids-safe-footer">
+    <p>&#10084;&#65039;</p>
+    <p>This page is just for you. No comments, no chats, no sign-ups. We never collect anything about you.</p>
+</footer>
+{PWA_SCRIPT}
+{CLOUDFLARE_ANALYTICS}
+</body>
+</html>"""
+
+
 def build_comics():
-    # BWN Kids — Comics. Placeholder home for the first strip, in the same warm,
-    # colourful world as kids.html. No social bar, no data collection (kids-safety).
-    # The cast preview is pulled from kids_figures.json so it stays in sync.
+    # BWN Kids — Comics shelf. Shows published strips as cover cards; if none are
+    # published yet, falls back to the warm "coming soon" hero. Same kid-safe world
+    # as kids.html (no social bar, no data collection).
+    # Cast preview is pulled from kids_figures.json so it stays in sync.
     figures = load_json_file("kids_figures.json")
     cast = ""
     for f in figures:
@@ -2155,7 +2279,37 @@ def build_comics():
             <p class="cast-place">Our guides</p>
         </div>"""
 
-    title = colorize_kids_text("Comics")
+    strips = published_comics()
+    if strips:
+        shelf = ""
+        for s in strips:
+            shelf += f"""
+        <a class="shelf-card" href="{comic_slug_page(s.get('slug',''))}">
+            <div class="shelf-cover">
+                <img src="{s.get('cover','')}" alt="{s.get('title','').replace('"','&quot;')}" loading="lazy"
+                     onerror="this.closest('.shelf-cover').classList.add('cover-pending')">
+                <span class="cover-pending-note">&#11088;</span>
+            </div>
+            <p class="shelf-title">{s.get('title','')}</p>
+            <p class="shelf-blurb">{s.get('blurb','')}</p>
+        </a>"""
+        hero = f"""
+<section class="comics-hero">
+    <h1 class="comics-title">{colorize_kids_text("Comics")}</h1>
+    <p class="comics-sub">Real history and big ideas, told in pictures. Stories of brave people from all around the Black world, made just for our children.</p>
+</section>
+<section class="shelf">
+    <div class="shelf-grid">{shelf}
+    </div>
+</section>"""
+    else:
+        hero = f"""
+<section class="comics-hero">
+    <h1 class="comics-title">{colorize_kids_text("Comics")}</h1>
+    <p class="comics-sub">Real history and big ideas, told in pictures. Stories of brave people from all around the Black world, made just for our children. Our first comic is on its way.</p>
+    <span class="soon-badge">First strip coming soon</span>
+</section>"""
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2183,6 +2337,19 @@ def build_comics():
         .comics-title .kids-space{{width:0.3em;}}
         .comics-sub{{font-size:1.15rem;color:#555;max-width:620px;margin:1rem auto 0;}}
         .soon-badge{{display:inline-block;margin-top:1.4rem;background:#e8602c;color:#fff;font-weight:700;padding:0.5rem 1.3rem;border-radius:999px;}}
+        .shelf{{max-width:880px;margin:0.5rem auto 1rem;padding:0 1.5rem;}}
+        .shelf-grid{{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;}}
+        .shelf-card{{display:block;width:240px;background:#fff;border-radius:16px;overflow:hidden;
+                box-shadow:0 6px 20px rgba(0,0,0,0.12);transition:transform .15s ease;}}
+        .shelf-card:hover{{transform:translateY(-4px);}}
+        .shelf-cover{{position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(45deg,#fff,#fff 14px,#fdf6e3 14px,#fdf6e3 28px);
+                display:flex;align-items:center;justify-content:center;}}
+        .shelf-cover img{{width:100%;height:100%;object-fit:cover;}}
+        .cover-pending-note{{display:none;font-size:2.6rem;}}
+        .cover-pending img{{display:none;}}
+        .cover-pending .cover-pending-note{{display:block;}}
+        .shelf-title{{font-family:'Fredoka One',cursive;color:#1a3a2a;padding:0.7rem 0.9rem 0.2rem;font-size:1.05rem;line-height:1.2;}}
+        .shelf-blurb{{padding:0 0.9rem 0.9rem;color:#777;font-size:0.85rem;line-height:1.35;}}
         .cast{{max-width:760px;margin:2.5rem auto;padding:0 1.5rem;}}
         .cast h2{{text-align:center;font-family:'Fredoka One',cursive;color:#1a3a2a;margin-bottom:1.2rem;}}
         .cast-grid{{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}}
@@ -2201,11 +2368,7 @@ def build_comics():
     <h1>Black World News</h1>
 </header>
 
-<section class="comics-hero">
-    <h1 class="comics-title">{title}</h1>
-    <p class="comics-sub">Real history and big ideas, told in pictures. Stories of brave people from all around the Black world, made just for our children. Our first comic is on its way.</p>
-    <span class="soon-badge">First strip coming soon</span>
-</section>
+{hero}
 
 <section class="cast">
     <h2>Meet the cast</h2>
@@ -2386,9 +2549,9 @@ def build_community():
 
 
 def build_kids():
-    # "For the Children" — a safe, colourful room for kids 3 to 13.
+    # "For the Children" — a safe, colourful room for young children.
     # All content is hand-curated in the kids_*.json files. No live news, no AI here.
-    # Two age lanes (Little Ones / Bigger Kids) toggle with a button at the top.
+    # One simple reading level for the young; older readers use the main site.
     figures      = load_json_file("kids_figures.json")
     countries    = load_json_file("kids_countries.json")
     vocab        = load_json_file("kids_vocab.json")
@@ -2430,18 +2593,13 @@ def build_kids():
             )
         else:
             portrait = circle.format(disp="")
-        facts = "".join(f'<li>{fact}</li>' for fact in f.get("facts", []))
         figure_cards += f"""
         <div class="kid-card">
             {portrait}
             <h3 class="kid-card-name">{f.get("name","")}</h3>
             <p class="kid-card-place">{f.get("flag","")} {f.get("place","")}</p>
-            <p class="kid-text little-only">{f.get("little","")}</p>
-            <div class="big-only">
-                <p class="kid-text">{f.get("big","")}</p>
-                <ul class="kid-facts">{facts}</ul>
-                <p class="kid-quote">&ldquo;{f.get("quote","")}&rdquo;</p>
-            </div>
+            <p class="kid-text">{f.get("little","")}</p>
+            <p class="kid-quote">&ldquo;{f.get("quote","")}&rdquo;</p>
         </div>"""
 
     # --- Module: A Place to Know (countries) ---
@@ -2458,10 +2616,7 @@ def build_kids():
         <div class="kid-card">
             {banner}
             <h3 class="kid-card-name">{c.get("flag","")} {c.get("name","")}</h3>
-            <p class="kid-text little-only">{c.get("little","")}</p>
-            <div class="big-only">
-                <p class="kid-text">{c.get("big","")}</p>
-            </div>
+            <p class="kid-text">{c.get("little","")}</p>
             <p class="kid-oneline"><strong>Did you know?</strong> {c.get("oneThing","")}</p>
             <p class="kid-oneline"><strong>A word from here:</strong> {c.get("oneWord","")}</p>
         </div>"""
@@ -2469,16 +2624,10 @@ def build_kids():
     # --- Module: From the Big News (rewritten for kids) ---
     news_cards = ""
     for n in news:
-        # Bigger Kids get a "read with a grown-up" link out. Little Ones do not.
-        link = (
-            f'<a class="kid-news-link big-only" href="{n.get("url","#")}" target="_blank" rel="noopener">Read this with a grown-up &rarr;</a>'
-            if n.get("url") else ""
-        )
         news_cards += f"""
         <div class="kid-news-card">
             <h3 class="kid-card-name">{n.get("title","")}</h3>
             <p class="kid-text">{n.get("text","")}</p>
-            {link}
         </div>"""
 
     # --- Module: Learn a Word ---
@@ -2550,7 +2699,7 @@ def build_kids():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For the Children | Black World News</title>
-    <meta name="description" content="A safe, colourful place for children to learn about the Black world. Stories, people, places, and words for kids of all ages.">
+    <meta name="description" content="A safe, colourful place for young children to learn about the Black world. Stories, people, places, and words for our little ones.">
     <link rel="canonical" href="https://www.blackworldnews.world/kids.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
@@ -2585,19 +2734,6 @@ def build_kids():
         .kids-hero-title .kids-letter{{filter:drop-shadow(0 3px 0 var(--deep)) drop-shadow(0 6px 8px rgba(0,0,0,0.2));}}
         .kids-hero-title .kids-space{{width:0.3em;}}
         .kids-hero-sub{{font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;}}
-
-        /* Age toggle */
-        .age-toggle{{display:flex;justify-content:center;gap:0.5rem;margin:1.5rem auto 0;}}
-        .age-btn{{font-family:'Bagel Fat One',cursive;font-size:1.15rem;padding:0.55rem 1.5rem;border:3px solid #1a3a2a;background:#fff;color:#1a3a2a;border-radius:999px;cursor:pointer;transition:all 0.15s;line-height:1.2;}}
-        .age-btn:hover{{background:#eef4f0;}}
-        .age-btn.active{{background:#1a3a2a;color:#fff;}}
-        /* Bubble letters inside the Little Ones button keep their colour on any background */
-        .age-btn .kids-letter{{filter:drop-shadow(0 1.5px 0 var(--deep)) drop-shadow(0 2px 2px rgba(0,0,0,0.2));}}
-
-        /* Lane visibility — controlled by body class */
-        .big-only{{display:none;}}
-        body.lane-big .big-only{{display:block;}}
-        body.lane-big .little-only{{display:none;}}
 
         /* Layout */
         .kids-main{{max-width:1100px;margin:0 auto;padding:1rem 1.5rem 4rem;}}
@@ -2680,7 +2816,7 @@ def build_kids():
         }}
     </style>
 </head>
-<body class="lane-little">
+<body>
 <header class="masthead">
     <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
     <div class="masthead-center">
@@ -2694,10 +2830,6 @@ def build_kids():
 <section class="kids-hero">
     <h1 class="kids-hero-title">{title_balloon}</h1>
     <p class="kids-hero-sub">You are brave. You are beautiful. You belong to a family that reaches all around the world. This is your place to grow strong and proud, together.</p>
-    <div class="age-toggle">
-        <button class="age-btn active" data-lane="little">{colorize_kids_text("Little Ones")}</button>
-        <button class="age-btn" data-lane="big">Bigger Kids</button>
-    </div>
 </section>
 
 <main class="kids-main">
@@ -2754,16 +2886,6 @@ def build_kids():
 </footer>
 
 <script>
-    // Age-lane toggle — switches a class on the body. No data saved.
-    document.querySelectorAll('.age-btn').forEach(btn => {{
-        btn.addEventListener('click', () => {{
-            const lane = btn.dataset.lane;
-            document.body.className = 'lane-' + lane;
-            document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }});
-    }});
-
     // Quiz — built from the curated questions. No grading, no saving.
     const QUIZ = {quiz_json};
     const quizBox = document.getElementById('quiz');
@@ -3390,6 +3512,21 @@ def main():
         f.write(build_kids())
     print("Kids page generated: kids.html")
 
+    # Build one reader page per comic strip (from comics.json). Every strip gets a
+    # page so it's previewable locally before art lands; only published ones are
+    # listed on the shelf and in the sitemap.
+    published_comic_pages = []
+    for strip in load_json_file("comics.json"):
+        slug = strip.get("slug", "")
+        if not slug:
+            continue
+        page = comic_slug_page(slug)
+        with open(page, "w", encoding="utf-8") as f:
+            f.write(build_comic_reader(strip))
+        print(f"Comic reader generated: {page}")
+        if strip.get("published"):
+            published_comic_pages.append(page)
+
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")
     print(f"Total stories: {len(stories)}")
@@ -3398,6 +3535,11 @@ def main():
     # --- SITEMAP ---
     # Tells Google every page that exists on the site
     today = datetime.now().strftime("%Y-%m-%d")
+    comic_sitemap_urls = "".join(
+        f'\n  <url><loc>https://www.blackworldnews.world/{page}</loc>'
+        f'<lastmod>{today}</lastmod><priority>0.6</priority></url>'
+        for page in published_comic_pages
+    )
     sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.blackworldnews.world/</loc><lastmod>{today}</lastmod><priority>1.0</priority></url>
@@ -3420,7 +3562,7 @@ def main():
   <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.blackworldnews.world/privacy.html</loc><lastmod>{today}</lastmod><priority>0.3</priority></url>
-  <url><loc>https://www.blackworldnews.world/comics.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.blackworldnews.world/comics.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>{comic_sitemap_urls}
 </urlset>"""
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write(sitemap)

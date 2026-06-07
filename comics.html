@@ -89,6 +89,19 @@
         .comics-title .kids-space{width:0.3em;}
         .comics-sub{font-size:1.15rem;color:#555;max-width:620px;margin:1rem auto 0;}
         .soon-badge{display:inline-block;margin-top:1.4rem;background:#e8602c;color:#fff;font-weight:700;padding:0.5rem 1.3rem;border-radius:999px;}
+        .shelf{max-width:880px;margin:0.5rem auto 1rem;padding:0 1.5rem;}
+        .shelf-grid{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;}
+        .shelf-card{display:block;width:240px;background:#fff;border-radius:16px;overflow:hidden;
+                box-shadow:0 6px 20px rgba(0,0,0,0.12);transition:transform .15s ease;}
+        .shelf-card:hover{transform:translateY(-4px);}
+        .shelf-cover{position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(45deg,#fff,#fff 14px,#fdf6e3 14px,#fdf6e3 28px);
+                display:flex;align-items:center;justify-content:center;}
+        .shelf-cover img{width:100%;height:100%;object-fit:cover;}
+        .cover-pending-note{display:none;font-size:2.6rem;}
+        .cover-pending img{display:none;}
+        .cover-pending .cover-pending-note{display:block;}
+        .shelf-title{font-family:'Fredoka One',cursive;color:#1a3a2a;padding:0.7rem 0.9rem 0.2rem;font-size:1.05rem;line-height:1.2;}
+        .shelf-blurb{padding:0 0.9rem 0.9rem;color:#777;font-size:0.85rem;line-height:1.35;}
         .cast{max-width:760px;margin:2.5rem auto;padding:0 1.5rem;}
         .cast h2{text-align:center;font-family:'Fredoka One',cursive;color:#1a3a2a;margin-bottom:1.2rem;}
         .cast-grid{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}
@@ -106,6 +119,7 @@
     <a href="index.html"><img src="logo.svg" alt="Black World News"></a>
     <h1>Black World News</h1>
 </header>
+
 
 <section class="comics-hero">
     <h1 class="comics-title"><span class="kids-letter kc-red">C</span><span class="kids-letter kc-pink">o</span><span class="kids-letter kc-blue">m</span><span class="kids-letter kc-yellow">i</span><span class="kids-letter kc-green">c</span><span class="kids-letter kc-orange">s</span></h1>

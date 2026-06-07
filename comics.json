@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "kojo-ama-meet-marcus-garvey",
+    "title": "Kojo & Ama Meet Marcus Garvey",
+    "blurb": "Two friends find a glowing black star that carries them back in time to meet a man who tells every child to stand tall.",
+    "published": false,
+    "cover": "images/comics/garvey/cover.png",
+    "speakers": {
+      "Kojo": "#e8602c",
+      "Ama": "#0e7c86",
+      "Garvey": "#1a3a2a"
+    },
+    "panels": [
+      {
+        "img": "images/comics/garvey/panel-1.png",
+        "alt": "Kojo and Ama crouch in a sunny backyard, looking at a small glowing black star in the grass.",
+        "bubbles": [
+          {"speaker": "Kojo", "text": "Ama, look! It's glowing!", "anchor": "top-left"},
+          {"speaker": "Ama", "text": "That's the same star that's on our shirts...", "anchor": "top-right"}
+        ]
+      },
+      {
+        "img": "images/comics/garvey/panel-2.png",
+        "alt": "The two children rise gently into a swirl of warm golden light and soft stars, faces full of wonder.",
+        "bubbles": [
+          {"speaker": "Ama", "text": "Hold my hand. Here we GO!", "anchor": "top-center"}
+        ]
+      },
+      {
+        "img": "images/comics/garvey/panel-3.png",
+        "alt": "Kojo and Ama land on a bright 1920s Jamaican street with palm trees and a proud crowd.",
+        "bubbles": [
+          {"speaker": "Kojo", "text": "Where... are we?", "anchor": "top-left"},
+          {"speaker": "Ama", "text": "Not where. When.", "anchor": "bottom-right"}
+        ]
+      },
+      {
+        "img": "images/comics/garvey/panel-4.png",
+        "alt": "Marcus Garvey kneels to meet the two children at eye level, one hand warmly on Kojo's shoulder.",
+        "bubbles": [
+          {"speaker": "Garvey", "text": "Hello, little ones. Do you know what you are?", "anchor": "top-left"},
+          {"speaker": "Kojo", "text": "Um... kids?", "anchor": "top-right"},
+          {"speaker": "Garvey", "text": "You are somebody. Stand tall.", "anchor": "bottom-center"}
+        ]
+      },
+      {
+        "img": "images/comics/garvey/panel-5.png",
+        "alt": "Garvey stands between the children, all three looking out at a harbour where great ships fly the black star flag.",
+        "bubbles": [
+          {"speaker": "Garvey", "text": "Those are our ships. Built by our hands.", "anchor": "top-left"},
+          {"speaker": "Garvey", "text": "Up, you mighty people. You can do anything.", "anchor": "bottom-center"}
+        ]
+      },
+      {
+        "img": "images/comics/garvey/panel-6.png",
+        "alt": "Back in the sunny backyard, Kojo and Ama stand tall and proud, the little black star glowing in Ama's open palm.",
+        "bubbles": [
+          {"speaker": "Ama", "text": "I feel taller.", "anchor": "top-left"},
+          {"speaker": "Kojo", "text": "Me too. Up, you mighty people!", "anchor": "bottom-right"}
+        ]
+      }
+    ]
+  }
+]
