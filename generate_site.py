@@ -2560,15 +2560,21 @@ def build_kids():
 
     title_balloon = colorize_kids_text("For the Children")
 
-    # --- Module: Say It Out Loud (affirmations) ---
-    # The heart of the page. Big, bold cards a child reads aloud to build confidence.
-    affirm_cards = ""
-    for a in affirmations:
-        color = a.get("color", "#1a3a2a")
-        affirm_cards += f"""
-        <div class="affirm-card" style="background:{color}">
-            <span class="affirm-text">{a.get("text","")}</span>
-        </div>"""
+    # --- Module: Say It Out Loud (affirmations as a tap-through deck) ---
+    # One big card with the rest stacked behind it. Tapping brings the next
+    # affirmation forward. Renders the first card server-side so it still shows
+    # one affirmation if JavaScript is off.
+    affirm_json = json.dumps(affirmations)
+    first = affirmations[0] if affirmations else {"text": "", "color": "#1a3a2a"}
+    affirm_deck = f"""
+        <div class="affirm-deck" id="affirmDeck" tabindex="0" role="button" aria-label="Tap the card for another good thing about you">
+            <div class="affirm-back affirm-back2"></div>
+            <div class="affirm-back affirm-back1"></div>
+            <div class="affirm-top" id="affirmTop" style="background:{first.get("color","#1a3a2a")}">
+                <span class="affirm-text" id="affirmText">{first.get("text","")}</span>
+            </div>
+        </div>
+        <p class="affirm-hint">Tap the card for another &#10024;</p>"""
 
     # --- Module: Meet Someone Special (historical figures) ---
     figure_cards = ""
@@ -2576,15 +2582,12 @@ def build_kids():
         initials = f.get("initials", "")
         color    = f.get("color", "#1a3a2a")
         image    = f.get("image", "")
-        # If no explicit image is set but a portrait_prompt is, generate an
-        # illustrated portrait with our own image generator (Pollinations).
-        # This avoids hotlinking other sites' photos.
-        if not image and f.get("portrait_prompt"):
-            image = kids_portrait_url(f["portrait_prompt"])
-        # The initials circle is always present as a fallback. If a photo is set,
-        # show it; if that photo fails to load, onerror reveals the circle instead
-        # of leaving an empty ring.
-        circle = f'<div class="kid-portrait kid-portrait-initials" style="background:{color}{{disp}}">{initials}</div>'
+        # A figure shows a local photo if one is set; otherwise a designed initials
+        # medallion (used where no freely-licensed portrait exists, e.g. Yaa Asantewaa).
+        # NOTE: live Pollinations generation was dropped — the service now returns
+        # HTTP 402 (paywalled), so it only produced broken images.
+        # The medallion is always present; if a photo fails to load, onerror reveals it.
+        circle = f'<div class="kid-portrait kid-portrait-initials" style="background-color:{color}{{disp}}">{initials}</div>'
         if image:
             portrait = (
                 f'<img class="kid-portrait" src="{image}" alt="{f.get("name","")}" loading="lazy" '
@@ -2770,16 +2773,29 @@ def build_kids():
         .kids-chips{{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:0.3rem;}}
         .kids-chip{{background:rgba(255,255,255,0.22);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.8rem;font-weight:700;}}
 
-        /* Say It Out Loud — confidence affirmations */
-        .affirm-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}}
-        .affirm-card{{border-radius:20px;padding:2rem 1.5rem;min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.12);}}
-        .affirm-text{{font-family:'Fredoka One',cursive;font-size:1.4rem;line-height:1.3;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.18);}}
+        /* Say It Out Loud — one big card, the rest stacked behind (tap to advance) */
+        .affirm-deck{{position:relative;max-width:430px;height:230px;margin:0 auto;cursor:pointer;
+                -webkit-tap-highlight-color:transparent;}}
+        .affirm-deck:focus{{outline:none;}}
+        .affirm-back,.affirm-top{{position:absolute;inset:0;border-radius:24px;}}
+        .affirm-back{{box-shadow:0 6px 16px rgba(0,0,0,0.10);}}
+        .affirm-back1{{background:#ece4d0;transform:rotate(-4deg) translateY(9px) scale(0.97);}}
+        .affirm-back2{{background:#e1d8c2;transform:rotate(4deg) translateY(15px) scale(0.94);}}
+        .affirm-top{{display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem 1.6rem;
+                box-shadow:0 14px 30px rgba(0,0,0,0.17);
+                transition:transform 0.28s cubic-bezier(.2,.7,.2,1),opacity 0.28s ease;}}
+        .affirm-top.swap{{transform:translateY(-26px) rotate(-6deg) scale(0.92);opacity:0;}}
+        .affirm-deck:focus-visible .affirm-top{{box-shadow:0 0 0 4px #ffd93d,0 14px 30px rgba(0,0,0,0.17);}}
+        .affirm-text{{font-family:'Fredoka One',cursive;font-size:clamp(1.5rem,5.5vw,2.1rem);line-height:1.25;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.20);}}
+        .affirm-hint{{text-align:center;color:#9aa39a;font-weight:700;margin-top:1.5rem;}}
 
         /* Cards */
         .kid-card{{background:#fff;border:none;border-radius:22px;padding:1.5rem;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.08);transition:transform 0.2s ease,box-shadow 0.2s ease;}}
         .kid-card:hover{{transform:translateY(-6px);box-shadow:0 18px 38px rgba(0,0,0,0.14);}}
         .kid-portrait{{width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 1rem;border:4px solid #fff;box-shadow:0 0 0 3px #1a3a2a;}}
-        .kid-portrait-initials{{display:flex;align-items:center;justify-content:center;font-family:'Bagel Fat One',cursive;font-size:2.5rem;color:#fff;}}
+        .kid-portrait-initials{{display:flex;align-items:center;justify-content:center;font-family:'Bagel Fat One',cursive;font-size:2.7rem;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.22);
+                background-image:radial-gradient(circle at 32% 26%,rgba(255,255,255,0.40),rgba(255,255,255,0) 58%),linear-gradient(150deg,rgba(255,255,255,0.10),rgba(0,0,0,0.20));}}
+        .kid-card:hover .kid-portrait-initials{{transform:scale(1.04);transition:transform 0.2s ease;}}
         .kid-card-name{{font-family:'Fredoka One',cursive;font-size:1.45rem;color:#1f2a20;margin-bottom:0.2rem;line-height:1.2;}}
         .kid-card-place{{font-size:0.95rem;font-weight:700;color:#8a938a;margin-bottom:0.8rem;}}
         .kid-text{{font-size:1.05rem;color:#3a423a;line-height:1.5;margin-bottom:0.8rem;}}
@@ -2866,7 +2882,7 @@ def build_kids():
     <section class="kids-section">
         <h2 class="kids-section-title">Say It Out Loud</h2>
         <p class="kids-section-sub">Read these out loud. Every one of them is true about you.</p>
-        <div class="affirm-grid">{affirm_cards}</div>
+        {affirm_deck}
     </section>
 
     <section class="kids-section">
@@ -2909,6 +2925,24 @@ def build_kids():
 </footer>
 
 <script>
+    // Say It Out Loud — tap the deck to bring the next affirmation forward.
+    const AFFIRMS = {affirm_json};
+    (function(){{
+        const deck=document.getElementById('affirmDeck');
+        const top=document.getElementById('affirmTop');
+        const txt=document.getElementById('affirmText');
+        if(!deck||!top||AFFIRMS.length<1) return;
+        let i=0, busy=false;
+        function paint(idx){{ txt.textContent=AFFIRMS[idx].text; top.style.background=AFFIRMS[idx].color; }}
+        function next(){{
+            if(busy||AFFIRMS.length<2) return; busy=true;
+            top.classList.add('swap');
+            setTimeout(function(){{ i=(i+1)%AFFIRMS.length; paint(i); top.classList.remove('swap'); setTimeout(function(){{busy=false;}},280); }},280);
+        }}
+        deck.addEventListener('click',next);
+        deck.addEventListener('keydown',function(e){{ if(e.key==='Enter'||e.key===' '){{ e.preventDefault(); next(); }} }});
+    }})();
+
     // Quiz — built from the curated questions. No grading, no saving.
     const QUIZ = {quiz_json};
     const quizBox = document.getElementById('quiz');

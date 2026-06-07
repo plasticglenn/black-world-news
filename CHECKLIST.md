@@ -240,6 +240,9 @@ beautiful, and beautifully made.
 | `add_url.py` | Ingest a single URL on demand |
 | `pick_featured.py` | Pick the homepage featured story |
 | `generate_site.py` | Build every HTML page from the archive |
+| `generate_image.py` | Make images via Cloudflare Workers AI / OpenAI / HF. **Pollinations is dead (HTTP 402).** Keys from env: `CLOUDFLARE_ACCOUNT_ID`+`CLOUDFLARE_API_TOKEN` (chosen engine), or `OPENAI_API_KEY`, or `HF_API_TOKEN`. |
+| `make_yaa_portrait.py` | Offline PIL fallback that drew the original Yaa illustration (used before a real photo was supplied) |
+| `comics.json` / `comic-*.html` | Comic strips (single source of truth) + generated readers |
 | `run_all.bat` | Full pipeline: agent → site → commit → push |
 | `stories.json` | Master archive (208+ stories) |
 | `image_cache.json` | Cached Pexels image URLs |

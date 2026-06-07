@@ -126,16 +126,29 @@
         .kids-chips{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:0.3rem;}
         .kids-chip{background:rgba(255,255,255,0.22);border-radius:999px;padding:0.3rem 0.9rem;font-size:0.8rem;font-weight:700;}
 
-        /* Say It Out Loud — confidence affirmations */
-        .affirm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}
-        .affirm-card{border-radius:20px;padding:2rem 1.5rem;min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.12);}
-        .affirm-text{font-family:'Fredoka One',cursive;font-size:1.4rem;line-height:1.3;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.18);}
+        /* Say It Out Loud — one big card, the rest stacked behind (tap to advance) */
+        .affirm-deck{position:relative;max-width:430px;height:230px;margin:0 auto;cursor:pointer;
+                -webkit-tap-highlight-color:transparent;}
+        .affirm-deck:focus{outline:none;}
+        .affirm-back,.affirm-top{position:absolute;inset:0;border-radius:24px;}
+        .affirm-back{box-shadow:0 6px 16px rgba(0,0,0,0.10);}
+        .affirm-back1{background:#ece4d0;transform:rotate(-4deg) translateY(9px) scale(0.97);}
+        .affirm-back2{background:#e1d8c2;transform:rotate(4deg) translateY(15px) scale(0.94);}
+        .affirm-top{display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem 1.6rem;
+                box-shadow:0 14px 30px rgba(0,0,0,0.17);
+                transition:transform 0.28s cubic-bezier(.2,.7,.2,1),opacity 0.28s ease;}
+        .affirm-top.swap{transform:translateY(-26px) rotate(-6deg) scale(0.92);opacity:0;}
+        .affirm-deck:focus-visible .affirm-top{box-shadow:0 0 0 4px #ffd93d,0 14px 30px rgba(0,0,0,0.17);}
+        .affirm-text{font-family:'Fredoka One',cursive;font-size:clamp(1.5rem,5.5vw,2.1rem);line-height:1.25;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.20);}
+        .affirm-hint{text-align:center;color:#9aa39a;font-weight:700;margin-top:1.5rem;}
 
         /* Cards */
         .kid-card{background:#fff;border:none;border-radius:22px;padding:1.5rem;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.08);transition:transform 0.2s ease,box-shadow 0.2s ease;}
         .kid-card:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(0,0,0,0.14);}
         .kid-portrait{width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 1rem;border:4px solid #fff;box-shadow:0 0 0 3px #1a3a2a;}
-        .kid-portrait-initials{display:flex;align-items:center;justify-content:center;font-family:'Bagel Fat One',cursive;font-size:2.5rem;color:#fff;}
+        .kid-portrait-initials{display:flex;align-items:center;justify-content:center;font-family:'Bagel Fat One',cursive;font-size:2.7rem;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.22);
+                background-image:radial-gradient(circle at 32% 26%,rgba(255,255,255,0.40),rgba(255,255,255,0) 58%),linear-gradient(150deg,rgba(255,255,255,0.10),rgba(0,0,0,0.20));}
+        .kid-card:hover .kid-portrait-initials{transform:scale(1.04);transition:transform 0.2s ease;}
         .kid-card-name{font-family:'Fredoka One',cursive;font-size:1.45rem;color:#1f2a20;margin-bottom:0.2rem;line-height:1.2;}
         .kid-card-place{font-size:0.95rem;font-weight:700;color:#8a938a;margin-bottom:0.8rem;}
         .kid-text{font-size:1.05rem;color:#3a423a;line-height:1.5;margin-bottom:0.8rem;}
@@ -222,25 +235,15 @@
     <section class="kids-section">
         <h2 class="kids-section-title">Say It Out Loud</h2>
         <p class="kids-section-sub">Read these out loud. Every one of them is true about you.</p>
-        <div class="affirm-grid">
-        <div class="affirm-card" style="background:#e63946">
-            <span class="affirm-text">I am beautifully made.</span>
+        
+        <div class="affirm-deck" id="affirmDeck" tabindex="0" role="button" aria-label="Tap the card for another good thing about you">
+            <div class="affirm-back affirm-back2"></div>
+            <div class="affirm-back affirm-back1"></div>
+            <div class="affirm-top" id="affirmTop" style="background:#e63946">
+                <span class="affirm-text" id="affirmText">I am beautifully made.</span>
+            </div>
         </div>
-        <div class="affirm-card" style="background:#f4a261">
-            <span class="affirm-text">I am brave, even when things are hard.</span>
-        </div>
-        <div class="affirm-card" style="background:#2a9d8f">
-            <span class="affirm-text">My skin is beautiful.</span>
-        </div>
-        <div class="affirm-card" style="background:#4d96ff">
-            <span class="affirm-text">I am part of a big world family.</span>
-        </div>
-        <div class="affirm-card" style="background:#b366ff">
-            <span class="affirm-text">I am proud of who I am.</span>
-        </div>
-        <div class="affirm-card" style="background:#2ec167">
-            <span class="affirm-text">I can do anything I work hard for.</span>
-        </div></div>
+        <p class="affirm-hint">Tap the card for another &#10024;</p>
     </section>
 
     <section class="kids-section">
@@ -248,21 +251,21 @@
         <p class="kids-section-sub">Brave people who show us how to stand tall.</p>
         <div class="kids-grid">
         <div class="kid-card">
-            <img class="kid-portrait" src="images/marcus-garvey.jpg" alt="Marcus Garvey" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#e63946;display:none">MG</div>
+            <img class="kid-portrait" src="images/marcus-garvey.jpg" alt="Marcus Garvey" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background-color:#e63946;display:none">MG</div>
             <h3 class="kid-card-name">Marcus Garvey</h3>
             <p class="kid-card-place">🇯🇲 Jamaica</p>
             <p class="kid-text">A man from Jamaica who told every Black child to stand tall and be proud.</p>
             <p class="kid-quote">&ldquo;Up, you mighty people. You can do what you will.&rdquo;</p>
         </div>
         <div class="kid-card">
-            <img class="kid-portrait" src="images/toussaint-louverture.jpg" alt="Toussaint Louverture" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#1d3557;display:none">TL</div>
+            <img class="kid-portrait" src="images/toussaint-louverture.jpg" alt="Toussaint Louverture" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background-color:#1d3557;display:none">TL</div>
             <h3 class="kid-card-name">Toussaint Louverture</h3>
             <p class="kid-card-place">🇭🇹 Haiti</p>
             <p class="kid-text">A brave leader who showed that you are never too small to do something big.</p>
             <p class="kid-quote">&ldquo;You can cut the tree, but the roots of freedom will grow again.&rdquo;</p>
         </div>
         <div class="kid-card">
-            <img class="kid-portrait" src="https://image.pollinations.ai/prompt/warm%20friendly%20children%27s%20book%20illustration%20portrait%20of%20Yaa%20Asantewaa%2C%20Black%20Ashanti%20queen%20mother%20from%20Ghana%20wearing%20colourful%20kente%20cloth%20and%20gold%20jewellery%2C%20strong%20and%20proud%20face%2C%20proud%20and%20dignified%2C%20colourful%2C%20soft%20lighting%2C%20head%20and%20shoulders%2C%20simple%20background?width=400&height=400&nologo=true&seed=7" alt="Yaa Asantewaa" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background:#2a9d8f;display:none">YA</div>
+            <img class="kid-portrait" src="images/yaa-asantewaa.jpg" alt="Yaa Asantewaa" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="kid-portrait kid-portrait-initials" style="background-color:#2a9d8f;display:none">YA</div>
             <h3 class="kid-card-name">Yaa Asantewaa</h3>
             <p class="kid-card-place">🇬🇭 Ghana</p>
             <p class="kid-text">A queen in Ghana who was brave and stood up tall for her people.</p>
@@ -361,6 +364,24 @@
 </footer>
 
 <script>
+    // Say It Out Loud — tap the deck to bring the next affirmation forward.
+    const AFFIRMS = [{"text": "I am beautifully made.", "color": "#e63946"}, {"text": "I am brave, even when things are hard.", "color": "#f4a261"}, {"text": "My skin is beautiful.", "color": "#2a9d8f"}, {"text": "I am part of a big world family.", "color": "#4d96ff"}, {"text": "I am proud of who I am.", "color": "#b366ff"}, {"text": "I can do anything I work hard for.", "color": "#2ec167"}];
+    (function(){
+        const deck=document.getElementById('affirmDeck');
+        const top=document.getElementById('affirmTop');
+        const txt=document.getElementById('affirmText');
+        if(!deck||!top||AFFIRMS.length<1) return;
+        let i=0, busy=false;
+        function paint(idx){ txt.textContent=AFFIRMS[idx].text; top.style.background=AFFIRMS[idx].color; }
+        function next(){
+            if(busy||AFFIRMS.length<2) return; busy=true;
+            top.classList.add('swap');
+            setTimeout(function(){ i=(i+1)%AFFIRMS.length; paint(i); top.classList.remove('swap'); setTimeout(function(){busy=false;},280); },280);
+        }
+        deck.addEventListener('click',next);
+        deck.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); next(); } });
+    })();
+
     // Quiz — built from the curated questions. No grading, no saving.
     const QUIZ = [{"q": "Where was Marcus Garvey born?", "options": ["Jamaica", "Canada", "Australia"], "answer": 0}, {"q": "Which country was the first where free Black people ruled themselves?", "options": ["Haiti", "Germany", "Japan"], "answer": 0}, {"q": "What does the word Akwaaba mean?", "options": ["goodbye", "welcome", "run"], "answer": 1}];
     const quizBox = document.getElementById('quiz');
