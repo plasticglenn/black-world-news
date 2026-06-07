@@ -339,6 +339,33 @@ def is_duplicate(story, archive):
 
 DIRECT_SOURCES = [
     {
+        # TRT Afrika — Turkey's public broadcaster, English Africa service.
+        # Non-Western continental coverage; not banned on major platforms.
+        "name":    "TRT Afrika",
+        "url":     "https://trtafrika.com/",
+        "base":    "https://trtafrika.com",
+        "link_selector": "a[href*='/article/'], h2 a, h3 a, article a",
+        "country": "Other/Global",
+    },
+    {
+        # Black Agenda Report — independent US outlet on Black politics worldwide.
+        # Strong on economic and structural framing.
+        "name":    "Black Agenda Report",
+        "url":     "https://www.blackagendareport.com/",
+        "base":    "https://www.blackagendareport.com",
+        "link_selector": ".views-row a, .view-content a, article a, h2 a, h3 a, .field-content a, .field--name-title a",
+        "country": "United States",
+    },
+    {
+        # Pambazuka News — long-running Pan-African social-justice publication.
+        # Independent; movements, land, debt, liberation history.
+        "name":    "Pambazuka News",
+        "url":     "https://www.pambazuka.org/",
+        "base":    "https://www.pambazuka.org",
+        "link_selector": "h2 a, h3 a, article a, .views-row a, .field-content a, .node-title a",
+        "country": "Other/Global",
+    },
+    {
         "name":    "GhanaWeb",
         "url":     "https://www.ghanaweb.com/GhanaHomePage/NewsArchive/",
         "base":    "https://www.ghanaweb.com",
