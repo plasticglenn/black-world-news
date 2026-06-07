@@ -2607,15 +2607,28 @@ def build_kids():
     for c in countries:
         color = c.get("color", "#1a3a2a")
         image = c.get("image", "")
-        banner = (
-            f'<img class="kid-place-img" src="{image}" alt="{c.get("name","")}" loading="lazy">'
-            if image else
-            f'<div class="kid-place-img kid-place-flag" style="background:{color}">{c.get("flag","")}</div>'
-        )
+        code  = c.get("code", "")
+        name  = c.get("name", "")
+        if image:
+            # An explicit photo banner takes priority if one is ever set.
+            banner = f'<img class="kid-place-img" src="{image}" alt="{name}" loading="lazy">'
+        elif code:
+            # Real flag image (renders on every device, unlike flag emoji). If the
+            # CDN ever fails, onerror falls back to the emoji inside the colour box.
+            banner = (
+                f'<div class="kid-place-img kid-place-flag" style="background-color:{color}">'
+                f'<img class="kid-flag-img" src="https://flagcdn.com/{code}.svg" '
+                f'alt="Flag of {name}" loading="lazy" '
+                f'onerror="this.style.display=\'none\';this.parentElement.classList.add(\'flag-fallback\')">'
+                f'<span class="flag-emoji">{c.get("flag","")}</span></div>'
+            )
+        else:
+            banner = f'<div class="kid-place-img kid-place-flag" style="background-color:{color}">{c.get("flag","")}</div>'
         country_cards += f"""
-        <div class="kid-card">
+        <div class="kid-card kid-place-card">
             {banner}
             <h3 class="kid-card-name">{c.get("flag","")} {c.get("name","")}</h3>
+            <span class="kid-place-accent" style="background-color:{color}"></span>
             <p class="kid-text">{c.get("little","")}</p>
             <p class="kid-oneline"><strong>Did you know?</strong> {c.get("oneThing","")}</p>
             <p class="kid-oneline"><strong>A word from here:</strong> {c.get("oneWord","")}</p>
@@ -2705,10 +2718,10 @@ def build_kids():
     <link rel="apple-touch-icon" href="favicon.svg">
     {PWA_META}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Fredoka+One&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
-        body{{background:#fff;color:#222;font-family:'Source Sans 3',sans-serif;font-size:18px;line-height:1.6;}}
+        body{{background:#fff;color:#283028;font-family:'Nunito',sans-serif;font-size:18px;line-height:1.6;font-weight:600;}}
         a{{color:inherit;text-decoration:none;}}
 
         /* Masthead — same green DNA as the rest of the site */
@@ -2733,13 +2746,14 @@ def build_kids():
         .kids-hero-title{{font-family:'Bagel Fat One',cursive;font-size:clamp(2.2rem,8vw,4.5rem);line-height:1.1;margin-bottom:0.5rem;}}
         .kids-hero-title .kids-letter{{filter:drop-shadow(0 3px 0 var(--deep)) drop-shadow(0 6px 8px rgba(0,0,0,0.2));}}
         .kids-hero-title .kids-space{{width:0.3em;}}
-        .kids-hero-sub{{font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;}}
+        .kids-hero-sub{{font-size:1.15rem;font-weight:700;color:#5e6b5e;line-height:1.5;max-width:600px;margin:0 auto;}}
 
         /* Layout */
         .kids-main{{max-width:1100px;margin:0 auto;padding:1rem 1.5rem 4rem;}}
-        .kids-section{{margin-top:3rem;}}
-        .kids-section-title{{font-family:'Fredoka One',cursive;font-size:1.8rem;color:#1a3a2a;margin-bottom:0.3rem;}}
-        .kids-section-sub{{font-size:1rem;color:#888;margin-bottom:1.5rem;}}
+        .kids-section{{margin-top:3.5rem;}}
+        .kids-section-title{{font-family:'Fredoka One',cursive;font-size:clamp(1.7rem,5vw,2.3rem);color:#1a3a2a;margin-bottom:0.2rem;text-align:center;line-height:1.15;}}
+        .kids-section-title::after{{content:"";display:block;width:64px;height:5px;border-radius:999px;background:linear-gradient(90deg,#e8602c,#ffd93d);margin:0.55rem auto 0;}}
+        .kids-section-sub{{font-size:1.05rem;font-weight:700;color:#9aa39a;text-align:center;max-width:560px;margin:0 auto 1.8rem;}}
         .kids-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}}
 
         /* BWN Kids launchpad — the two doors (Comics + Watch & Learn) */
@@ -2762,20 +2776,29 @@ def build_kids():
         .affirm-text{{font-family:'Fredoka One',cursive;font-size:1.4rem;line-height:1.3;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.18);}}
 
         /* Cards */
-        .kid-card{{background:#fff;border:2px solid #f0f0f0;border-radius:18px;padding:1.5rem;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.05);}}
+        .kid-card{{background:#fff;border:none;border-radius:22px;padding:1.5rem;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.08);transition:transform 0.2s ease,box-shadow 0.2s ease;}}
+        .kid-card:hover{{transform:translateY(-6px);box-shadow:0 18px 38px rgba(0,0,0,0.14);}}
         .kid-portrait{{width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 1rem;border:4px solid #fff;box-shadow:0 0 0 3px #1a3a2a;}}
         .kid-portrait-initials{{display:flex;align-items:center;justify-content:center;font-family:'Bagel Fat One',cursive;font-size:2.5rem;color:#fff;}}
-        .kid-card-name{{font-family:'Fredoka One',cursive;font-size:1.3rem;color:#222;margin-bottom:0.2rem;}}
-        .kid-card-place{{font-size:0.95rem;color:#777;margin-bottom:0.8rem;}}
-        .kid-text{{font-size:1.05rem;color:#333;margin-bottom:0.8rem;}}
+        .kid-card-name{{font-family:'Fredoka One',cursive;font-size:1.45rem;color:#1f2a20;margin-bottom:0.2rem;line-height:1.2;}}
+        .kid-card-place{{font-size:0.95rem;font-weight:700;color:#8a938a;margin-bottom:0.8rem;}}
+        .kid-text{{font-size:1.05rem;color:#3a423a;line-height:1.5;margin-bottom:0.8rem;}}
         .kid-facts{{text-align:left;margin:0 auto 0.8rem;max-width:90%;padding-left:1.2rem;color:#444;font-size:0.95rem;}}
         .kid-facts li{{margin-bottom:0.3rem;}}
         .kid-quote{{font-style:italic;color:#1a3a2a;font-weight:600;border-top:2px dashed #eee;padding-top:0.8rem;}}
         .kid-oneline{{font-size:0.95rem;color:#444;margin-top:0.5rem;}}
 
         /* Place cards */
-        .kid-place-img{{width:100%;height:140px;object-fit:cover;border-radius:14px;display:block;margin-bottom:1rem;}}
-        .kid-place-flag{{display:flex;align-items:center;justify-content:center;font-size:4rem;}}
+        .kid-place-img{{width:100%;height:150px;object-fit:cover;border-radius:16px;display:block;margin-bottom:1rem;}}
+        .kid-place-flag{{display:flex;align-items:center;justify-content:center;font-size:4rem;
+                background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,0.30),rgba(255,255,255,0) 55%),linear-gradient(150deg,rgba(255,255,255,0.12),rgba(0,0,0,0.16));}}
+        .kid-flag-img{{height:98px;width:auto;max-width:80%;border-radius:8px;border:3px solid #fff;
+                box-shadow:0 8px 18px rgba(0,0,0,0.32);transition:transform 0.2s ease;}}
+        .kid-card:hover .kid-flag-img{{transform:scale(1.06) rotate(-1.5deg);}}
+        .flag-emoji{{display:none;}}
+        .kid-place-flag.flag-fallback .flag-emoji{{display:block;}}
+        .kid-place-accent{{display:block;width:46px;height:5px;border-radius:999px;margin:0.1rem auto 0.7rem;}}
+        .kid-place-card .kid-oneline{{background:#f5f8f6;border-radius:14px;padding:0.55rem 0.9rem;margin-top:0.6rem;}}
 
         /* News cards */
         .kid-news-card{{background:#fffdf5;border:2px solid #ffe9a8;border-radius:18px;padding:1.5rem;}}
@@ -2797,7 +2820,7 @@ def build_kids():
         .quiz-q:last-child{{margin-bottom:0;}}
         .quiz-q-text{{font-family:'Fredoka One',cursive;font-size:1.2rem;margin-bottom:0.8rem;}}
         .quiz-options{{display:flex;flex-wrap:wrap;gap:0.6rem;}}
-        .quiz-opt{{font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:600;padding:0.6rem 1.2rem;border:2px solid #fff;background:transparent;color:#fff;border-radius:999px;cursor:pointer;transition:all 0.15s;}}
+        .quiz-opt{{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;padding:0.6rem 1.2rem;border:2px solid #fff;background:transparent;color:#fff;border-radius:999px;cursor:pointer;transition:all 0.15s;}}
         .quiz-opt:hover{{background:rgba(255,255,255,0.15);}}
         .quiz-opt.right{{background:#2ec167;border-color:#2ec167;}}
         .quiz-opt.wrong{{background:#e63946;border-color:#e63946;}}

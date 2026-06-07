@@ -2,6 +2,7 @@
   {
     "name": "Jamaica",
     "flag": "🇯🇲",
+    "code": "jm",
     "color": "#2ec167",
     "image": "",
     "little": "An island in the warm Caribbean Sea where reggae music was born.",
@@ -12,6 +13,7 @@
   {
     "name": "Haiti",
     "flag": "🇭🇹",
+    "code": "ht",
     "color": "#4d96ff",
     "image": "",
     "little": "The first country where free Black people ruled themselves.",
@@ -22,6 +24,7 @@
   {
     "name": "Ghana",
     "flag": "🇬🇭",
+    "code": "gh",
     "color": "#ffd93d",
     "image": "",
     "little": "A country in West Africa famous for gold and colourful cloth.",
