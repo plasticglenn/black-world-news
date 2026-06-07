@@ -8,6 +8,32 @@ Built with **Bubblewrap** (`@bubblewrap/cli`, already installed globally).
 
 ---
 
+## ✅ STATUS: BUILT — and how to rebuild in one click
+
+The app **is built and signed.** `app-release-bundle.aab` (v2: **no Play Billing, no geolocation**,
+version code 3) is at `D:\bwn-android\`. To make a new version later, **double-click
+`D:\bwn-android\rebuild.bat`** — it bakes in every fix below and only asks for the keystore
+password. Output: a fresh signed `app-release-bundle.aab` to upload to Play.
+
+### The working local-build recipe (what `rebuild.bat` does)
+Each of these was a separate wall during the first build; all are handled now:
+1. **Use Node 20, not 24.** Bubblewrap bundles `inquirer` 8, whose readline crashes on Node 24.
+   Portable Node 20 lives at `D:\node-v20.20.2-win-x64` and must go FIRST on PATH.
+2. **`.bat` files must be CRLF line-endings, ASCII, no BOM** — or cmd silently mangles them
+   (`'bubblewrap' is not recognized`). The Write tool emits LF; convert with PowerShell.
+3. **Clear `NoDefaultCurrentDirectoryInExePath`** (this machine has it = 1) or cmd can't find
+   `gradlew.bat` in its own folder (`'gradlew.bat' is not recognized`).
+4. **Cap Gradle memory: `org.gradle.jvmargs=-Xmx512m`** in `gradle.properties` — the default
+   1536m fails to reserve on this low-RAM machine. NOTE: `bubblewrap update` rewrites
+   gradle.properties back to 1536m, so re-apply -Xmx512m AFTER update, before build.
+5. **Put the JDK `bin` on PATH** so `jarsigner` is found — else the APK signs but the AAB doesn't
+   (`'jarsigner' is not recognized`). JDK: `C:\Users\glenn\.bubblewrap\jdk\jdk-17.0.11+9`.
+
+Keystore: `D:\bwn-android\android.keystore` (OUTSIDE this public repo). JDK 17 + Android SDK are
+installed under `C:\Users\glenn\.bubblewrap` (junctioned to the D: drive).
+
+---
+
 ## ⚠️ Why these steps are not automated
 
 Bubblewrap is **fully interactive** (it prompts for the JDK download, keystore passwords, etc.)
