@@ -2886,7 +2886,7 @@ def build_kids():
     </section>
 
     <section class="kids-section">
-        <h2 class="kids-section-title">Meet Someone Special</h2>
+        <h2 class="kids-section-title">Meet Our Leaders</h2>
         <p class="kids-section-sub">Brave people who show us how to stand tall.</p>
         <div class="kids-grid">{figure_cards}</div>
     </section>
