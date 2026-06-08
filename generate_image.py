@@ -46,14 +46,17 @@ KIDS_STYLE = ("warm friendly children's book illustration portrait of {p}, "
               "head and shoulders, simple background, no text, no words")
 
 
-def _cloudflare(prompt):
+def _cloudflare(prompt, seed=None):
     acct = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
     tok = os.environ.get("CLOUDFLARE_API_TOKEN")
     if not (acct and tok):
         return None
     url = (f"https://api.cloudflare.com/client/v4/accounts/{acct}"
            f"/ai/run/@cf/black-forest-labs/flux-1-schnell")
-    body = json.dumps({"prompt": prompt, "steps": 6}).encode()
+    payload = {"prompt": prompt, "steps": 8}
+    if seed is not None:
+        payload["seed"] = int(seed)
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(url, data=body, headers={
         "Authorization": f"Bearer {tok}", "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=120) as r:
@@ -62,13 +65,13 @@ def _cloudflare(prompt):
     return base64.b64decode(d["result"]["image"])
 
 
-def _openai(prompt):
+def _openai(prompt, seed=None):
     key = os.environ.get("OPENAI_API_KEY")
     if not key:
         return None
     url = "https://api.openai.com/v1/images/generations"
     body = json.dumps({"model": "gpt-image-1", "prompt": prompt,
-                       "size": "1024x1024", "n": 1}).encode()
+                       "size": "1024x1024", "n": 1}).encode()  # gpt-image-1 has no seed
     req = urllib.request.Request(url, data=body, headers={
         "Authorization": f"Bearer {key}", "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=180) as r:
@@ -76,12 +79,15 @@ def _openai(prompt):
     return base64.b64decode(d["data"][0]["b64_json"])
 
 
-def _huggingface(prompt):
+def _huggingface(prompt, seed=None):
     key = os.environ.get("HF_API_TOKEN") or os.environ.get("HUGGINGFACE_API_KEY")
     if not key:
         return None
     url = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell"
-    body = json.dumps({"inputs": prompt}).encode()
+    payload = {"inputs": prompt}
+    if seed is not None:
+        payload["parameters"] = {"seed": int(seed)}
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(url, data=body, headers={
         "Authorization": f"Bearer {key}", "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=180) as r:
@@ -112,15 +118,16 @@ def _square(im, size):
     return im.crop((l, t, l + s, t + s)).resize((size, size), Image.LANCZOS)
 
 
-def generate_image(prompt, out_path, kids=False, size=400):
+def generate_image(prompt, out_path, kids=False, size=400, seed=None):
     """Generate an image for `prompt` and save it to `out_path`. Returns the path,
-    or None if no provider key is set. Raises on a provider/network error."""
+    or None if no provider key is set. Raises on a provider/network error.
+    `seed` (int) makes a roll reproducible on providers that support it (Cloudflare/HF)."""
     name, fn = available_provider()
     if not fn:
         return None
     final_prompt = KIDS_STYLE.format(p=prompt) if kids else prompt
-    print(f"[generate_image] provider={name}")
-    data = fn(final_prompt)
+    print(f"[generate_image] provider={name}" + (f" seed={seed}" if seed is not None else ""))
+    data = fn(final_prompt, seed=seed)
     if not data:
         return None
     if Image is not None:
@@ -150,6 +157,11 @@ def _main(argv):
         i = args.index("--provider")
         os.environ["IMAGE_PROVIDER"] = args[i + 1]
         del args[i:i + 2]
+    seed = None
+    if "--seed" in args:
+        i = args.index("--seed")
+        seed = int(args[i + 1])
+        del args[i:i + 2]
     if len(args) < 2:
         print(__doc__)
         return 2
@@ -161,7 +173,7 @@ def _main(argv):
               "See the header of this file.")
         return 1
     try:
-        generate_image(prompt, out_path, kids=kids, size=size)
+        generate_image(prompt, out_path, kids=kids, size=size, seed=seed)
         return 0
     except urllib.error.HTTPError as e:
         print(f"Provider error {e.code}: {e.read()[:300]}")
