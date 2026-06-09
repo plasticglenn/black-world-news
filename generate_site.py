@@ -500,6 +500,110 @@ def factor_tags(factors):
     return f'<div class="factors">{tags}</div>' if tags else ""
 
 
+def country_label(country):
+    # Clean location tag. Hide the ugly "Other/Global" tag entirely, and never fall
+    # back to a globe emoji for unknown countries — just omit it.
+    if not country or country == "Other/Global":
+        return ""
+    flag = COUNTRY_FLAGS.get(country, "")
+    return f'<span class="flag-country">{(flag + " " + country).strip()}</span>'
+
+
+# Domains/titles that shouldn't headline the homepage (low-signal noise).
+_JUNK_DOMAINS = ("youtube.com", "youtu.be", "wikipedia.org", "linkedin.com", "reddit.com", "tiktok.com")
+_JUNK_TITLE = ("reaction", "- youtube", "wikipedia", "official trailer", " trailer", "watch online")
+# Words too common across this site to be useful for de-duplicating topics.
+_TOPIC_STOP = {
+    "the","and","for","with","from","that","this","what","could","amid","face","faces","over",
+    "into","your","their","about","after","more","than","will","have","has","are","was","were",
+    "new","news","say","says","how","why","who","its","but","not","out","off","one","two",
+    "africa","african","black","south","north","people","global","country","countries","nation",
+    "nations","world","amp",
+}
+
+
+def is_low_quality(story):
+    u = (story.get("url") or "").lower()
+    t = (story.get("title_en") or story.get("title") or "").lower()
+    if any(d in u for d in _JUNK_DOMAINS):
+        return True
+    if any(j in t for j in _JUNK_TITLE):
+        return True
+    return False
+
+
+def _topic_sig(story):
+    import re
+    t = (display_title(story, "en") or "").lower()
+    words = [w for w in re.findall(r"[a-z]+", t) if len(w) >= 3 and w not in _TOPIC_STOP]
+    return set(words[:6])
+
+
+def diverse_latest(stories, n=6):
+    # Pick the newest stories but keep them VARIED: skip near-duplicate topics
+    # (e.g. a run of IMF/World Bank pieces), cap 2 per category, drop junk.
+    picked, sigs, cat = [], [], defaultdict(int)
+    for s in stories:
+        if is_low_quality(s):
+            continue
+        sig = _topic_sig(s)
+        if any(len(sig & ps) >= 2 for ps in sigs):   # shares 2+ key words with one already shown
+            continue
+        c = s.get("category", "")
+        if cat[c] >= 2:
+            continue
+        picked.append(s); sigs.append(sig); cat[c] += 1
+        if len(picked) >= n:
+            return picked
+    # backfill if variety rules left us short
+    for s in stories:
+        if s not in picked and not is_low_quality(s):
+            picked.append(s)
+            if len(picked) >= n:
+                break
+    return picked
+
+
+_ENT_KW = ("music", "album", "song", "mixtape", "concert", "festival", "reggae", "dancehall",
+           "afrobeat", "amapiano", "singer", "rapper", "artist", "band", "film", "movie", "cinema",
+           "nollywood", "actor", "actress", "series", "premiere", "award", "grammy", "carnival",
+           "sumfest", "theatre", "comedy", "fashion", "dj ", "soundtrack")
+
+
+def _is_entertainment(story):
+    t = ((story.get("title_en") or story.get("title") or "") + " " + (story.get("summary") or "")).lower()
+    return any(k in t for k in _ENT_KW)
+
+
+def pick_entertainment(stories, n=3):
+    # Newest real entertainment (music/film/arts) Culture stories for the homepage:
+    # must have an image, not be junk, varied in topic. Falls back to general Culture
+    # if there isn't enough true entertainment.
+    import re as _re
+    def gather(pred):
+        out, sigs = [], []
+        for s in stories:
+            if s.get("category") != "Culture" or not s.get("image") or is_low_quality(s):
+                continue
+            title = (s.get("title_en") or s.get("title") or "")
+            # skip opinion columns / serialised op-eds (", By Author", "(9)")
+            if ", by " in title.lower() or _re.search(r"\(\d+\)", title):
+                continue
+            if not pred(s):
+                continue
+            sig = _topic_sig(s)
+            if any(len(sig & ps) >= 2 for ps in sigs):
+                continue
+            out.append(s); sigs.append(sig)
+            if len(out) >= n:
+                break
+        return out
+
+    # Only genuine entertainment — better to show fewer real ones than pad with
+    # off-topic Culture pieces (history columns, op-eds).
+    return gather(_is_entertainment)[:n]
+
+
 def story_card(story, featured=False, archive=False, cache=None, used_images=None):
     title   = display_title(story, "en")
     url     = story.get("url", "#")
@@ -520,7 +624,7 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
         return f"""
     <div class="card archive-card">
         <div class="card-meta">
-            <span class="flag-country">{flag} {country}</span>
+            {country_label(country)}
             <span class="category">{cat}</span>
             {framing_badge(framing)}
         </div>
@@ -544,7 +648,7 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
     <div class="{card_class}">
         {img_html}
         <div class="card-meta">
-            <span class="flag-country">{flag} {country}</span>
+            {country_label(country)}
             <span class="category">{cat}</span>
             {framing_badge(framing)}
             {explicit_tag}
@@ -611,7 +715,10 @@ def build_html(stories, cache):
             stories[0] if stories else None
         )
     remaining = [s for s in stories if s is not featured]
-    latest = remaining[:6]
+    latest = diverse_latest(remaining, 6)
+
+    # Entertainment & Culture pick for the homepage — newest decent Culture story.
+    entertainment = pick_entertainment([s for s in remaining if s not in latest]) or pick_entertainment(remaining)
 
     # Group by country
     by_country = defaultdict(list)
@@ -659,7 +766,7 @@ def build_html(stories, cache):
         <section class="hero">
             <div class="hero-text">
                 <div class="card-meta">
-                    <span class="flag-country">{hero_flag} {featured.get("country","")}</span>
+                    {country_label(featured.get("country",""))}
                     <span class="category">{featured.get("category","")}</span>
                     {framing_badge(featured.get("narrative_framing",""))}
                 </div>
@@ -679,6 +786,16 @@ def build_html(stories, cache):
 
     # Build latest grid
     latest_html = "".join(story_card(s, cache=cache, used_images=used_images) for s in latest)
+
+    # Entertainment & Culture homepage row
+    entertainment_html = ""
+    if entertainment:
+        ent_cards = "".join(story_card(s, cache=cache, used_images=used_images) for s in entertainment)
+        entertainment_html = f'''
+    <div class="container">
+        <p class="section-label">Entertainment &amp; Culture</p>
+        <div class="card-grid">{ent_cards}</div>
+    </div>'''
 
     # Regional teasers — one featured story per region, link to region page
     # Homepage stops here. No more long archive.
@@ -1891,6 +2008,9 @@ def build_html(stories, cache):
         <p class="section-label">Latest</p>
         <div class="card-grid">{latest_html}</div>
     </div>
+
+    <!-- ENTERTAINMENT & CULTURE -->
+    {entertainment_html}
 
     <!-- FOR THE CHILDREN — portal door -->
     <a href="kids.html" class="kids-portal" aria-label="For the Children">
@@ -3436,7 +3556,9 @@ def build_search_page():
     }}
 
     function cardHtml(s) {{
-        const flag     = FLAGS[s.country] || '🌍';
+        const isGlobal = !s.country || s.country === 'Other/Global';
+        const flag     = FLAGS[s.country] || '';
+        const loc      = isGlobal ? '' : `<span class="flag-country">${{(flag + ' ' + escapeHtml(s.country)).trim()}}</span>`;
         const fcolor   = FRAMING[s.narrative_framing] || '';
         const dot      = fcolor ? `<span class="framing-dot" style="background:${{fcolor}}" title="${{escapeHtml(s.narrative_framing)}}"></span>` : '';
         // Use English title and summary; fall back to original
@@ -3447,7 +3569,7 @@ def build_search_page():
             <div class="card">
                 ${{img}}
                 <div class="card-meta">
-                    <span class="flag-country">${{flag}} ${{escapeHtml(s.country)}}</span>
+                    ${{loc}}
                     <span class="category">${{escapeHtml(s.category)}}</span>
                     ${{dot}}
                 </div>

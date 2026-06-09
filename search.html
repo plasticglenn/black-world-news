@@ -239,7 +239,9 @@
     }
 
     function cardHtml(s) {
-        const flag     = FLAGS[s.country] || '🌍';
+        const isGlobal = !s.country || s.country === 'Other/Global';
+        const flag     = FLAGS[s.country] || '';
+        const loc      = isGlobal ? '' : `<span class="flag-country">${(flag + ' ' + escapeHtml(s.country)).trim()}</span>`;
         const fcolor   = FRAMING[s.narrative_framing] || '';
         const dot      = fcolor ? `<span class="framing-dot" style="background:${fcolor}" title="${escapeHtml(s.narrative_framing)}"></span>` : '';
         // Use English title and summary; fall back to original
@@ -250,7 +252,7 @@
             <div class="card">
                 ${img}
                 <div class="card-meta">
-                    <span class="flag-country">${flag} ${escapeHtml(s.country)}</span>
+                    ${loc}
                     <span class="category">${escapeHtml(s.category)}</span>
                     ${dot}
                 </div>
