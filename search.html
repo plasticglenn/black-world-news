@@ -121,6 +121,7 @@
         .card-meta{display:flex;flex-wrap:wrap;align-items:center;gap:0.4rem;margin-bottom:0.4rem;}
         .flag-country{font-size:0.78rem;color:#1a3a2a;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}
         .category{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;background:#eef4f0;border:1px solid #c5daca;padding:0.15rem 0.5rem;color:#1a3a2a;font-weight:600;}
+        .theme-tag{font-size:0.64rem;text-transform:uppercase;letter-spacing:0.07em;background:#1a3a2a;color:#fff;padding:0.2rem 0.6rem;border-radius:999px;font-weight:700;}
         .framing-dot{display:inline-block;width:8px;height:8px;border-radius:50%;}
         .card-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#111;margin-bottom:0.35rem;line-height:1.3;}
         .card-title a:hover{color:#1a3a2a;}
@@ -194,6 +195,14 @@
     const FRAMING  = {"Criminal": "#e74c3c", "Victim": "#e67e22", "Statistic": "#7f8c8d", "Human": "#27ae60", "Resistant": "#2980b9", "Exploited": "#f39c12"};
     const REGIONS  = {"namerica": ["United States", "Canada"], "caribbean": ["Caribbean"], "samerica": ["Brazil", "Colombia"], "africa": ["Ghana", "Nigeria", "Kenya", "South Africa", "Senegal", "Mali", "Cameroon", "Niger", "Ivory Coast", "Burkina Faso", "Zimbabwe", "Other/Global"], "europe": ["United Kingdom", "France", "Germany"], "asia": ["Australia", "India", "China", "Japan"]};
     const TOPICS   = {"economics": ["Employment", "Housing", "Other"], "health": ["Healthcare"], "education": ["Education"], "politics": ["Politics", "Immigration"], "culture": ["Culture"], "policing": ["Policing", "Hate Crime"]};
+    const THEME_PATTERNS = [["Sport", "\\b(football|soccer|fifa|olympic|olympics|athletics|boxing|cricket|basketball|nba|afcon|world\\ cup|marathon|sprinter|striker|goalkeeper|tournament|medal)\\b"], ["Land & Resources", "\\b(mining|mine|miner|oil|gas|cobalt|lithium|gold|diamond|diamonds|farmland|farmer|farming|agriculture|resource|resources|extraction|drilling|pipeline|timber|deforestation|fishing|cocoa|copper)\\b"], ["Policing & Justice", "\\b(police|policing|officer|prison|prisons|jail|court|courts|arrest|arrested|trial|verdict|sentenced|murder|murdered|killed|killing|shooting|crime|criminal|justice|brutality|hate\\ crime|racism|racist|lynching)\\b"], ["Migration", "\\b(migrant|migrants|migration|immigration|immigrant|refugee|refugees|asylum|border|borders|windrush|deport|deported|deportation|visa|visas)\\b"], ["Health", "\\b(health|hospital|hospitals|disease|virus|ebola|malaria|hiv|cholera|pandemic|epidemic|vaccine|clinic|mortality|outbreak|mental\\ health|maternal|medicine)\\b"], ["Education", "\\b(school|schools|student|students|university|universities|education|teacher|teachers|college|pupil|pupils|scholarship|curriculum|classroom|literacy)\\b"], ["Climate", "\\b(climate|environment|environmental|flood|flooding|cyclone|hurricane|drought|emission|emissions|carbon|wildfire|conservation|biodiversity|pollution|global\\ warming)\\b"], ["Culture & Arts", "\\b(music|musician|album|song|mixtape|concert|festival|reggae|afrobeat|afrobeats|amapiano|dancehall|rapper|singer|artist|band|film|movie|cinema|nollywood|actor|actress|premiere|grammy|carnival|theatre|comedy|fashion|museum|heritage|novel|gospel|church|religion)\\b"], ["Economy & Debt", "\\b(imf|world\\ bank|debt|debts|loan|loans|gdp|inflation|currency|cfa|franc|trade|tariff|tariffs|investment|investors|economy|economic|jobs|unemployment|employment|wage|wages|bank|banking|finance|financial|budget|poverty|recession|exports|imports|development\\ bank)\\b"], ["Tech & Media", "\\b(technology|tech|startup|startups|internet|digital|software|smartphone|artificial\\ intelligence|social\\ media|journalist|journalism|press\\ freedom|broadcaster|podcast|streaming|cyber)\\b"], ["Politics & Power", "\\b(election|elections|president|government|minister|ministers|parliament|coup|war|conflict|protest|protests|sanction|sanctions|diplomat|diplomatic|policy|vote|voting|voters|leader|leaders|military|summit|democracy|regime|governance|treaty|ambassador|opposition|rebels|militia|human\\ rights)\\b"]];
+    const CAT_THEME = {"Employment": "Economy & Debt", "Housing": "Economy & Debt", "Economy": "Economy & Debt", "Healthcare": "Health", "Education": "Education", "Politics": "Politics & Power", "Immigration": "Migration", "Culture": "Culture & Arts", "Policing": "Policing & Justice", "Hate Crime": "Policing & Justice", "Media Bias": "Tech & Media", "Demographics": "Politics & Power"};
+    const _THEME_RE = THEME_PATTERNS.map(function(p){ return [p[0], new RegExp(p[1], 'i')]; });
+    function deriveTheme(s){
+        const text = ((s.title_en||s.title||'') + ' ' + (s.summary||'')).toLowerCase();
+        for (let i=0;i<_THEME_RE.length;i++){ if (_THEME_RE[i][1].test(text)) return _THEME_RE[i][0]; }
+        return CAT_THEME[s.category] || 'World';
+    }
 
     let allStories = [];
     let filters = { q: '', topic: new Set(), region: new Set(), framing: new Set() };
@@ -252,8 +261,8 @@
             <div class="card">
                 ${img}
                 <div class="card-meta">
+                    <span class="theme-tag">${escapeHtml(deriveTheme(s))}</span>
                     ${loc}
-                    <span class="category">${escapeHtml(s.category)}</span>
                     ${dot}
                 </div>
                 <h2 class="card-title"><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(title)}</a></h2>

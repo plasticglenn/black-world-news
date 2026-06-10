@@ -509,6 +509,86 @@ def country_label(country):
     return f'<span class="flag-country">{(flag + " " + country).strip()}</span>'
 
 
+# === Theme-first labels ===================================================
+# Every story gets ONE meaningful Theme (no "Other", no "Other/Global"). The
+# theme is derived at build time from the title/summary keywords, falling back
+# to a map of the existing category. The same config is serialised into the
+# search page so the client-side cards stay in sync (single source of truth).
+import re as _re_themes
+
+_CAT_THEME = {
+    "Employment": "Economy & Debt", "Housing": "Economy & Debt", "Economy": "Economy & Debt",
+    "Healthcare": "Health", "Education": "Education", "Politics": "Politics & Power",
+    "Immigration": "Migration", "Culture": "Culture & Arts", "Policing": "Policing & Justice",
+    "Hate Crime": "Policing & Justice", "Media Bias": "Tech & Media", "Demographics": "Politics & Power",
+}
+
+# Ordered most-distinctive first so generic themes (Politics/Economy) act as catch-alls.
+_THEME_KEYWORDS = [
+    ("Sport", ["football", "soccer", "fifa", "olympic", "olympics", "athletics", "boxing", "cricket",
+               "basketball", "nba", "afcon", "world cup", "marathon", "sprinter", "striker",
+               "goalkeeper", "tournament", "medal"]),
+    ("Land & Resources", ["mining", "mine", "miner", "oil", "gas", "cobalt", "lithium", "gold",
+                          "diamond", "diamonds", "farmland", "farmer", "farming", "agriculture",
+                          "resource", "resources", "extraction", "drilling", "pipeline", "timber",
+                          "deforestation", "fishing", "cocoa", "copper"]),
+    ("Policing & Justice", ["police", "policing", "officer", "prison", "prisons", "jail", "court",
+                           "courts", "arrest", "arrested", "trial", "verdict", "sentenced", "murder",
+                           "murdered", "killed", "killing", "shooting", "crime", "criminal", "justice",
+                           "brutality", "hate crime", "racism", "racist", "lynching"]),
+    ("Migration", ["migrant", "migrants", "migration", "immigration", "immigrant", "refugee",
+                   "refugees", "asylum", "border", "borders", "windrush", "deport", "deported",
+                   "deportation", "visa", "visas"]),
+    ("Health", ["health", "hospital", "hospitals", "disease", "virus", "ebola", "malaria", "hiv",
+                "cholera", "pandemic", "epidemic", "vaccine", "clinic", "mortality", "outbreak",
+                "mental health", "maternal", "medicine"]),
+    ("Education", ["school", "schools", "student", "students", "university", "universities",
+                   "education", "teacher", "teachers", "college", "pupil", "pupils", "scholarship",
+                   "curriculum", "classroom", "literacy"]),
+    ("Climate", ["climate", "environment", "environmental", "flood", "flooding", "cyclone",
+                 "hurricane", "drought", "emission", "emissions", "carbon", "wildfire",
+                 "conservation", "biodiversity", "pollution", "global warming"]),
+    ("Culture & Arts", ["music", "musician", "album", "song", "mixtape", "concert", "festival",
+                        "reggae", "afrobeat", "afrobeats", "amapiano", "dancehall", "rapper",
+                        "singer", "artist", "band", "film", "movie", "cinema", "nollywood", "actor",
+                        "actress", "premiere", "grammy", "carnival", "theatre", "comedy", "fashion",
+                        "museum", "heritage", "novel", "gospel", "church", "religion"]),
+    ("Economy & Debt", ["imf", "world bank", "debt", "debts", "loan", "loans", "gdp", "inflation",
+                        "currency", "cfa", "franc", "trade", "tariff", "tariffs", "investment",
+                        "investors", "economy", "economic", "jobs", "unemployment", "employment",
+                        "wage", "wages", "bank", "banking", "finance", "financial", "budget",
+                        "poverty", "recession", "exports", "imports", "development bank"]),
+    ("Tech & Media", ["technology", "tech", "startup", "startups", "internet", "digital", "software",
+                      "smartphone", "artificial intelligence", "social media", "journalist",
+                      "journalism", "press freedom", "broadcaster", "podcast", "streaming", "cyber"]),
+    ("Politics & Power", ["election", "elections", "president", "government", "minister", "ministers",
+                         "parliament", "coup", "war", "conflict", "protest", "protests", "sanction",
+                         "sanctions", "diplomat", "diplomatic", "policy", "vote", "voting", "voters",
+                         "leader", "leaders", "military", "summit", "democracy", "regime",
+                         "governance", "treaty", "ambassador", "opposition", "rebels", "militia",
+                         "human rights"]),
+]
+
+# Precompute patterns once — reused server-side and shipped to the search page.
+_THEME_PATTERNS = [
+    (theme, r"\b(" + "|".join(_re_themes.escape(k) for k in kws) + r")\b")
+    for theme, kws in _THEME_KEYWORDS
+]
+_THEME_RULES = [(theme, _re_themes.compile(pat)) for theme, pat in _THEME_PATTERNS]
+
+
+def derive_theme(story):
+    text = ((display_title(story, "en") or "") + " " + (display_summary(story, "en") or "")).lower()
+    for theme, pat in _THEME_RULES:
+        if pat.search(text):
+            return theme
+    return _CAT_THEME.get(story.get("category", ""), "World")
+
+
+def theme_tag(story):
+    return f'<span class="theme-tag">{derive_theme(story)}</span>'
+
+
 # Domains/titles that shouldn't headline the homepage (low-signal noise).
 _JUNK_DOMAINS = ("youtube.com", "youtu.be", "wikipedia.org", "linkedin.com", "reddit.com", "tiktok.com")
 _JUNK_TITLE = ("reaction", "- youtube", "wikipedia", "official trailer", " trailer", "watch online")
@@ -556,7 +636,7 @@ def diverse_latest(stories, n=6):
         sig = _topic_sig(s)
         if any(len(sig & ps) >= 2 for ps in sigs):   # shares 2+ key words with one already shown
             continue
-        c = s.get("category", "")
+        c = derive_theme(s)                           # cap by the VISIBLE theme, not raw category
         if cat[c] >= 2:
             continue
         picked.append(s); sigs.append(sig); cat[c] += 1
@@ -630,8 +710,8 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
         return f"""
     <div class="card archive-card">
         <div class="card-meta">
+            {theme_tag(story)}
             {country_label(country)}
-            <span class="category">{cat}</span>
             {framing_badge(framing)}
         </div>
         <h2 class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>
@@ -654,8 +734,8 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
     <div class="{card_class}">
         {img_html}
         <div class="card-meta">
+            {theme_tag(story)}
             {country_label(country)}
-            <span class="category">{cat}</span>
             {framing_badge(framing)}
             {explicit_tag}
         </div>
@@ -772,8 +852,8 @@ def build_html(stories, cache):
         <section class="hero">
             <div class="hero-text">
                 <div class="card-meta">
+                    {theme_tag(featured)}
                     {country_label(featured.get("country",""))}
-                    <span class="category">{featured.get("category","")}</span>
                     {framing_badge(featured.get("narrative_framing",""))}
                 </div>
                 <h2 class="hero-title"><a href="{featured.get("url","#")}" target="_blank" rel="noopener">{hero_title}</a></h2>
@@ -1326,6 +1406,17 @@ def build_html(stories, cache):
             padding: 0.15rem 0.5rem;
             color: #1a3a2a;
             font-weight: 600;
+        }}
+
+        .theme-tag {{
+            font-size: 0.66rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            background: #1a3a2a;
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-weight: 700;
         }}
 
         /* Framing shown as a small coloured dot — subtle, not a label */
@@ -3167,6 +3258,7 @@ def build_region_page(region_id, region, all_stories, cache):
         .card-meta {{ display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem; margin-bottom:0.75rem; }}
         .flag-country {{ font-size:0.8rem; color:{color}; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; }}
         .category {{ font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; background:#f5f5f5; border:1px solid #ddd; padding:0.15rem 0.5rem; color:#555; font-weight:600; }}
+        .theme-tag {{ font-size:0.66rem; text-transform:uppercase; letter-spacing:0.07em; background:#1a3a2a; color:#fff; padding:0.2rem 0.6rem; border-radius:999px; font-weight:700; }}
         .framing-dot {{ display:inline-block; width:8px; height:8px; border-radius:50%; vertical-align:middle; cursor:default; }}
         .card-title {{ font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#111; margin-bottom:0.5rem; line-height:1.3; }}
         .card-title a:hover {{ color:{color}; }}
@@ -3320,6 +3412,7 @@ def build_issue_page(issue_id, issue, all_stories, cache):
         .card-meta{{display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;margin-bottom:0.75rem;}}
         .flag-country{{font-size:0.8rem;color:{color};font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}}
         .category{{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;background:#f5f5f5;border:1px solid #ddd;padding:0.15rem 0.5rem;color:#555;font-weight:600;}}
+        .theme-tag{{font-size:0.66rem;text-transform:uppercase;letter-spacing:0.07em;background:#1a3a2a;color:#fff;padding:0.2rem 0.6rem;border-radius:999px;font-weight:700;}}
         .framing-dot{{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;cursor:default;}}
         .card-title{{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#111;margin-bottom:0.5rem;line-height:1.3;}}
         .card-title a:hover{{color:{color};}}
@@ -3371,6 +3464,8 @@ def build_search_page():
     framing_json = json.dumps(FRAMING_COLORS)
     regions_json = json.dumps({k: v["countries"] for k, v in REGION_GROUPS.items()})
     topics_json  = json.dumps({k: v["categories"] for k, v in ISSUE_GROUPS.items()})
+    themes_json  = json.dumps(_THEME_PATTERNS)   # [[theme, regex], ...] — same config as server
+    cat_theme_json = json.dumps(_CAT_THEME)
 
     topic_chips = "".join(
         f'<button class="chip" data-group="topic" data-value="{k}">{v["label"]}</button>'
@@ -3444,6 +3539,7 @@ def build_search_page():
         .card-meta{{display:flex;flex-wrap:wrap;align-items:center;gap:0.4rem;margin-bottom:0.4rem;}}
         .flag-country{{font-size:0.78rem;color:#1a3a2a;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}}
         .category{{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;background:#eef4f0;border:1px solid #c5daca;padding:0.15rem 0.5rem;color:#1a3a2a;font-weight:600;}}
+        .theme-tag{{font-size:0.64rem;text-transform:uppercase;letter-spacing:0.07em;background:#1a3a2a;color:#fff;padding:0.2rem 0.6rem;border-radius:999px;font-weight:700;}}
         .framing-dot{{display:inline-block;width:8px;height:8px;border-radius:50%;}}
         .card-title{{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#111;margin-bottom:0.35rem;line-height:1.3;}}
         .card-title a:hover{{color:#1a3a2a;}}
@@ -3517,6 +3613,14 @@ def build_search_page():
     const FRAMING  = {framing_json};
     const REGIONS  = {regions_json};
     const TOPICS   = {topics_json};
+    const THEME_PATTERNS = {themes_json};
+    const CAT_THEME = {cat_theme_json};
+    const _THEME_RE = THEME_PATTERNS.map(function(p){{ return [p[0], new RegExp(p[1], 'i')]; }});
+    function deriveTheme(s){{
+        const text = ((s.title_en||s.title||'') + ' ' + (s.summary||'')).toLowerCase();
+        for (let i=0;i<_THEME_RE.length;i++){{ if (_THEME_RE[i][1].test(text)) return _THEME_RE[i][0]; }}
+        return CAT_THEME[s.category] || 'World';
+    }}
 
     let allStories = [];
     let filters = {{ q: '', topic: new Set(), region: new Set(), framing: new Set() }};
@@ -3575,8 +3679,8 @@ def build_search_page():
             <div class="card">
                 ${{img}}
                 <div class="card-meta">
+                    <span class="theme-tag">${{escapeHtml(deriveTheme(s))}}</span>
                     ${{loc}}
-                    <span class="category">${{escapeHtml(s.category)}}</span>
                     ${{dot}}
                 </div>
                 <h2 class="card-title"><a href="${{escapeHtml(s.url)}}" target="_blank" rel="noopener">${{escapeHtml(title)}}</a></h2>
