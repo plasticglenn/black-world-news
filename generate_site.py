@@ -517,7 +517,7 @@ def country_label(country):
 import re as _re_themes
 
 _CAT_THEME = {
-    "Employment": "Economy & Debt", "Housing": "Economy & Debt", "Economy": "Economy & Debt",
+    "Employment": "Economy", "Housing": "Economy", "Economy": "Economy",
     "Healthcare": "Health", "Education": "Education", "Politics": "Politics & Power",
     "Immigration": "Migration", "Culture": "Culture & Arts", "Policing": "Babylon",
     "Hate Crime": "Babylon", "Media Bias": "Tech & Media", "Demographics": "Politics & Power",
@@ -553,11 +553,18 @@ _THEME_KEYWORDS = [
                         "singer", "artist", "band", "film", "movie", "cinema", "nollywood", "actor",
                         "actress", "premiere", "grammy", "carnival", "theatre", "comedy", "fashion",
                         "museum", "heritage", "novel", "gospel", "church", "religion"]),
-    ("Economy & Debt", ["imf", "world bank", "debt", "debts", "loan", "loans", "gdp", "inflation",
-                        "currency", "cfa", "franc", "trade", "tariff", "tariffs", "investment",
-                        "investors", "economy", "economic", "jobs", "unemployment", "employment",
-                        "wage", "wages", "bank", "banking", "finance", "financial", "budget",
-                        "poverty", "recession", "exports", "imports", "development bank"]),
+    # Debt Trap — the debt-as-control mechanism (Walter Rodney lens). Checked BEFORE
+    # Economy so debt/IMF/World-Bank stories carry this label, not generic "Economy".
+    ("Debt Trap", ["imf", "world bank", "debt", "debts", "loan", "loans", "creditor", "creditors",
+                   "repayment", "repayments", "default", "bailout", "austerity",
+                   "structural adjustment", "debt relief", "debt servicing", "debt distress",
+                   "eurobond", "bondholders", "conditionalities", "balance of payments",
+                   "development bank", "odious debt", "indebted"]),
+    ("Economy", ["gdp", "inflation", "currency", "cfa", "franc", "trade", "tariff", "tariffs",
+                 "investment", "investors", "economy", "economic", "jobs", "unemployment",
+                 "employment", "wage", "wages", "bank", "banking", "finance", "financial",
+                 "budget", "poverty", "recession", "exports", "imports", "business", "market",
+                 "growth"]),
     ("Tech & Media", ["technology", "tech", "startup", "startups", "internet", "digital", "software",
                       "smartphone", "artificial intelligence", "social media", "journalist",
                       "journalism", "press freedom", "broadcaster", "podcast", "streaming", "cyber"]),
