@@ -241,6 +241,22 @@
             padding: 0.1rem 0.5rem;
             font-size: 0.7rem;
         }
+        /* date labels read as plain text, not boxed like the LIVE chip */
+        .breaking-bar .date-full, .breaking-bar .date-today {
+            background: none; color: #fff; padding: 0; font-size: inherit; letter-spacing: inherit;
+        }
+        .date-today { display: none; }
+
+        /* WORLD CUP TICKER — slim scrolling bar, self-hides off-season */
+        .wc-ticker { background:#0a0a0a; overflow:hidden; white-space:nowrap; border-bottom:2px solid #1a3a2a; }
+        .wc-track { display:inline-block; padding:0.4rem 0; animation:wcscroll 60s linear infinite; will-change:transform; }
+        .wc-ticker:hover .wc-track { animation-play-state:paused; }
+        .wc-item { color:#fff; font-size:0.8rem; font-weight:600; padding:0 0.55rem; letter-spacing:0.02em; }
+        .wc-item b { color:#ffd93d; }
+        .wc-item i { color:#8ab89a; font-style:normal; font-size:0.72rem; }
+        .wc-sep { color:#555; padding:0 0.2rem; }
+        .wc-label { background:#e8602c; color:#fff; font-weight:800; font-size:0.7rem; padding:0.15rem 0.6rem; border-radius:3px; margin:0 0.9rem; letter-spacing:0.08em; }
+        @keyframes wcscroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 
         /* LAYOUT */
         .container {
@@ -1041,6 +1057,9 @@
             /* HIDE desktop nav, show bottom app nav */
             .site-nav { display: none; }
             .breaking-bar { font-size: 0.68rem; padding: 0.35rem 0.75rem; }
+            /* Mobile: drop the long date, just say "today" */
+            .date-full { display: none; }
+            .date-today { display: inline; }
 
             /* BOTTOM TAB BAR */
             body { padding-bottom: 60px; }
@@ -1202,12 +1221,13 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: June 10, 2026 — 09:09 &nbsp;|&nbsp; 2382 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: June 10, 2026 — 09:20 &nbsp;|&nbsp; 2382 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="index.html" class="nav-issue">Home</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="politics.html" class="nav-issue">Politics</a><a href="culture.html" class="nav-issue">Culture</a><a href="policing.html" class="nav-issue">Policing</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="namerica.html" class="nav-region">N. America</a><a href="caribbean.html" class="nav-region">Caribbean</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date" class="date-full"></span><span class="date-today">today</span></div>
+<div class="wc-ticker" id="wcTicker" hidden><div class="wc-track" id="wcTrack"></div></div>
 
 <main>
 
@@ -1417,6 +1437,67 @@
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-06-08 09:15</span>
             <a href="https://almapreta.com.br/sessao/cultura/documentario-brasileiro-entrevista-sonny-rollins/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div></div>
+    </div>
+
+    <!-- BLACK SPORT — World Cup -->
+    
+    <div class="container">
+        <p class="section-label">Black Sport &mdash; At the World Cup</p>
+        <div class="card-grid">
+    <div class="card">
+        <a href="https://www.bbc.com/news/articles/cx212p8r28eo" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://ichef.bbci.co.uk/news/1024/branded_news/5caf/live/02106910-60d0-11f1-89a3-d1f559421220.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇨🇮 Ivory Coast</span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.bbc.com/news/articles/cx212p8r28eo" target="_blank" rel="noopener">'A World Cup for them not us': Fans' anger at US travel bans and visa restrictions</a></h2>
+        <p class="card-summary">Fans from African nations like Ivory Coast and Senegal face US visa restrictions and travel bans for the World Cup, feeling deliberately excluded. A supporter from Ivory Coast calls it segregation that dares not speak its name, contrasting with the ease European fans experience.</p>
+        <p class="narrative-analysis">Fans from African nations are portrayed as deliberately excluded by a visa system that treats them as undesirables, revealing a modern colonial gatekeeping.</p>
+        <p class="cui-bono">The US government and its immigration enforcement apparatus.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:22</span>
+            <a href="https://www.bbc.com/news/articles/cx212p8r28eo" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://almapreta.com.br/sessao/cotidiano/torcida-olodum-salvador-estreia-brasil-copa-2026/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://i0.wp.com/almapreta.com.br/images/2026/06/Torcida-do-Olodum-em-Salvador-abre-programacao-na-estreia-do-Brasil-na-Copa.webp?fit=1400%2C1050&ssl=1" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇧🇷 Brazil</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://almapreta.com.br/sessao/cotidiano/torcida-olodum-salvador-estreia-brasil-copa-2026/" target="_blank" rel="noopener">Olodum Fan Group in Salvador Opens Programming on Brazil's World Cup Debut</a></h2>
+        <p class="card-summary">The article announces the first 2026 Torcida Brasil Olodum event at Pelourinho, Salvador, on Brazil's World Cup opener against Morocco. It details the group's history since 1990, its international presence, and its role as a popular, percussion-fueled fan gathering.</p>
+        <p class="narrative-analysis">This story highlights Olodum's fans as joyful cultural ambassadors, turning a World Cup viewing into a celebration of Afro-Brazilian heritage and resilience.</p>
+        <p class="cui-bono">Olodum, as a cultural organization, gains visibility and community support.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:15</span>
+            <a href="https://almapreta.com.br/sessao/cotidiano/torcida-olodum-salvador-estreia-brasil-copa-2026/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.brasildefato.com.br/2026/06/07/brasil-supera-egito-em-ultimo-compromisso-antes-da-copa-do-mundo/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.brasildefato.com.br/wp-content/uploads/2026/06/afp202606072280244715v1midresbrazilvegyptinternationalfriendly-079e07d4.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇧🇷 Brazil</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.brasildefato.com.br/2026/06/07/brasil-supera-egito-em-ultimo-compromisso-antes-da-copa-do-mundo/" target="_blank" rel="noopener">Brazil surpasses Egypt in last commitment before the World Cup</a></h2>
+        <p class="card-summary">Brazil defeated Egypt 2-1 in a friendly match in Cleveland as preparation for the 2026 World Cup. The game featured early mistakes and a goal by Egyptian player Ziko, but Brazil secured the win. Neymar was absent due to injury.</p>
+        <p class="narrative-analysis">The coverage treats the Brazilian team as a national symbol of pride and resilience, but Black players like Vinícius Júnior appear simply as athletes, not as racialized figures.</p>
+        <p class="cui-bono">The Brazilian Football Confederation and media companies benefit from fan engagement.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:14</span>
+            <a href="https://www.brasildefato.com.br/2026/06/07/brasil-supera-egito-em-ultimo-compromisso-antes-da-copa-do-mundo/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div></div>
     </div>
@@ -1658,6 +1739,32 @@
   if (window.location.search.includes('admin')) {
     document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
   }
+</script>
+
+
+<script>
+(function(){
+  var track=document.getElementById('wcTrack'), bar=document.getElementById('wcTicker');
+  if(!track) return;
+  var KEY='3', LEAGUE='4429', BLACK=["senegal", "morocco", "ghana", "nigeria", "cameroon", "ivory coast", "cote d'ivoire", "c\u00f4te d'ivoire", "egypt", "tunisia", "algeria", "south africa", "mali", "dr congo", "congo", "cape verde", "burkina faso", "guinea", "gabon", "zambia", "angola", "mozambique", "jamaica", "haiti", "trinidad", "barbados", "ethiopia", "kenya", "uganda", "tanzania"];
+  function within(ts,lo,hi){ var d=new Date(ts), diff=(d-Date.now())/86400000; return diff>=lo&&diff<=hi; }
+  function mark(name){ var n=(name||'').toLowerCase(); for(var i=0;i<BLACK.length;i++){ if(n.indexOf(BLACK[i])>-1) return '★ '; } return ''; }
+  function done(e){ return '<span class="wc-item">'+mark(e.strHomeTeam)+e.strHomeTeam+' <b>'+(e.intHomeScore==null?'':e.intHomeScore)+'–'+(e.intAwayScore==null?'':e.intAwayScore)+'</b> '+e.strAwayTeam+mark(e.strAwayTeam)+'</span>'; }
+  function up(e){ var d=new Date(e.strTimestamp), w=d.toLocaleDateString('en-GB',{month:'short',day:'numeric'}); return '<span class="wc-item">'+mark(e.strHomeTeam)+e.strHomeTeam+' v '+e.strAwayTeam+mark(e.strAwayTeam)+' <i>'+w+'</i></span>'; }
+  function f(u){ return fetch(u).then(function(r){return r.json();}).catch(function(){return {};}); }
+  Promise.all([
+    f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventspastleague.php?id='+LEAGUE),
+    f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventsnextleague.php?id='+LEAGUE)
+  ]).then(function(res){
+    var past=((res[0]||{}).events||[]).filter(function(e){return within(e.strTimestamp,-8,0);}).slice(-12).map(done);
+    var next=((res[1]||{}).events||[]).filter(function(e){return within(e.strTimestamp,0,18);}).slice(0,12).map(up);
+    var items=past.concat(next);
+    if(!items.length) return;
+    var inner='<span class="wc-label">WORLD CUP</span>'+items.join('<span class="wc-sep">•</span>');
+    track.innerHTML=inner+'<span class="wc-sep">•</span>'+inner;
+    bar.hidden=false;
+  });
+})();
 </script>
 
 

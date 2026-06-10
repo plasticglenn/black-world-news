@@ -700,6 +700,81 @@ def pick_entertainment(stories, n=3):
     return gather(_is_entertainment)[:n]
 
 
+# Black nations to foreground in sport coverage (World Cup angle). Lowercase for matching.
+BLACK_NATIONS = [
+    "senegal", "morocco", "ghana", "nigeria", "cameroon", "ivory coast", "cote d'ivoire",
+    "côte d'ivoire", "egypt", "tunisia", "algeria", "south africa", "mali", "dr congo",
+    "congo", "cape verde", "burkina faso", "guinea", "gabon", "zambia", "angola", "mozambique",
+    "jamaica", "haiti", "trinidad", "barbados", "ethiopia", "kenya", "uganda", "tanzania",
+]
+
+
+def pick_sport(stories, n=3):
+    # Sport stories for the homepage, foregrounding Black nations / the World Cup.
+    # First pass requires a World-Cup or Black-nation angle; then backfills with any sport.
+    out, sigs = [], []
+
+    def consider(s, focused):
+        if derive_theme(s) != "Sport" or not s.get("image") or is_low_quality(s):
+            return False
+        title = (s.get("title_en") or s.get("title") or "")
+        if ", by " in title.lower() or _re_themes.search(r"\(\d+\)", title):  # skip op-ed columns
+            return False
+        text = (title + " " + (s.get("summary") or "")).lower()
+        if focused and "world cup" not in text and not any(b in text for b in BLACK_NATIONS):
+            return False
+        sig = _topic_sig(s)
+        if any(len(sig & ps) >= 2 for ps in sigs):
+            return False
+        return sig
+
+    for focused in (True, False):
+        for s in stories:
+            if len(out) >= n:
+                break
+            if any(s.get("url") == o.get("url") for o in out):
+                continue
+            sig = consider(s, focused)
+            if sig is False:
+                continue
+            out.append(s); sigs.append(sig)
+        if len(out) >= n:
+            break
+    return out
+
+
+# World Cup live ticker — client-side fetch from TheSportsDB's free API (factual
+# scores, no scraping). Shows recent results + upcoming fixtures, stars Black
+# nations, and hides itself entirely when there are no matches in the window
+# (so it disappears off-season). __NATIONS__ is replaced with the JSON list.
+_WC_TICKER_JS = """
+<script>
+(function(){
+  var track=document.getElementById('wcTrack'), bar=document.getElementById('wcTicker');
+  if(!track) return;
+  var KEY='3', LEAGUE='4429', BLACK=__NATIONS__;
+  function within(ts,lo,hi){ var d=new Date(ts), diff=(d-Date.now())/86400000; return diff>=lo&&diff<=hi; }
+  function mark(name){ var n=(name||'').toLowerCase(); for(var i=0;i<BLACK.length;i++){ if(n.indexOf(BLACK[i])>-1) return '★ '; } return ''; }
+  function done(e){ return '<span class="wc-item">'+mark(e.strHomeTeam)+e.strHomeTeam+' <b>'+(e.intHomeScore==null?'':e.intHomeScore)+'–'+(e.intAwayScore==null?'':e.intAwayScore)+'</b> '+e.strAwayTeam+mark(e.strAwayTeam)+'</span>'; }
+  function up(e){ var d=new Date(e.strTimestamp), w=d.toLocaleDateString('en-GB',{month:'short',day:'numeric'}); return '<span class="wc-item">'+mark(e.strHomeTeam)+e.strHomeTeam+' v '+e.strAwayTeam+mark(e.strAwayTeam)+' <i>'+w+'</i></span>'; }
+  function f(u){ return fetch(u).then(function(r){return r.json();}).catch(function(){return {};}); }
+  Promise.all([
+    f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventspastleague.php?id='+LEAGUE),
+    f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventsnextleague.php?id='+LEAGUE)
+  ]).then(function(res){
+    var past=((res[0]||{}).events||[]).filter(function(e){return within(e.strTimestamp,-8,0);}).slice(-12).map(done);
+    var next=((res[1]||{}).events||[]).filter(function(e){return within(e.strTimestamp,0,18);}).slice(0,12).map(up);
+    var items=past.concat(next);
+    if(!items.length) return;
+    var inner='<span class="wc-label">WORLD CUP</span>'+items.join('<span class="wc-sep">•</span>');
+    track.innerHTML=inner+'<span class="wc-sep">•</span>'+inner;
+    bar.hidden=false;
+  });
+})();
+</script>
+"""
+
+
 def story_card(story, featured=False, archive=False, cache=None, used_images=None):
     title   = display_title(story, "en")
     url     = story.get("url", "#")
@@ -816,6 +891,9 @@ def build_html(stories, cache):
     # Entertainment & Culture pick for the homepage — newest decent Culture story.
     entertainment = pick_entertainment([s for s in remaining if s not in latest]) or pick_entertainment(remaining)
 
+    # Black Sport pick — our nations at the World Cup and beyond.
+    sport = pick_sport(remaining)
+
     # Group by country
     by_country = defaultdict(list)
     for s in stories:
@@ -892,6 +970,19 @@ def build_html(stories, cache):
         <p class="section-label">Entertainment &amp; Culture</p>
         <div class="card-grid">{ent_cards}</div>
     </div>'''
+
+    # Black Sport homepage row — World Cup angle
+    sport_html = ""
+    if sport:
+        sport_cards = "".join(story_card(s, cache=cache, used_images=used_images) for s in sport)
+        sport_html = f'''
+    <div class="container">
+        <p class="section-label">Black Sport &mdash; At the World Cup</p>
+        <div class="card-grid">{sport_cards}</div>
+    </div>'''
+
+    # World Cup live ticker script (nations list injected)
+    wc_ticker_js = _WC_TICKER_JS.replace("__NATIONS__", json.dumps(BLACK_NATIONS))
 
     # Regional teasers — one featured story per region, link to region page
     # Homepage stops here. No more long archive.
@@ -1137,6 +1228,22 @@ def build_html(stories, cache):
             padding: 0.1rem 0.5rem;
             font-size: 0.7rem;
         }}
+        /* date labels read as plain text, not boxed like the LIVE chip */
+        .breaking-bar .date-full, .breaking-bar .date-today {{
+            background: none; color: #fff; padding: 0; font-size: inherit; letter-spacing: inherit;
+        }}
+        .date-today {{ display: none; }}
+
+        /* WORLD CUP TICKER — slim scrolling bar, self-hides off-season */
+        .wc-ticker {{ background:#0a0a0a; overflow:hidden; white-space:nowrap; border-bottom:2px solid #1a3a2a; }}
+        .wc-track {{ display:inline-block; padding:0.4rem 0; animation:wcscroll 60s linear infinite; will-change:transform; }}
+        .wc-ticker:hover .wc-track {{ animation-play-state:paused; }}
+        .wc-item {{ color:#fff; font-size:0.8rem; font-weight:600; padding:0 0.55rem; letter-spacing:0.02em; }}
+        .wc-item b {{ color:#ffd93d; }}
+        .wc-item i {{ color:#8ab89a; font-style:normal; font-size:0.72rem; }}
+        .wc-sep {{ color:#555; padding:0 0.2rem; }}
+        .wc-label {{ background:#e8602c; color:#fff; font-weight:800; font-size:0.7rem; padding:0.15rem 0.6rem; border-radius:3px; margin:0 0.9rem; letter-spacing:0.08em; }}
+        @keyframes wcscroll {{ from {{ transform:translateX(0); }} to {{ transform:translateX(-50%); }} }}
 
         /* LAYOUT */
         .container {{
@@ -1937,6 +2044,9 @@ def build_html(stories, cache):
             /* HIDE desktop nav, show bottom app nav */
             .site-nav {{ display: none; }}
             .breaking-bar {{ font-size: 0.68rem; padding: 0.35rem 0.75rem; }}
+            /* Mobile: drop the long date, just say "today" */
+            .date-full {{ display: none; }}
+            .date-today {{ display: inline; }}
 
             /* BOTTOM TAB BAR */
             body {{ padding-bottom: 60px; }}
@@ -2103,7 +2213,8 @@ def build_html(stories, cache):
 
 {nav_block}
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date"></span></div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date" class="date-full"></span><span class="date-today">today</span></div>
+<div class="wc-ticker" id="wcTicker" hidden><div class="wc-track" id="wcTrack"></div></div>
 
 <main>
 
@@ -2118,6 +2229,9 @@ def build_html(stories, cache):
 
     <!-- ENTERTAINMENT & CULTURE -->
     {entertainment_html}
+
+    <!-- BLACK SPORT — World Cup -->
+    {sport_html}
 
     <!-- FOR THE CHILDREN — portal door -->
     <a href="kids.html" class="kids-portal" aria-label="For the Children">
@@ -2191,6 +2305,7 @@ def build_html(stories, cache):
   }}
 </script>
 
+{wc_ticker_js}
 {PWA_SCRIPT}
 {CLOUDFLARE_ANALYTICS}
 </body>
