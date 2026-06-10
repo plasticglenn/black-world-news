@@ -540,12 +540,19 @@ def _topic_sig(story):
 
 
 def diverse_latest(stories, n=6):
-    # Pick the newest stories but keep them VARIED: skip near-duplicate topics
-    # (e.g. a run of IMF/World Bank pieces), cap 2 per category, drop junk.
+    # Newest stories, kept VARIED (no near-duplicate topics like a run of IMF pieces,
+    # cap 2 per category, drop junk) AND rotated daily so the lineup refreshes every
+    # day even between the 2-day news runs (the daily shuffle rebuild reads the date).
+    pool = [s for s in stories if not is_low_quality(s)]
+    window = pool[:60]                      # recent pool to rotate through
+    if window:
+        doy = datetime.now().timetuple().tm_yday
+        off = (doy * n) % len(window)       # shift the start by ~a page each day
+        window = window[off:] + window[:off]
+    pool = window + pool[60:]
+
     picked, sigs, cat = [], [], defaultdict(int)
-    for s in stories:
-        if is_low_quality(s):
-            continue
+    for s in pool:
         sig = _topic_sig(s)
         if any(len(sig & ps) >= 2 for ps in sigs):   # shares 2+ key words with one already shown
             continue
@@ -555,9 +562,8 @@ def diverse_latest(stories, n=6):
         picked.append(s); sigs.append(sig); cat[c] += 1
         if len(picked) >= n:
             return picked
-    # backfill if variety rules left us short
-    for s in stories:
-        if s not in picked and not is_low_quality(s):
+    for s in pool:                          # backfill if variety rules left us short
+        if s not in picked:
             picked.append(s)
             if len(picked) >= n:
                 break
@@ -2583,7 +2589,7 @@ def build_trends():
 
     framing_counts  = Counter(s.get("narrative_framing", "") for s in stories if s.get("narrative_framing") and s.get("narrative_framing") != "None")
     category_counts = Counter(s.get("category", "") for s in stories if s.get("category"))
-    country_counts  = Counter(s.get("country", "") for s in stories if s.get("country"))
+    country_counts  = Counter(s.get("country", "") for s in stories if s.get("country") and s.get("country") != "Other/Global")
     factor_counts   = Counter()
     for s in stories:
         for f in s.get("structural_factors", []):
