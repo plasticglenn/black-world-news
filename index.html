@@ -241,11 +241,10 @@
             padding: 0.1rem 0.5rem;
             font-size: 0.7rem;
         }
-        /* date labels read as plain text, not boxed like the LIVE chip */
-        .breaking-bar .date-full, .breaking-bar .date-today {
+        /* date reads as plain text, not boxed like the LIVE chip */
+        .breaking-bar .date-full {
             background: none; color: #fff; padding: 0; font-size: inherit; letter-spacing: inherit;
         }
-        .date-today { display: none; }
 
         /* WORLD CUP TICKER — slim scrolling bar, self-hides off-season */
         .wc-ticker { background:#0a0a0a; overflow:hidden; white-space:nowrap; border-bottom:2px solid #1a3a2a; }
@@ -1057,9 +1056,8 @@
             /* HIDE desktop nav, show bottom app nav */
             .site-nav { display: none; }
             .breaking-bar { font-size: 0.68rem; padding: 0.35rem 0.75rem; }
-            /* Mobile: drop the long date, just say "today" */
-            .date-full { display: none; }
-            .date-today { display: inline; }
+            /* Mobile: drop the date entirely — cleaner */
+            .updated-block { display: none; }
 
             /* BOTTOM TAB BAR */
             body { padding-bottom: 60px; }
@@ -1221,12 +1219,12 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: June 10, 2026 — 09:20 &nbsp;|&nbsp; 2382 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: June 10, 2026 — 16:20 &nbsp;|&nbsp; 2382 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="index.html" class="nav-issue">Home</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="politics.html" class="nav-issue">Politics</a><a href="culture.html" class="nav-issue">Culture</a><a href="policing.html" class="nav-issue">Policing</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="namerica.html" class="nav-region">N. America</a><a href="caribbean.html" class="nav-region">Caribbean</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date" class="date-full"></span><span class="date-today">today</span></div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world.<span class="updated-block"> Updated <span id="live-date" class="date-full"></span></span></div>
 <div class="wc-ticker" id="wcTicker" hidden><div class="wc-track" id="wcTrack"></div></div>
 
 <main>
@@ -1271,24 +1269,6 @@
         <p class="section-label">Latest</p>
         <div class="card-grid">
     <div class="card">
-        <a href="https://worldpopulationreview.com/country-rankings/countries-by-national-debt" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://cdn.worldpopulationreview.com/country/countries-by-national-debt.jpg" alt="" loading="lazy"></a>
-        <div class="card-meta">
-            <span class="theme-tag">Debt Trap</span>
-            
-            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
-            
-        </div>
-        <h2 class="card-title"><a href="https://worldpopulationreview.com/country-rankings/countries-by-national-debt" target="_blank" rel="noopener">Countries with the Highest National Debt 2026</a></h2>
-        <p class="card-summary">The article lists countries by national debt, framing debt as a universal fiscal metric. It does not discuss racial or colonial contexts, but the presentation can implicitly stigmatize indebted nations, many of which have Black-majority populations.</p>
-        <p class="narrative-analysis">Black-majority nations are reduced to faceless debt figures, reinforcing a narrative of perpetual fiscal irresponsibility and dependency on global financial systems.</p>
-        <p class="cui-bono">International creditors and global financial institutions benefit.</p>
-        <div class="factors"><span class="factor">foreign debt</span><span class="factor">colonial legacy</span><span class="factor">corporate extraction</span></div>
-        <div class="card-footer">
-            <span class="saved-at">Collected: 2026-06-08 10:15</span>
-            <a href="https://worldpopulationreview.com/country-rankings/countries-by-national-debt" class="read-more" target="_blank" rel="noopener">Read original →</a>
-        </div>
-    </div>
-    <div class="card">
         <a href="https://www.iafs2026.in/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/19894427/pexels-photo-19894427.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="theme-tag">Economy</span>
@@ -1325,24 +1305,6 @@
         </div>
     </div>
     <div class="card">
-        <a href="https://www.iseas.edu.sg/wp-content/uploads/2025/01/ISEAS_Perspective_2025_8.pdf" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/4570677/pexels-photo-4570677.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
-        <div class="card-meta">
-            <span class="theme-tag">Economy</span>
-            
-            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
-            
-        </div>
-        <h2 class="card-title"><a href="https://www.iseas.edu.sg/wp-content/uploads/2025/01/ISEAS_Perspective_2025_8.pdf" target="_blank" rel="noopener">Catalysing ASEAN-Africa Relations and South-South Cooperation</a></h2>
-        <p class="card-summary">The piece highlights the upcoming Bandung Conference anniversary as a chance to strengthen ASEAN-Africa ties through a proposed exchange platform with the AU. It frames this South-South cooperation as a step toward addressing historical inequities and fostering mutual economic and political progress.</p>
-        <p class="narrative-analysis">This article casts Black nations as dignified partners in a cooperative global platform, emphasizing agency and shared development aspirations.</p>
-        <p class="cui-bono">ASEAN and African Union member states.</p>
-        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
-        <div class="card-footer">
-            <span class="saved-at">Collected: 2026-06-08 10:14</span>
-            <a href="https://www.iseas.edu.sg/wp-content/uploads/2025/01/ISEAS_Perspective_2025_8.pdf" class="read-more" target="_blank" rel="noopener">Read original →</a>
-        </div>
-    </div>
-    <div class="card">
         <a href="https://www.britannica.com/topic/Belt-and-Road-Initiative" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://cdn.britannica.com/48/271848-050-55DEB092/Aerial-photo-of-Lekki-port-Lagos-Nigeria-Africa-began-operations-April-2023.jpg" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="theme-tag">Debt Trap</span>
@@ -1376,6 +1338,42 @@
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-06-08 10:13</span>
             <a href="https://skillings.net/china-mining-moves-africa-2025-power-shift/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.world-today-news.com/haitis-gang-violence-crisis-displaces-1-5-million-un-warns-of-deepening-humanitarian-emergency/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/35980201/pexels-photo-35980201.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Debt Trap</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.world-today-news.com/haitis-gang-violence-crisis-displaces-1-5-million-un-warns-of-deepening-humanitarian-emergency/" target="_blank" rel="noopener">Haiti's Gang Violence Crisis Displaces 1.5 Million, UN Warns of Deepening Humanitarian Emergency</a></h2>
+        <p class="card-summary">The article reports that gang violence in Haiti has displaced 1.5 million people, with the UN warning of a deepening humanitarian emergency. The coverage focuses on the scale of displacement but omits historical and structural causes such as colonial debt and foreign interference.</p>
+        <p class="narrative-analysis">Statistics stand in for people when the article reduces 1.5 million displaced Haitians to a number, obscuring the colonial and economic roots of the crisis.</p>
+        <p class="cui-bono">International financial institutions and Haiti's elite benefit from the instability.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 10:11</span>
+            <a href="https://www.world-today-news.com/haitis-gang-violence-crisis-displaces-1-5-million-un-warns-of-deepening-humanitarian-emergency/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.bbc.com/news/world-africa-54826875" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://ichef.bbci.co.uk/news/1024/branded_news/1569D/production/_114190778_dcee39c9-5378-4c30-978d-3363e8766d64.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Babylon</span>
+            
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.bbc.com/news/world-africa-54826875" target="_blank" rel="noopener">Tigray crisis: Why there are fears of civil war in Ethiopia</a></h2>
+        <p class="card-summary">The article details the escalating conflict between Ethiopia's federal government and the Tigray region, rooted in political power struggles and a disputed election. Hundreds have been killed, and thousands have fled to Sudan, raising fears of civil war. The framing centers on elite political maneuvering rather than the human impact on Black communities.</p>
+        <p class="narrative-analysis">The coverage reduces Black Ethiopians to pawns in a power struggle, with civilians narrated primarily as casualties and refugees rather than as people with agency.</p>
+        <p class="cui-bono">The Ethiopian federal government and Prime Minister Abiy Ahmed.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 10:11</span>
+            <a href="https://www.bbc.com/news/world-africa-54826875" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div></div>
     </div>
@@ -1521,57 +1519,57 @@
         <div class="region-teaser">
             <div class="region-teaser-header">
                 <h3 class="region-teaser-title">North America</h3>
-                <a href="namerica.html" class="region-more">All 448 stories &rarr;</a>
+                <a href="namerica.html" class="region-more">All 366 stories &rarr;</a>
             </div>
             
     <div class="card">
-        <a href="https://jointcenter.org/wp-content/uploads/2026/01/JC_State_of_the_Dream_2026_DIGITAL_v2.pdf" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/4964772/pexels-photo-4964772.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
+        <a href="https://defendernetwork.com/news/opinion/racial-economic-inequality-2026/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://defendernetwork.com/wp-content/uploads/2026/01/wfdwc.png" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="theme-tag">Economy</span>
             <span class="flag-country">🇺🇸 United States</span>
             <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://jointcenter.org/wp-content/uploads/2026/01/JC_State_of_the_Dream_2026_DIGITAL_v2.pdf" target="_blank" rel="noopener">From Regression to Signs of a Black Recession</a></h2>
-        <p class="card-summary">This report from the Joint Center for Political and Economic Studies analyzes the economic state of Black Americans, highlighting a regression that risks turning into a recession. It examines structural factors such as systemic inequality, unemployment, and wealth gaps, emphasizing the need for targeted policy interventions.</p>
-        <p class="narrative-analysis">Black Americans appear here mainly as data points illustrating economic decline, with the report's numbers overshadowing the human experiences behind the downturn.</p>
-        
-        <div class="factors"><span class="factor">engineered unemployment</span><span class="factor">mass incarceration</span><span class="factor">corporate extraction</span></div>
+        <h2 class="card-title"><a href="https://defendernetwork.com/news/opinion/racial-economic-inequality-2026/" target="_blank" rel="noopener">Economic inequality deepens in 2026, report warns</a></h2>
+        <p class="card-summary">The article highlights rising Black unemployment and the dismantling of racial equity programs under the Trump administration. It argues that recent tax and deregulation policies deepen structural inequality, pushing Black America toward recession.</p>
+        <p class="narrative-analysis">The story reduces Black economic hardship to a set of comparative unemployment figures and policy impacts, framing the community as a statistical warning sign.</p>
+        <p class="cui-bono">Corporations and high-income households benefiting from tax cuts.</p>
+        <div class="factors"><span class="factor">engineered unemployment</span><span class="factor">corporate extraction</span><span class="factor">media bias</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-06-08 10:08</span>
-            <a href="https://jointcenter.org/wp-content/uploads/2026/01/JC_State_of_the_Dream_2026_DIGITAL_v2.pdf" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <a href="https://defendernetwork.com/news/opinion/racial-economic-inequality-2026/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
         </div>
         <div class="region-teaser">
             <div class="region-teaser-header">
                 <h3 class="region-teaser-title">Caribbean</h3>
-                <a href="caribbean.html" class="region-more">All 226 stories &rarr;</a>
+                <a href="caribbean.html" class="region-more">All 213 stories &rarr;</a>
             </div>
             
     <div class="card">
-        <a href="https://news.un.org/en/story/2026/06/1167661" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/Collections/Embargoed/21-05-2026_WFP_Haiti-04.jpg/image770x420cropped.jpg" alt="" loading="lazy"></a>
+        <a href="https://www.world-today-news.com/haitis-gang-violence-crisis-displaces-1-5-million-un-warns-of-deepening-humanitarian-emergency/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/28184057/pexels-photo-28184057.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
-            <span class="theme-tag">Politics & Power</span>
+            <span class="theme-tag">Debt Trap</span>
             <span class="flag-country">🌴 Caribbean</span>
-            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://news.un.org/en/story/2026/06/1167661" target="_blank" rel="noopener">Haiti: Harrowing needs must be met with long-term...</a></h2>
-        <p class="card-summary">The UN reports that escalating gang violence in Haiti has displaced nearly 1.5 million people, with attacks spreading beyond traditional conflict zones. Displaced families face severe shortages of shelter, food, water, and healthcare, while over 110,000 Haitians have been forcibly returned in 2026.</p>
-        <p class="narrative-analysis">Haitians are presented primarily as helpless victims of gang violence and displacement, with the narrative emphasizing suffering and dependency on external aid.</p>
-        <p class="cui-bono">International aid organizations and foreign governments managing migration flows.</p>
+        <h2 class="card-title"><a href="https://www.world-today-news.com/haitis-gang-violence-crisis-displaces-1-5-million-un-warns-of-deepening-humanitarian-emergency/" target="_blank" rel="noopener">Haiti's Gang Violence Crisis Displaces 1.5 Million, UN Warns of Deepening Humanitarian Emergency</a></h2>
+        <p class="card-summary">The article reports that gang violence in Haiti has displaced 1.5 million people, with the UN warning of a deepening humanitarian emergency. The coverage focuses on the scale of displacement but omits historical and structural causes such as colonial debt and foreign interference.</p>
+        <p class="narrative-analysis">Statistics stand in for people when the article reduces 1.5 million displaced Haitians to a number, obscuring the colonial and economic roots of the crisis.</p>
+        <p class="cui-bono">International financial institutions and Haiti's elite benefit from the instability.</p>
         <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-06-08 10:11</span>
-            <a href="https://news.un.org/en/story/2026/06/1167661" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <a href="https://www.world-today-news.com/haitis-gang-violence-crisis-displaces-1-5-million-un-warns-of-deepening-humanitarian-emergency/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
         </div>
         <div class="region-teaser">
             <div class="region-teaser-header">
                 <h3 class="region-teaser-title">South America</h3>
-                <a href="samerica.html" class="region-more">All 266 stories &rarr;</a>
+                <a href="samerica.html" class="region-more">All 238 stories &rarr;</a>
             </div>
             
     <div class="card">
@@ -1596,50 +1594,50 @@
         <div class="region-teaser">
             <div class="region-teaser-header">
                 <h3 class="region-teaser-title">Africa</h3>
-                <a href="africa.html" class="region-more">All 1208 stories &rarr;</a>
+                <a href="africa.html" class="region-more">All 988 stories &rarr;</a>
             </div>
             
     <div class="card">
-        <a href="https://media.afreximbank.com/afrexim/African-Trade-Report_2025.pdf" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/7965690/pexels-photo-7965690.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
+        <a href="https://africacenter.org/spotlight/china-influence-africa-security-engagements/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://africacenter.org/wp-content/uploads/2025/06/xi_sisi_PLA_2018_3x2.png" alt="" loading="lazy"></a>
         <div class="card-meta">
-            <span class="theme-tag">Debt Trap</span>
+            <span class="theme-tag">Politics & Power</span>
             
-            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://media.afreximbank.com/afrexim/African-Trade-Report_2025.pdf" target="_blank" rel="noopener">African Trade Report 2025</a></h2>
-        <p class="card-summary">The African Trade Report 2025 focuses on intra-African trade, economic growth, and investment opportunities. It presents data-driven analysis without addressing systemic inequities like colonial trade patterns or foreign debt burdens. The report largely overlooks how these structures impact Black communities' daily lives.</p>
-        <p class="narrative-analysis">The report reduces African economies to trade data and growth projections, erasing the lived experiences and structural barriers facing Black communities across the continent.</p>
-        <p class="cui-bono">Multinational corporations and global financial institutions benefit from framing Africa as an emerging market.</p>
+        <h2 class="card-title"><a href="https://africacenter.org/spotlight/china-influence-africa-security-engagements/" target="_blank" rel="noopener">China Widening Its Influence in Africa through Expanded</a></h2>
+        <p class="card-summary">The article analyzes how China's growing security engagements in Africa, including arms sales and military training, serve Beijing's global ambitions. It notes that these activities often undermine local governance and fuel public resentment.</p>
+        <p class="narrative-analysis">African nations are depicted as passive recipients of Chinese security expansion, their sovereignty and internal conflicts subordinated to Beijing's geostrategic ambitions.</p>
+        <p class="cui-bono">China's Communist Party and its state-owned enterprises.</p>
         <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
             <span class="saved-at">Collected: 2026-06-08 10:15</span>
-            <a href="https://media.afreximbank.com/afrexim/African-Trade-Report_2025.pdf" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <a href="https://africacenter.org/spotlight/china-influence-africa-security-engagements/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
         </div>
         <div class="region-teaser">
             <div class="region-teaser-header">
                 <h3 class="region-teaser-title">Europe</h3>
-                <a href="europe.html" class="region-more">All 97 stories &rarr;</a>
+                <a href="europe.html" class="region-more">All 86 stories &rarr;</a>
             </div>
             
     <div class="card">
-        <a href="https://www.elysee.fr/en/G7evian" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.elysee.fr/front/images/vignette-rs-defaut-2.7d582d1e.jpg" alt="" loading="lazy"></a>
+        <a href="https://www.routledge.com/The-Unequal-Unemployed-Discrimination-Unemployment-and-State-Policy-in-Northern-Ireland/Sheehan-Tomlinson/p/book/9781138364400" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.routledge.com/common/jackets/crclarge/978113836/9781138364400.jpg" alt="" loading="lazy"></a>
         <div class="card-meta">
-            <span class="theme-tag">Politics & Power</span>
-            <span class="flag-country">🇫🇷 France</span>
+            <span class="theme-tag">Economy</span>
+            <span class="flag-country">🇬🇧 United Kingdom</span>
             <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://www.elysee.fr/en/G7evian" target="_blank" rel="noopener">2026 G7 SUMMIT OF EVIAN - Élysée</a></h2>
-        <p class="card-summary">The Élysée official site outlines the schedule, media services, and news for the 2026 G7 Summit in Évian. It presents a high-level diplomatic event focused on international cooperation and governance. No specific mention of Black communities or structural inequality appears in the content.</p>
-        <p class="narrative-analysis">Black communities are invisible here, subsumed into general diplomatic discussions with no acknowledgment of global racial economic disparities or colonial legacy.</p>
-        <p class="cui-bono">The French government and elite G7 nations benefit from maintaining the current global order.</p>
-        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">corporate extraction</span><span class="factor">foreign debt</span></div>
+        <h2 class="card-title"><a href="https://www.routledge.com/The-Unequal-Unemployed-Discrimination-Unemployment-and-State-Policy-in-Northern-Ireland/Sheehan-Tomlinson/p/book/9781138364400" target="_blank" rel="noopener">The Unequal Unemployed: Discrimination, Unemployment and...</a></h2>
+        <p class="card-summary">This book examines unemployment disparities between Catholics and Protestants in Northern Ireland, arguing that discrimination, not personal attitudes, drives Catholic joblessness. It critiques individualistic explanations and calls for policy interventions to address structural inequalities.</p>
+        <p class="narrative-analysis">Unemployed Catholics in Northern Ireland are reduced to statistical evidence of systemic discrimination, implying their joblessness stems from structural barriers rather than personal failings.</p>
+        <p class="cui-bono">Protestant-dominated employers and the British state.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">engineered unemployment</span></div>
         <div class="card-footer">
-            <span class="saved-at">Collected: 2026-06-08 10:02</span>
-            <a href="https://www.elysee.fr/en/G7evian" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <span class="saved-at">Collected: 2026-06-08 09:44</span>
+            <a href="https://www.routledge.com/The-Unequal-Unemployed-Discrimination-Unemployment-and-State-Policy-in-Northern-Ireland/Sheehan-Tomlinson/p/book/9781138364400" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
         </div>

@@ -622,6 +622,45 @@ def is_low_quality(story):
     return False
 
 
+# Organisational / non-journalism sources — primary documents and reports from
+# governments, multilaterals, think tanks and academia. These are valuable but
+# they are NOT news; they belong in the separate Reports space, not the feed.
+_REPORT_DOMAINS = (
+    "imf.org", "worldbank.org", "data.worldbank", "un.org", "undp.org", "unctad.org",
+    "unicef.org", "who.int", "oecd.org", "oecd-ilibrary", "wto.org", "afdb.org", "au.int",
+    "ecowas.int", "unesco.org", "ilo.org", "fao.org", "wfp.org", "iom.int", "weforum.org",
+    "brookings.edu", "chathamhouse.org", "cfr.org", "carnegieendowment.org", "csis.org",
+    "odi.org", "gga.org", "issafrica.org", "sipri.org", "reliefweb.int", "ssrn.com",
+    "researchgate.net", "academia.edu", "jstor.org", "mckinsey.com", "statista.com",
+    "tradingeconomics.com", "g20.org", "elysee.fr",
+)
+_REPORT_TITLE = (
+    "working paper", "policy brief", "communiqué", "communique", "white paper",
+    "world economic outlook", "outlook database", "recommended resources", "flagship report",
+    "annual report", "fact sheet", "background paper", "discussion paper", "press release",
+)
+
+
+def is_report(story):
+    # True for organisational reports / primary documents (route to Reports, not the feed).
+    from urllib.parse import urlparse
+    u = (story.get("url") or "").lower()
+    try:
+        net = urlparse(u).netloc.replace("www.", "")
+    except Exception:
+        net = ""
+    if net.endswith(".gov") or ".gov." in net or net.endswith(".int") or net.endswith(".edu") or ".gouv." in net:
+        return True
+    if any(d in net for d in _REPORT_DOMAINS):
+        return True
+    if u.endswith(".pdf"):
+        return True
+    t = (story.get("title_en") or story.get("title") or "").lower()
+    if any(k in t for k in _REPORT_TITLE):
+        return True
+    return False
+
+
 def _topic_sig(story):
     import re
     t = (display_title(story, "en") or "").lower()
@@ -871,6 +910,10 @@ def build_html(stories, cache):
 
     # Sort newest first
     stories = sorted(stories, key=lambda s: s.get("saved_at", ""), reverse=True)
+
+    # NEWS ONLY on the homepage feed — organisational reports go to the Reports
+    # page, junk (wiki/youtube/etc.) is dropped entirely.
+    stories = [s for s in stories if not is_report(s) and not is_low_quality(s)]
 
     # Find featured story — first check featured.json (set by pick_featured.py),
     # then fall back to keyword match, then most recent
@@ -1228,11 +1271,10 @@ def build_html(stories, cache):
             padding: 0.1rem 0.5rem;
             font-size: 0.7rem;
         }}
-        /* date labels read as plain text, not boxed like the LIVE chip */
-        .breaking-bar .date-full, .breaking-bar .date-today {{
+        /* date reads as plain text, not boxed like the LIVE chip */
+        .breaking-bar .date-full {{
             background: none; color: #fff; padding: 0; font-size: inherit; letter-spacing: inherit;
         }}
-        .date-today {{ display: none; }}
 
         /* WORLD CUP TICKER — slim scrolling bar, self-hides off-season */
         .wc-ticker {{ background:#0a0a0a; overflow:hidden; white-space:nowrap; border-bottom:2px solid #1a3a2a; }}
@@ -2044,9 +2086,8 @@ def build_html(stories, cache):
             /* HIDE desktop nav, show bottom app nav */
             .site-nav {{ display: none; }}
             .breaking-bar {{ font-size: 0.68rem; padding: 0.35rem 0.75rem; }}
-            /* Mobile: drop the long date, just say "today" */
-            .date-full {{ display: none; }}
-            .date-today {{ display: inline; }}
+            /* Mobile: drop the date entirely — cleaner */
+            .updated-block {{ display: none; }}
 
             /* BOTTOM TAB BAR */
             body {{ padding-bottom: 60px; }}
@@ -2213,7 +2254,7 @@ def build_html(stories, cache):
 
 {nav_block}
 
-<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world. Updated <span id="live-date" class="date-full"></span><span class="date-today">today</span></div>
+<div class="breaking-bar"><span>LIVE</span> Monitoring stories important to Black people across the world.<span class="updated-block"> Updated <span id="live-date" class="date-full"></span></span></div>
 <div class="wc-ticker" id="wcTicker" hidden><div class="wc-track" id="wcTrack"></div></div>
 
 <main>
@@ -2318,6 +2359,7 @@ def page_shell(title, content, active=""):
         ("Latest", "/black-world-news/index.html", "latest"),
         ("About", "/black-world-news/about.html", "about"),
         ("Resources", "/black-world-news/resources.html", "resources"),
+        ("Reports", "/black-world-news/reports.html", "reports"),
         ("Trends", "/black-world-news/trends.html", "trends"),
         ("Community", "/black-world-news/community.html", "community"),
         ("🌍 Kids", "/black-world-news/index.html#kids", "kids"),
@@ -2440,6 +2482,51 @@ def build_about():
     <p>News about Black communities around the world is scattered across hundreds of sources. We put it in one place. We are connected through shared experiences and this is where you come to see them.</p>
     """
     return page_shell("About", content, active="about")
+
+
+def build_reports():
+    # A separate space for organisational reports / primary documents — for readers
+    # who want the source material. Plain-language summaries are planned (we extract
+    # and rewrite them so the everyday reader can make sense of them).
+    from urllib.parse import urlparse
+    stories = load_stories()
+    reports = [s for s in stories if is_report(s) and not is_low_quality(s)]
+    reports = sorted(reports, key=lambda s: s.get("saved_at", ""), reverse=True)
+    rows = ""
+    for s in reports[:150]:
+        title = display_title(s, "en")
+        url = s.get("url", "#")
+        try:
+            net = urlparse(url).netloc.replace("www.", "")
+        except Exception:
+            net = ""
+        saved = s.get("saved_at", "")
+        summary = display_summary(s, "en")
+        rows += f"""
+        <div class="report-item">
+            <a class="report-title" href="{url}" target="_blank" rel="noopener">{title}</a>
+            <p class="report-meta">{net}{(' &middot; ' + saved) if saved else ''}</p>
+            <p class="report-sum">{summary}</p>
+        </div>"""
+    if not rows:
+        rows = "<p>No reports collected yet.</p>"
+    content = f"""
+    <style>
+        .report-intro {{ background:#f5f8f6; border-left:4px solid #1a3a2a; padding:1rem 1.25rem; border-radius:0 10px 10px 0; margin-bottom:2rem; color:#333; line-height:1.55; }}
+        .report-item {{ border-bottom:1px solid #eee; padding:1.1rem 0; }}
+        .report-title {{ font-weight:700; font-size:1.05rem; color:#1a3a2a; text-decoration:none; }}
+        .report-title:hover {{ text-decoration:underline; }}
+        .report-meta {{ font-size:0.72rem; color:#999; text-transform:uppercase; letter-spacing:0.04em; margin:0.2rem 0 0.4rem; }}
+        .report-sum {{ font-size:0.92rem; color:#555; line-height:1.5; }}
+    </style>
+    <h1 class="page-title">Reports &amp; Papers</h1>
+    <p class="page-subtitle">Source documents &mdash; not news.</p>
+    <div class="report-intro">
+        These are primary documents and reports from governments, multilateral bodies, think tanks and universities. They are valuable, but they are written for specialists, not the everyday reader. We keep them here, apart from the news &mdash; and we are building plain-language summaries so anyone can make sense of what they really say.
+    </div>
+    <div class="report-list">{rows}</div>
+    """
+    return page_shell("Reports", content, active="reports")
 
 
 def build_privacy():
@@ -3355,6 +3442,7 @@ def section_banner(label):
 
 def build_region_page(region_id, region, all_stories, cache):
     # Builds a full page for one region — all its stories, newest first
+    all_stories = [s for s in all_stories if not is_report(s) and not is_low_quality(s)]
     by_country = defaultdict(list)
     for s in all_stories:
         by_country[s.get("country", "Other/Global")].append(s)
@@ -3479,7 +3567,8 @@ def build_issue_page(issue_id, issue, all_stories, cache):
     color      = issue["color"]
     label      = issue["label"]
 
-    issue_stories = [s for s in all_stories if s.get("category", "") in categories]
+    issue_stories = [s for s in all_stories if s.get("category", "") in categories
+                     and not is_report(s) and not is_low_quality(s)]
     issue_stories = sorted(issue_stories, key=lambda s: s.get("saved_at", ""), reverse=True)
     count = len(issue_stories)
 
@@ -3892,6 +3981,7 @@ def main():
     # Build the four content pages
     for filename, builder in [
         ("about.html",     build_about),
+        ("reports.html",   build_reports),
         ("resources.html", build_resources),
         ("trends.html",    build_trends),
         ("community.html", build_community),
@@ -3973,6 +4063,7 @@ def main():
   <url><loc>https://www.blackworldnews.world/search.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.blackworldnews.world/about.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/resources.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.blackworldnews.world/reports.html</loc><lastmod>{today}</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.blackworldnews.world/privacy.html</loc><lastmod>{today}</lastmod><priority>0.3</priority></url>

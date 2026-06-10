@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports | Black World News</title>
+    <meta name="description" content="Black World News covers stories involving Black communities worldwide.">
+    <meta property="og:type"        content="website">
+    <meta property="og:site_name"   content="Black World News">
+    <meta property="og:url"         content="https://www.blackworldnews.world/reports.html">
+    <meta property="og:title"       content="Reports | Black World News">
+    <meta property="og:description" content="Black World News covers stories involving Black communities worldwide.">
+    <meta name="twitter:card"        content="summary">
+    <meta name="twitter:title"       content="Reports | Black World News">
+    <meta name="twitter:description" content="Black World News covers stories involving Black communities worldwide.">
+    <meta name="author" content="Black World News">
+    <link rel="canonical" href="https://www.blackworldnews.world/reports.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a3a2a">
+<meta name="application-name" content="Black World News">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BWN">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<!-- /PWA -->
+<!-- Flag emoji: show real flags on devices that render them (phones, Mac, the app),
+     strip the broken two-letter fallback on devices that don't (Windows). The country
+     name already sits beside each flag, so nothing meaningful is lost. -->
+<script>
+(function(){
+  function flagsOK(){
+    try{
+      var x=document.createElement('canvas').getContext('2d');
+      x.font='20px sans-serif';
+      var pair=x.measureText('\uD83C\uDDE8\uD83C\uDDE6').width;  // CA flag
+      var one =x.measureText('\uD83C\uDDE8').width;                // single indicator
+      return pair < one*1.5;  // supported: pair forms ~one glyph; unsupported: ~two letters
+    }catch(e){return true;}
+  }
+  if(flagsOK()) return;
+  document.documentElement.className+=' no-flags';
+  var rx=/\uD83C[\uDDE6-\uDDFF]/g;  // regional-indicator (flag) characters
+  function strip(root){
+    if(!root) return;
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,a=[];
+    while(n=w.nextNode())a.push(n);
+    a.forEach(function(t){
+      if(rx.test(t.nodeValue)) t.nodeValue=t.nodeValue.replace(rx,'').replace(/\s{2,}/g,' ').replace(/^\s+/,'');
+    });
+  }
+  window.__bwnStripFlags=strip;
+  if(document.body) strip(document.body);
+  else document.addEventListener('DOMContentLoaded',function(){strip(document.body);});
+})();
+</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #f2f2f2; color: #111; font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }
+        a { color: inherit; text-decoration: none; }
+
+        .masthead { background: #1a3a2a; border-bottom: 3px solid #111; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
+        .masthead-logo-link, .masthead-spacer { flex: 0 0 50px; display: flex; align-items: center; justify-content: center; }
+        .masthead-logo { width: 50px; height: 50px; display: block; }
+        .masthead-center { flex: 1; text-align: center; }
+        .masthead h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: #fff; letter-spacing: 0.04em; }
+        .masthead h1 a:hover { color: #c8d8c0; }
+        .masthead-tagline { font-size: 0.65rem; color: #8ab89a; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
+
+        nav { background: #111; padding: 0.6rem 1.5rem; display: flex; gap: 1.5rem; overflow-x: auto; }
+        nav a { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #888; white-space: nowrap; font-weight: 600; transition: color 0.2s; }
+        nav a:hover, nav a.active { color: #8ab89a; }
+
+        .page-container { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem; }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: #111; margin-bottom: 0.5rem; }
+        .page-subtitle { font-size: 1rem; color: #666; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid #111; }
+
+        .section-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: #1a3a2a; margin: 2rem 0 1rem; }
+        .placeholder-block { background: #fff; border: 1px dashed #ccc; border-left: 4px solid #1a3a2a; padding: 2rem; color: #999; font-style: italic; margin-bottom: 1rem; }
+
+        footer { background: #111; border-top: 4px solid #1a3a2a; text-align: center; padding: 2rem; font-size: 0.8rem; color: #555; margin-top: 4rem; }
+        footer strong { color: #8ab89a; }
+
+        @media (max-width: 768px) {
+            .masthead { padding: 0.75rem 1rem; }
+            .masthead h1 { font-size: 1.2rem; }
+            .page-container { padding: 2rem 1rem; }
+            .page-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <a href="/black-world-news/index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
+        <h1><a href="/black-world-news/index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">What matters to you, today</p>
+    </div>
+    <div class="masthead-spacer"></div>
+</header>
+<nav><a href="/black-world-news/index.html" class="">Latest</a><a href="/black-world-news/about.html" class="">About</a><a href="/black-world-news/resources.html" class="">Resources</a><a href="/black-world-news/reports.html" class="active">Reports</a><a href="/black-world-news/trends.html" class="">Trends</a><a href="/black-world-news/community.html" class="">Community</a><a href="/black-world-news/index.html#kids" class="">🌍 Kids</a></nav>
+
+<div class="page-container">
+    
+    <style>
+        .report-intro { background:#f5f8f6; border-left:4px solid #1a3a2a; padding:1rem 1.25rem; border-radius:0 10px 10px 0; margin-bottom:2rem; color:#333; line-height:1.55; }
+        .report-item { border-bottom:1px solid #eee; padding:1.1rem 0; }
+        .report-title { font-weight:700; font-size:1.05rem; color:#1a3a2a; text-decoration:none; }
+        .report-title:hover { text-decoration:underline; }
+        .report-meta { font-size:0.72rem; color:#999; text-transform:uppercase; letter-spacing:0.04em; margin:0.2rem 0 0.4rem; }
+        .report-sum { font-size:0.92rem; color:#555; line-height:1.5; }
+    </style>
+    <h1 class="page-title">Reports &amp; Papers</h1>
+    <p class="page-subtitle">Source documents &mdash; not news.</p>
+    <div class="report-intro">
+        These are primary documents and reports from governments, multilateral bodies, think tanks and universities. They are valuable, but they are written for specialists, not the everyday reader. We keep them here, apart from the news &mdash; and we are building plain-language summaries so anyone can make sense of what they really say.
+    </div>
+    <div class="report-list">
+        <div class="report-item">
+            <a class="report-title" href="https://media.afreximbank.com/afrexim/African-Trade-Report_2025.pdf" target="_blank" rel="noopener">African Trade Report 2025</a>
+            <p class="report-meta">media.afreximbank.com &middot; 2026-06-08 10:15</p>
+            <p class="report-sum">The African Trade Report 2025 focuses on intra-African trade, economic growth, and investment opportunities. It presents data-driven analysis without addressing systemic inequities like colonial trade patterns or foreign debt burdens. The report largely overlooks how these structures impact Black communities' daily lives.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.iseas.edu.sg/wp-content/uploads/2025/01/ISEAS_Perspective_2025_8.pdf" target="_blank" rel="noopener">Catalysing ASEAN-Africa Relations and South-South Cooperation</a>
+            <p class="report-meta">iseas.edu.sg &middot; 2026-06-08 10:14</p>
+            <p class="report-sum">The piece highlights the upcoming Bandung Conference anniversary as a chance to strengthen ASEAN-Africa ties through a proposed exchange platform with the AU. It frames this South-South cooperation as a step toward addressing historical inequities and fostering mutual economic and political progress.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://futures.issafrica.org/blog/2025/Africa-China-trade-openness-without-industry" target="_blank" rel="noopener">Africa-China trade: openness without industry - ISS African ...</a>
+            <p class="report-meta">futures.issafrica.org &middot; 2026-06-08 10:14</p>
+            <p class="report-sum">This analysis examines Africa-China trade, highlighting how Africa's reliance on raw material exports and finished imports perpetuates a trade deficit and limits industrial growth. The piece critiques indiscriminate trade openness, noting that China's surplus largely drives the continent's imbalance.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://unctad.org/news/global-trade-hit-record-35-trillion-despite-slowing-momentum" target="_blank" rel="noopener">Global trade to hit record $35 trillion despite slowing momentum</a>
+            <p class="report-meta">unctad.org &middot; 2026-06-08 10:14</p>
+            <p class="report-sum">UNCTAD reports global trade is set to hit a record $35 trillion despite slowing momentum. The story focuses on macroeconomic trends without addressing how these trade volumes impact Black communities through unequal exchange and labor exploitation.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://eng.yidaiyilu.gov.cn/" target="_blank" rel="noopener">Belt and Road Portal - BRI Official Website</a>
+            <p class="report-meta">eng.yidaiyilu.gov.cn &middot; 2026-06-08 10:13</p>
+            <p class="report-sum">The Belt and Road Portal features China-Africa economic cooperation, highlighting loans and infrastructure deals. The framing treats Black African countries as passive recipients of development, obscuring power imbalances and debt dependencies.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://reliefweb.int/report/ethiopia/addressing-gender-inequality-amid-conflict-humanitarian-situation-conflict-affected-areas-northern-ethiopia" target="_blank" rel="noopener">Addressing gender inequality amid conflict: Humanitarian situation in conflict-affected areas of northern Ethiopia</a>
+            <p class="report-meta">reliefweb.int &middot; 2026-06-08 10:12</p>
+            <p class="report-sum">The report details how conflict in northern Ethiopia has led to a humanitarian crisis, with over 5 million people in Tigray facing extreme food insecurity and destruction of health facilities. It focuses on gender inequality, showing women and girls are disproportionately affected by malnutrition, displacement, and lack of access to reproductive healthcare.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cfr.org/backgrounders/chinas-massive-belt-and-road-initiative" target="_blank" rel="noopener">China’s Massive Belt and Road Initiative</a>
+            <p class="report-meta">cfr.org &middot; 2026-06-08 10:12</p>
+            <p class="report-sum">China's Belt and Road Initiative is a massive infrastructure project linking Asia, Africa, and beyond, but critics warn it creates debt traps for borrowing nations. The story focuses on geopolitical and economic competition between China and the United States, with little mention of how Black communities in participating countries are affected.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://news.un.org/en/story/2026/06/1167661" target="_blank" rel="noopener">Haiti: Harrowing needs must be met with long-term...</a>
+            <p class="report-meta">news.un.org &middot; 2026-06-08 10:11</p>
+            <p class="report-sum">The UN reports that escalating gang violence in Haiti has displaced nearly 1.5 million people, with attacks spreading beyond traditional conflict zones. Displaced families face severe shortages of shelter, food, water, and healthcare, while over 110,000 Haitians have been forcibly returned in 2026.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://reliefweb.int/report/somalia/confusing-mix-conflict-somalia" target="_blank" rel="noopener">A confusing mix of conflict in Somalia</a>
+            <p class="report-meta">reliefweb.int &middot; 2026-06-08 10:10</p>
+            <p class="report-sum">The article describes the escalating crisis in Somalia, highlighting the complexity of the conflict involving Ethiopian occupation, the Transitional Federal Government, and remnants of the Islamic Courts. It emphasizes historical and structural causes including colonial legacy and foreign intervention.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://jointcenter.org/wp-content/uploads/2026/01/JC_State_of_the_Dream_2026_DIGITAL_v2.pdf" target="_blank" rel="noopener">From Regression to Signs of a Black Recession</a>
+            <p class="report-meta">jointcenter.org &middot; 2026-06-08 10:08</p>
+            <p class="report-sum">This report from the Joint Center for Political and Economic Studies analyzes the economic state of Black Americans, highlighting a regression that risks turning into a recession. It examines structural factors such as systemic inequality, unemployment, and wealth gaps, emphasizing the need for targeted policy interventions.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.hud.gov/opportunity-zones" target="_blank" rel="noopener">Opportunity Zones</a>
+            <p class="report-meta">hud.gov &middot; 2026-06-08 10:05</p>
+            <p class="report-sum">Opportunity Zones are federally designated low-income tracts where investors receive tax breaks. The policy frames chronic disinvestment in Black neighborhoods as a financial incentive, not a justice issue.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://au.int/en/pressreleases/20260428/au-member-states-convene-advance-africas-2026-g20-priorities-aligned-agenda-0" target="_blank" rel="noopener">AU Member States Convene to Advance Africa’s 2026 G20 Priorities</a>
+            <p class="report-meta">au.int &middot; 2026-06-08 10:03</p>
+            <p class="report-sum">The African Union is convening a retreat in Equatorial Guinea to coordinate its priorities for the 2026 US G20 presidency. This follows the AU's permanent G20 membership and South Africa's 2025 presidency, aiming to ensure Africa's strategic position.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.weforum.org/stories/2026/02/india-eu-mother-of-all-trade-deals-what-to-know/" target="_blank" rel="noopener">Here's why the India-EU trade pact is the 'mother of all deals'</a>
+            <p class="report-meta">weforum.org &middot; 2026-06-08 10:03</p>
+            <p class="report-sum">The article discusses the potential India-EU trade pact, highlighting its scale and impact on global supply chains. However, it omits any reference to how such deals affect Black communities in Africa or the diaspora, reinforcing their invisibility in global economic discourse.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.afdb.org/" target="_blank" rel="noopener">African Development Bank Group | Making a Difference</a>
+            <p class="report-meta">afdb.org &middot; 2026-06-08 10:02</p>
+            <p class="report-sum">The African Development Bank Group announces the election of Dr. Sidi Ould Tah as its ninth president and highlights the African Development Fund's concessional lending and technical assistance. The article focuses on institutional policies like access to information, but does not address how these programs interact with structural inequalities facing Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.elysee.fr/en/G7evian" target="_blank" rel="noopener">2026 G7 SUMMIT OF EVIAN - Élysée</a>
+            <p class="report-meta">elysee.fr &middot; 2026-06-08 10:02</p>
+            <p class="report-sum">The Élysée official site outlines the schedule, media services, and news for the 2026 G7 Summit in Évian. It presents a high-level diplomatic event focused on international cooperation and governance. No specific mention of Black communities or structural inequality appears in the content.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.collectivevoice.org.uk/wp-content/uploads/2024/05/Future-priorities-for-the-drug-and-alcohol-treatment-and-recovery-system-updated-May-24.pdf" target="_blank" rel="noopener">Future priorities for the drug and alcohol treatment and recovery system</a>
+            <p class="report-meta">collectivevoice.org.uk &middot; 2026-06-08 09:45</p>
+            <p class="report-sum">This document from Collective Voice outlines the urgent need for sustainable long-term funding for the UK's drug and alcohol treatment system, warning of a cliff edge after 2024/2025. It focuses on system planning and capacity rebuilding without addressing racial disparities in access or outcomes.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cepal.org/sites/default/files/events/files/summary-report-of-the-caribbean-youth-dialogues-2025_0.pdf" target="_blank" rel="noopener">Summary Report of the Caribbean Youth Dialogues 2025</a>
+            <p class="report-meta">cepal.org &middot; 2026-06-08 09:42</p>
+            <p class="report-sum">The report summarizes Caribbean youth dialogues on structural challenges, focusing on economic exclusion and social marginalization. It highlights systemic barriers faced by young people in the region, but the framing leans heavily toward policy statistics rather than lived experience.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.worldbank.org/en/publication/global-economic-prospects" target="_blank" rel="noopener">Global Economic Prospects</a>
+            <p class="report-meta">worldbank.org &middot; 2026-06-08 09:41</p>
+            <p class="report-sum">The World Bank report notes that while the global economy has shown resilience, many emerging market and developing economies, particularly low-income countries, still have per capita incomes below pre-pandemic levels. This divergence is attributed to policy response differences and external challenges, with calls for reforms and global cooperation.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.researchgate.net/publication/391744109_Understanding_pathways_to_recovery_from_alcohol_use_disorder_in_a_Black_community" target="_blank" rel="noopener">Understanding pathways to recovery from alcohol use disorder in a Black community</a>
+            <p class="report-meta">researchgate.net &middot; 2026-06-08 09:40</p>
+            <p class="report-sum">The link to a ResearchGate PDF about alcohol recovery in a Black community is blocked by a security check. No actual story content could be analyzed.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.weforum.org/stories/2025/01/oxfam-new-report-inequality-colonialism/" target="_blank" rel="noopener">Oxfam: 'inequality through modern-day colonialism'</a>
+            <p class="report-meta">weforum.org &middot; 2026-06-08 09:40</p>
+            <p class="report-sum">Oxfam's report argues that modern-day colonialism perpetuates extreme inequality, with Black and Global South communities bearing the brunt. The analysis points to debt, resource extraction, and corporate power as key drivers of this ongoing exploitation.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.landcommission.gov.scot/news-events/news/new-hub-for-community-landownership-research-goes-live" target="_blank" rel="noopener">New Hub for Community Landownership Research Goes Live...</a>
+            <p class="report-meta">landcommission.gov.scot &middot; 2026-06-08 09:39</p>
+            <p class="report-sum">The Scottish Land Commission and CLAN launched a new online hub to centralize research on community landownership. The initiative aims to improve coordination among researchers, policymakers, and communities in Scotland's land reform efforts.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.durhamnc.gov/338/Planning-Development" target="_blank" rel="noopener">Planning & Development | Durham, NC</a>
+            <p class="report-meta">durhamnc.gov &middot; 2026-06-08 09:39</p>
+            <p class="report-sum">Durham's Planning & Development Department presents itself as a professional body guiding inclusive growth. The page focuses on codes, permits, and engagement, but never addresses how systemic racism has shaped land use or displaced Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/en/publications/weo/issues/2025/04/22/world-economic-outlook-april-2025" target="_blank" rel="noopener">World Economic Outlook, April 2025: A Critical Juncture amid Policy...</a>
+            <p class="report-meta">imf.org &middot; 2026-06-08 09:36</p>
+            <p class="report-sum">The April 2025 IMF World Economic Outlook warns of declining global growth due to trade tensions and policy uncertainty. It emphasizes fiscal sustainability and labor reforms but overlooks how such policies disproportionately harm Black communities through debt and reduced aid.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://law.utexas.edu/wp-content/uploads/sites/31/2016/02/brazil-eng.pdf" target="_blank" rel="noopener">Quilombo Rights in Brazilian and International Law</a>
+            <p class="report-meta">law.utexas.edu &middot; 2026-06-08 09:36</p>
+            <p class="report-sum">This document analyzes the legal framework for quilombo land rights in Brazil, tracing how colonial-era land grants and modern agribusiness have systematically dispossessed these Black communities. It explains how the 1988 Constitution offered partial recognition, yet enforcement remains contested.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://experts.illinois.edu/en/publications/the-struggle-for-black-land-rights-in-brazil-an-insiders-view-on-" target="_blank" rel="noopener">The struggle for black land rights in Brazil: An insider's view on quilombos and the quilombo land movement</a>
+            <p class="report-meta">experts.illinois.edu &middot; 2026-06-08 09:36</p>
+            <p class="report-sum">The article examines the Afro-Brazilian quilombo movement's efforts to secure collective land titles under Brazil's 1988 constitution. It highlights political mobilization against proposed bills that threaten these land rights.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://trustafrica.org/wp-content/uploads/2025/11/asm2025.pdf" target="_blank" rel="noopener">ASM Baraza Report 2025</a>
+            <p class="report-meta">trustafrica.org &middot; 2026-06-08 09:33</p>
+            <p class="report-sum">The PDF file appears to be corrupted and cannot be read. No information about Black communities or structural inequality could be extracted for analysis.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://issafrica.org/iss-today/liberation-movements-summit-tries-to-revive-its-members-declining-fortunes" target="_blank" rel="noopener">Liberation Movements Summit tries to revive its members' declining fortunes</a>
+            <p class="report-meta">issafrica.org &middot; 2026-06-08 09:33</p>
+            <p class="report-sum">The 2024 Liberation Movements Summit in Johannesburg gathered six Southern African parties to address their electoral decline and internal challenges. Leaders acknowledged corruption and disconnection from youth while blaming external imperial pressures for their losses.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.afro.who.int/sites/default/files/2023-08/AFR-RC73-8+Framework+for+implementing+the+Global+alcohol+action+plan+20222030+in+the+WHO+African+Region.pdf" target="_blank" rel="noopener">Framework for Implementing the Global Alcohol Action Plan 2022-2030 in the WHO African Region</a>
+            <p class="report-meta">afro.who.int &middot; 2026-06-08 09:33</p>
+            <p class="report-sum">The WHO African Regional Committee document outlines a framework for implementing the global alcohol action plan, focusing on reducing harm in the region. It addresses alcohol-related health issues but does not explicitly name the structural or racial dimensions underlying alcohol industry targeting of Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/-/media/Files/Publications/CR/2025/English/1wauea2025002-print-pdf.ashx" target="_blank" rel="noopener">WEST AFRICAN ECONOMIC AND MONETARY UNION - IMF</a>
+            <p class="report-meta">imf.org &middot; 2026-06-08 09:32</p>
+            <p class="report-sum">This IMF Selected Issues Paper analyzes macroeconomic and financial sector challenges in the West African Economic and Monetary Union. It focuses on fiscal consolidation, debt sustainability, and regional integration, but omits discussion of colonial-era monetary structures or unequal global trade terms that constrain the region.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.bidc-ebid.org/en/wp-content/uploads/EBID_WADO-2025_EN.pdf" target="_blank" rel="noopener">EBID_WADO 2025_EN</a>
+            <p class="report-meta">bidc-ebid.org &middot; 2026-06-08 09:32</p>
+            <p class="report-sum">The West African Development Outlook 2025 by EBID provides economic projections and policy recommendations for the region. It focuses on macroeconomic indicators without directly addressing racial or colonial dimensions affecting Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/en/home" target="_blank" rel="noopener">Haiti: Technical Assistance Report-Improving Public Investment Management in Times of Fragility</a>
+            <p class="report-meta">imf.org &middot; 2026-06-08 09:32</p>
+            <p class="report-sum">The IMF published a technical assistance report on improving public investment management in Haiti amid ongoing fragility. The piece frames Haiti's challenges as administrative rather than rooted in colonial extraction and debt.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.brookings.edu/articles/how-the-war-on-drugs-damages-black-social-mobility/" target="_blank" rel="noopener">How the War on Drugs Damages Black Social Mobility</a>
+            <p class="report-meta">brookings.edu &middot; 2026-06-08 09:30</p>
+            <p class="report-sum">The article examines how the War on Drugs has disproportionately harmed Black Americans' social mobility through mass incarceration, despite similar or higher rates of drug use and sales among whites. It highlights that Black men are far more likely to be arrested and imprisoned for drug offenses, perpetuating racial inequality and economic disadvantage.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://unctad.org/system/files/non-official-document/wir_fs_ng_en.pdf" target="_blank" rel="noopener">WIR 2025 factsheet Nigeria - UNCTAD</a>
+            <p class="report-meta">unctad.org &middot; 2026-06-08 09:30</p>
+            <p class="report-sum">The UNCTAD factsheet presents Nigeria's investment and economic data in 2025, focusing on trends in foreign direct investment and structural challenges. It highlights persistent dependencies and resource extraction patterns rooted in colonial-era economic models. The document treats the population as abstract statistics rather than affected communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.who.int/campaigns/world-mental-health-day" target="_blank" rel="noopener">World Mental Health Day</a>
+            <p class="report-meta">who.int &middot; 2026-06-08 09:29</p>
+            <p class="report-sum">World Mental Health Day is an annual campaign by the WHO to raise awareness and mobilize support for mental health globally. The content lists past themes but provides no specific focus on Black communities or structural inequalities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://crbb.tcu.edu/clips/1641/blacks-police-brutality-women-participation-in-rallies" target="_blank" rel="noopener">Police Brutality and Women's Participation in Rallies | Civil Rights in...</a>
+            <p class="report-meta">crbb.tcu.edu &middot; 2026-06-08 09:28</p>
+            <p class="report-sum">The clip references an oral history project on civil rights, focusing on police brutality and women's participation in protests. It highlights Black resistance but does not explore the systemic inequalities driving the violence.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cdc.gov/pcd/issues/2025/25_0125.htm" target="_blank" rel="noopener">Confronting the Crisis: Actions to Address Maternal Morbidity and Mortality Among Black Women in Rural Georgia</a>
+            <p class="report-meta">cdc.gov &middot; 2026-06-08 09:28</p>
+            <p class="report-sum">This essay highlights the severe maternal mortality crisis among Black women in rural Georgia, where rates are double those of White women. It discusses health infrastructure shortages, economic barriers, and cultural incompetence as key drivers. The article calls for targeted federal and state interventions to address these disparities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.brettonwoodsproject.org/2022/02/recommended-resources-on-the-world-bank-and-imf-2021/" target="_blank" rel="noopener">Recommended resources on the World Bank and IMF 2021</a>
+            <p class="report-meta">brettonwoodsproject.org &middot; 2026-06-06 07:56</p>
+            <p class="report-sum">This page lists resources critiquing World Bank and IMF policies, highlighting how their finance and surveillance exacerbate inequality and climate harm. Black communities are not directly mentioned, yet the systemic effects of these institutions disproportionately affect Black-majority nations.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.atlanticcouncil.org/wp-content/uploads/2025/08/Addressing-Chinas-military-expansion-in-West-Africa-and-beyond.pdf" target="_blank" rel="noopener">Addressing China’s military expansion in West Africa and beyond</a>
+            <p class="report-meta">atlanticcouncil.org &middot; 2026-06-06 07:55</p>
+            <p class="report-sum">The brief argues that China's growing military presence in West Africa threatens U.S. strategic interests. It frames African countries primarily as arenas for great-power competition rather than as sovereign nations with their own priorities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.statista.com/statistics/1237268/number-of-internally-displaced-persons-in-africa/" target="_blank" rel="noopener">African countries with the most displaced people 2025</a>
+            <p class="report-meta">statista.com &middot; 2026-06-06 07:54</p>
+            <p class="report-sum">The article reports that Sudan had over 10 million internally displaced people in 2025, the highest in Africa, followed by the Democratic Republic of Congo and Nigeria. It presents raw numbers without context on the causes driving the displacement crisis.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.unhcr.org/sites/default/files/2025-12/Sahel+Situation+overview+-+Global+Appeal+2026.pdf" target="_blank" rel="noopener">Sahel+ Global Appeal 2026 situation overview - UNHCR</a>
+            <p class="report-meta">unhcr.org &middot; 2026-06-06 07:53</p>
+            <p class="report-sum">This UNHCR document outlines the 2026 global appeal for the Sahel region, focusing on funding needs and operational priorities for displaced populations. The data-driven approach frames the crisis in terms of resource allocation rather than addressing underlying structural inequalities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2024/02/06/fact-sheet-the-biden-⁠harris-administration-advances-equity-and-opportunity-for-black-americans-and-communities-across-the-country-2/" target="_blank" rel="noopener">FACT SHEET: The Biden-Harris Administration Advances Equity and Opportunity for Black Americans and Communities Across the Country</a>
+            <p class="report-meta">bidenwhitehouse.archives.gov &middot; 2026-06-06 07:51</p>
+            <p class="report-sum">The fact sheet details Biden-Harris administration efforts to advance equity for Black Americans through economic, housing, education, and healthcare policies. It highlights record business applications, wealth increases, and federal investments in HBCUs and other programs.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.batsa.co.za/content/dam/endmarkets/za/en/download/media/press-releases/2026/BAT_South_Africa_to_close_manufacturing_facility_end_local_production_in_SA_by_year-end.pdf" target="_blank" rel="noopener">BAT South Africa to close manufacturing facility, end local production in SA by year-end</a>
+            <p class="report-meta">batsa.co.za &middot; 2026-06-06 07:51</p>
+            <p class="report-sum">BAT South Africa announced it will close its local manufacturing facility and end production in the country by year-end, citing global restructuring. The move is expected to result in significant job losses, disproportionately affecting Black workers in a region with already high unemployment.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.treasury.gov.za/comm_media/press/2025/2025062301+Media+Statement+-+South+Africa+and+the+World+Bank+Sign+US$1.5+Billion+Development+Policy+Loan+Agreement.pdf" target="_blank" rel="noopener">SOUTH AFRICA AND THE WORLD BANK SIGN US$1.5 BILLION DEVELOPMENT POLICY LOAN AGREEMENT</a>
+            <p class="report-meta">treasury.gov.za &middot; 2026-06-06 07:49</p>
+            <p class="report-sum">South Africa signed a $1.5 billion loan with the World Bank for infrastructure reforms. The agreement focuses on economic efficiency without addressing historical racial disparities or who bears the cost.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.afdb.org/en/news-and-events/press-releases/am2026-morocco-named-africas-industrialization-leader-new-african-development-bank-index-93601" target="_blank" rel="noopener">AM2026: Morocco named Africa's industrialization leader in new African Development Bank index</a>
+            <p class="report-meta">afdb.org &middot; 2026-06-06 07:49</p>
+            <p class="report-sum">Morocco is named Africa's industrialization leader in a new index, overtaking South Africa, but the report notes uneven progress and low intra-African trade. The analysis highlights structural gaps and calls for deeper integration under the African Continental Free Trade Area.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.worldbank.org/ext/en/region/afr" target="_blank" rel="noopener">Africa - World Bank Group</a>
+            <p class="report-meta">worldbank.org &middot; 2026-06-06 07:48</p>
+            <p class="report-sum">The World Bank report projects modest economic growth in Sub-Saharan Africa but highlights extreme poverty, debt distress, and conflict-driven food insecurity. Millions of youth enter the labor market annually, yet few formal jobs exist, limiting inclusive development.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.afdb.org/sites/default/files/documents/publications/afdb26-04_aeo_complete_english_0525_1.pdf" target="_blank" rel="noopener">African Economic Outlook 2026</a>
+            <p class="report-meta">afdb.org &middot; 2026-06-06 07:48</p>
+            <p class="report-sum">The provided 'African Economic Outlook 2026' document is corrupted and cannot be read. No content is available for analysis.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.nuprc.gov.ng/wp-content/uploads/2026/04/Presidential-Executive-Order-to-Safeguard-Federation-Oil-and-Gas-Revenues-and-Provide-Regulatory-Clarity-2026.pdf" target="_blank" rel="noopener">Presidential Executive Order to Safeguard Federation Oil and Gas Revenues and Provide Regulatory Clarity 2026</a>
+            <p class="report-meta">nuprc.gov.ng &middot; 2026-06-06 07:47</p>
+            <p class="report-sum">A Nigerian presidential executive order suspends the payment of 30% profit oil and gas revenues to NNPC Limited, aiming to safeguard federation revenues. This move affects how oil profits are distributed, with implications for national budgets and local communities dependent on those funds.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://energychamber.org/wp-content/uploads/The-State-of-African-Energy-2026_Digital_rev3.pdf" target="_blank" rel="noopener">The State of African Energy</a>
+            <p class="report-meta">energychamber.org &middot; 2026-06-06 07:46</p>
+            <p class="report-sum">This report analyzes Africa's energy sector, emphasizing investment opportunities and infrastructure gaps. It highlights foreign-led development but omits the historical and ongoing exploitation of Black communities by global energy interests.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://en.ofdt.fr/sites/ofdt/files/2025-01/france2024_01_en_drugpolicy_vf.pdf" target="_blank" rel="noopener">2024 Drug Policy workbook</a>
+            <p class="report-meta">en.ofdt.fr &middot; 2026-06-06 07:44</p>
+            <p class="report-sum">The French government adopted a 2023-2027 interministerial strategy against addictive behaviors, focusing on public health and enforcement. The document omits any analysis of how drug policy historically impacts Black communities in France and its overseas territories.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.ilo.org/resource/article/generation-transition-rethinking-youth-employment-caribbean" target="_blank" rel="noopener">A Generation in transition: Rethinking youth employment in the Caribbean</a>
+            <p class="report-meta">ilo.org &middot; 2026-06-06 07:43</p>
+            <p class="report-sum">The ILO article examines high youth unemployment and NEET rates across the Caribbean, noting structural challenges like pandemic aftershocks and gender disparities. It calls for policy reforms to strengthen education-to-work pathways, but avoids naming colonial economic dependencies or global exploitation of Caribbean labor.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://drugpolicy.org/wp-content/uploads/2024/06/DPA-ImpactOnBlackCommunitiesFactSheet-InDesign-Interactive.pdf" target="_blank" rel="noopener">THE IMPACT OF THE OVERDOSE CRISIS ON BLACK COMMUNITIES IN THE UNITED STATES</a>
+            <p class="report-meta">drugpolicy.org &middot; 2026-06-06 07:42</p>
+            <p class="report-sum">The fact sheet documents racial disparities in the U.S. overdose crisis, noting that Black communities face rising death rates despite similar drug use rates. It emphasizes structural neglect rooted in the drug war, yet the framing risks reducing lives to numbers without humanizing the affected communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://news.illinois.edu/why-is-the-reparations-movement-gaining-momentum-in-the-u-s/" target="_blank" rel="noopener">Why is the reparations movement gaining momentum in the U.S.?</a>
+            <p class="report-meta">news.illinois.edu &middot; 2026-06-06 07:41</p>
+            <p class="report-sum">The article examines why the reparations movement is gaining momentum in the U.S., citing retreats by political and corporate elites from racial justice. Professor Sundiata Cha-Jua explains that worsening socioeconomic conditions, voter suppression, and police violence have led Black Americans to see reparations as essential compensation for slavery and ongoing systemic oppression.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://virginiaopioidtoolkit.org/wp-content/uploads/2025/02/Samsha-Black-Population.pdf" target="_blank" rel="noopener">The Opioid Crisis and the Black/African American Population</a>
+            <p class="report-meta">virginiaopioidtoolkit.org &middot; 2026-06-06 07:41</p>
+            <p class="report-sum">The document presents statistics on the opioid crisis among Black Americans, highlighting disparities in treatment access and overdose deaths. It underscores how structural inequalities shape the crisis but treats the issue primarily as a data-driven problem.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://research.unc.edu/2020/05/14/inequality-amplifies-african-americans-covid-19-risk/" target="_blank" rel="noopener">Inequality Amplifies African Americans' COVID-19 Risk</a>
+            <p class="report-meta">research.unc.edu &middot; 2026-06-06 07:40</p>
+            <p class="report-sum">The article discusses how socioeconomic and structural inequalities, such as poverty and discrimination, amplify African Americans' risk of contracting and dying from COVID-19. It highlights the role of systemic factors rather than individual behavior in driving these disparities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.projecthope.org/wp-content/uploads/2025/01/Project-HOPE-SitRep-1-Armed-Conflict-and-Mass-Displacement-in-Colombia.pdf" target="_blank" rel="noopener">Armed Conflict and Mass Displacement in Colombia</a>
+            <p class="report-meta">projecthope.org &middot; 2026-06-06 07:39</p>
+            <p class="report-sum">Armed conflict in Colombia's Catatumbo region has caused mass displacement. Civilians, including many Afro-Colombians, are trapped between ELN and FARC factions. The crisis reflects deeper colonial and economic divides.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://mecila.net/wp-content/uploads/2025/05/WP-Melo-Online.pdf" target="_blank" rel="noopener">Working Paper No. 81, 2025</a>
+            <p class="report-meta">mecila.net &middot; 2026-06-06 07:38</p>
+            <p class="report-sum">This working paper critically examines Brazil's myth of racial democracy, arguing it conceals persistent inequality. The author uses a conceptual framework linking conviviality and inequality to reveal how structural racism operates beneath a surface of harmony.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.bea.gov/news/glance" target="_blank" rel="noopener">U.S. Economy at a Glance</a>
+            <p class="report-meta">bea.gov &middot; 2026-06-06 07:36</p>
+            <p class="report-sum">The BEA report provides standard U.S. macroeconomic data on GDP, personal income, and trade deficits, but offers no breakdown by race. This aggregate framing obscures how Black communities face disproportionately higher unemployment and lower wealth accumulation.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://media.afreximbank.com/afrexim/Debt-Burden-in-Africa-and-the-Caribbean-_2025.pdf" target="_blank" rel="noopener">State of Play of Debt Burden in Africa and the Caribbean</a>
+            <p class="report-meta">media.afreximbank.com &middot; 2026-06-06 07:36</p>
+            <p class="report-sum">This Afreximbank research report examines the debt burden across African and Caribbean nations, analyzing trends in borrowing, repayment, and economic strain. The data-driven approach highlights systemic financial challenges but largely omits the historical and racial contexts that underpin these debt structures.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.govinfo.gov/content/pkg/CHRG-111shrg52925/pdf/CHRG-111shrg52925.pdf" target="_blank" rel="noopener">Confronting drug trafficking in</a>
+            <p class="report-meta">govinfo.gov &middot; 2026-06-06 07:36</p>
+            <p class="report-sum">This congressional hearing examines how drug trafficking threatens governance in West Africa. The framing focuses on the destabilization of state institutions rather than the social or economic roots of the drug trade.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://hlpf.un.org/sites/default/files/vnrs/2025/HLPF+2025+Ghana+Main+Messages.pdf" target="_blank" rel="noopener">Main Messages Ghana’s 2025 Voluntary National Review (VNR)</a>
+            <p class="report-meta">hlpf.un.org &middot; 2026-06-06 07:35</p>
+            <p class="report-sum">Ghana's 2025 Voluntary National Review reaffirms its commitment to the SDGs, framing national challenges through a development lens. The report presents progress metrics without addressing the specific structural inequalities facing Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/en/publications/weo/weo-database/2025/april" target="_blank" rel="noopener">World Economic Outlook Database, April 2025</a>
+            <p class="report-meta">imf.org &middot; 2026-06-06 07:35</p>
+            <p class="report-sum">The IMF's World Economic Outlook database for April 2025 provides aggregated macroeconomic data and projections for countries globally, including many with large Black populations. The dataset treats all nations as comparable statistical units, obscuring how structural inequalities and colonial legacies shape economic outcomes for Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://ldi.upenn.edu/our-work/research-updates/the-war-on-drugs-as-structural-racism/" target="_blank" rel="noopener">The War on Drugs as Structural Racism - Penn LDI</a>
+            <p class="report-meta">ldi.upenn.edu &middot; 2026-06-06 07:34</p>
+            <p class="report-sum">A University of Pennsylvania seminar examines how the War on Drugs functioned as structural racism, targeting Black communities through criminalization while later opioid responses favored public health. Panelists argue that current drug policies continue to perpetuate racial inequities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.elibrary.imf.org/downloadpdf/view/journals/002/2025/157/article-A001-en.pdf" target="_blank" rel="noopener">Nigeria: 2025 Article IV Consultation-Press Release; Staff ...</a>
+            <p class="report-meta">elibrary.imf.org &middot; 2026-06-06 07:34</p>
+            <p class="report-sum">The IMF reports Nigeria's naira stability, portfolio inflows, and a credit rating upgrade but notes that reform gains have not yet reached all Nigerians. No analysis of structural inequality or colonial legacy is offered.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.undp.org/sites/g/files/zskgke326/files/2025-08/undp-working_paper_series-navigating_the_debt_crisis_7_aug_2025.pdf" target="_blank" rel="noopener">Working Paper Series Ethiopia No. 6 20 25 Navigating the Debt Crisis</a>
+            <p class="report-meta">undp.org &middot; 2026-06-05 13:10</p>
+            <p class="report-sum">This UNDP working paper analyzes Ethiopia's debt crisis, focusing on macroeconomic indicators and policy responses. It does not address how debt servicing and austerity measures disproportionately affect Black Ethiopian communities through reduced public services and economic hardship.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.brettonwoodsproject.org/update/recommended-resources-on-the-world-bank-and-the-imf-2025/" target="_blank" rel="noopener">Recommended resources on the World Bank and the IMF 2025</a>
+            <p class="report-meta">brettonwoodsproject.org &middot; 2026-06-05 13:10</p>
+            <p class="report-sum">The Bretton Woods Project presents a curated list of critical reports on the World Bank and IMF from 2025. The resources focus on governance reform, climate finance, and economic justice but do not directly address anti-Black racism or its structural drivers.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://policyalternatives.ca/sites/default/files/uploads/publications/National_Office_Pubs/africa.pdf" target="_blank" rel="noopener">Impoverishing a Continent: The World Bank and IMF in Africa</a>
+            <p class="report-meta">policyalternatives.ca &middot; 2026-06-05 13:10</p>
+            <p class="report-sum">The article argues that two decades of World Bank and IMF Structural Adjustment Programs have systematically de-developed Africa, leaving it impoverished. It calls for debt cancellation and highlights the exploitative nature of these financial policies.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/en/publications/fandd/issues/2026/03/the-new-face-of-african-debt-amadou-sy" target="_blank" rel="noopener">The New Face of African Debt</a>
+            <p class="report-meta">imf.org &middot; 2026-06-05 13:09</p>
+            <p class="report-sum">The article discusses the shift in sub-Saharan African debt from external to domestic sources, outlining benefits like reduced currency risk but also new challenges. It focuses on macroeconomic trends without addressing the historical and structural inequalities that shape Africa's debt burden.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/-/media/files/publications/reo/afr/2025/october/english/text.pdf" target="_blank" rel="noopener">REGIONAL ECONOMIC OUTLOOK SUB-SAHARAN AFRICA 2025 OCT</a>
+            <p class="report-meta">imf.org &middot; 2026-06-05 13:09</p>
+            <p class="report-sum">The IMF's Regional Economic Outlook for Sub-Saharan Africa presents economic data and projections for the region in October 2025. The report focuses on macroeconomic indicators like growth, inflation, and debt, but lacks analysis of structural inequality or colonial impacts.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/en/publications/books/issues/2025/07/07/africa-china-linkages-building-deeper-and-broader-connections-531612" target="_blank" rel="noopener">Africa-China Linkages: Building Deeper and Broader Connections</a>
+            <p class="report-meta">imf.org &middot; 2026-06-05 13:08</p>
+            <p class="report-sum">The IMF publication examines Africa-China economic ties, focusing on trade, debt, and fintech. It treats African countries as data points for investment and financial stability, ignoring the structural inequalities that shape these relationships.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.bu.edu/gdp/chinese-loans-to-africa-database/" target="_blank" rel="noopener">Chinese Loans to Africa Database</a>
+            <p class="report-meta">bu.edu &middot; 2026-06-05 13:08</p>
+            <p class="report-sum">The Chinese Loans to Africa Database catalogs over a decade of lending data, tracking infrastructure and development financing. The portrayal centers on aggregate figures rather than the lived impacts on African communities, reinforcing a transactional view of international relations.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://issafrica.org/iss-today/african-refugees-bear-the-brunt-of-shifting-global-politics" target="_blank" rel="noopener">African refugees bear the brunt of shifting global politics</a>
+            <p class="report-meta">issafrica.org &middot; 2026-06-05 13:07</p>
+            <p class="report-sum">The article examines how shifting global politics, including aid cuts and tighter borders, disproportionately harm African refugees. It highlights that most displaced Africans remain in neighboring countries, which are also resource-poor, and that funding cuts worsen their already dire conditions.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cfr.org/global-conflict-tracker/conflict/violent-extremism-sahel" target="_blank" rel="noopener">Violent Extremism in the Sahel | Global Conflict Tracker</a>
+            <p class="report-meta">cfr.org &middot; 2026-06-05 13:04</p>
+            <p class="report-sum">The article examines the rise of violent extremist groups in the Sahel, focusing on security threats to the U.S. and Europe. It attributes the crisis to weak governance, economic decline, and climate change, while framing the region primarily as a source of instability and migration. The analysis centers on geopolitical and counterterrorism concerns rather than the lived experiences of local populations.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://news.un.org/en/story/2025/10/1166076" target="_blank" rel="noopener">In Africa’s Sahel, conflict and climate change force millions...</a>
+            <p class="report-meta">news.un.org &middot; 2026-06-05 13:04</p>
+            <p class="report-sum">Nearly four million people in the Sahel have been displaced by conflict, hunger, and climate change, with women and children making up 80% of the displaced. The UN warns of collapsing services, closed schools and health facilities, and severe funding shortfalls for humanitarian aid.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://tradingeconomics.com/south-korea/unemployment-rate" target="_blank" rel="noopener">South Korea Unemployment Rate</a>
+            <p class="report-meta">tradingeconomics.com &middot; 2026-06-05 13:02</p>
+            <p class="report-sum">The page from Trading Economics presents South Korea's unemployment rate as a raw economic indicator. The data-driven format removes all social context, making invisible how structural discrimination affects Black and other minority communities in the labor market.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://statehouse.gov.ng/president-tinubu-presents-₦58-18-trillion-2026-appropriation-bill-vows-stronger-discipline-in-budget-execution/" target="_blank" rel="noopener">President Tinubu presents ₦58.18 trillion 2026 Appropriation Bill, vows stronger discipline in budget execution</a>
+            <p class="report-meta">statehouse.gov.ng &middot; 2026-06-05 13:02</p>
+            <p class="report-sum">President Bola Tinubu presented the ₦58.18 trillion 2026 budget to the National Assembly, vowing to end overlapping budgets and improve fiscal discipline. The speech focused on revenue targets and reform milestones, with little direct mention of how ordinary Nigerians will benefit.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://home.treasury.gov/system/files/136/FACSHEET-Treasury-Department-Advancing-Economic-Opportunity-Black-People-Businesses-Communities.pdf" target="_blank" rel="noopener">FACTSHEET: The Treasury Department Advancing Economic Opportunity for Black People, Businesses, and Communities</a>
+            <p class="report-meta">home.treasury.gov &middot; 2026-06-05 13:00</p>
+            <p class="report-sum">This Treasury factsheet outlines initiatives to boost economic opportunity for Black people, businesses, and communities. It emphasizes federal efforts to address systemic inequities through funding, lending, and technical assistance.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://unctad.org/publication/world-investment-report-2025" target="_blank" rel="noopener">World Investment Report 2025: International investment in the digital...</a>
+            <p class="report-meta">unctad.org &middot; 2026-06-05 13:00</p>
+            <p class="report-sum">The World Investment Report 2025 from UNCTAD focuses on international investment in the digital sector. Access to the report was blocked by a security service, preventing analysis of its content.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.academia.edu/88358244/The_asymmetric_effects_of_currency_devaluation_in_selected_sub_Saharan_Africa" target="_blank" rel="noopener">The asymmetric effects of currency devaluation in selected sub-Saharan Africa</a>
+            <p class="report-meta">academia.edu &middot; 2026-06-05 12:59</p>
+            <p class="report-sum">This academic paper analyzes the asymmetric effects of currency devaluation in selected sub-Saharan African countries, finding mixed impacts on trade balances and economies. The technical framing reduces complex national experiences to abstract variables, obscuring the human cost of structural adjustment policies.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.ed.gov/about/news/press-release/us-department-of-education-makes-historic-grant-investments-programs-bolster-educational-outcomes" target="_blank" rel="noopener">U.S. Department of Education Makes Historic Grant Investments in Charter Schools, HBCUs, and Civics Education</a>
+            <p class="report-meta">ed.gov &middot; 2026-06-05 12:59</p>
+            <p class="report-sum">The Department of Education announces $500 million for charter schools, $1.34 billion for HBCUs, and over $108 million for TCCUs, plus $160 million for civics education. The funding is repurposed from programs deemed ineffective, targeting President Trump's priorities and choice initiatives.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://foundation.blackeconomicalliance.org/app/uploads/2024/02/BEA-Foundation-Policy-Agenda.pdf" target="_blank" rel="noopener">Policy Agenda to Advance Black Work, Wages, and Wealth</a>
+            <p class="report-meta">foundation.blackeconomicalliance.org &middot; 2026-06-05 12:59</p>
+            <p class="report-sum">The Black Economic Alliance Foundation's policy agenda outlines strategies to improve Black work, wages, and wealth through partnerships across sectors. It addresses systemic inequalities while advocating for policy reimagination and investment programs.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.afdb.org/en/news-and-events/am2026-africa-has-what-it-takes-experts-call-stronger-financial-systems-help-africa-mobilise-capital-scale-93838" target="_blank" rel="noopener">AM2026: “Africa has what It takes” - Experts call for stronger financial systems to help Africa mobilise capital at scale</a>
+            <p class="report-meta">afdb.org &middot; 2026-06-05 12:55</p>
+            <p class="report-sum">Experts at an African Development Bank panel called for stronger, integrated financial systems to help Africa mobilize development finance amid global fragmentation. The session focused on unlocking domestic capital, regulatory reforms, and learning from Asia's financial integration experience.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cfr.org/backgrounders/mexicos-long-war-drugs-crime-and-cartels" target="_blank" rel="noopener">Mexico’s Long War: Drugs, Crime, and the Cartels</a>
+            <p class="report-meta">cfr.org &middot; 2026-06-05 12:47</p>
+            <p class="report-sum">This backgrounder details Mexico's two-decade war against drug cartels, highlighting violence, U.S. cooperation, and the dominance of Mexican trafficking organizations in fentanyl and other drugs. It focuses on cartel hierarchies and U.S. policy responses without addressing any impact on Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS" target="_blank" rel="noopener">Unemployment, total (% of total labor force) (modeled ILO estimate)</a>
+            <p class="report-meta">data.worldbank.org &middot; 2026-06-05 12:47</p>
+            <p class="report-sum">This is a global unemployment indicator from the World Bank, showing rates from 1991 to 2025. The data is presented as a neutral statistic, devoid of context about how Black communities are disproportionately affected by engineered unemployment and colonial economic structures.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.ssa.gov/" target="_blank" rel="noopener">The United States Social Security Administration</a>
+            <p class="report-meta">ssa.gov &middot; 2026-06-05 12:47</p>
+            <p class="report-sum">The United States Social Security Administration homepage displays a technical error message and broken links, preventing users from accessing services. This failure disproportionately impacts Black communities who rely on these benefits due to systemic unemployment and mass incarceration.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://news.berkeley.edu/2026/05/28/how-do-californians-tolerate-extreme-inequality/" target="_blank" rel="noopener">How do Californians tolerate extreme inequality?</a>
+            <p class="report-meta">news.berkeley.edu &middot; 2026-06-05 12:45</p>
+            <p class="report-sum">The article summarizes a book about how middle-class Californians rationalize extreme inequality, focusing on interviews and contradictions. It mentions segregation and poverty statistics but does not center Black experiences or explicitly name anti-Black structural forces.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.researchgate.net/publication/236704888_From_Racial_Democracy_to_Affirmative_Action_Changing_State_Policy_on_Race_in_Brazil" target="_blank" rel="noopener">From 'Racial Democracy' to Affirmative Action: Changing State Policy on Race in Brazil</a>
+            <p class="report-meta">researchgate.net &middot; 2026-06-05 12:43</p>
+            <p class="report-sum">This research paper analyzes Brazil's transition from a 'racial democracy' ideology to affirmative action policies. It examines how the state's changing policies on race address historical inequalities. The study focuses on the policy shift itself rather than on-the-ground experiences.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.worldbank.org/en/news/press-release/2025/12/16/world-bank-supports-improved-social-services-health-and-education-in-salvador-brazil" target="_blank" rel="noopener">World Bank Supports Improved Social Services, Health and Education in Salvador, Brazil</a>
+            <p class="report-meta">worldbank.org &middot; 2026-06-05 12:43</p>
+            <p class="report-sum">The World Bank approved a $120 million loan for Salvador, Brazil, to improve health, education, and social services for 1.7 million residents. The program aims to strengthen human capital and create skilled jobs, but ignores the city's majority-Black population and historical inequities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12434023/" target="_blank" rel="noopener">Interculturality, public health and health education: data...</a>
+            <p class="report-meta">pmc.ncbi.nlm.nih.gov &middot; 2026-06-05 12:43</p>
+            <p class="report-sum">The study uses national health and occupational registries to analyze health professionals' work contexts and regional variations in Brazil. It does not explicitly address race, focusing instead on structural classifications.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.bog.gov.gh/wp-content/uploads/2025/04/IMF-Spring-Meetings-Speech-public.pdf" target="_blank" rel="noopener">IMF / WORLD BANK 2025 SPRING MEETINGS: 2025 AFRICAN ...</a>
+            <p class="report-meta">bog.gov.gh &middot; 2026-06-05 12:38</p>
+            <p class="report-sum">The speech notes that many African nations face crushing debt that limits spending on social programs and progress toward the Sustainable Development Goals. This structural indebtedness reflects ongoing economic exploitation rooted in colonial-era financial systems and current IMF/World Bank policies.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://sites.psu.edu/civicissue13/2025/04/04/war-on-drugs/" target="_blank" rel="noopener">War on Drugs | Criminal Justice System - Sites at Penn State</a>
+            <p class="report-meta">sites.psu.edu &middot; 2026-06-05 12:37</p>
+            <p class="report-sum">The story examines the War on Drugs, highlighting how sentencing laws disproportionately targeted Black Americans for crack cocaine while white users of powder cocaine received leniency. This disparity fueled reforms as public awareness grew.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://minorityhealth.hhs.gov/mental-and-behavioral-health-blackafrican-americans" target="_blank" rel="noopener">Mental Health and Black/African Americans - Office of Minority Health</a>
+            <p class="report-meta">minorityhealth.hhs.gov &middot; 2026-06-05 12:35</p>
+            <p class="report-sum">The Office of Minority Health provides general information about mental health and then lists statistics on Black Americans' mental health service use and outcomes. The page highlights disparities but does not name racism or structural causes, leaving the impression that these gaps exist without clear systemic drivers.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://irrpp.uic.edu/news-stories/reset-black-homelessness/" target="_blank" rel="noopener">WBEZ Reset: Black homelessness is twice the national average in...</a>
+            <p class="report-meta">irrpp.uic.edu &middot; 2026-06-05 12:34</p>
+            <p class="report-sum">The story reports that Black homelessness in the United States is double the national average, highlighting a systemic crisis rooted in inequality. It examines the structural factors driving this disparity, such as housing discrimination and economic exclusion.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/external/datamapper/GDD/2025+Global+Debt+Monitor.pdf" target="_blank" rel="noopener">2025 Global Debt Monitor - IMF</a>
+            <p class="report-meta">imf.org &middot; 2026-06-05 09:18</p>
+            <p class="report-sum">The IMF's 2025 Global Debt Monitor reports that global debt stabilized above 235% of GDP in 2024. The report treats debt as a neutral economic indicator, obscuring how structural inequality and colonial-era lending practices disproportionately burden Black communities worldwide.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://unctad.org/system/files/official-document/osgttinf2025d4_summary_en.pdf" target="_blank" rel="noopener">A World of Debt 2025 (Summary) - UNCTAD</a>
+            <p class="report-meta">unctad.org &middot; 2026-06-05 09:18</p>
+            <p class="report-sum">The UNCTAD report examines the global debt crisis, highlighting how developing nations, many with Black majority populations, are trapped by debt repayment at the cost of social spending. The analysis critiques the inequities of the international financial system but stops short of naming racial dimensions explicitly.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.weforum.org/stories/2025/10/imf-world-bank-fall-2025-meetings-takeways/" target="_blank" rel="noopener">Debt and division: The 2025 IMF-World Bank fall meetings</a>
+            <p class="report-meta">weforum.org &middot; 2026-06-05 09:18</p>
+            <p class="report-sum">The article summarizes takeaways from the 2025 IMF-World Bank fall meetings, focusing on global debt and economic division. It discusses financial systems but does not address how structural racism or colonial legacies disproportionately affect Black communities through debt burdens.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cavendish.ac.ug/wp-content/uploads/2025/04/Chinas-Belt-and-Road-Initiative-in-Africa.pdf" target="_blank" rel="noopener">China’s Belt and Road Initiative in Africa Opportunities and ...</a>
+            <p class="report-meta">cavendish.ac.ug &middot; 2026-06-05 09:16</p>
+            <p class="report-sum">The document outlines China's Belt and Road Initiative in Africa, highlighting infrastructure and investment opportunities. It presents the initiative as a development strategy, but frames African countries primarily as beneficiaries of Chinese-led projects.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.pmindia.gov.in/en/news_updates/text-of-pms-concluding-remarks-at-3rd-india-africa-forum-summit/" target="_blank" rel="noopener">Text of PM’s concluding remarks at 3rd India-Africa Forum Summit</a>
+            <p class="report-meta">pmindia.gov.in &middot; 2026-06-05 09:16</p>
+            <p class="report-sum">Indian Prime Minister Modi addresses the 3rd India-Africa Forum Summit, highlighting shared aspirations and challenges. He pledges to restructure lines of credit, enhance technology transfer, and boost trade and security cooperation. The speech positions India as a partner in Africa's development.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://news.un.org/en/story/2026/01/1166857" target="_blank" rel="noopener">Violence roiling Nigeria extends beyond religious lines, amid ...</a>
+            <p class="report-meta">news.un.org &middot; 2026-06-05 09:14</p>
+            <p class="report-sum">The UN reports that violence in Nigeria has spread beyond the northeast Boko Haram insurgency to include banditry in the northwest, land clashes in the central belt, and separatist unrest, leaving 3.5 million displaced. The humanitarian coordinator warns that an entire generation has grown up in camps, cut off from economic activity and dignity.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cfr.org/global-conflict-tracker/conflict/conflict-ethiopia" target="_blank" rel="noopener">Conflict in Ethiopia | Global Conflict Tracker</a>
+            <p class="report-meta">cfr.org &middot; 2026-06-05 09:13</p>
+            <p class="report-sum">The article details escalating tensions in Ethiopia's Tigray region, focusing on internal power struggles and the risk of renewed war with Eritrea. It highlights the incomplete implementation of the Pretoria peace deal and the devastating humanitarian toll from the 2020-2022 civil war.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.chathamhouse.org/2026/05/ethiopia-needs-more-election-calm-internal-and-regional-conflict" target="_blank" rel="noopener">Ethiopia needs more than an election to calm internal and regional conflict</a>
+            <p class="report-meta">chathamhouse.org &middot; 2026-06-05 09:13</p>
+            <p class="report-sum">Ethiopia's upcoming elections occur amid ongoing instability and regional tensions, particularly the threat of renewed conflict in Tigray. Such a relapse would not remain contained, risking a wider war involving Eritrea, Sudan, and their allies.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.brookings.edu/articles/somalias-challenges-in-2023/" target="_blank" rel="noopener">Somalia's challenges in 2023</a>
+            <p class="report-meta">brookings.edu &middot; 2026-06-05 09:12</p>
+            <p class="report-sum">The article analyzes Somalia's 2023 challenges, focusing on catastrophic starvation affecting half the population and the government's anti-al-Shabaab campaign. It highlights how drought, failed rains, and al-Shabaab's control over aid deliveries worsen a famine that has already displaced millions and killed vast livestock.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://crisisresponse.iom.int/index.php/response/somalia-crisis-response-plan-2025-2026" target="_blank" rel="noopener">Somalia Crisis Response Plan 2025 - 2026 | Global Crisis</a>
+            <p class="report-meta">crisisresponse.iom.int &middot; 2026-06-05 09:12</p>
+            <p class="report-sum">The IOM's Somalia Crisis Response Plan for 2025-2026 describes a dire humanitarian situation with millions displaced by conflict and climate shocks. It focuses on saving lives and building resilience but presents the crisis through statistical data rather than individual stories.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cfr.org/global-conflict-tracker/conflict/power-struggle-sudan" target="_blank" rel="noopener">Civil War in Sudan | Global Conflict Tracker</a>
+            <p class="report-meta">cfr.org &middot; 2026-06-05 09:11</p>
+            <p class="report-sum">Sudan's civil war, now in its fourth year, has left millions in a hunger crisis while fighting between the SAF and RSF continues. The country's colonial history and ethnic divides fuel the conflict, with international actors arming both sides.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.unicef.org/sudan/" target="_blank" rel="noopener">UNICEF Sudan</a>
+            <p class="report-meta">unicef.org &middot; 2026-06-05 09:11</p>
+            <p class="report-sum">This UNICEF page highlights the severe crisis facing children in Sudan, including violence, displacement, and hunger, with a focus on humanitarian responses. It details how children bear the heaviest burden and how UNICEF programs aim to provide water, cash transfers, education, and protection.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.wfp.org/news/economic-hardship-climate-crisis-and-violence-northeast-projected-push-331-million-nigerians" target="_blank" rel="noopener">Economic hardship, the climate crisis and violence in the northeast projected to push 33.1 million Nigerians into acute food insecurity</a>
+            <p class="report-meta">wfp.org &middot; 2026-06-05 09:09</p>
+            <p class="report-sum">The article reports that 33.1 million Nigerians face acute food insecurity due to economic hardship, inflation, climate change, and violence. It highlights rising food prices, currency devaluation, and the impact of policy changes like fuel subsidy removal. The analysis focuses on alarming statistics and malnutrition risks for children and mothers.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.nexford.edu/insights/how-will-ai-affect-jobs" target="_blank" rel="noopener">How will Artificial Intelligence Affect Jobs 2026-2030 | Nexford University</a>
+            <p class="report-meta">nexford.edu &middot; 2026-06-05 09:08</p>
+            <p class="report-sum">The article discusses how AI will impact jobs from 2026 to 2030, predicting both job losses and creation. It highlights economic benefits like increased GDP, but does not examine how these changes disproportionately affect Black workers facing structural inequality.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.hud.gov/opportunity-zones/resources/map" target="_blank" rel="noopener">Map of Opportunity Zones | HUD.gov / U.S. Department of Housing and Urban Development</a>
+            <p class="report-meta">hud.gov &middot; 2026-06-05 09:07</p>
+            <p class="report-sum">The HUD Opportunity Zones map designates low-income census tracts for tax-advantaged investment. While framed as economic development, critics note these zones often overlap with historically redlined Black neighborhoods, risking displacement and benefiting outside investors rather than residents.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.weforum.org/stories/2025/11/g20-summit-what-you-need-to-know/" target="_blank" rel="noopener">What is the G20 and why does it matter?</a>
+            <p class="report-meta">weforum.org &middot; 2026-06-05 09:05</p>
+            <p class="report-sum">The article explains the purpose and significance of the G20 summit, focusing on global economic cooperation and addressing major challenges. It does not mention any specific impact on Black communities or structural inequalities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.afdb.org/en/news-and-events/press-releases/am2026-african-development-bank-groups-rome-process/mattei-plan-financing-facility-announces-clean-cooking-program-2026-annual-meetings-93833" target="_blank" rel="noopener">AM2026: The African Development Bank Group’s Rome Process/Mattei Plan Financing Facility Announces Clean Cooking Program</a>
+            <p class="report-meta">afdb.org &middot; 2026-06-05 09:04</p>
+            <p class="report-sum">The African Development Bank Group announced a Clean Cooking Program under the Rome Process/Mattei Plan Financing Facility, aiming to provide clean cooking access to one million households across Africa and cut CO2 emissions. The program aligns with Mission 300 energy compacts and involves partnerships with Italy and other nations.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://southafrica.un.org/en/315119-opinion-why-sovereign-wealth-funds-are-africa’s-quiet-revolution" target="_blank" rel="noopener">OPINION | Why sovereign wealth funds are Africa’s quiet revolution</a>
+            <p class="report-meta">southafrica.un.org &middot; 2026-06-05 09:03</p>
+            <p class="report-sum">The opinion piece argues that African nations should create sovereign wealth funds using revenues from their mineral extraction. It presents this as a quiet revolution to break cycles of poverty and dependency.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cfr.org/backgrounders/what-imf" target="_blank" rel="noopener">What Is the IMF?</a>
+            <p class="report-meta">cfr.org &middot; 2026-06-05 09:03</p>
+            <p class="report-sum">The article explains the IMF's role in managing global monetary systems and debt crises since 1944. It notes criticism that IMF policies may harm the world's poor, especially in developing nations facing climate change, but does not name racism as a factor.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://blogs.worldbank.org/en/opendata/-beverage-prices-moderate-as-coffee-and-cocoa-supply-recover" target="_blank" rel="noopener">Beverage prices moderate as coffee and cocoa supply recover</a>
+            <p class="report-meta">blogs.worldbank.org &middot; 2026-06-05 09:01</p>
+            <p class="report-sum">The World Bank reports that beverage prices are moderating as coffee and cocoa supplies recover, especially in West Africa. The focus is on global market trends, with no mention of the working conditions or economic vulnerability of Black farmers.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://blogs.worldbank.org/en/opendata/cocoa-and-coffee-prices-rebound-on-renewed-supply-concerns" target="_blank" rel="noopener">Cocoa and coffee prices rebound on renewed supply concerns</a>
+            <p class="report-meta">blogs.worldbank.org &middot; 2026-06-05 09:01</p>
+            <p class="report-sum">The World Bank blog reports that cocoa and coffee prices surged due to supply concerns, particularly poor weather in West Africa. Black communities in Ghana and Ivory Coast are central to production but are discussed only in terms of output shortfalls, not human impact.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://publichealth.jhu.edu/2012/jernigan-african-american-alcohol" target="_blank" rel="noopener">African-American Youth Exposed to More Magazine and Television Alcohol Ads</a>
+            <p class="report-meta">publichealth.jhu.edu &middot; 2026-06-04 15:45</p>
+            <p class="report-sum">A Johns Hopkins report reveals that African-American youth aged 12-20 see more alcohol ads in magazines and on TV than their peers. This disproportionate exposure suggests targeted marketing that exploits systemic inequality.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://law.northeastern.edu/clear-workshop-on-black-land-ownership-preservation-highlights-innovative-approaches/" target="_blank" rel="noopener">CLEAR Workshop on Black Land Ownership Preservation Highlights Innovative Approaches</a>
+            <p class="report-meta">law.northeastern.edu &middot; 2026-06-04 15:44</p>
+            <p class="report-sum">The workshop gathered experts to discuss innovative methods for preserving Black land ownership and building generational wealth. The focus is on creative legal and financial tools to counter historical land loss and structural dispossession.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.lincolninst.edu/podcasts/land-matters/reclaiming-black-owned-land/" target="_blank" rel="noopener">Reclaiming Black-Owned Land - Lincoln Institute of Land Policy</a>
+            <p class="report-meta">lincolninst.edu &middot; 2026-06-04 15:44</p>
+            <p class="report-sum">The podcast discusses how Black land ownership in the U.S. plummeted from 14 million acres in 1910 to 1.1 million by 2022 due to seizures, legal failures, and discrimination. It highlights the work of attorney Mavis Gragg to help families reclaim property and the landmark return of Bruce's Beach in California.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.amnestyusa.org/wp-content/uploads/2026/04/The-State-of-the-Worlds-Human-Rights-April-2026.pdf" target="_blank" rel="noopener">The State of the World's Human Rights</a>
+            <p class="report-meta">amnestyusa.org &middot; 2026-06-04 15:41</p>
+            <p class="report-sum">This Amnesty International report reviews the global state of human rights in 2025-2026, highlighting widespread abuses across multiple countries. Black communities are indirectly referenced through broader patterns of inequality and repression, but no specific racial analysis is provided.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.oidhaco.org/wp-content/uploads/2025/12/Oidhaco_Statement_-situation-faced-by-ethnic-and-peasant-communities-Lower-Atrato-Colombia.pdf" target="_blank" rel="noopener">Colombia In Chocó, risks to communities and grassroots ...</a>
+            <p class="report-meta">oidhaco.org &middot; 2026-06-04 15:40</p>
+            <p class="report-sum">The report highlights that Chocó, a region heavily populated by Afro-Colombian and Indigenous communities, accounts for 32% of Colombia's confined population due to deteriorating security. It underscores the lack of guarantees for these ethnic groups, linking their vulnerability to ongoing territorial disputes and neglect.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.hchr.org.co/wp/wp-content/uploads/2025/08/08-20-2025-F-comunicado-de-prensa-Choco-ONU-Derechos-Humanos.pdf" target="_blank" rel="noopener">Indigenous and Afro-descendants in Chocó face...</a>
+            <p class="report-meta">hchr.org.co &middot; 2026-06-04 15:40</p>
+            <p class="report-sum">The UN Human Rights Office in Colombia expresses deep concern over human rights violations and attacks against Indigenous peoples and Afro-descendant communities in Chocó. These actions threaten the physical and cultural survival of these groups.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.academia.edu/6664507/PCC_Organized_Crime_in_Brazilian_Prisons" target="_blank" rel="noopener">PCC Organized Crime in Brazilian Prisons</a>
+            <p class="report-meta">academia.edu &middot; 2026-06-04 15:38</p>
+            <p class="report-sum">This PDF analyzes the February 2001 crisis in São Paulo's prison system, focusing on the rise of the PCC organized crime group. It discusses prison violence and state response but does not address the overrepresentation of Black Brazilians in incarceration.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://globalinitiative.net/wp-content/uploads/2025/07/Mapping-organized-criminal-economies-in-East-and-Southern-Africa-GI-TOC-July-2025.pdf" target="_blank" rel="noopener">MAPPING ORGANIZED CRIMINAL ECONOMIES IN EAST AND SOUTHERN AFRICA</a>
+            <p class="report-meta">globalinitiative.net &middot; 2026-06-04 15:36</p>
+            <p class="report-sum">The report maps organized criminal economies across East and Southern Africa, focusing on illicit trade networks. It analyzes the structures of these economies but does not connect them to colonial legacies or structural inequality affecting Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://au.int/en/pressreleases/20250910/au-adopts-strategic-framework-collective-response-2-illicit-drug-trafficking" target="_blank" rel="noopener">African Union adopts new strategic framework for a collective response to illicit drug trafficking</a>
+            <p class="report-meta">au.int &middot; 2026-06-04 15:36</p>
+            <p class="report-sum">The African Union adopted the Gaborone Strategic Framework to combat illicit synthetic drug trafficking. The framework emphasizes coordinated continental action, improved detection, and intelligence sharing to protect public health and security.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.icquality.org/files/2025-09/PRESENTATION+-+ISSUP.pdf" target="_blank" rel="noopener">World Drug Report 2025: Key Trends and Policy Challenges for Africa</a>
+            <p class="report-meta">icquality.org &middot; 2026-06-04 15:35</p>
+            <p class="report-sum">The AU Plan of Action on Drug Control and Crime Prevention aims to improve health and security across Africa by targeting drug trafficking and problematic drug use. However, the framing treats African communities as passive subjects of top-down policy rather than active agents with specific needs related to structural inequality.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.chathamhouse.org/regions/africa/east-africa" target="_blank" rel="noopener">East Africa | Chatham House – International Affairs Think Tank</a>
+            <p class="report-meta">chathamhouse.org &middot; 2026-06-04 15:34</p>
+            <p class="report-sum">Chatham House articles analyze the Democratic Republic of Congo's geopolitical shift toward the US and the potential of digitalization in Africa. The framing focuses on state-level strategy and innovation, with little attention to the impact on ordinary Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.chathamhouse.org/2026/01/africa-2026-global-uncertainty-demands-regional-leadership" target="_blank" rel="noopener">Africa in 2026: Global uncertainty demands regional leadership</a>
+            <p class="report-meta">chathamhouse.org &middot; 2026-06-04 15:33</p>
+            <p class="report-sum">The article examines African electoral trends in 2025-2026, highlighting Tanzania's entrenched systems and Ghana's peaceful transition. It treats African governance largely as a stress test for regional leadership amid global uncertainty.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.csis.org/programs/africa-program/archives/security-and-conflict/political-and-security-trends-east-africa" target="_blank" rel="noopener">Political and Security Trends in East Africa | Security and Conflict | CSIS</a>
+            <p class="report-meta">csis.org &middot; 2026-06-04 15:33</p>
+            <p class="report-sum">The CSIS analysis portrays East Africa as a conflicted, poorly governed region where terrorism and piracy threaten U.S. security and economic interests. It focuses on U.S. policy responses to these perceived threats rather than local perspectives or structural inequities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.csis.org/analysis/why-are-foreign-powers-scrambling-court-africa" target="_blank" rel="noopener">Why Are Foreign Powers Scrambling to Court Africa?</a>
+            <p class="report-meta">csis.org &middot; 2026-06-04 15:32</p>
+            <p class="report-sum">The article discusses how global powers like the US, China, and Russia are competing for influence in Africa, focusing on the continent's critical minerals and growing population. It frames this competition as a modern 'scramble for Africa,' with foreign interests prioritizing access to resources over African sovereignty.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/external/datamapper/index.php" target="_blank" rel="noopener">IMF DataMapper</a>
+            <p class="report-meta">imf.org &middot; 2026-06-04 15:32</p>
+            <p class="report-sum">This is a data dashboard from the International Monetary Fund showing economic indicators for countries globally. It presents numbers without context about structural inequities affecting Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.whitehouse.gov/ondcp/" target="_blank" rel="noopener">Office of National Drug Control Policy – The White House</a>
+            <p class="report-meta">whitehouse.gov &middot; 2026-06-04 15:30</p>
+            <p class="report-sum">This White House office page describes the federal drug control strategy as a coordinated, budget-driven response to addiction. It does not mention race or the disproportionate impact of drug enforcement on Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://socialwork.nyu.edu/news/2025/black-youth-mental-health-panel-discussions.html" target="_blank" rel="noopener">Leaders Gather to Tackle Black Youth Suicide & Mental Health Crisis</a>
+            <p class="report-meta">socialwork.nyu.edu &middot; 2026-06-04 15:29</p>
+            <p class="report-sum">NYU hosted a panel on Black youth suicide and mental health, gathering leaders to discuss the crisis. The article frames the issue as urgent but lacks detail on root causes or specific solutions.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.worldbank.org/" target="_blank" rel="noopener">World Bank Group - International Development, Poverty and...</a>
+            <p class="report-meta">worldbank.org &middot; 2026-05-30 13:06</p>
+            <p class="report-sum">The World Bank Group website presents itself as a hub for data-driven development, offering tools and training to guide decisions on poverty and progress. However, its focus on metrics and regions like Africa neglects the historical and structural inequalities that perpetuate Black poverty.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.imf.org/en/publications/weo/issues/2026/01/19/world-economic-outlook-update-january-2026" target="_blank" rel="noopener">World Economic Outlook Update, January 2026: Global Economy...</a>
+            <p class="report-meta">imf.org &middot; 2026-05-30 13:06</p>
+            <p class="report-sum">The IMF's January 2026 World Economic Outlook projects global growth of 3.3% for 2026 and 3.2% for 2027, citing technology investment and fiscal support. It warns of downside risks like geopolitical tensions and technology reevaluations, but offers no race-specific analysis.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.brookings.edu/articles/new-trends-in-africa-asia-economic-relations/" target="_blank" rel="noopener">New trends in Africa-Asia economic relations</a>
+            <p class="report-meta">brookings.edu &middot; 2026-05-30 13:05</p>
+            <p class="report-sum">This Brookings podcast episode discusses the evolution of Africa-Asia economic relations, highlighting increased trade and shared development challenges. It frames the partnership as mutually beneficial without examining power imbalances or historical exploitation. The conversation focuses on lessons Asia can offer Africa, potentially glossing over structural inequalities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.brookings.edu/articles/the-future-of-african-trade-in-the-afcfta-era/" target="_blank" rel="noopener">The future of African trade in the AfCFTA era</a>
+            <p class="report-meta">brookings.edu &middot; 2026-05-30 13:05</p>
+            <p class="report-sum">The article analyzes how the colonial model of resource extraction continues to shape Africa's trade, leaving the continent with less than 3% of global trade. It presents the African Continental Free Trade Area (AfCFTA) as a potential game-changer to overcome these structural inequalities and boost intra-African trade.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.brookings.edu/articles/india-africa-trade-and-investmenta-backdrop/" target="_blank" rel="noopener">India-Africa trade and investment: A backdrop</a>
+            <p class="report-meta">brookings.edu &middot; 2026-05-30 13:04</p>
+            <p class="report-sum">The article presents India-Africa trade as a success story driven by government initiatives and private sector growth, focusing on rising bilateral trade volumes and credit lines. It highlights economic cooperation but largely overlooks historical power imbalances and the specific needs of African populations.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.cii.in/International_ResearchPDF/India+Africa+Report+2025.pdf" target="_blank" rel="noopener">India Africa Report 2025</a>
+            <p class="report-meta">cii.in &middot; 2026-05-30 13:04</p>
+            <p class="report-sum">The India Africa Report 2025 frames Africa primarily as a supplier of natural resources for India's energy security, with Indian investments framed as aid. It obscures structural inequalities and the continent's own development priorities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.un.org/en/academic-impact/migration-dynamics-refugees-and-internally-displaced-persons-africa" target="_blank" rel="noopener">Migration Dynamics, Refugees and Internally Displaced Persons in Africa</a>
+            <p class="report-meta">un.org &middot; 2026-05-30 13:02</p>
+            <p class="report-sum">The UN article outlines migration patterns in Africa, including labor migration, refugees, and internal displacement, noting over 31 million Africans live outside their birth country. It focuses on continental dynamics without addressing underlying structural inequalities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.congress.gov/crs_external_products/IF/PDF/IF10434/IF10434.13.pdf" target="_blank" rel="noopener">Burkina Faso: Conflict and Military Rule</a>
+            <p class="report-meta">congress.gov &middot; 2026-05-30 13:01</p>
+            <p class="report-sum">The Congressional Research Service document outlines the ongoing conflict and military rule in Burkina Faso, highlighting political instability and security challenges. It focuses on geopolitical dynamics rather than the human impact on Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://news.un.org/en/story/2026/01/1166801" target="_blank" rel="noopener">Haiti explained: why the crisis is deepening — and what comes ...</a>
+            <p class="report-meta">news.un.org &middot; 2026-05-30 13:00</p>
+            <p class="report-sum">The UN article details Haiti's deepening humanitarian and political crisis, including gang violence, displacement, and delayed elections. It highlights the Security Council's upcoming meeting but omits structural causes like colonial reparations and foreign economic exploitation. The narrative focuses on immediate violence and instability rather than systemic roots.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://crisisresponse.iom.int/response/ethiopia-crisis-response-plan-2026" target="_blank" rel="noopener">Ethiopia Crisis Response Plan 2026</a>
+            <p class="report-meta">crisisresponse.iom.int &middot; 2026-05-30 13:00</p>
+            <p class="report-sum">IOM's Ethiopia Crisis Response Plan 2026 outlines humanitarian aid for 3.3 million internally displaced people due to conflict and climate disasters. The report focuses on numbers and operational responses rather than the systemic causes of displacement.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.unicef.org/media/179876/file/Ethiopia-Humanitarian-Situation-Report-No.1,January-February-2026.pdf.pdf" target="_blank" rel="noopener">Ethiopia Humanitarian Situation Report No.1 Jan to Feb 2026</a>
+            <p class="report-meta">unicef.org &middot; 2026-05-30 13:00</p>
+            <p class="report-sum">Ethiopia faces a humanitarian crisis driven by drought, conflict, and economic instability. The report focuses on statistics rather than the historical roots of these conditions for Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.unhcr.org/sites/default/files/2026-01/ga2026-drc-situation.pdf" target="_blank" rel="noopener">The Democratic Republic of the Congo (DRC) Global Appeal 2026</a>
+            <p class="report-meta">unhcr.org &middot; 2026-05-30 12:58</p>
+            <p class="report-sum">This UNHCR page for the DRC Global Appeal 2026 displays only a CAPTCHA verification step, blocking access to the actual appeal content. No information about the DRC situation or Black communities is provided.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.sanews.gov.za/" target="_blank" rel="noopener">SAnews | South African Government News Agency</a>
+            <p class="report-meta">sanews.gov.za &middot; 2026-05-30 12:55</p>
+            <p class="report-sum">The South African government transfers title deeds to several Batswana communities in North West province, addressing historical land dispossession. The report also covers initiation rituals and labor day reflections alongside persistent poverty and unemployment challenges.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://cisinigeria.org/wp-content/uploads/2026/01/ECONOMIC-REVIEW-AND-OUTLOOK-FOR-2026-AT-CIS-by-Dr-Ayo-Teriba.pdf" target="_blank" rel="noopener">ECONOMIC REVIEW AND OUTLOOK FOR 2026 AT CIS by Dr Ayo Teriba</a>
+            <p class="report-meta">cisinigeria.org &middot; 2026-05-30 12:55</p>
+            <p class="report-sum">The PDF by Dr. Ayo Teriba reviews Nigeria's economic performance in 2025, noting recovery from recession due to reform instruments. It projects an optimistic outlook for 2026, focusing on macroeconomic stability and growth.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.worldbank.org/en/country/nigeria/publication/nigeria-development-update-ndu" target="_blank" rel="noopener">Nigeria Development Update (NDU) - World Bank Group</a>
+            <p class="report-meta">worldbank.org &middot; 2026-05-30 12:55</p>
+            <p class="report-sum">The World Bank's Nigeria Development Update reports on Nigeria's macroeconomic reforms and stabilization, highlighting progress in growth and revenue while noting persistent poverty and food inflation. It urges continued reforms and investment in early childhood development to achieve inclusive growth.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://niser.gov.ng/v2/niser-economic-intelligence-report-2026/" target="_blank" rel="noopener">NISER Economic Intelligence Report 2026</a>
+            <p class="report-meta">niser.gov.ng &middot; 2026-05-30 12:55</p>
+            <p class="report-sum">The NISER 2026 report analyzes Nigeria's economic performance since 2020, focusing on macro, meso, micro, and valuation layers. It presents policy recommendations for growth but omits discussion of how structural inequality and colonial legacies impact Black communities.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.parliament.gov.za/press-releases/media-statement-pending-closure-volkswagen-kariega-plant-becomes-crisis-making-committee-chair" target="_blank" rel="noopener">Media Statement: Pending Closure of Volkswagen Kariega Plant Becomes Crisis Making Committee Chair</a>
+            <p class="report-meta">parliament.gov.za &middot; 2026-05-30 12:54</p>
+            <p class="report-sum">A South African parliamentary committee chair warns that Volkswagen's Kariega plant may close unless the government enacts industrial policy swiftly, threatening thousands of jobs. The statement frames the potential closure as a national crisis, highlighting the plant's role in manufacturing and exports in the Eastern Cape.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.afdb.org/en/knowledge/publications/african-economic-outlook" target="_blank" rel="noopener">African Economic Outlook 2026 - African Development Bank Group</a>
+            <p class="report-meta">afdb.org &middot; 2026-05-30 12:52</p>
+            <p class="report-sum">The African Economic Outlook 2026 report from the African Development Bank highlights the continent's struggle with geopolitical fragmentation, trade tensions, and declining financial flows. It calls for a fundamental shift toward coordinated development financing at scale, but the underlying structural inequalities driven by colonial legacies and foreign debt remain unaddressed.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://www.worldbank.org/en/region/afr/publication/africa-economic-update" target="_blank" rel="noopener">Africa Economic Update April 2026 - World Bank Group</a>
+            <p class="report-meta">worldbank.org &middot; 2026-05-30 12:52</p>
+            <p class="report-sum">The World Bank reports that Sub-Saharan Africa's economic growth is slowing due to high debt, global shocks, and structural weaknesses. It recommends protecting the most vulnerable while pursuing industrial policy, but frames the crisis in terms of macroeconomic indicators rather than systemic racism or exploitation.</p>
+        </div>
+        <div class="report-item">
+            <a class="report-title" href="https://ustr.gov/issue-areas/trade-development/preference-programs/african-growth-and-opportunity-act-agoa" target="_blank" rel="noopener">African Growth and Opportunity Act (AGOA) | United States Trade...</a>
+            <p class="report-meta">ustr.gov &middot; 2026-05-30 12:51</p>
+            <p class="report-sum">The U.S. government describes the African Growth and Opportunity Act (AGOA) as a core trade policy providing duty-free access to 32 eligible sub-Saharan African countries. The program's framing emphasizes market-based reforms and poverty reduction, but raises questions about structural power imbalances and corporate benefit.</p>
+        </div></div>
+    
+</div>
+
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong> Your World Today</p>
+    <p style="margin-top:0.5rem">Stories sourced from the open web. Links go to original sources.</p>
+    <nav aria-label="Our channels" style="margin-top:0.9rem;display:flex;gap:0.5rem 1.1rem;justify-content:center;flex-wrap:wrap;"><a href="https://www.youtube.com/channel/UCddUUCREEHYOLoEzmCfobKQ" target="_blank" rel="noopener" style="color:#8ab89a;font-weight:600;text-decoration:none;">YouTube</a><a href="https://www.tiktok.com/@blackworldnews" target="_blank" rel="noopener" style="color:#8ab89a;font-weight:600;text-decoration:none;">TikTok</a><a href="https://www.facebook.com/profile.php?id=61590158803177" target="_blank" rel="noopener" style="color:#8ab89a;font-weight:600;text-decoration:none;">Facebook</a></nav>
+    <p style="margin-top:0.6rem;font-size:0.72rem;"><a href="/privacy.html" style="color:#666;text-decoration:none;">Privacy</a></p>
+</footer>
+
+<script>
+  if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+  }
+</script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e3ec5487cf654658b68643a2cb7cfc40"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
