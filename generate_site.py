@@ -519,8 +519,8 @@ import re as _re_themes
 _CAT_THEME = {
     "Employment": "Economy & Debt", "Housing": "Economy & Debt", "Economy": "Economy & Debt",
     "Healthcare": "Health", "Education": "Education", "Politics": "Politics & Power",
-    "Immigration": "Migration", "Culture": "Culture & Arts", "Policing": "Policing & Justice",
-    "Hate Crime": "Policing & Justice", "Media Bias": "Tech & Media", "Demographics": "Politics & Power",
+    "Immigration": "Migration", "Culture": "Culture & Arts", "Policing": "Babylon",
+    "Hate Crime": "Babylon", "Media Bias": "Tech & Media", "Demographics": "Politics & Power",
 }
 
 # Ordered most-distinctive first so generic themes (Politics/Economy) act as catch-alls.
@@ -532,10 +532,10 @@ _THEME_KEYWORDS = [
                           "diamond", "diamonds", "farmland", "farmer", "farming", "agriculture",
                           "resource", "resources", "extraction", "drilling", "pipeline", "timber",
                           "deforestation", "fishing", "cocoa", "copper"]),
-    ("Policing & Justice", ["police", "policing", "officer", "prison", "prisons", "jail", "court",
-                           "courts", "arrest", "arrested", "trial", "verdict", "sentenced", "murder",
-                           "murdered", "killed", "killing", "shooting", "crime", "criminal", "justice",
-                           "brutality", "hate crime", "racism", "racist", "lynching"]),
+    ("Babylon", ["police", "policing", "officer", "prison", "prisons", "jail", "jailed", "court",
+                 "courts", "arrest", "arrested", "trial", "verdict", "sentenced", "detained",
+                 "custody", "murder", "murdered", "killed", "killing", "shooting", "crime",
+                 "criminal", "brutality", "hate crime", "lynching", "surveillance", "raid"]),
     ("Migration", ["migrant", "migrants", "migration", "immigration", "immigrant", "refugee",
                    "refugees", "asylum", "border", "borders", "windrush", "deport", "deported",
                    "deportation", "visa", "visas"]),
@@ -566,7 +566,10 @@ _THEME_KEYWORDS = [
                          "sanctions", "diplomat", "diplomatic", "policy", "vote", "voting", "voters",
                          "leader", "leaders", "military", "summit", "democracy", "regime",
                          "governance", "treaty", "ambassador", "opposition", "rebels", "militia",
-                         "human rights"]),
+                         # broader "justice" stories fold in here (not policing/Babylon)
+                         "human rights", "reparations", "civil rights", "racism", "racist",
+                         "discrimination", "equality", "segregation", "apartheid", "slavery",
+                         "sovereignty", "justice"]),
 ]
 
 # Precompute patterns once — reused server-side and shipped to the search page.
