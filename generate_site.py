@@ -276,6 +276,7 @@ def make_two_tier_nav(active_region="", active_issue=""):
         ("Education",  "education.html", "education"),
         ("Politics",   "politics.html",  "politics"),
         ("Culture",    "culture.html",   "culture"),
+        ("Sports",     "sports.html",    "sports"),
         ("Policing",   "policing.html",  "policing"),
     ]
     regions = [
@@ -1020,7 +1021,7 @@ def build_html(stories, cache):
         sport_cards = "".join(story_card(s, cache=cache, used_images=used_images) for s in sport)
         sport_html = f'''
     <div class="container">
-        <p class="section-label">Black Sport &mdash; At the World Cup</p>
+        <p class="section-label">Black Sport &mdash; At the World Cup <a href="sports.html" style="font-weight:700;color:#e8602c;text-transform:none;letter-spacing:0;margin-left:0.5rem;">All sport &rarr;</a></p>
         <div class="card-grid">{sport_cards}</div>
     </div>'''
 
@@ -3440,6 +3441,134 @@ def section_banner(label):
     )
 
 
+def build_sports(all_stories, cache):
+    # The Sports section — Black nations on the world stage, World Cup front and centre.
+    sport_stories = [s for s in all_stories
+                     if derive_theme(s) == "Sport" and not is_report(s) and not is_low_quality(s)]
+
+    def is_focus(s):
+        t = ((s.get("title_en") or s.get("title") or "") + " " + (s.get("summary") or "")).lower()
+        return ("world cup" in t) or any(b in t for b in BLACK_NATIONS)
+
+    sport_stories.sort(key=lambda s: s.get("saved_at", ""), reverse=True)
+    sport_stories.sort(key=lambda s: 0 if is_focus(s) else 1)  # stable: focus (WC / our nations) first
+
+    used_images = set()
+    cards = "".join(story_card(s, cache=cache, used_images=used_images) for s in sport_stories)
+    if not cards:
+        cards = '<p style="color:#666;padding:1rem">Sport stories are on the way.</p>'
+    count = len(sport_stories)
+    color = "#1a3a2a"
+    wc_ticker_js = _WC_TICKER_JS.replace("__NATIONS__", json.dumps(BLACK_NATIONS))
+
+    content = f"""
+    {section_banner("Sports")}
+    <p class="section-subtitle">Black nations on the world stage. Right now &mdash; all eyes on the World Cup.</p>
+    <style>
+        {SECTION_BANNER_CSS}
+        .wc-ticker {{ background:#0a0a0a; overflow:hidden; white-space:nowrap; border:2px solid #1a3a2a; border-radius:8px; margin:1.5rem 0; }}
+        .wc-track {{ display:inline-block; padding:0.5rem 0; animation:wcscroll 60s linear infinite; will-change:transform; }}
+        .wc-ticker:hover .wc-track {{ animation-play-state:paused; }}
+        .wc-item {{ color:#fff; font-size:0.85rem; font-weight:600; padding:0 0.55rem; }}
+        .wc-item b {{ color:#ffd93d; }}
+        .wc-item i {{ color:#8ab89a; font-style:normal; font-size:0.74rem; }}
+        .wc-sep {{ color:#555; padding:0 0.2rem; }}
+        .wc-label {{ background:#e8602c; color:#fff; font-weight:800; font-size:0.72rem; padding:0.15rem 0.6rem; border-radius:3px; margin:0 0.9rem; letter-spacing:0.08em; }}
+        @keyframes wcscroll {{ from {{ transform:translateX(0); }} to {{ transform:translateX(-50%); }} }}
+        .card-grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1rem; margin-top:1rem; }}
+        .card {{ background:#fff; border:1px solid #ddd; border-top:3px solid transparent; padding:1.25rem 1.5rem; transition:border-top-color 0.2s,box-shadow 0.2s; }}
+        .card:hover {{ border-top-color:{color}; box-shadow:0 4px 16px rgba(0,0,0,0.1); }}
+        .card-img {{ width:100%; height:180px; object-fit:cover; display:block; margin-bottom:1rem; }}
+        .card-meta {{ display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem; margin-bottom:0.75rem; }}
+        .flag-country {{ font-size:0.8rem; color:{color}; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; }}
+        .theme-tag {{ font-size:0.66rem; text-transform:uppercase; letter-spacing:0.07em; background:#1a3a2a; color:#fff; padding:0.2rem 0.6rem; border-radius:999px; font-weight:700; }}
+        .framing-dot {{ display:inline-block; width:8px; height:8px; border-radius:50%; vertical-align:middle; }}
+        .card-title {{ font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#111; margin-bottom:0.5rem; line-height:1.3; }}
+        .card-title a:hover {{ color:{color}; }}
+        .card-summary {{ font-size:0.88rem; color:#444; margin-bottom:0.5rem; }}
+        .narrative-analysis {{ font-size:0.82rem; color:#666; font-style:italic; border-left:3px solid #ddd; padding-left:0.75rem; margin-bottom:0.5rem; }}
+        .cui-bono {{ font-size:0.72rem; color:#aaa; font-style:italic; padding-left:0.75rem; margin-bottom:0.5rem; }}
+        .factors {{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.5rem; }}
+        .factor {{ font-size:0.62rem; color:#bbb; font-weight:600; }}
+        .card-footer {{ display:flex; justify-content:space-between; align-items:center; margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid #eee; }}
+        .saved-at {{ font-size:0.75rem; color:#aaa; }}
+        .read-more {{ font-size:0.8rem; color:{color}; font-weight:700; }}
+        @media(max-width:768px) {{ .card-grid {{ grid-template-columns:1fr; }} }}
+    </style>
+    <div class="wc-ticker" id="wcTicker" hidden><div class="wc-track" id="wcTrack"></div></div>
+    <div class="card-grid">{cards}</div>
+    {wc_ticker_js}
+    """
+
+    nav_html = make_two_tier_nav(active_issue="sports")
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports | Black World News</title>
+    <meta name="description" content="Black nations on the world stage. World Cup results, fixtures and stories about Black athletes and teams.">
+    <meta property="og:title" content="Sports | Black World News">
+    <meta property="og:description" content="Black nations on the world stage. World Cup front and centre.">
+    <link rel="canonical" href="https://www.blackworldnews.world/sports.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}}
+        a{{color:inherit;text-decoration:none;}}
+        .masthead{{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}}
+        .masthead-logo-link,.masthead-spacer{{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}}
+        .masthead-logo{{width:50px;height:50px;display:block;}}
+        .masthead-center{{flex:1;text-align:center;}}
+        .masthead h1{{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}}
+        .masthead h1 a:hover{{color:#c8d8c0;}}
+        .masthead-tagline{{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}}
+        .site-nav{{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:flex-end;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}}
+        .site-nav::-webkit-scrollbar{{display:none;}}
+        .site-nav a{{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}}
+        .site-nav a:hover{{color:#fff;border-bottom-color:#1a3a2a;}}
+        .site-nav a.nav-kids{{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;transform:translateY(-2px);}}
+        .site-nav a.nav-kids:hover{{border-bottom-color:#ffd93d;}}
+        {KIDS_LETTER_CSS}
+        .site-nav a.nav-active{{border-bottom-color:#1a3a2a;color:#fff;}}
+        .nav-divider{{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}}
+        .page-container{{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}}
+        .page-title{{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}}
+        .page-subtitle{{font-size:1rem;color:#666;margin-bottom:2rem;}}
+        footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}}
+        footer strong{{color:#8ab89a;}}
+        @media(max-width:768px){{.masthead{{padding:0.75rem 1rem;}}.masthead h1{{font-size:1.2rem;}}.page-container{{padding:2rem 1rem;}}.page-title{{font-size:1.5rem;}}.site-nav a{{padding:0.5rem 0.65rem;font-size:0.68rem;}}.nav-divider{{padding:0 0.15rem;}}}}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
+        <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">What matters to you, today</p>
+    </div>
+    <div class="masthead-spacer"></div>
+</header>
+{nav_html}
+<div class="page-container">
+    {content}
+</div>
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong></p>
+    <p style="margin-top:0.5rem">Live scores via TheSportsDB. Stories sourced from the open web with AI summaries.</p>
+    {social_bar_html()}
+    {footer_legal_html()}
+</footer>
+{PWA_SCRIPT}
+{CLOUDFLARE_ANALYTICS}
+</body>
+</html>"""
+
+
 def build_region_page(region_id, region, all_stories, cache):
     # Builds a full page for one region — all its stories, newest first
     all_stories = [s for s in all_stories if not is_report(s) and not is_low_quality(s)]
@@ -4006,6 +4135,11 @@ def main():
             f.write(build_issue_page(issue_id, issue, stories, cache))
         print(f"Issue page generated: {filename}")
 
+    # Build the Sports section (theme-filtered, World Cup front and centre)
+    with open("sports.html", "w", encoding="utf-8") as f:
+        f.write(build_sports(stories, cache))
+    print("Sports page generated: sports.html")
+
     # Build the search page (client-side, reads stories.json in browser)
     with open("search.html", "w", encoding="utf-8") as f:
         f.write(build_search_page())
@@ -4059,6 +4193,7 @@ def main():
   <url><loc>https://www.blackworldnews.world/health.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/education.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/culture.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.blackworldnews.world/sports.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/kids.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.blackworldnews.world/search.html</loc><lastmod>{today}</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.blackworldnews.world/about.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>

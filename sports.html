@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports | Black World News</title>
+    <meta name="description" content="Black nations on the world stage. World Cup results, fixtures and stories about Black athletes and teams.">
+    <meta property="og:title" content="Sports | Black World News">
+    <meta property="og:description" content="Black nations on the world stage. World Cup front and centre.">
+    <link rel="canonical" href="https://www.blackworldnews.world/sports.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a3a2a">
+<meta name="application-name" content="Black World News">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BWN">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<!-- /PWA -->
+<!-- Flag emoji: show real flags on devices that render them (phones, Mac, the app),
+     strip the broken two-letter fallback on devices that don't (Windows). The country
+     name already sits beside each flag, so nothing meaningful is lost. -->
+<script>
+(function(){
+  function flagsOK(){
+    try{
+      var x=document.createElement('canvas').getContext('2d');
+      x.font='20px sans-serif';
+      var pair=x.measureText('\uD83C\uDDE8\uD83C\uDDE6').width;  // CA flag
+      var one =x.measureText('\uD83C\uDDE8').width;                // single indicator
+      return pair < one*1.5;  // supported: pair forms ~one glyph; unsupported: ~two letters
+    }catch(e){return true;}
+  }
+  if(flagsOK()) return;
+  document.documentElement.className+=' no-flags';
+  var rx=/\uD83C[\uDDE6-\uDDFF]/g;  // regional-indicator (flag) characters
+  function strip(root){
+    if(!root) return;
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,a=[];
+    while(n=w.nextNode())a.push(n);
+    a.forEach(function(t){
+      if(rx.test(t.nodeValue)) t.nodeValue=t.nodeValue.replace(rx,'').replace(/\s{2,}/g,' ').replace(/^\s+/,'');
+    });
+  }
+  window.__bwnStripFlags=strip;
+  if(document.body) strip(document.body);
+  else document.addEventListener('DOMContentLoaded',function(){strip(document.body);});
+})();
+</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&family=Fredoka+One&family=Bagel+Fat+One&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        body{background:#f2f2f2;color:#111;font-family:'Source Sans 3',sans-serif;font-size:16px;line-height:1.6;}
+        a{color:inherit;text-decoration:none;}
+        .masthead{background:#1a3a2a;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+        .masthead-logo-link,.masthead-spacer{flex:0 0 50px;display:flex;align-items:center;justify-content:center;}
+        .masthead-logo{width:50px;height:50px;display:block;}
+        .masthead-center{flex:1;text-align:center;}
+        .masthead h1{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:0.04em;}
+        .masthead h1 a:hover{color:#c8d8c0;}
+        .masthead-tagline{font-size:0.65rem;color:#8ab89a;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}
+        .site-nav{background:#0a0a0a;border-bottom:3px solid #1a3a2a;display:flex;justify-content:flex-start;align-items:flex-end;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-left:0.7rem;}
+        .site-nav::-webkit-scrollbar{display:none;}
+        .site-nav a{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;padding:0.65rem 0.8rem;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;color:#888;}
+        .site-nav a:hover{color:#fff;border-bottom-color:#1a3a2a;}
+        .site-nav a.nav-kids{font-family:'Bagel Fat One',cursive;font-size:0.95rem;letter-spacing:0.01em;padding-top:0.5rem;padding-bottom:0.5rem;transform:translateY(-2px);}
+        .site-nav a.nav-kids:hover{border-bottom-color:#ffd93d;}
+        
+.kids-letter {
+    display: inline-block;
+    background: linear-gradient(to bottom, #ffffff -20%, var(--top) 28%, var(--bot) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter:
+        drop-shadow(0 1.5px 0 var(--deep))
+        drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+    padding: 0;
+}
+.kc-red    { --top: #ff3344; --bot: #b81e30; --deep: #6f1320; }
+.kc-pink   { --top: #ff6b9d; --bot: #c2326b; --deep: #6e1b3c; }
+.kc-blue   { --top: #4d96ff; --bot: #1e5fb3; --deep: #103b73; }
+.kc-yellow { --top: #ffd83d; --bot: #c89914; --deep: #7a5d08; }
+.kc-green  { --top: #2ec167; --bot: #15803d; --deep: #0a4d24; }
+.kc-orange { --top: #ff9f43; --bot: #c46d10; --deep: #6e3d05; }
+.kc-purple { --top: #b366ff; --bot: #7a23c0; --deep: #3f0c6e; }
+.kids-space { display: inline-block; width: 0.25em; }
+
+        .site-nav a.nav-active{border-bottom-color:#1a3a2a;color:#fff;}
+        .nav-divider{color:#444;padding:0 0.25rem;font-size:1rem;user-select:none;flex-shrink:0;}
+        .page-container{max-width:1200px;margin:0 auto;padding:3rem 1.5rem;}
+        .page-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.5rem;}
+        .page-subtitle{font-size:1rem;color:#666;margin-bottom:2rem;}
+        footer{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:4rem;}
+        footer strong{color:#8ab89a;}
+        @media(max-width:768px){.masthead{padding:0.75rem 1rem;}.masthead h1{font-size:1.2rem;}.page-container{padding:2rem 1rem;}.page-title{font-size:1.5rem;}.site-nav a{padding:0.5rem 0.65rem;font-size:0.68rem;}.nav-divider{padding:0 0.15rem;}}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <a href="index.html" class="masthead-logo-link"><img src="logo.svg" alt="BWN" class="masthead-logo"></a>
+    <div class="masthead-center">
+        <h1><a href="index.html">BLACK WORLD NEWS</a></h1>
+        <p class="masthead-tagline">What matters to you, today</p>
+    </div>
+    <div class="masthead-spacer"></div>
+</header>
+<nav class="site-nav"><a href="index.html" class="nav-issue">Home</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="politics.html" class="nav-issue">Politics</a><a href="culture.html" class="nav-issue">Culture</a><a href="sports.html" class="nav-issue nav-active">Sports</a><a href="policing.html" class="nav-issue">Policing</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="namerica.html" class="nav-region">N. America</a><a href="caribbean.html" class="nav-region">Caribbean</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
+<div class="page-container">
+    
+    <div class="section-banner"><span class="section-banner-brand">Black World News</span><span class="section-banner-sep">&rsaquo;</span><span class="section-banner-name">Sports</span></div>
+    <p class="section-subtitle">Black nations on the world stage. Right now &mdash; all eyes on the World Cup.</p>
+    <style>
+        
+.section-banner{display:flex;align-items:center;justify-content:center;gap:0.6rem;flex-wrap:wrap;
+    padding:1.4rem 1rem;background:#fff;border-bottom:1px solid #e5e5e5;}
+.section-banner-brand{font-family:'Playfair Display',serif;font-weight:900;
+    font-size:1.05rem;letter-spacing:0.04em;color:#1a3a2a;text-transform:uppercase;}
+.section-banner-sep{color:#bbb;font-size:1.1rem;line-height:1;}
+.section-banner-name{font-family:'Playfair Display',serif;font-weight:700;
+    font-size:1.05rem;color:#222;}
+.section-subtitle{text-align:center;font-size:0.85rem;color:#888;padding:0.7rem 1rem 0;margin:0;}
+
+        .wc-ticker { background:#0a0a0a; overflow:hidden; white-space:nowrap; border:2px solid #1a3a2a; border-radius:8px; margin:1.5rem 0; }
+        .wc-track { display:inline-block; padding:0.5rem 0; animation:wcscroll 60s linear infinite; will-change:transform; }
+        .wc-ticker:hover .wc-track { animation-play-state:paused; }
+        .wc-item { color:#fff; font-size:0.85rem; font-weight:600; padding:0 0.55rem; }
+        .wc-item b { color:#ffd93d; }
+        .wc-item i { color:#8ab89a; font-style:normal; font-size:0.74rem; }
+        .wc-sep { color:#555; padding:0 0.2rem; }
+        .wc-label { background:#e8602c; color:#fff; font-weight:800; font-size:0.72rem; padding:0.15rem 0.6rem; border-radius:3px; margin:0 0.9rem; letter-spacing:0.08em; }
+        @keyframes wcscroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+        .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1rem; margin-top:1rem; }
+        .card { background:#fff; border:1px solid #ddd; border-top:3px solid transparent; padding:1.25rem 1.5rem; transition:border-top-color 0.2s,box-shadow 0.2s; }
+        .card:hover { border-top-color:#1a3a2a; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+        .card-img { width:100%; height:180px; object-fit:cover; display:block; margin-bottom:1rem; }
+        .card-meta { display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem; margin-bottom:0.75rem; }
+        .flag-country { font-size:0.8rem; color:#1a3a2a; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; }
+        .theme-tag { font-size:0.66rem; text-transform:uppercase; letter-spacing:0.07em; background:#1a3a2a; color:#fff; padding:0.2rem 0.6rem; border-radius:999px; font-weight:700; }
+        .framing-dot { display:inline-block; width:8px; height:8px; border-radius:50%; vertical-align:middle; }
+        .card-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#111; margin-bottom:0.5rem; line-height:1.3; }
+        .card-title a:hover { color:#1a3a2a; }
+        .card-summary { font-size:0.88rem; color:#444; margin-bottom:0.5rem; }
+        .narrative-analysis { font-size:0.82rem; color:#666; font-style:italic; border-left:3px solid #ddd; padding-left:0.75rem; margin-bottom:0.5rem; }
+        .cui-bono { font-size:0.72rem; color:#aaa; font-style:italic; padding-left:0.75rem; margin-bottom:0.5rem; }
+        .factors { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.5rem; }
+        .factor { font-size:0.62rem; color:#bbb; font-weight:600; }
+        .card-footer { display:flex; justify-content:space-between; align-items:center; margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid #eee; }
+        .saved-at { font-size:0.75rem; color:#aaa; }
+        .read-more { font-size:0.8rem; color:#1a3a2a; font-weight:700; }
+        @media(max-width:768px) { .card-grid { grid-template-columns:1fr; } }
+    </style>
+    <div class="wc-ticker" id="wcTicker" hidden><div class="wc-track" id="wcTrack"></div></div>
+    <div class="card-grid">
+    <div class="card">
+        <a href="https://www.bbc.com/news/articles/cx212p8r28eo" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://ichef.bbci.co.uk/news/1024/branded_news/5caf/live/02106910-60d0-11f1-89a3-d1f559421220.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇨🇮 Ivory Coast</span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.bbc.com/news/articles/cx212p8r28eo" target="_blank" rel="noopener">'A World Cup for them not us': Fans' anger at US travel bans and visa restrictions</a></h2>
+        <p class="card-summary">Fans from African nations like Ivory Coast and Senegal face US visa restrictions and travel bans for the World Cup, feeling deliberately excluded. A supporter from Ivory Coast calls it segregation that dares not speak its name, contrasting with the ease European fans experience.</p>
+        <p class="narrative-analysis">Fans from African nations are portrayed as deliberately excluded by a visa system that treats them as undesirables, revealing a modern colonial gatekeeping.</p>
+        <p class="cui-bono">The US government and its immigration enforcement apparatus.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:22</span>
+            <a href="https://www.bbc.com/news/articles/cx212p8r28eo" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.premiumtimesng.com/opinion/885829-fifa-world-cup-2026-durable-themes-in-troubled-times-by-chidi-anselm-odinkalu.html" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://media.premiumtimesng.com/wp-content/files/2023/01/chidi-odinkalu-632x441-1.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇳🇬 Nigeria</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.premiumtimesng.com/opinion/885829-fifa-world-cup-2026-durable-themes-in-troubled-times-by-chidi-anselm-odinkalu.html" target="_blank" rel="noopener">FIFA World Cup 2026: Durable themes in troubled times, By Chidi Anselm Odinkalu</a></h2>
+        <p class="card-summary">The article reflects on the FIFA World Cup's history and its role amid global uncertainty, noting Nigeria's absence as a competitor but its cultural representation via Burna Boy. It discusses political subtexts from past tournaments, including anti-colonial themes and fascist propaganda, without addressing structural inequality facing Black communities.</p>
+        <p class="narrative-analysis">Nigerians appear here mainly as a backdrop through Burna Boy's performance, reducing the nation's presence to a cultural footnote rather than a participant.</p>
+        <p class="cui-bono">FIFA and the joint host nations benefit most.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:20</span>
+            <a href="https://www.premiumtimesng.com/opinion/885829-fifa-world-cup-2026-durable-themes-in-troubled-times-by-chidi-anselm-odinkalu.html" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://almapreta.com.br/sessao/cotidiano/torcida-olodum-salvador-estreia-brasil-copa-2026/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://i0.wp.com/almapreta.com.br/images/2026/06/Torcida-do-Olodum-em-Salvador-abre-programacao-na-estreia-do-Brasil-na-Copa.webp?fit=1400%2C1050&ssl=1" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇧🇷 Brazil</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://almapreta.com.br/sessao/cotidiano/torcida-olodum-salvador-estreia-brasil-copa-2026/" target="_blank" rel="noopener">Olodum Fan Group in Salvador Opens Programming on Brazil's World Cup Debut</a></h2>
+        <p class="card-summary">The article announces the first 2026 Torcida Brasil Olodum event at Pelourinho, Salvador, on Brazil's World Cup opener against Morocco. It details the group's history since 1990, its international presence, and its role as a popular, percussion-fueled fan gathering.</p>
+        <p class="narrative-analysis">This story highlights Olodum's fans as joyful cultural ambassadors, turning a World Cup viewing into a celebration of Afro-Brazilian heritage and resilience.</p>
+        <p class="cui-bono">Olodum, as a cultural organization, gains visibility and community support.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:15</span>
+            <a href="https://almapreta.com.br/sessao/cotidiano/torcida-olodum-salvador-estreia-brasil-copa-2026/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.brasildefato.com.br/2026/06/07/brasil-supera-egito-em-ultimo-compromisso-antes-da-copa-do-mundo/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.brasildefato.com.br/wp-content/uploads/2026/06/afp202606072280244715v1midresbrazilvegyptinternationalfriendly-079e07d4.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇧🇷 Brazil</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.brasildefato.com.br/2026/06/07/brasil-supera-egito-em-ultimo-compromisso-antes-da-copa-do-mundo/" target="_blank" rel="noopener">Brazil surpasses Egypt in last commitment before the World Cup</a></h2>
+        <p class="card-summary">Brazil defeated Egypt 2-1 in a friendly match in Cleveland as preparation for the 2026 World Cup. The game featured early mistakes and a goal by Egyptian player Ziko, but Brazil secured the win. Neymar was absent due to injury.</p>
+        <p class="narrative-analysis">The coverage treats the Brazilian team as a national symbol of pride and resilience, but Black players like Vinícius Júnior appear simply as athletes, not as racialized figures.</p>
+        <p class="cui-bono">The Brazilian Football Confederation and media companies benefit from fan engagement.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:14</span>
+            <a href="https://www.brasildefato.com.br/2026/06/07/brasil-supera-egito-em-ultimo-compromisso-antes-da-copa-do-mundo/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.brasildefato.com.br/2026/06/06/copa-do-mundo-eua-detem-e-interrogam-atacante-do-iraque-por-7-horas-no-aeroporto-de-chicago/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.brasildefato.com.br/wp-content/uploads/2026/06/afp20260401a6e23xwv1midresfblwc2026qualifiersirqbol-f8cf6aef.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">Iraq</span>
+            <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.brasildefato.com.br/2026/06/06/copa-do-mundo-eua-detem-e-interrogam-atacante-do-iraque-por-7-horas-no-aeroporto-de-chicago/" target="_blank" rel="noopener">World Cup: USA detains and interrogates Iraqi striker for 7 hours at Chicago airport</a></h2>
+        <p class="card-summary">Iraqi World Cup striker Aymen Hussein was detained and interrogated for nearly seven hours at Chicago's O'Hare airport, while the team's official photographer Talal Salah was denied entry after a 10-hour detention. Neither the Iraqi federation nor U.S. immigration officials have commented on the incident, which occurred as Iraq returns to the World Cup after 40 years.</p>
+        <p class="narrative-analysis">Iraqi athletes are depicted as targets of state suspicion, their dignity stripped by prolonged detention without cause or transparency.</p>
+        <p class="cui-bono">U.S. immigration and security apparatus.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span><span class="factor">police violence</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:13</span>
+            <a href="https://www.brasildefato.com.br/2026/06/06/copa-do-mundo-eua-detem-e-interrogam-atacante-do-iraque-por-7-horas-no-aeroporto-de-chicago/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.blackagendareport.com/move-games-take-fifa-world-cup-out-us-and-boycott-host-country-itself" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.blackagendareport.com/sites/default/files/2026-06/1390002_065705_updates-2861420419.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇺🇸 United States</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
+            <span class="explicit-tag">EXPLICIT RACISM</span>
+        </div>
+        <h2 class="card-title"><a href="https://www.blackagendareport.com/move-games-take-fifa-world-cup-out-us-and-boycott-host-country-itself" target="_blank" rel="noopener">"Move the Games": Take the FIFA World Cup Out of the U.S. and Boycott the Host Country Itself</a></h2>
+        <p class="card-summary">Ajamu Baraka advocates for moving the FIFA World Cup out of the U.S. and boycotting the host country, linking the event to structural inequality and colonial legacy. He argues that the U.S. profits from exploiting Black and Global South communities, and calls for international solidarity against such exploitation.</p>
+        <p class="narrative-analysis">Ajamu Baraka and the North-South Project actively call for a World Cup boycott, portraying Black-led resistance against U.S. imperial exploitation.</p>
+        <p class="cui-bono">U.S. corporate and political elites</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">corporate extraction</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:12</span>
+            <a href="https://www.blackagendareport.com/move-games-take-fifa-world-cup-out-us-and-boycott-host-country-itself" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://trtafrika.com/swahili/article/7d7e9aa3e95e" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://d2udx5iz3h7s4h.cloudfront.net/2026/6/8/6751b22789d9cf30735db4bc/image/52cca9690715da45a090f600aa640185046f19ec39653d8f9598e34b70e07b23.jpg?width=1080&format=jpg&quality=80" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://trtafrika.com/swahili/article/7d7e9aa3e95e" target="_blank" rel="noopener">Davido, Burna Boy, Rema and Tyla to Perform at 2026 World Cup</a></h2>
+        <p class="card-summary">The article announces that Afrobeat stars Davido, Burna Boy, Rema, and Tyla will perform at the 2026 FIFA World Cup, alongside the Ugandan Ghetto Kids. It highlights the global reach of African music while noting the children's rise from a slum in Kampala.</p>
+        <p class="narrative-analysis">Black artists and a children's group from Uganda are celebrated as global entertainers, yet the framing subtly overlooks the structural poverty that birthed the Ghetto Kids' journey.</p>
+        <p class="cui-bono">FIFA and the global music industry benefit from the cultural cachet.</p>
+        <div class="factors"><span class="factor">media bias</span><span class="factor">colonial legacy</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:11</span>
+            <a href="https://trtafrika.com/swahili/article/7d7e9aa3e95e" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.blackagendareport.com/black-agenda-report-june-5-2026" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.blackagendareport.com/sites/default/files/2026-06/BARadio%20360x200.jpg.jpeg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇺🇸 United States</span>
+            <span class="framing-dot" style="background:#2980b9" title="Resistant"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.blackagendareport.com/black-agenda-report-june-5-2026" target="_blank" rel="noopener">Black Agenda Report June 5, 2026</a></h2>
+        <p class="card-summary">The article discusses the U.S. effort to control global oil and gas supplies in Venezuela, Iran, and elsewhere, and calls for an international boycott of the U.S. FIFA World Cup. It argues that hosting the World Cup in the U.S. implicates attendees in American militarism and corporate extraction.</p>
+        <p class="narrative-analysis">Black Americans are positioned as politically conscious resistors, opposing U.S. imperial control over global resources and calling for economic boycott.</p>
+        <p class="cui-bono">U.S. oil and gas corporations</p>
+        <div class="factors"><span class="factor">corporate extraction</span><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:11</span>
+            <a href="https://www.blackagendareport.com/black-agenda-report-june-5-2026" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.thecable.ng/interview-trumps-hardline-immigration-policies-will-drastically-reduce-world-cup-turnout-says-us-attorney/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/32565914/pexels-photo-32565914.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇺🇸 United States</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.thecable.ng/interview-trumps-hardline-immigration-policies-will-drastically-reduce-world-cup-turnout-says-us-attorney/" target="_blank" rel="noopener">INTERVIEW: Trump’s hardline immigration policies will drastically reduce World Cup turnout, says US attorney</a></h2>
+        <p class="card-summary">The article is an interview where a US attorney argues that Trump's hardline immigration policies will significantly reduce attendance at the World Cup. The blocked content from Cloudflare prevents full access to the story.</p>
+        <p class="narrative-analysis">The story reduces Black and Brown immigrants to mere numbers affected by policy, stripping them of agency and human complexity.</p>
+        <p class="cui-bono">Trump's political base and restrictionist immigration advocates.</p>
+        <div class="factors"><span class="factor">media bias</span><span class="factor">voter suppression</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-06 07:30</span>
+            <a href="https://www.thecable.ng/interview-trumps-hardline-immigration-policies-will-drastically-reduce-world-cup-turnout-says-us-attorney/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.jamaicaobserver.com/2026/06/06/mound-mania-fully-back/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.jamaicaobserver.com/jamaicaobserver/news/wp-content/uploads/sites/4/2026/06/3166906edf8f880cf9564fa6326a16e7-1024x683.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.jamaicaobserver.com/2026/06/06/mound-mania-fully-back/" target="_blank" rel="noopener">Mound Mania is fully back!</a></h2>
+        <p class="card-summary">The article celebrates the return of the iconic Party Mound at Sabina Park, now rebranded as Mound Mania, during a West Indies vs. Sri Lanka ODI. Despite a modest weekday crowd, organizers and patrons highlight the vibrant atmosphere, music, and community spirit, signaling a cultural revival for Jamaican cricket.</p>
+        <p class="narrative-analysis">Jamaicans at Sabina Park are portrayed as joyful, resilient revellers reclaiming a beloved cricket tradition, emphasizing community vitality over systemic challenges.</p>
+        <p class="cui-bono">Local event organizers and the West Indies Cricket Board.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-06 07:28</span>
+            <a href="https://www.jamaicaobserver.com/2026/06/06/mound-mania-fully-back/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://newsday.co.tt/2023/01/23/special-olympics-tt-mourns-death-of-top-ex-athlete/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://newsday.co.tt/wp-content/uploads/2023/01/22626166.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://newsday.co.tt/2023/01/23/special-olympics-tt-mourns-death-of-top-ex-athlete/" target="_blank" rel="noopener">Special Olympics Trinidad and Tobago mourns top ex-athlete</a></h2>
+        <p class="card-summary">Special Olympics Trinidad and Tobago mourns the death of former athlete Devan Mahadeo, who died at 37 after an illness. He had a long career in sports, earning medals in football, floor hockey, and other events, and later served as an administrator and board representative. The tribute focuses on his athletic legacy and leadership within the organization.</p>
+        <p class="narrative-analysis">Devan Mahadeo is portrayed as an accomplished athlete and dedicated leader, recognized for his achievements and contributions within the Special Olympics community.</p>
+        
+        
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-06 07:28</span>
+            <a href="https://newsday.co.tt/2023/01/23/special-olympics-tt-mourns-death-of-top-ex-athlete/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://punchng.com/2026-world-cup-fifa-changes-pre-match-lineup-format/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://cdn.punchng.com/wp-content/uploads/2026/06/05164120/FIFA-lineup-1200x630.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇳🇬 Nigeria</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://punchng.com/2026-world-cup-fifa-changes-pre-match-lineup-format/" target="_blank" rel="noopener">2026 World Cup: FIFA changes pre-match lineup format</a></h2>
+        <p class="card-summary">FIFA announced a new pre-match ceremony format for the 2026 World Cup that will include all squad players, not just starters, on the field for national anthems. The change aims to create unity and pride among players and fans.</p>
+        <p class="narrative-analysis">Black football players are included in a moment of collective national pride, but the story omits any reference to racial inequality in the sport.</p>
+        <p class="cui-bono">FIFA benefits from a more inclusive, marketable spectacle.</p>
+        <div class="factors"><span class="factor">media bias</span><span class="factor">colonial legacy</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-05 12:30</span>
+            <a href="https://punchng.com/2026-world-cup-fifa-changes-pre-match-lineup-format/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.caribbeannationalweekly.com/posts/broward-county-to-host-free-world-cup-watch-parties-across-four-matches" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.caribbeannationalweekly.com/api/media/file/fifa-world-cup.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇺🇸 United States</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.caribbeannationalweekly.com/posts/broward-county-to-host-free-world-cup-watch-parties-across-four-matches" target="_blank" rel="noopener">Broward County to host free World Cup watch parties across four matches</a></h2>
+        <p class="card-summary">Broward County will host free World Cup watch parties at Amerant Bank Arena, offering residents and visitors a family-friendly experience with food trucks, games, and shuttles. The initiative aims to unite the community ahead of the 2026 World Cup in Miami Gardens.</p>
+        <p class="narrative-analysis">Black communities are portrayed here as active participants in a unifying global event, with the focus on celebration, family, and local business opportunity.</p>
+        <p class="cui-bono">Broward County government and Florida Panthers Association.</p>
+        
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-05 12:29</span>
+            <a href="https://www.caribbeannationalweekly.com/posts/broward-county-to-host-free-world-cup-watch-parties-across-four-matches" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://nationnews.com/2026/06/05/west-indies-women-finish-top-of-the-table-to-claim-series/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://nationnews.com/wp-content/uploads/2026/06/Captain-Hayley-Matthews-left-and-vice-captain-Chinelle-Henry.jpeg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://nationnews.com/2026/06/05/west-indies-women-finish-top-of-the-table-to-claim-series/" target="_blank" rel="noopener">West Indies Women finish top-of-the-table to claim series</a></h2>
+        <p class="card-summary">The West Indies Women's cricket team won the Evara Tri-Nation T20I series after Pakistan and Ireland's final match was rained out. They topped the table with a better net run rate, boosting confidence ahead of the T20 World Cup.</p>
+        <p class="narrative-analysis">Black sportswomen are celebrated for their athletic achievement and strategic success, reinforcing narratives of capability and pride without invoking struggle or victimhood.</p>
+        <p class="cui-bono">West Indies Cricket Board gains from positive publicity and team morale.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-05 12:28</span>
+            <a href="https://nationnews.com/2026/06/05/west-indies-women-finish-top-of-the-table-to-claim-series/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.caribbeannationalweekly.com/posts/broward-county-transit-unveils-transportation-plan-for-world-cup-matches-in-miami-gardens" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.caribbeannationalweekly.com/api/media/file/Broward-county-transit-3.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.caribbeannationalweekly.com/posts/broward-county-transit-unveils-transportation-plan-for-world-cup-matches-in-miami-gardens" target="_blank" rel="noopener">Broward County Transit unveils transportation plan for World Cup matches in Miami Gardens</a></h2>
+        <p class="card-summary">Broward County Transit has announced a transportation plan for 2026 FIFA World Cup matches in Miami Gardens, offering free shuttles and low-cost bus routes to ease traffic and parking. The plan serves ticket holders and aims to connect residents and visitors across Broward and Miami-Dade counties.</p>
+        <p class="narrative-analysis">Black communities in Broward County are portrayed as facilitators and beneficiaries of a logistical plan, emphasizing their role in hosting visitors rather than as subjects of concern.</p>
+        <p class="cui-bono">FIFA, Miami-Dade and Broward County tourism industries, and corporate partners.</p>
+        
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-05 12:28</span>
+            <a href="https://www.caribbeannationalweekly.com/posts/broward-county-transit-unveils-transportation-plan-for-world-cup-matches-in-miami-gardens" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.caribbeannationalweekly.com/categories/local-news" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.caribbeannationalweekly.com/website-template-OG.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.caribbeannationalweekly.com/categories/local-news" target="_blank" rel="noopener">South Florida News</a></h2>
+        <p class="card-summary">The page aggregates local news from South Florida, covering Inverrary's golf course development, Jean Monestime's political legacy, Frederica Wilson's retirement, and Broward County Transit's World Cup transportation plans. These stories present Black community leaders and residents within conventional political and logistical narratives.</p>
+        <p class="narrative-analysis">Readers encounter Black Caribbean communities chiefly through the lens of political transitions and transit logistics, reducing their lived realities to infrastructure and electoral timelines.</p>
+        <p class="cui-bono">Broward County Transit and local political establishments benefit most.</p>
+        <div class="factors"><span class="factor">media bias</span><span class="factor">engineered unemployment</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:20</span>
+            <a href="https://www.caribbeannationalweekly.com/categories/local-news" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.caribbeannationalweekly.com/posts/carey-mcleod-accepts-two-year-suspension-dealing-significant-blow-to-jamaican-athletics" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.caribbeannationalweekly.com/api/media/file/Carey-McLeod.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.caribbeannationalweekly.com/posts/carey-mcleod-accepts-two-year-suspension-dealing-significant-blow-to-jamaican-athletics" target="_blank" rel="noopener">Carey McLeod accepts two-year suspension, dealing significant blow to Jamaican athletics</a></h2>
+        <p class="card-summary">Jamaican long jumper Carey McLeod accepted a two-year ban for three whereabouts failures under anti-doping rules, not a positive test. The sanction sidelines a top field athlete from national and global competitions until May 2028.</p>
+        <p class="narrative-analysis">McLeod is depicted primarily through a series of procedural failures, reducing a Black athlete to a case of rule-breaking without contextualizing the systemic pressures around elite sports.</p>
+        <p class="cui-bono">World Athletics and anti-doping agencies benefit from enforcing strict whereabouts rules.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:19</span>
+            <a href="https://www.caribbeannationalweekly.com/posts/carey-mcleod-accepts-two-year-suspension-dealing-significant-blow-to-jamaican-athletics" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://nationnews.com/2026/06/03/paho-warns-of-measles-risk-ahead-of-word-cup/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://nationnews.com/wp-content/uploads/2025/11/Measles.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://nationnews.com/2026/06/03/paho-warns-of-measles-risk-ahead-of-word-cup/" target="_blank" rel="noopener">PAHO warns of measles risk ahead of Word Cup</a></h2>
+        <p class="card-summary">PAHO warns of a measles surge ahead of the 2026 FIFA World Cup, with cases quadrupling in the Americas. The report emphasizes vaccination but does not address systemic barriers affecting Black and Indigenous communities.</p>
+        <p class="narrative-analysis">Black communities in the Americas are rendered invisible in this alert, reduced to faceless case counts that obscure deeper structural inequities in vaccination access.</p>
+        <p class="cui-bono">The global travel and tourism industry benefits from reassuring travelers.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">corporate extraction</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:18</span>
+            <a href="https://nationnews.com/2026/06/03/paho-warns-of-measles-risk-ahead-of-word-cup/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.jamaicaobserver.com/2026/06/04/applications-open-reggae-boyz-head-coach-position-jff/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.jamaicaobserver.com/jamaicaobserver/news/wp-content/uploads/sites/4/2025/11/WhatsApp-Image-2025-11-18-at-7.56.12-PM-1024x682.jpeg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.jamaicaobserver.com/2026/06/04/applications-open-reggae-boyz-head-coach-position-jff/" target="_blank" rel="noopener">Applications open for Reggae Boyz head coach position — JFF</a></h2>
+        <p class="card-summary">The Jamaica Football Federation has opened applications for the head coach position of the Reggae Boyz after a failed World Cup qualifying campaign. Interim coach Rudolph Speid is being considered for the permanent role alongside assistant Miguel Coley, highlighting internal talent amid the search.</p>
+        <p class="narrative-analysis">Jamaicans appear as capable professionals deserving of fair consideration for a national leadership role, yet the framing subtly stresses a colonial pattern of importing foreign expertise.</p>
+        <p class="cui-bono">The Jamaica Football Federation (JFF) benefits from maintaining institutional control.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:17</span>
+            <a href="https://www.jamaicaobserver.com/2026/06/04/applications-open-reggae-boyz-head-coach-position-jff/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://almapreta.com.br/sessao/africa-diaspora/argelia-rd-congo-amistosos-copa-2026/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://almapreta.com.br/images/2026/06/Argelia-bate-Paises-Baixos-e-RD-Congo-empata-em-amistosos.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇧🇷 Brazil</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://almapreta.com.br/sessao/africa-diaspora/argelia-rd-congo-amistosos-copa-2026/" target="_blank" rel="noopener">Algeria beats Netherlands and DR Congo draws with Denmark in World Cup friendlies</a></h2>
+        <p class="card-summary">Algeria defeated the Netherlands 1-0 in a friendly, while DR Congo drew 0-0 with Denmark. Both matches are part of World Cup preparations, with DR Congo returning to the tournament after 52 years. A planned friendly against Chile was canceled due to Ebola concerns, subtly framing DR Congo through disease association.</p>
+        <p class="narrative-analysis">Algerian and Congolese teams are portrayed with athletic achievement and cultural pride, yet a brief mention links DR Congo to an Ebola outbreak, subtly tying African nations to health crises.</p>
+        <p class="cui-bono">FIFA and global football organizers benefit from expanded African participation and match revenues.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:14</span>
+            <a href="https://almapreta.com.br/sessao/africa-diaspora/argelia-rd-congo-amistosos-copa-2026/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://almapreta.com.br/sessao/africa-diaspora/amistoso-rd-congo-cancelado-ebola/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://almapreta.com.br/images/2026/06/Prefeito-espanhol-cancela-amistoso-da-RD-Congo-por-temor-relacionado-ao-surto-de-ebola.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇧🇷 Brazil</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://almapreta.com.br/sessao/africa-diaspora/amistoso-rd-congo-cancelado-ebola/" target="_blank" rel="noopener">Spanish mayor cancels DR Congo friendly over Ebola outbreak fears</a></h2>
+        <p class="card-summary">The mayor of La Línea de la Concepción canceled a friendly match between DR Congo and Chile due to Ebola concerns. The decision adds to the disruption of Congo's World Cup preparations, as the U.S. also imposed a 21-day quarantine on the team.</p>
+        <p class="narrative-analysis">The Congolese team is portrayed as a health threat and liability, reinforcing global fears that stigmatize Black African nations during disease outbreaks.</p>
+        <p class="cui-bono">The Spanish municipality and its residents, by avoiding perceived risk.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:14</span>
+            <a href="https://almapreta.com.br/sessao/africa-diaspora/amistoso-rd-congo-cancelado-ebola/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.theafricareport.com/419352/despite-ebola-outbreak-us-welcomes-drcs-footballers-for-the-world-cup/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/7475142/pexels-photo-7475142.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.theafricareport.com/419352/despite-ebola-outbreak-us-welcomes-drcs-footballers-for-the-world-cup/" target="_blank" rel="noopener">Despite Ebola outbreak, US welcomes DRC’s footballers for the World Cup</a></h2>
+        <p class="card-summary">The article notes that the United States is allowing the Democratic Republic of Congo's national football team to enter for the World Cup despite an ongoing Ebola outbreak in the DRC. The framing juxtaposes a health crisis with the athletes' arrival, implying a potential threat.</p>
+        <p class="narrative-analysis">Congolese footballers are presented as a health risk to be managed, reducing them to vectors of disease rather than athletes.</p>
+        <p class="cui-bono">U.S. immigration and health authorities.</p>
+        <div class="factors"><span class="factor">media bias</span><span class="factor">colonial legacy</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-05-30 11:54</span>
+            <a href="https://www.theafricareport.com/419352/despite-ebola-outbreak-us-welcomes-drcs-footballers-for-the-world-cup/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://almapreta.com.br/sessao/africa-diaspora/convocacao-copa-do-mundo-marrocos-2026/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://almapreta.com.br/images/2026/05/Primeiro-rival-do-Brasil-na-Copa-Marrocos-anuncia-lista-de-convocados-para-o-Mundial.webp" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">Morocco</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://almapreta.com.br/sessao/africa-diaspora/convocacao-copa-do-mundo-marrocos-2026/" target="_blank" rel="noopener">First Opponent of Brazil in the World Cup, Morocco Announces Squad List</a></h2>
+        <p class="card-summary">Morocco announced its 26-player squad for the 2026 World Cup, led by captain Achraf Hakimi. The team will face Brazil first in the tournament.</p>
+        <p class="narrative-analysis">Moroccan players are celebrated as skilled athletes and national pride, with no mention of structural barriers or racial challenges.</p>
+        <p class="cui-bono">The Moroccan Football Federation and its sponsors.</p>
+        
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-05-30 11:34</span>
+            <a href="https://almapreta.com.br/sessao/africa-diaspora/convocacao-copa-do-mundo-marrocos-2026/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.elheraldo.co/deportes/2026/06/08/con-ilusion-y-tranquilidad-asi-fue-la-llegada-de-junior-a-su-hotel-de-concentracion/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.elheraldo.co/resizer/v2/7OTSPHBCHZFCXDBFHQ5QLEZZ5Y.jpeg?smart=true&auth=aaf55c70c220868acb9d14c8c7f2cf581b2fd1cac506929bdc8e667d9af682e5&width=1200&height=675" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇨🇴 Colombia</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.elheraldo.co/deportes/2026/06/08/con-ilusion-y-tranquilidad-asi-fue-la-llegada-de-junior-a-su-hotel-de-concentracion/" target="_blank" rel="noopener">With illusion and tranquility, thus was the arrival of Junior at their concentration hotel</a></h2>
+        <p class="card-summary">The article describes the arrival of Junior Barranquilla's soccer team to their hotel in Medellín for a final match, focusing on the calm and hopeful mood of players and fans. It highlights the reception by supporters despite prior vandalism against the team bus, and emphasizes the team's concentration and the star player Teófilo Gutiérrez's charisma.</p>
+        <p class="narrative-analysis">The players and fans appear here mainly as ordinary people with normal emotions, downplaying any structural issues and treating the event as pure sports excitement.</p>
+        <p class="cui-bono">Junior FC and its commercial sponsors benefit from this positive coverage.</p>
+        <div class="factors"><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:16</span>
+            <a href="https://www.elheraldo.co/deportes/2026/06/08/con-ilusion-y-tranquilidad-asi-fue-la-llegada-de-junior-a-su-hotel-de-concentracion/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.elheraldo.co/rincon-juniorista/2026/06/08/con-lluvia-de-huevos-botellas-y-piedras-recibieron-a-junior-en-medellin/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.elheraldo.co/resizer/v2/WJE6H6URMRDH5OFTXPHFFSLXLA.jpg?smart=true&auth=b374c429fdd81caf4eb4ae27956574bb47b563bb62541d2fb74ec849bf80fd89&width=1200&height=675" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇨🇴 Colombia</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.elheraldo.co/rincon-juniorista/2026/06/08/con-lluvia-de-huevos-botellas-y-piedras-recibieron-a-junior-en-medellin/" target="_blank" rel="noopener">With a rain of eggs, bottles and stones they received Junior in Medellín</a></h2>
+        <p class="card-summary">Fans of Atlético Nacional attacked the bus carrying the Junior de Barranquilla team with eggs, bottles, and stones as they arrived in Medellín for a match. Despite the violent assault, no injuries were reported, and the police escorted the team to a different route. The story highlights the ongoing culture of fan violence in Colombian football.</p>
+        <p class="narrative-analysis">The players of Junior de Barranquilla, a predominantly Afro-Colombian team from the Caribbean coast, are portrayed as innocent victims of fan violence in Medellín, with the incident framed as a threat to their safety rather than as an act tied to regional or racial tensions.</p>
+        <p class="cui-bono">The corporate media and Atlético Nacional's fan base benefit from the sensationalized narrative.</p>
+        <div class="factors"><span class="factor">media bias</span><span class="factor">colonial legacy</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-08 09:16</span>
+            <a href="https://www.elheraldo.co/rincon-juniorista/2026/06/08/con-lluvia-de-huevos-botellas-y-piedras-recibieron-a-junior-en-medellin/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://newsday.co.tt/2026/01/27/3-freed-of-2009-murder-near-never-dirty-basketball-court/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://newsday.co.tt/wp-content/uploads/2021/10/360_F_110666651_Xty7hvmLi8Eg43lXLz2aFo2bjCbuLIJi.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#e67e22" title="Victim"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://newsday.co.tt/2026/01/27/3-freed-of-2009-murder-near-never-dirty-basketball-court/" target="_blank" rel="noopener">3 freed of 2009 murder near Never Dirty basketball court</a></h2>
+        <p class="card-summary">Three men were acquitted of a 2009 murder after the key witness recanted, claiming police coercion. The case relied on an unreliable eyewitness whose testimony changed multiple times over 16 years.</p>
+        <p class="narrative-analysis">Black men appear as both victims of a flawed justice system and as targets of police coercion, highlighting distrust in legal institutions.</p>
+        <p class="cui-bono">The state and police benefit from maintaining control over Morvant through questionable convictions.</p>
+        <div class="factors"><span class="factor">mass incarceration</span><span class="factor">police violence</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-06 07:28</span>
+            <a href="https://newsday.co.tt/2026/01/27/3-freed-of-2009-murder-near-never-dirty-basketball-court/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://almapreta.com.br/sessao/cultura/alerj-medalha-tiradentes-rapper-ebony/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://i0.wp.com/almapreta.com.br/images/2025/10/Ebony.jpg?fit=1400%2C1050&ssl=1" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇧🇷 Brazil</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            <span class="explicit-tag">EXPLICIT RACISM</span>
+        </div>
+        <h2 class="card-title"><a href="https://almapreta.com.br/sessao/cultura/alerj-medalha-tiradentes-rapper-ebony/" target="_blank" rel="noopener">Alerj Approves Tiradentes Medal for Rapper Ebony</a></h2>
+        <p class="card-summary">The Legislative Assembly of Rio de Janeiro approved granting the Tiradentes Medal, the highest honor of the state parliament, to rapper Ebony. The recognition, proposed by state deputy Dani Monteiro, highlights the artist's contributions to music, peripheral culture, and human rights, including her outspoken stance against racism and gender inequality.</p>
+        <p class="narrative-analysis">Ebony emerges as a full, complex human being—a Black woman artist whose creative work and activism are celebrated, challenging reductive media portrayals of Black communities.</p>
+        <p class="cui-bono">The state of Rio de Janeiro benefits from associating with her cultural prestige.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-05 12:25</span>
+            <a href="https://almapreta.com.br/sessao/cultura/alerj-medalha-tiradentes-rapper-ebony/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://nationnews.com/2026/06/03/gilkes-steps-down-as-kickstart-coach/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://nationnews.com/wp-content/uploads/2026/06/Renaldo-Gilkes.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🌴 Caribbean</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://nationnews.com/2026/06/03/gilkes-steps-down-as-kickstart-coach/" target="_blank" rel="noopener">Gilkes steps down as Kickstart coach</a></h2>
+        <p class="card-summary">Renaldo Gilkes steps down as first team coach of Kickstart Rush to focus on grassroots development and his role as technical director. The decision allows him to manage increased responsibilities with Rush Soccer in Colorado.</p>
+        <p class="narrative-analysis">The story presents a Black sports administrator making a thoughtful career shift, highlighting individual agency and dedication to grassroots development without racialized framing.</p>
+        <p class="cui-bono">Rush Soccer, the U.S.-based partner organization.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">corporate extraction</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:18</span>
+            <a href="https://nationnews.com/2026/06/03/gilkes-steps-down-as-kickstart-coach/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.elheraldo.co/politica/2026/06/04/juez-ordena-a-de-la-espriella-abstenerse-de-usar-camiseta-de-la-seleccion-colombia-en-campana-mientras-se-estudia-tutela/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.elheraldo.co/resizer/v2/XZFSTAJYANERVHLHFKXQ2OSXPM.jpg?smart=true&auth=110abf8672863543832237147cfd466913fad87bf2d8fb96bc67d6547d6601d2&width=1200&height=675" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇨🇴 Colombia</span>
+            <span class="framing-dot" style="background:#aaa" title="Other"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.elheraldo.co/politica/2026/06/04/juez-ordena-a-de-la-espriella-abstenerse-de-usar-camiseta-de-la-seleccion-colombia-en-campana-mientras-se-estudia-tutela/" target="_blank" rel="noopener">Judge orders De la Espriella to refrain from using Colombia national team jersey in campaign while injunction is studied</a></h2>
+        <p class="card-summary">A Colombian judge ordered presidential candidate Abelardo De la Espriella to stop using the national soccer team jersey in his campaign while a legal challenge is considered. The plaintiff argued the jersey's use was discriminatory and stigmatizing against left-leaning voters.</p>
+        <p class="narrative-analysis">This story focuses on legal and political symbolism, without addressing Black communities or structural racism directly, leaving their experiences invisible.</p>
+        <p class="cui-bono">The political candidate Abelardo De la Espriella and his movement.</p>
+        <div class="factors"><span class="factor">media bias</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-06-04 15:15</span>
+            <a href="https://www.elheraldo.co/politica/2026/06/04/juez-ordena-a-de-la-espriella-abstenerse-de-usar-camiseta-de-la-seleccion-colombia-en-campana-mientras-se-estudia-tutela/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://www.elheraldo.co/deportes/2026/05/29/cuando-junior-se-mete-asi-es-muy-peligroso-ojala-pueda-salir-campeon-luis-diaz/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.elheraldo.co/resizer/v2/WUZ3PMO6DFG7DNXPN2FTGCAGLM.jpg?smart=true&auth=ac6d1160a6d368af7fbedf5f2bd95252144100a278f9f6ebac7196314f6c9d24&width=1200&height=675" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Sport</span>
+            <span class="flag-country">🇨🇴 Colombia</span>
+            <span class="framing-dot" style="background:#27ae60" title="Human"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.elheraldo.co/deportes/2026/05/29/cuando-junior-se-mete-asi-es-muy-peligroso-ojala-pueda-salir-campeon-luis-diaz/" target="_blank" rel="noopener">When Junior gets like this, it's very dangerous, I hope they can be champions: Luis Díaz</a></h2>
+        <p class="card-summary">Luis Díaz, a Colombian football player, expressed his support for Junior, his former team, in the final of the Colombian football league. He acknowledged the importance of the match and wished his team the best of luck. The story highlights Díaz's loyalty to his team and his enthusiasm for the Colombian football league.</p>
+        <p class="narrative-analysis">The story frames Luis Díaz as a dedicated and passionate individual, highlighting his love for his team and the Colombian football league. This framing humanizes Díaz and emphasizes his positive qualities.</p>
+        <p class="cui-bono">Media outlets.</p>
+        
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-05-29 16:02</span>
+            <a href="https://www.elheraldo.co/deportes/2026/05/29/cuando-junior-se-mete-asi-es-muy-peligroso-ojala-pueda-salir-campeon-luis-diaz/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div></div>
+    
+<script>
+(function(){
+  var track=document.getElementById('wcTrack'), bar=document.getElementById('wcTicker');
+  if(!track) return;
+  var KEY='3', LEAGUE='4429', BLACK=["senegal", "morocco", "ghana", "nigeria", "cameroon", "ivory coast", "cote d'ivoire", "c\u00f4te d'ivoire", "egypt", "tunisia", "algeria", "south africa", "mali", "dr congo", "congo", "cape verde", "burkina faso", "guinea", "gabon", "zambia", "angola", "mozambique", "jamaica", "haiti", "trinidad", "barbados", "ethiopia", "kenya", "uganda", "tanzania"];
+  function within(ts,lo,hi){ var d=new Date(ts), diff=(d-Date.now())/86400000; return diff>=lo&&diff<=hi; }
+  function mark(name){ var n=(name||'').toLowerCase(); for(var i=0;i<BLACK.length;i++){ if(n.indexOf(BLACK[i])>-1) return '★ '; } return ''; }
+  function done(e){ return '<span class="wc-item">'+mark(e.strHomeTeam)+e.strHomeTeam+' <b>'+(e.intHomeScore==null?'':e.intHomeScore)+'–'+(e.intAwayScore==null?'':e.intAwayScore)+'</b> '+e.strAwayTeam+mark(e.strAwayTeam)+'</span>'; }
+  function up(e){ var d=new Date(e.strTimestamp), w=d.toLocaleDateString('en-GB',{month:'short',day:'numeric'}); return '<span class="wc-item">'+mark(e.strHomeTeam)+e.strHomeTeam+' v '+e.strAwayTeam+mark(e.strAwayTeam)+' <i>'+w+'</i></span>'; }
+  function f(u){ return fetch(u).then(function(r){return r.json();}).catch(function(){return {};}); }
+  Promise.all([
+    f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventspastleague.php?id='+LEAGUE),
+    f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventsnextleague.php?id='+LEAGUE)
+  ]).then(function(res){
+    var past=((res[0]||{}).events||[]).filter(function(e){return within(e.strTimestamp,-8,0);}).slice(-12).map(done);
+    var next=((res[1]||{}).events||[]).filter(function(e){return within(e.strTimestamp,0,18);}).slice(0,12).map(up);
+    var items=past.concat(next);
+    if(!items.length) return;
+    var inner='<span class="wc-label">WORLD CUP</span>'+items.join('<span class="wc-sep">•</span>');
+    track.innerHTML=inner+'<span class="wc-sep">•</span>'+inner;
+    bar.hidden=false;
+  });
+})();
+</script>
+
+    
+</div>
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong></p>
+    <p style="margin-top:0.5rem">Live scores via TheSportsDB. Stories sourced from the open web with AI summaries.</p>
+    <nav aria-label="Our channels" style="margin-top:0.9rem;display:flex;gap:0.5rem 1.1rem;justify-content:center;flex-wrap:wrap;"><a href="https://www.youtube.com/channel/UCddUUCREEHYOLoEzmCfobKQ" target="_blank" rel="noopener" style="color:#8ab89a;font-weight:600;text-decoration:none;">YouTube</a><a href="https://www.tiktok.com/@blackworldnews" target="_blank" rel="noopener" style="color:#8ab89a;font-weight:600;text-decoration:none;">TikTok</a><a href="https://www.facebook.com/profile.php?id=61590158803177" target="_blank" rel="noopener" style="color:#8ab89a;font-weight:600;text-decoration:none;">Facebook</a></nav>
+    <p style="margin-top:0.6rem;font-size:0.72rem;"><a href="/privacy.html" style="color:#666;text-decoration:none;">Privacy</a></p>
+</footer>
+
+<script>
+  if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+  }
+</script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e3ec5487cf654658b68643a2cb7cfc40"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
