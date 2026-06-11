@@ -1272,8 +1272,10 @@ def build_html(stories, cache):
             padding: 0.1rem 0.5rem;
             font-size: 0.7rem;
         }}
-        /* date reads as plain text, not boxed like the LIVE chip */
-        .breaking-bar .date-full {{
+        /* "Updated" wrapper transparent so it isn't a white box; the date span inside
+           keeps the white chip + dark text from the rule above, so it's readable.
+           Whole block hidden on mobile via .updated-block in the media query. */
+        .breaking-bar .updated-block {{
             background: none; color: #fff; padding: 0; font-size: inherit; letter-spacing: inherit;
         }}
 

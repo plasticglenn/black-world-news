@@ -241,8 +241,10 @@
             padding: 0.1rem 0.5rem;
             font-size: 0.7rem;
         }
-        /* date reads as plain text, not boxed like the LIVE chip */
-        .breaking-bar .date-full {
+        /* "Updated" wrapper transparent so it isn't a white box; the date span inside
+           keeps the white chip + dark text from the rule above, so it's readable.
+           Whole block hidden on mobile via .updated-block in the media query. */
+        .breaking-bar .updated-block {
             background: none; color: #fff; padding: 0; font-size: inherit; letter-spacing: inherit;
         }
 
@@ -1219,7 +1221,7 @@
         <h1>BLACK WORLD NEWS</h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: June 11, 2026 — 10:05 &nbsp;|&nbsp; 2382 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: June 11, 2026 — 10:13 &nbsp;|&nbsp; 2382 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="index.html" class="nav-issue">Home</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="politics.html" class="nav-issue">Politics</a><a href="culture.html" class="nav-issue">Culture</a><a href="sports.html" class="nav-issue">Sports</a><a href="policing.html" class="nav-issue">Policing</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="namerica.html" class="nav-region">N. America</a><a href="caribbean.html" class="nav-region">Caribbean</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
