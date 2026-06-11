@@ -662,6 +662,30 @@ def is_report(story):
     return False
 
 
+def report_source_type(story):
+    # Who issued it — drives the badge on the Reports page (the cui-bono cue).
+    from urllib.parse import urlparse
+    u = (story.get("url") or "").lower()
+    try:
+        net = urlparse(u).netloc.replace("www.", "")
+    except Exception:
+        net = ""
+    multi = ("imf.org", "worldbank", "un.org", "undp", "unctad", "unicef", "who.int", "oecd",
+             "wto.org", "afdb", "au.int", "ecowas", "unesco", "ilo.org", "fao.org", "wfp.org",
+             "iom.int", "weforum", "reliefweb")
+    think = ("brookings", "chathamhouse", "cfr.org", "carnegie", "csis.org", "odi.org", "gga.org",
+             "issafrica", "sipri", "mckinsey", "statista", "tradingeconomics")
+    if any(d in net for d in multi):
+        return "Multilateral"
+    if any(d in net for d in think):
+        return "Think tank"
+    if net.endswith(".edu") or any(d in net for d in ("ssrn", "researchgate", "academia.edu", "jstor")):
+        return "Academia"
+    if net.endswith(".gov") or ".gov." in net or ".gouv." in net or net.endswith(".int") or "elysee" in net:
+        return "Government"
+    return "Report"
+
+
 def _topic_sig(story):
     import re
     t = (display_title(story, "en") or "").lower()
@@ -2488,46 +2512,120 @@ def build_about():
 
 
 def build_reports():
-    # A separate space for organisational reports / primary documents — for readers
-    # who want the source material. Plain-language summaries are planned (we extract
-    # and rewrite them so the everyday reader can make sense of them).
+    # "The Paper Trail" — organisational reports grouped BY THEME, so the documents
+    # stack into evidence. Each card names who issued it (the cui-bono cue). Surface
+    # copy stays neutral; the structure carries the argument.
     from urllib.parse import urlparse
     stories = load_stories()
     reports = [s for s in stories if is_report(s) and not is_low_quality(s)]
     reports = sorted(reports, key=lambda s: s.get("saved_at", ""), reverse=True)
-    rows = ""
-    for s in reports[:150]:
+
+    # Extraction-relevant themes lead; the rest follow.
+    evidence_order = ["Debt Trap", "Land & Resources", "Economy", "Politics & Power", "Babylon",
+                      "Migration", "Health", "Education", "Tech & Media", "Culture & Arts",
+                      "Sport", "Climate", "World"]
+    theme_frame = {
+        "Debt Trap": "Loans that arrive with conditions &mdash; and a standing claim on what the country earns.",
+        "Land & Resources": "Who holds the minerals, the land and the oil &mdash; and where the profit ends up.",
+        "Economy": "Trade, currency and work, on terms largely set elsewhere.",
+    }
+    badge_cls = {"Multilateral": "st-multi", "Government": "st-gov", "Think tank": "st-think",
+                 "Academia": "st-acad", "Report": "st-report"}
+
+    groups = defaultdict(list)
+    for s in reports:
+        groups[derive_theme(s)].append(s)
+    ordered = [t for t in evidence_order if groups.get(t)] + [t for t in groups if t not in evidence_order]
+
+    def card(s):
         title = display_title(s, "en")
         url = s.get("url", "#")
         try:
             net = urlparse(url).netloc.replace("www.", "")
         except Exception:
             net = ""
+        stype = report_source_type(s)
         saved = s.get("saved_at", "")
         summary = display_summary(s, "en")
-        rows += f"""
-        <div class="report-item">
-            <a class="report-title" href="{url}" target="_blank" rel="noopener">{title}</a>
-            <p class="report-meta">{net}{(' &middot; ' + saved) if saved else ''}</p>
-            <p class="report-sum">{summary}</p>
+        return f"""
+        <div class="rep-card" data-stype="{stype}">
+            <div class="rep-top">
+                <span class="rep-badge {badge_cls.get(stype, 'st-report')}">{stype} &middot; {net}</span>
+                <span class="rep-date">{saved}</span>
+            </div>
+            <a class="rep-title" href="{url}" target="_blank" rel="noopener">{title}</a>
+            <p class="rep-sum">{summary}</p>
         </div>"""
-    if not rows:
-        rows = "<p>No reports collected yet.</p>"
+
+    sections = ""
+    for t in ordered:
+        items = groups[t]
+        frame = theme_frame.get(t, "")
+        frame_html = f'<p class="rep-frame">{frame}</p>' if frame else ""
+        cards = "".join(card(s) for s in items)
+        sections += f"""
+        <section class="rep-section">
+            <h2 class="rep-h2">{t} <span class="rep-count">{len(items)}</span></h2>
+            {frame_html}
+            <div class="rep-grid">{cards}</div>
+        </section>"""
+    if not sections:
+        sections = "<p>No reports collected yet.</p>"
+
     content = f"""
     <style>
-        .report-intro {{ background:#f5f8f6; border-left:4px solid #1a3a2a; padding:1rem 1.25rem; border-radius:0 10px 10px 0; margin-bottom:2rem; color:#333; line-height:1.55; }}
-        .report-item {{ border-bottom:1px solid #eee; padding:1.1rem 0; }}
-        .report-title {{ font-weight:700; font-size:1.05rem; color:#1a3a2a; text-decoration:none; }}
-        .report-title:hover {{ text-decoration:underline; }}
-        .report-meta {{ font-size:0.72rem; color:#999; text-transform:uppercase; letter-spacing:0.04em; margin:0.2rem 0 0.4rem; }}
-        .report-sum {{ font-size:0.92rem; color:#555; line-height:1.5; }}
+        .rep-filters {{ display:flex; flex-wrap:wrap; gap:0.5rem; margin:0 0 2rem; }}
+        .rep-chip {{ font-size:0.8rem; padding:0.35rem 0.9rem; border-radius:999px; border:1px solid #ddd; background:#fff; color:#555; cursor:pointer; font-weight:600; }}
+        .rep-chip.active {{ background:#1a3a2a; color:#fff; border-color:#1a3a2a; }}
+        .rep-section {{ margin-bottom:2.5rem; }}
+        .rep-h2 {{ font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:#1a3a2a; display:flex; align-items:center; gap:0.6rem; }}
+        .rep-count {{ font-size:0.8rem; font-weight:700; color:#fff; background:#1a3a2a; border-radius:999px; padding:0.1rem 0.6rem; }}
+        .rep-frame {{ font-size:0.95rem; color:#666; font-style:italic; margin:0.3rem 0 1rem; }}
+        .rep-grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:0.9rem; margin-top:0.5rem; }}
+        .rep-card {{ background:#fff; border:1px solid #e5e5e5; border-radius:10px; padding:0.9rem 1.1rem; }}
+        .rep-top {{ display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.4rem; }}
+        .rep-badge {{ font-size:0.64rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:72%; }}
+        .rep-date {{ font-size:0.72rem; color:#aaa; white-space:nowrap; }}
+        .rep-title {{ display:block; font-weight:700; font-size:1rem; color:#111; margin-bottom:0.3rem; line-height:1.35; }}
+        .rep-title:hover {{ color:#1a3a2a; text-decoration:underline; }}
+        .rep-sum {{ font-size:0.85rem; color:#666; line-height:1.5; }}
+        .st-multi {{ background:#FAECE7; color:#712B13; }}
+        .st-gov {{ background:#E6F1FB; color:#0C447C; }}
+        .st-think {{ background:#EEEDFE; color:#3C3489; }}
+        .st-acad {{ background:#E1F5EE; color:#085041; }}
+        .st-report {{ background:#F1EFE8; color:#444441; }}
+        @media(max-width:768px) {{ .rep-grid {{ grid-template-columns:1fr; }} }}
     </style>
-    <h1 class="page-title">Reports &amp; Papers</h1>
-    <p class="page-subtitle">Source documents &mdash; not news.</p>
-    <div class="report-intro">
-        These are primary documents and reports from governments, multilateral bodies, think tanks and universities. They are valuable, but they are written for specialists, not the everyday reader. We keep them here, apart from the news &mdash; and we are building plain-language summaries so anyone can make sense of what they really say.
+    <h1 class="page-title">The Paper Trail</h1>
+    <p class="page-subtitle">The documents that decide how wealth moves between Africa and the world &mdash; written by the institutions that move it. Read together, by theme, a pattern shows.</p>
+    <div class="rep-filters" id="repFilters">
+        <button class="rep-chip active" data-f="all">All</button>
+        <button class="rep-chip" data-f="Government">Governments</button>
+        <button class="rep-chip" data-f="Multilateral">Multilaterals</button>
+        <button class="rep-chip" data-f="Think tank">Think tanks</button>
+        <button class="rep-chip" data-f="Academia">Academia</button>
     </div>
-    <div class="report-list">{rows}</div>
+    {sections}
+    <script>
+      (function(){{
+        var chips = document.querySelectorAll('.rep-chip');
+        chips.forEach(function(c){{
+          c.addEventListener('click', function(){{
+            chips.forEach(function(x){{ x.classList.remove('active'); }});
+            c.classList.add('active');
+            var f = c.getAttribute('data-f');
+            document.querySelectorAll('.rep-card').forEach(function(card){{
+              card.style.display = (f === 'all' || card.getAttribute('data-stype') === f) ? '' : 'none';
+            }});
+            document.querySelectorAll('.rep-section').forEach(function(sec){{
+              var any = false;
+              sec.querySelectorAll('.rep-card').forEach(function(card){{ if (card.style.display !== 'none') any = true; }});
+              sec.style.display = any ? '' : 'none';
+            }});
+          }});
+        }});
+      }})();
+    </script>
     """
     return page_shell("Reports", content, active="reports")
 
