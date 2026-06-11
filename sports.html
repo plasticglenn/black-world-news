@@ -131,6 +131,16 @@
 .section-subtitle{text-align:center;font-size:0.85rem;color:#888;padding:0.7rem 1rem 0;margin:0;}
 
         .wc-ticker { background:#0a0a0a; overflow:hidden; white-space:nowrap; border:2px solid #1a3a2a; border-radius:8px; margin:1.5rem 0; }
+        .wc-schedule { margin:1.5rem 0 2.5rem; }
+        .wc-sched-title { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:#1a3a2a; margin-bottom:0.3rem; }
+        .wc-sched-sub { font-size:0.85rem; color:#888; margin-bottom:1rem; }
+        .wc-day { font-size:0.82rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#1a3a2a; background:#eef4f0; padding:0.4rem 0.8rem; border-radius:6px; margin:1.2rem 0 0.4rem; }
+        .wc-match { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:0.55rem 0.8rem; border-bottom:1px solid #eee; }
+        .wc-teams { font-size:0.95rem; color:#222; }
+        .wc-teams b { color:#1a3a2a; }
+        .wc-meta { font-size:0.78rem; color:#888; white-space:nowrap; text-align:right; }
+        .wc-empty { color:#888; font-style:italic; }
+        @media(max-width:768px) { .wc-match { flex-direction:column; align-items:flex-start; gap:0.15rem; } .wc-meta { text-align:left; } }
         .wc-track { display:inline-block; padding:0.5rem 0; animation:wcscroll 60s linear infinite; will-change:transform; }
         .wc-ticker:hover .wc-track { animation-play-state:paused; }
         .wc-item { color:#fff; font-size:0.85rem; font-weight:600; padding:0 0.55rem; }
@@ -160,6 +170,12 @@
         @media(max-width:768px) { .card-grid { grid-template-columns:1fr; } }
     </style>
     <div class="wc-ticker" id="wcTicker" hidden><div class="wc-track" id="wcTrack"></div></div>
+    <section class="wc-schedule">
+        <h2 class="wc-sched-title">World Cup &mdash; full schedule</h2>
+        <p class="wc-sched-sub">Times shown in your local timezone. &#9733; marks a Black nation. Scores update live.</p>
+        <div id="wcSchedule"><p class="wc-empty">Loading fixtures&hellip;</p></div>
+    </section>
+    <h2 class="wc-sched-title">From the newsroom</h2>
     <div class="card-grid">
     <div class="card">
         <a href="https://www.bbc.com/news/articles/cx212p8r28eo" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://ichef.bbci.co.uk/news/1024/branded_news/5caf/live/02106910-60d0-11f1-89a3-d1f559421220.jpg" alt="" loading="lazy"></a>
@@ -723,6 +739,39 @@
     var inner='<span class="wc-label">WORLD CUP</span>'+items.join('<span class="wc-sep">•</span>');
     track.innerHTML=inner+'<span class="wc-sep">•</span>'+inner;
     bar.hidden=false;
+  });
+})();
+</script>
+
+    
+<script>
+(function(){
+  var box=document.getElementById('wcSchedule');
+  if(!box) return;
+  var KEY='3', LEAGUE='4429', BLACK=["senegal", "morocco", "ghana", "nigeria", "cameroon", "ivory coast", "cote d'ivoire", "c\u00f4te d'ivoire", "egypt", "tunisia", "algeria", "south africa", "mali", "dr congo", "congo", "cape verde", "burkina faso", "guinea", "gabon", "zambia", "angola", "mozambique", "jamaica", "haiti", "trinidad", "barbados", "ethiopia", "kenya", "uganda", "tanzania"];
+  function mark(name){ var n=(name||'').toLowerCase(); for(var i=0;i<BLACK.length;i++){ if(n.indexOf(BLACK[i])>-1) return '★ '; } return ''; }
+  function f(u){ return fetch(u).then(function(r){return r.json();}).catch(function(){return {};}); }
+  function render(events){
+    if(!events||!events.length){ box.innerHTML='<p class="wc-empty">Fixtures will appear here as they are confirmed.</p>'; return; }
+    events.sort(function(a,b){ return (a.strTimestamp||'').localeCompare(b.strTimestamp||''); });
+    var html='', lastDay='';
+    events.forEach(function(e){
+      var d=new Date(e.strTimestamp);
+      var day=d.toLocaleDateString('en-GB',{weekday:'long',month:'long',day:'numeric'});
+      if(day!==lastDay){ html+='<h3 class="wc-day">'+day+'</h3>'; lastDay=day; }
+      var h=e.strHomeTeam||'', a=e.strAwayTeam||'';
+      var played=(e.intHomeScore!=null && e.intHomeScore!=='');
+      var teams, meta;
+      if(played){ teams=mark(h)+h+' <b>'+e.intHomeScore+'–'+e.intAwayScore+'</b> '+a+mark(a); meta=e.strVenue||''; }
+      else { var t=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); teams=mark(h)+h+' v '+a+mark(a); meta=t+(e.strVenue?' · '+e.strVenue:''); }
+      html+='<div class="wc-match"><span class="wc-teams">'+teams+'</span><span class="wc-meta">'+meta+'</span></div>';
+    });
+    box.innerHTML=html;
+  }
+  f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventsseason.php?id='+LEAGUE+'&s=2026').then(function(d){
+    var ev=(d&&d.events)||[];
+    if(ev.length){ render(ev); return; }
+    f('https://www.thesportsdb.com/api/v1/json/'+KEY+'/eventsnextleague.php?id='+LEAGUE).then(function(d2){ render((d2&&d2.events)||[]); });
   });
 })();
 </script>
