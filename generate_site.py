@@ -520,8 +520,8 @@ import re as _re_themes
 _CAT_THEME = {
     "Employment": "Economy", "Housing": "Economy", "Economy": "Economy",
     "Healthcare": "Health", "Education": "Education", "Politics": "Politics & Power",
-    "Immigration": "Migration", "Culture": "Culture & Arts", "Policing": "Babylon",
-    "Hate Crime": "Babylon", "Media Bias": "Tech & Media", "Demographics": "Politics & Power",
+    "Immigration": "Migration", "Culture": "Culture & Arts", "Policing": "Policing",
+    "Hate Crime": "Policing", "Media Bias": "Tech & Media", "Demographics": "Politics & Power",
 }
 
 # Ordered most-distinctive first so generic themes (Politics/Economy) act as catch-alls.
@@ -533,7 +533,7 @@ _THEME_KEYWORDS = [
                           "diamond", "diamonds", "farmland", "farmer", "farming", "agriculture",
                           "resource", "resources", "extraction", "drilling", "pipeline", "timber",
                           "deforestation", "fishing", "cocoa", "copper"]),
-    ("Babylon", ["police", "policing", "officer", "prison", "prisons", "jail", "jailed", "court",
+    ("Policing", ["police", "policing", "officer", "prison", "prisons", "jail", "jailed", "court",
                  "courts", "arrest", "arrested", "trial", "verdict", "sentenced", "detained",
                  "custody", "murder", "murdered", "killed", "killing", "shooting", "crime",
                  "criminal", "brutality", "hate crime", "lynching", "surveillance", "raid"]),
@@ -574,7 +574,7 @@ _THEME_KEYWORDS = [
                          "sanctions", "diplomat", "diplomatic", "policy", "vote", "voting", "voters",
                          "leader", "leaders", "military", "summit", "democracy", "regime",
                          "governance", "treaty", "ambassador", "opposition", "rebels", "militia",
-                         # broader "justice" stories fold in here (not policing/Babylon)
+                         # broader "justice" stories fold in here (not policing)
                          "human rights", "reparations", "civil rights", "racism", "racist",
                          "discrimination", "equality", "segregation", "apartheid", "slavery",
                          "sovereignty", "justice"]),
@@ -2521,7 +2521,7 @@ def build_reports():
     reports = sorted(reports, key=lambda s: s.get("saved_at", ""), reverse=True)
 
     # Extraction-relevant themes lead; the rest follow.
-    evidence_order = ["Debt Trap", "Land & Resources", "Economy", "Politics & Power", "Babylon",
+    evidence_order = ["Debt Trap", "Land & Resources", "Economy", "Politics & Power", "Policing",
                       "Migration", "Health", "Education", "Tech & Media", "Culture & Arts",
                       "Sport", "Climate", "World"]
     theme_frame = {
