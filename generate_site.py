@@ -403,15 +403,37 @@ def story_image(story, cache, featured=False, used_images=None):
         used_images.add(gen)
     return gen
 
+# Theme-tinted backgrounds for the branded placeholder, so cards without a photo
+# aren't all identical.
+_PH_COLORS = {
+    "Debt Trap": "#16352a", "Economy": "#1a3a2a", "Land & Resources": "#2c3a18",
+    "Politics & Power": "#283340", "Policing": "#262626", "Health": "#0f3b34",
+    "Education": "#22314a", "Culture & Arts": "#382440", "Sport": "#3a2a12",
+    "Migration": "#163340", "Tech & Media": "#2a2a3a", "Climate": "#16382c", "World": "#1a3a2a",
+}
+
+
 def ai_image_url(story):
-    title   = story.get("title", "")[:80]
-    summary = story.get("summary", "")[:150]
-    country = story.get("country", "world")
-    cat     = story.get("category", "news").lower()
-    prompt  = f"editorial photojournalism, {title}, {summary}, {country}, {cat}, real people, powerful, documentary photography, no text, no watermark"
-    encoded = urllib.parse.quote(prompt)
-    seed    = abs(hash(story.get("url", ""))) % 99999
-    return f"https://image.pollinations.ai/prompt/{encoded}?width=900&height=500&nologo=true&seed={seed}"
+    # No real photo available — return a clean, branded SVG placeholder (data URI)
+    # so a card NEVER shows a broken image. (Pollinations, the old fallback, is dead.)
+    import math
+    color = _PH_COLORS.get(derive_theme(story), "#1a3a2a")
+    cx, cy, rad = 450, 205, 72
+    pts = []
+    for i in range(10):
+        ang = -math.pi / 2 + i * math.pi / 5
+        r = rad if i % 2 == 0 else rad * 0.40
+        pts.append(f"{cx + r*math.cos(ang):.0f},{cy + r*math.sin(ang):.0f}")
+    star = " ".join(pts)
+    svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">'
+        f'<rect width="900" height="500" fill="{color}"/>'
+        f'<polygon points="{star}" fill="#ffffff" opacity="0.92"/>'
+        '<text x="450" y="350" text-anchor="middle" font-family="Georgia,serif" '
+        'font-size="22" fill="#ffffff" opacity="0.6" letter-spacing="5">BLACK WORLD NEWS</text>'
+        '</svg>'
+    )
+    return "data:image/svg+xml," + urllib.parse.quote(svg)
 
 
 def load_stories():
