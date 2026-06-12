@@ -318,12 +318,16 @@ def save_image_cache(cache):
     with open(IMAGE_CACHE, "w", encoding="utf-8") as f:
         json.dump(cache, f, indent=2, ensure_ascii=False)
 
+_pexels_blocked = False  # set once we hit the hourly cap, to stop hammering this build
+
+
 def pexels_image(query, cache, size="large"):
     # Cache key separates sizes so "large" and "large2x" don't collide
+    global _pexels_blocked
     cache_key = query if size == "large" else f"{query}::{size}"
     if cache_key in cache:
         return cache[cache_key]
-    if not PEXELS_KEY:
+    if not PEXELS_KEY or _pexels_blocked:
         return ""
     try:
         r = req.get(
@@ -332,14 +336,54 @@ def pexels_image(query, cache, size="large"):
             params={"query": query, "per_page": 1, "orientation": "landscape"},
             timeout=10
         )
+        if r.status_code == 429:
+            # hit the hourly rate limit — stop calling, and DON'T cache empties
+            # (so these queries retry on the next build instead of being stuck).
+            _pexels_blocked = True
+            return ""
+        if r.status_code != 200:
+            return ""  # transient error — don't cache, retry next build
         photos = r.json().get("photos", [])
         src = photos[0]["src"] if photos else {}
         url = src.get(size) or src.get("large2x") or src.get("large") or ""
-        cache[cache_key] = url
+        cache[cache_key] = url  # cache a real URL OR a genuine "no result" for this query
         return url
-    except:
-        cache[cache_key] = ""
-        return ""
+    except Exception:
+        return ""  # network hiccup — don't cache, retry next build
+
+
+def pexels_pool(query, cache, size="large", n=15):
+    # Fetch a POOL of photos for a query (not just the top one), so many cards
+    # sharing a generic query each get a DIFFERENT photo instead of all colliding
+    # on one and being pushed to the placeholder. Cached under a "pool::" key.
+    global _pexels_blocked
+    key = f"pool::{query}::{size}"
+    if key in cache:
+        return cache[key]
+    if not PEXELS_KEY or _pexels_blocked:
+        return []
+    try:
+        r = req.get(
+            "https://api.pexels.com/v1/search",
+            headers={"Authorization": PEXELS_KEY},
+            params={"query": query, "per_page": n, "orientation": "landscape"},
+            timeout=10
+        )
+        if r.status_code == 429:
+            _pexels_blocked = True
+            return []
+        if r.status_code != 200:
+            return []
+        urls = []
+        for p in r.json().get("photos", []):
+            s = p.get("src", {})
+            u = s.get(size) or s.get("large2x") or s.get("large") or ""
+            if u:
+                urls.append(u)
+        cache[key] = urls
+        return urls
+    except Exception:
+        return []
 
 # Hosts that serve a "no hotlinking" placeholder image when their photo is
 # loaded from another site. We never use their og:image — we generate our own
@@ -389,14 +433,17 @@ def story_image(story, cache, featured=False, used_images=None):
         f"Black community {cat}",
     ]
 
+    # Pull a POOL per query and hand this card the first photo not already on the
+    # page — so cards sharing a generic query don't all collapse to the placeholder.
+    size = "large2x" if featured else "large"
     for query in queries:
-        url = pexels_image(query, cache, size="large2x" if featured else "large")
-        if url and (used_images is None or url not in used_images):
-            if used_images is not None:
-                used_images.add(url)
-            return url
+        for url in pexels_pool(query, cache, size=size):
+            if url and (used_images is None or url not in used_images):
+                if used_images is not None:
+                    used_images.add(url)
+                return url
 
-    # Last resort: generate our own image so a card is NEVER blank and never
+    # Last resort: a clean branded placeholder so a card is NEVER blank and never
     # shows a blocked-hotlink placeholder.
     gen = ai_image_url(story)
     if used_images is not None:
