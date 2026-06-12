@@ -672,6 +672,10 @@ def theme_tag(story):
 # Domains/titles that shouldn't headline the homepage (low-signal noise).
 _JUNK_DOMAINS = ("youtube.com", "youtu.be", "wikipedia.org", "linkedin.com", "reddit.com", "tiktok.com")
 _JUNK_TITLE = ("reaction", "- youtube", "wikipedia", "official trailer", " trailer", "watch online")
+# Job boards / recruitment listings — not news. Matched on DOMAIN/PATH (not title,
+# so real news about jobs/recruitment from news sites still gets through).
+_JOB_DOMAINS = ("jobs", "jobline", "jobalert", "teachjobs", "jobsite", "vacanc", "careers.", "recruitment")
+_JOB_PATHS = ("/careers", "/jobs", "/vacanc", "/job-board", "/job/")
 # Words too common across this site to be useful for de-duplicating topics.
 _TOPIC_STOP = {
     "the","and","for","with","from","that","this","what","could","amid","face","faces","over",
@@ -683,11 +687,22 @@ _TOPIC_STOP = {
 
 
 def is_low_quality(story):
+    from urllib.parse import urlparse
     u = (story.get("url") or "").lower()
     t = (story.get("title_en") or story.get("title") or "").lower()
     if any(d in u for d in _JUNK_DOMAINS):
         return True
     if any(j in t for j in _JUNK_TITLE):
+        return True
+    # Job boards / recruitment listings (by domain or URL path) — not news.
+    try:
+        p = urlparse(u)
+        net, path = p.netloc.replace("www.", ""), p.path
+    except Exception:
+        net, path = "", ""
+    if any(k in net for k in _JOB_DOMAINS):
+        return True
+    if any(path.startswith(seg) for seg in _JOB_PATHS):
         return True
     return False
 
