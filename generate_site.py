@@ -4389,20 +4389,24 @@ def main():
         f.write(build_kids())
     print("Kids page generated: kids.html")
 
-    # Build one reader page per comic strip (from comics.json). Every strip gets a
-    # page so it's previewable locally before art lands; only published ones are
-    # listed on the shelf and in the sitemap.
+    # Build one reader page per PUBLISHED comic strip (from comics.json). Only
+    # published strips get a deployed page, so a draft can never leak live at its
+    # direct URL; unpublished strips also stay off the shelf and out of the sitemap.
+    # Any stale page from a now-unpublished strip is removed so it's actually pulled.
     published_comic_pages = []
     for strip in load_json_file("comics.json"):
         slug = strip.get("slug", "")
         if not slug:
             continue
         page = comic_slug_page(slug)
-        with open(page, "w", encoding="utf-8") as f:
-            f.write(build_comic_reader(strip))
-        print(f"Comic reader generated: {page}")
         if strip.get("published"):
+            with open(page, "w", encoding="utf-8") as f:
+                f.write(build_comic_reader(strip))
+            print(f"Comic reader generated: {page}")
             published_comic_pages.append(page)
+        elif os.path.exists(page):
+            os.remove(page)
+            print(f"Comic reader removed (unpublished): {page}")
 
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")
