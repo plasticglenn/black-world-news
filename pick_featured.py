@@ -7,9 +7,9 @@
 #                                         story each day (used by the scheduler).
 #   python pick_featured.py --choose   -> interactive: pick by hand.
 #
-# "Most interesting" = strongly prefers big, reputable publications, then
-# narrative interest + having a real image. Never features Wikipedia, LinkedIn,
-# YouTube, stat databases or think-tank PDFs.
+# "Most interesting" = ONLY vetted, reputable news organisations are eligible
+# for the hero (hard gate), then ranked by narrative interest + a real image.
+# Never features Wikipedia, LinkedIn, YouTube, stat databases or think-tank PDFs.
 # ============================================================
 
 import json
@@ -21,22 +21,46 @@ from urllib.parse import urlparse
 ARCHIVE_FILE  = "stories.json"
 FEATURED_FILE = "featured.json"
 
-# Reputable news publications — a story from one of these is strongly preferred.
-BIG_PUBS = {
+# Reputable news organisations. Membership here is a HARD GATE: a story is only
+# eligible for the hero if its source is on this list. It blends established
+# diaspora / African / Caribbean / Latin American press (the heart of this site)
+# with major international wire and quality outlets. Add a source only after a
+# quick credibility check; keep commentary/advocacy blogs and aggregators off it.
+REPUTABLE = {
+    # International wire / quality press
     "bbc.com", "bbc.co.uk", "reuters.com", "apnews.com", "theguardian.com",
     "nytimes.com", "washingtonpost.com", "aljazeera.com", "cnn.com", "npr.org",
-    "ft.com", "economist.com", "bloomberg.com", "africanews.com", "news.sky.com",
-    "independent.co.uk", "time.com", "theconversation.com", "abcnews.go.com",
-    "cbsnews.com", "nbcnews.com", "pbs.org", "scmp.com", "theafricareport.com",
-    "premiumtimesng.com", "punchng.com", "thecable.ng", "mg.co.za", "nation.africa",
+    "ft.com", "economist.com", "bloomberg.com", "news.sky.com", "independent.co.uk",
+    "time.com", "theconversation.com", "abcnews.go.com", "cbsnews.com",
+    "nbcnews.com", "pbs.org", "scmp.com", "dw.com",
+    # Pan-African / African national press
+    "africanews.com", "theafricareport.com", "allafrica.com", "premiumtimesng.com",
+    "punchng.com", "thecable.ng", "mg.co.za", "nation.africa", "gna.org.gh",
+    "standardmedia.co.ke",
+    # Caribbean press
+    "jamaicaobserver.com", "nationnews.com", "newsday.co.tt",
+    "caribbeannationalweekly.com",
+    # Black diaspora press (UK / Brazil / Colombia)
+    "voice-online.co.uk", "almapreta.com.br", "brasildefato.com.br", "elheraldo.co",
 }
 
-# Never feature these on the homepage hero (not news articles / look bad as a lead).
+# A subset of REPUTABLE that floats to the top of the rotation (extra scoring
+# weight) so the strongest outlets lead when several reputable stories compete.
+TOP_TIER = {
+    "bbc.com", "bbc.co.uk", "reuters.com", "apnews.com", "theguardian.com",
+    "nytimes.com", "washingtonpost.com", "aljazeera.com", "ft.com", "economist.com",
+    "bloomberg.com", "africanews.com", "theafricareport.com", "premiumtimesng.com",
+    "scmp.com", "dw.com",
+}
+
+# Belt-and-suspenders: never feature these even if one sneaks onto a list above
+# (not news articles / look bad as a lead / source documents, not reporting).
 EXCLUDE = {
-    "en.wikipedia.org", "wikipedia.org", "linkedin.com", "youtube.com",
-    "statista.com", "worldpopulationreview.com", "pmc.ncbi.nlm.nih.gov",
+    "en.wikipedia.org", "wikipedia.org", "linkedin.com", "youtube.com", "tiktok.com",
+    "vk.com", "statista.com", "worldpopulationreview.com", "pmc.ncbi.nlm.nih.gov",
     "ncbi.nlm.nih.gov", "worldbank.org", "imf.org", "who.int", "cfr.org",
     "brookings.edu", "epi.org", "finance.yahoo.com", "antiracismnewsletter.com",
+    "impactinvesting.online",
 }
 
 # Editorial weighting (selection only — published copy stays neutral).
@@ -65,9 +89,10 @@ def domain(url):
 
 def score(s):
     sc = 0
-    # Reputable publication — keeps the hero credible and shareable.
-    if domain(s.get("url", "")) in BIG_PUBS:
-        sc += 60
+    # All eligible stories are already reputable (see eligible()); give the major
+    # wire/quality outlets an extra nudge so they lead the rotation.
+    if domain(s.get("url", "")) in TOP_TIER:
+        sc += 30
     if s.get("image"):
         sc += 8
     # Depth of the story: framing, structural factors, and whether it names who benefits.
@@ -97,7 +122,10 @@ def save_featured(story):
 
 def eligible(s):
     d = domain(s.get("url", ""))
-    if not s.get("url") or d in EXCLUDE:
+    if not s.get("url"):
+        return False
+    # HARD GATE: only vetted, reputable news organisations reach the hero.
+    if d not in REPUTABLE or d in EXCLUDE:
         return False
     title = (s.get("title_en") or s.get("title") or "")
     if len(title) < 20 or "�" in title:   # too short, or mojibake (looks broken)
@@ -123,7 +151,11 @@ def auto_pick(stories):
         if len(deck) >= 12:
             break
     if not deck:
-        deck = ranked[:1] or stories[:1]
+        # No reputable story in the recent window — keep the current hero rather
+        # than promote an unvetted source. (Should be rare; the archive is dense
+        # with reputable diaspora/African/wire sources.)
+        print("No reputable story in recent window — keeping current featured.")
+        return
     # Rotate through the deck by calendar day: fresh hero daily, always strong.
     pick = deck[date.today().toordinal() % len(deck)]
     save_featured(pick)
