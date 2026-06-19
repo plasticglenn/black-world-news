@@ -508,13 +508,29 @@ def display_summary(story, lang="en"):
 def load_highlights():
     # Curated external highlights for the homepage sidebar.
     # Edit highlights.json by hand. Format: [{title, url, image, caption, source}]
+    # Guardrail: every highlight must come from a reputable news organisation
+    # (same allowlist as the hero) and use a controlled local image, not a
+    # hotlink. We don't drop offenders automatically — we warn loudly at build
+    # time so a bad entry gets caught before it ships.
     if not os.path.exists("highlights.json"):
         return []
     try:
         with open("highlights.json", "r", encoding="utf-8") as f:
-            return json.load(f)
+            items = json.load(f)
     except Exception:
         return []
+    try:
+        from pick_featured import REPUTABLE, domain
+        for h in items:
+            d = domain(h.get("url", ""))
+            if d and d not in REPUTABLE:
+                print(f"  [highlights] WARNING: source not on reputable list: {d}")
+            img = h.get("image", "")
+            if img and not img.startswith("images/"):
+                print(f"  [highlights] WARNING: hotlinked image (localise it): {img[:60]}")
+    except Exception:
+        pass  # never let the guardrail break the build
+    return items
 
 
 def load_servants():

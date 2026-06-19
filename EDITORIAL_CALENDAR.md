@@ -49,18 +49,20 @@ If you're stuck, pick the most-read story from the past week (Cloudflare analyti
 Three slots, always filled. Rotate at least once a week. Mix:
 
 - 🏛️ One **historical figure** (Garvey, Lumumba, Mandela, Sojourner Truth, Walter Rodney, etc.)
-- 📚 One **educational deep-dive** (Wikipedia, scholarly article, doc film)
+- 📚 One **educational deep-dive** (scholarly article, doc film)
 - 🎵 One **cultural piece** (music, literature, art)
 
+**Two hard rules for every highlight (the build will warn you if you break them):**
+1. **Reputable news organisation only** — same allowlist as the hero (`REPUTABLE` in `pick_featured.py`): major wire/quality press plus vetted diaspora, African, Caribbean and Latin American outlets. No Wikipedia, no blogs, no commentary/advocacy sites in the highlight slots.
+2. **Controlled local image only** — never hotlink the source's photo. Download it into `images/` first (so it can't break or change), and check it's on-objective: dignified, shows agency, no competitor watermark, no off-message optics. If the source's own image fails any of those, swap in a clean image we control.
+
 **Source list to draw from:**
-- Wikipedia (free, neutral, well-cited)
+- Our own reputable allowlist (see `pick_featured.py`)
 - The Conversation (free, scholarly)
 - Africa is a Country (analytical, magazine-style)
-- The Root (US-focused, but useful)
-- Africa Report
 - Past entries from our own archive
 
-Edit `highlights.json` and run `python generate_site.py` to refresh.
+Edit `highlights.json`, localise the images, then run `python generate_site.py` to refresh.
 
 ---
 
