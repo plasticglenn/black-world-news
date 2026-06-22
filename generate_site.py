@@ -1247,6 +1247,9 @@ def build_html(stories, cache):
         </div>
     </div>"""
 
+    # Explainers shelf — our own long-form pieces (empty string if none published).
+    explainers_section = explainers_shelf_html()
+
     # Pull featured story image for Open Graph sharing
     og_image = story_image(featured, cache, featured=True) if featured else ""
     og_title = featured.get("title", "Black World News") if featured else "Black World News"
@@ -2431,6 +2434,9 @@ def build_html(stories, cache):
         <p class="section-label">Latest</p>
         <div class="card-grid">{latest_html}</div>
     </div>
+
+    <!-- EXPLAINERS — our own long-form pieces -->
+    {explainers_section}
 
     <!-- ENTERTAINMENT & CULTURE -->
     {entertainment_html}
@@ -4350,6 +4356,259 @@ def build_search_page():
 </html>"""
 
 
+# ============================================================
+# ORIGINAL ARTICLES — long-form explainers we write ourselves.
+# Mirrors the comic system: articles.json holds the content, each PUBLISHED
+# article renders to article-<slug>.html, and the homepage shows an "Explainers"
+# shelf. Drafts (published:false) render nowhere public — no shelf card, no page
+# on disk, no sitemap entry — so an unfinished piece can never leak live.
+# ============================================================
+
+def article_slug_page(slug):
+    # The on-disk filename for a single article's reader page.
+    return f"article-{slug}.html"
+
+
+def published_articles():
+    # Published pieces only, newest first (by date).
+    arts = [a for a in load_json_file("articles.json") if a.get("published")]
+    return sorted(arts, key=lambda a: a.get("date", ""), reverse=True)
+
+
+def _article_theme_color(theme):
+    # Reuse the theme palette the placeholders already use, so an article's
+    # colour matches its theme everywhere on the site.
+    return _PH_COLORS.get(theme, "#1a3a2a")
+
+
+def render_article_body(body):
+    # Friendly authoring so writing in articles.json stays painless. body may be:
+    #   - a raw HTML string (used as-is if it already contains <p>/<h tags),
+    #   - a plain-text string (blank lines split into paragraphs), or
+    #   - a list of lines, where "## " = heading, "### " = subheading,
+    #     "> " = pull quote, "- " = bullet, anything else = paragraph.
+    if isinstance(body, str):
+        if "<p" in body or "<h" in body:
+            return body
+        paras = [p.strip() for p in body.split("\n\n") if p.strip()]
+        return "".join(f"<p>{p}</p>" for p in paras)
+
+    html, bullets = "", []
+
+    def flush():
+        nonlocal bullets, html
+        if bullets:
+            html += "<ul>" + "".join(f"<li>{b}</li>" for b in bullets) + "</ul>"
+            bullets = []
+
+    for raw in (body or []):
+        line = (raw or "").strip()
+        if not line:
+            continue
+        if line.startswith("## "):
+            flush(); html += f"<h2>{line[3:].strip()}</h2>"
+        elif line.startswith("### "):
+            flush(); html += f"<h3>{line[4:].strip()}</h3>"
+        elif line.startswith("> "):
+            flush(); html += f"<blockquote>{line[2:].strip()}</blockquote>"
+        elif line.startswith("- "):
+            bullets.append(line[2:].strip())
+        else:
+            flush(); html += f"<p>{line}</p>"
+    flush()
+    return html
+
+
+def build_article_reader(article):
+    # One original article as a clean, editorial long-read. Self-contained (like
+    # the comic reader) so it can carry a slug-based canonical URL, an og:image,
+    # and Article schema that page_shell can't.
+    slug   = article.get("slug", "")
+    title  = article.get("title", "Untitled")
+    dek    = article.get("dek", "")
+    theme  = article.get("theme", "")
+    series = article.get("series", "")
+    date   = article.get("date", "")
+    author = article.get("author", "Black World News")
+    hero   = article.get("hero_image", "")
+    hero_credit = article.get("hero_credit", "")
+    colour = _article_theme_color(theme)
+    body_html = render_article_body(article.get("body", ""))
+
+    import re as _re
+    words   = len(_re.sub("<[^>]+>", " ", body_html).split())
+    minutes = max(1, round(words / 200))
+
+    url = f"https://www.blackworldnews.world/{article_slug_page(slug)}"
+    og_image = (f"https://www.blackworldnews.world/{hero}" if hero
+                else "https://www.blackworldnews.world/logo.svg")
+
+    theme_chip = (f'<span class="theme-chip" style="background:{colour}">{theme}</span>'
+                  if theme else "")
+    series_html = (f'<p class="series-line">Part of the <strong>{series}</strong> series</p>'
+                   if series else "")
+    hero_html = ""
+    if hero:
+        credit = f'<span class="hero-credit">{hero_credit}</span>' if hero_credit else ""
+        hero_html = (f'<figure class="article-hero-img">'
+                     f'<img src="{hero}" alt="" loading="lazy">{credit}</figure>')
+
+    sources = article.get("sources", [])
+    sources_html = ""
+    if sources:
+        items = "".join(
+            f'<li><a href="{s.get("url","#")}" target="_blank" rel="noopener">{s.get("label","")}</a></li>'
+            for s in sources)
+        sources_html = f'<section class="sources"><h2>Sources</h2><ul>{items}</ul></section>'
+
+    schema = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": dek,
+        "datePublished": date,
+        "author": {"@type": "Organization", "name": author},
+        "publisher": {"@type": "Organization", "name": "Black World News"},
+        "image": og_image,
+        "mainEntityOfPage": url,
+    }, ensure_ascii=False)
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} | Black World News</title>
+    <meta name="description" content="{dek}">
+    <link rel="canonical" href="{url}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Black World News">
+    <meta property="og:url" content="{url}">
+    <meta property="og:title" content="{title}">
+    <meta property="og:description" content="{dek}">
+    <meta property="og:image" content="{og_image}">
+    <meta property="article:published_time" content="{date}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{title}">
+    <meta name="twitter:description" content="{dek}">
+    <meta name="twitter:image" content="{og_image}">
+    <meta name="author" content="{author}">
+    <script type="application/ld+json">{schema}</script>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    {PWA_META}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{background:#f2f2f2;color:#1a1a1a;font-family:'Source Sans 3',sans-serif;font-size:19px;line-height:1.75;}}
+        a{{color:inherit;}}
+        .masthead{{background:#1a3a2a;border-bottom:3px solid #111;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.8rem;justify-content:center;}}
+        .masthead img{{width:46px;height:46px;}}
+        .masthead .brand{{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#fff;letter-spacing:0.04em;text-decoration:none;}}
+        .article{{max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 1rem;background:#fff;}}
+        @media(min-width:760px){{.article{{margin:2rem auto;border-radius:6px;box-shadow:0 4px 24px rgba(0,0,0,0.06);}}}}
+        .theme-chip{{display:inline-block;color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:999px;}}
+        .article-title{{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.8rem,5.5vw,2.7rem);line-height:1.12;margin:0.9rem 0 0.6rem;color:#111;}}
+        .article-dek{{font-size:1.18rem;color:#444;line-height:1.5;margin-bottom:1.1rem;}}
+        .byline{{font-size:0.85rem;color:#777;border-bottom:1px solid #e3e3e3;padding-bottom:1.2rem;letter-spacing:0.02em;}}
+        .series-line{{font-size:0.82rem;color:#1a3a2a;margin:1.1rem 0 0;}}
+        .article-hero-img{{margin:1.4rem 0 0;}}
+        .article-hero-img img{{width:100%;height:auto;border-radius:6px;display:block;}}
+        .hero-credit{{display:block;font-size:0.72rem;color:#999;margin-top:0.35rem;}}
+        .article-body{{margin-top:1.4rem;}}
+        .article-body p{{margin:0 0 1.15rem;}}
+        .article-body p:first-of-type::first-letter{{font-family:'Playfair Display',serif;font-size:3.1rem;font-weight:900;float:left;line-height:0.78;margin:0.2rem 0.6rem 0 0;color:#1a3a2a;}}
+        .article-body h2{{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1a3a2a;margin:2rem 0 0.8rem;}}
+        .article-body h3{{font-size:1.15rem;font-weight:700;color:#111;margin:1.5rem 0 0.6rem;}}
+        .article-body blockquote{{border-left:4px solid #1a3a2a;background:#f6f8f6;margin:1.6rem 0;padding:1rem 1.3rem;font-family:'Playfair Display',serif;font-size:1.3rem;font-style:italic;color:#1a3a2a;}}
+        .article-body ul{{margin:0 0 1.15rem 1.3rem;}}
+        .article-body li{{margin-bottom:0.5rem;}}
+        .sources{{max-width:720px;margin:0 auto;padding:0 1.5rem 1.5rem;background:#fff;}}
+        @media(min-width:760px){{.sources{{border-radius:0 0 6px 6px;}}}}
+        .sources h2{{font-family:'Playfair Display',serif;font-size:1.1rem;color:#1a3a2a;margin-bottom:0.6rem;}}
+        .sources ul{{list-style:none;}}
+        .sources li{{font-size:0.9rem;margin-bottom:0.4rem;}}
+        .sources a{{color:#1a3a2a;font-weight:600;text-decoration:underline;}}
+        .article-end{{text-align:center;padding:1.5rem;}}
+        .back-btn{{display:inline-block;background:#1a3a2a;color:#fff;padding:0.6rem 1.4rem;border-radius:999px;font-weight:700;text-decoration:none;}}
+        footer{{background:#111;border-top:4px solid #1a3a2a;text-align:center;padding:2rem;font-size:0.8rem;color:#555;margin-top:2rem;}}
+        footer strong{{color:#8ab89a;}}
+    </style>
+</head>
+<body>
+<header class="masthead">
+    <a href="index.html"><img src="logo.svg" alt="Black World News"></a>
+    <a href="index.html" class="brand">Black World News</a>
+</header>
+
+<article class="article">
+    {theme_chip}
+    <h1 class="article-title">{title}</h1>
+    <p class="article-dek">{dek}</p>
+    <p class="byline">By {author} &middot; {date} &middot; {minutes} min read</p>
+    {series_html}
+    {hero_html}
+    <div class="article-body">{body_html}</div>
+</article>
+{sources_html}
+<section class="article-end">
+    <a href="index.html#explainers" class="back-btn">&larr; More explainers</a>
+</section>
+<footer>
+    <p><strong>BLACK WORLD NEWS</strong> Your World Today</p>
+    {social_bar_html()}
+    {footer_legal_html()}
+</footer>
+{PWA_SCRIPT}
+{CLOUDFLARE_ANALYTICS}
+</body>
+</html>"""
+
+
+def explainers_shelf_html():
+    # "Explainers" shelf for the homepage — our own long-form pieces. Returns ""
+    # when nothing is published yet, so the homepage simply omits the section.
+    arts = published_articles()
+    if not arts:
+        return ""
+    cards = ""
+    for a in arts[:6]:
+        slug   = a.get("slug", "")
+        theme  = a.get("theme", "")
+        colour = _article_theme_color(theme)
+        hero   = a.get("hero_image", "")
+        thumb = (f'<div class="exp-thumb" style="background-image:url(\'{hero}\')"></div>'
+                 if hero else
+                 f'<div class="exp-thumb" style="background:{colour}"></div>')
+        chip = f'<span class="exp-chip" style="background:{colour}">{theme}</span>' if theme else ""
+        cards += f"""
+        <a class="exp-card" href="{article_slug_page(slug)}">
+            {thumb}
+            <div class="exp-body">{chip}
+                <h3 class="exp-title">{a.get('title','')}</h3>
+                <p class="exp-dek">{a.get('dek','')}</p>
+            </div>
+        </a>"""
+    return f"""
+    <!-- EXPLAINERS — our own long-form pieces -->
+    <div class="container" id="explainers">
+        <p class="section-label">Explainers</p>
+        <div class="exp-grid">{cards}
+        </div>
+    </div>
+    <style>
+      .exp-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem;}}
+      .exp-card{{display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.08);transition:transform .15s;text-decoration:none;color:inherit;}}
+      .exp-card:hover{{transform:translateY(-3px);}}
+      .exp-thumb{{aspect-ratio:16/9;background-size:cover;background-position:center;}}
+      .exp-body{{padding:0.9rem 1rem 1.1rem;}}
+      .exp-chip{{display:inline-block;color:#fff;font-size:0.62rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:999px;margin-bottom:0.5rem;}}
+      .exp-title{{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#111;line-height:1.2;margin-bottom:0.35rem;}}
+      .exp-dek{{font-size:0.9rem;color:#666;line-height:1.4;}}
+    </style>"""
+
+
 def main():
     stories = load_stories()
     if not stories:
@@ -4424,6 +4683,24 @@ def main():
             os.remove(page)
             print(f"Comic reader removed (unpublished): {page}")
 
+    # Build one reader page per PUBLISHED article (from articles.json). Same
+    # safety as comics: drafts (published:false) get no deployed page, and a
+    # now-unpublished article's stale page is removed so it's truly pulled.
+    published_article_pages = []
+    for art in load_json_file("articles.json"):
+        slug = art.get("slug", "")
+        if not slug:
+            continue
+        page = article_slug_page(slug)
+        if art.get("published"):
+            with open(page, "w", encoding="utf-8") as f:
+                f.write(build_article_reader(art))
+            print(f"Article generated: {page}")
+            published_article_pages.append(page)
+        elif os.path.exists(page):
+            os.remove(page)
+            print(f"Article removed (unpublished): {page}")
+
     save_image_cache(cache)
     print(f"Site generated: {OUTPUT_FILE}")
     print(f"Total stories: {len(stories)}")
@@ -4436,6 +4713,11 @@ def main():
         f'\n  <url><loc>https://www.blackworldnews.world/{page}</loc>'
         f'<lastmod>{today}</lastmod><priority>0.6</priority></url>'
         for page in published_comic_pages
+    )
+    article_sitemap_urls = "".join(
+        f'\n  <url><loc>https://www.blackworldnews.world/{page}</loc>'
+        f'<lastmod>{today}</lastmod><priority>0.7</priority></url>'
+        for page in published_article_pages
     )
     sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -4461,7 +4743,7 @@ def main():
   <url><loc>https://www.blackworldnews.world/trends.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.blackworldnews.world/community.html</loc><lastmod>{today}</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.blackworldnews.world/privacy.html</loc><lastmod>{today}</lastmod><priority>0.3</priority></url>
-  <url><loc>https://www.blackworldnews.world/comics.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>{comic_sitemap_urls}
+  <url><loc>https://www.blackworldnews.world/comics.html</loc><lastmod>{today}</lastmod><priority>0.6</priority></url>{comic_sitemap_urls}{article_sitemap_urls}
 </urlset>"""
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write(sitemap)

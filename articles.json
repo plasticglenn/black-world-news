@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "cfa-franc",
+    "title": "The CFA franc: the currency 14 countries don't fully control",
+    "dek": "A money arrangement built in the colonial period keeps some of the most profitable decisions, and a share of the savings, outside the countries that use it.",
+    "theme": "Debt Trap",
+    "series": "Debt Trap",
+    "date": "2026-06-25",
+    "author": "Black World News",
+    "hero_image": "images/article-cfa-franc.jpg",
+    "hero_credit": "Abidjan, Côte d'Ivoire — one of the eight West African countries that use the CFA franc.",
+    "published": false,
+    "body": [
+      "Fourteen countries in west and central Africa share a single currency, the CFA franc. More than 150 million people earn, save, and spend in it. Yet some of the decisions that set what that money is worth are not made entirely in the countries that use it.",
+      "## Where it comes from",
+      "The CFA franc was created in 1945, during the colonial period, by France. It outlived the end of formal colonial rule and is still in use today, in two versions: one shared by eight countries in west Africa, another by six in central Africa. Both are fixed to the euro at a rate that does not move.",
+      "## The arrangement",
+      "The deal has two halves. France guarantees that the currency can always be exchanged for euros at the fixed rate. In return, for decades the countries were required to keep a share of their foreign reserves, originally all of it, later half, in an account held at the French Treasury. France also held a seat on the boards that govern the currency.",
+      "## What a fixed rate does",
+      "A value that never moves keeps prices steady and makes it simple to move money in and out. It also makes the goods these countries sell abroad more expensive for foreign buyers, and the goods they import cheaper. That tilts the field toward importers, and toward companies moving profits out, and away from local producers trying to sell. And because the currency follows the euro, the interest rates attached to it track decisions made for Europe's economy, not for west or central Africa's.",
+      "## Who keeps what",
+      "Lay the pieces side by side. The exchange rate and the rules on moving money sit partly outside the countries using the currency. A share of the savings has sat in another country's treasury. Money has been free to move to France, which makes it straightforward to move profits out.",
+      "> A currency is a set of decisions about whose economy comes first.",
+      "## What is changing",
+      "In December 2019, France and the eight west African countries signed an agreement to change the arrangement; France ratified it in May 2020. It ended the requirement to keep reserves at the Bank of France and removed the French seat from the governing board. A new name was announced for the currency: the eco. What stays is the French guarantee and the fixed link to the euro.",
+      "The eco was meant to arrive in 2020. It has been pushed back again and again, and the latest target is around 2027. The six central African countries, meanwhile, have kept the older arrangement.",
+      "## Why it matters",
+      "A currency is not only a tool for buying bread. It is a standing set of choices about whose economy is protected first. Knowing who makes those choices, and where the savings are held, is the start of asking a simple question: who is this arrangement built for?"
+    ],
+    "sources": [
+      {"label": "Africanews — France ratifies law officially ending 75 years of West Africa CFA (May 2020)", "url": "https://www.africanews.com/2020/05/21/france-ratifies-law-officially-ending-75-years-of-west-africa-cfa/"},
+      {"label": "Africanews — From CFA franc to Eco: the evolution of a controversial currency", "url": "https://www.africanews.com/amp/2019/12/24/from-cfa-franc-to-eco-inside-the-evolution-of-a-controversial-currency/"}
+    ]
+  }
+]
