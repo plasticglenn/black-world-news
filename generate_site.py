@@ -702,10 +702,54 @@ _TOPIC_STOP = {
 }
 
 
+# Piracy / streaming spam — promo pages for pirated films, TV and live sport that
+# the scraper occasionally pulls in. Matched on title and domain.
+_STREAM_SPAM_TITLE = (
+    "streaming community", "free live streaming", "live streaming of", "watch live stream",
+    "official link for movies", "movies and tv series", "watch free online", "full movie online",
+    "watch full movie", "hd streaming", "streaming links", "free streaming",
+)
+_STREAM_SPAM_DOMAIN = (
+    "streaming-community", "streamingcommunity", "pialadunia", "freestream", "hd-stream",
+    "streamvf", "cuevana", "-streaming.", "livestream", "watchseries", "putlocker", "123movies",
+)
+# Off-mission signal: the summariser's OWN words when a story has nothing to do with
+# Black communities (e.g. "no reference to race or Black communities"). If the analysis
+# says it isn't about our subject, it doesn't belong in the feed.
+_OFFMISSION_SIGNALS = (
+    "no reference to race or black", "no reference to black", "not related to black",
+    "no relevance to black", "unrelated to black", "ignoring any specific portrayal",
+    "no specific reference to black", "no mention of race or black", "no mention of black communit",
+    "no direct connection to black", "not relevant to black communit", "no portrayal or impact on black",
+    "does not relate to black", "no connection to black communit", "nothing to do with black",
+)
+
+
+def is_off_mission(story):
+    # True for piracy/streaming spam or content the analysis itself flags as having
+    # no connection to Black communities. Shared by the display filter (below) and
+    # the ingestion gate in dispatch.py so both use one definition.
+    u = (story.get("url") or "").lower()
+    t = (story.get("title_en") or story.get("title") or "").lower()
+    s = " ".join((
+        story.get("summary_en") or story.get("summary") or "",
+        story.get("narrative_analysis") or "",
+    )).lower()
+    if any(k in t for k in _STREAM_SPAM_TITLE):
+        return True
+    if any(k in u for k in _STREAM_SPAM_DOMAIN):
+        return True
+    if any(k in s for k in _OFFMISSION_SIGNALS):
+        return True
+    return False
+
+
 def is_low_quality(story):
     from urllib.parse import urlparse
     u = (story.get("url") or "").lower()
     t = (story.get("title_en") or story.get("title") or "").lower()
+    if is_off_mission(story):        # piracy/streaming spam + off-mission content
+        return True
     if any(d in u for d in _JUNK_DOMAINS):
         return True
     if any(j in t for j in _JUNK_TITLE):

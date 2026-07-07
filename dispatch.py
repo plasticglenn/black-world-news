@@ -19,6 +19,7 @@ import requests                      # fetches web pages
 from bs4 import BeautifulSoup        # pulls text out of web pages
 from groq import Groq                # sends articles to AI for analysis
 from json_repair import repair_json  # fixes AI responses that aren't perfect JSON
+from generate_site import is_off_mission  # shared spam/off-mission filter (one definition)
 
 # ---- SETTINGS ----
 
@@ -726,6 +727,9 @@ def run_agent(custom_query=None):
                     image_url    = ""
 
                 analyzed = analyze_story(story["title"], story["url"], story["snippet"], article_text)
+                if analyzed and is_off_mission(analyzed):
+                    print(f"⏭️  Skipping off-mission/spam: {story['title'][:45]}")
+                    analyzed = None
                 if analyzed:
                     # Make sure country is set to Ghana for GhanaWeb stories
                     if not analyzed.get("country") or analyzed["country"] == "Other/Global":
@@ -761,6 +765,10 @@ def run_agent(custom_query=None):
 
             # Send to AI for analysis
             analyzed = analyze_story(story["title"], story["url"], story["snippet"], article_text)
+
+            if analyzed and is_off_mission(analyzed):
+                print(f"⏭️  Skipping off-mission/spam: {story['title'][:45]}")
+                analyzed = None
 
             if analyzed:
                 analyzed["image"] = image_url
