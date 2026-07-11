@@ -4501,7 +4501,7 @@ def article_highlight_card(article):
                  f'onerror="this.style.display=\'none\'">')
     else:
         thumb = (f'<div class="highlight-img highlight-explainer-thumb" '
-                 f'style="background:{colour}"><span>Opinion</span></div>')
+                 f'style="background:{colour}"><span>Explainer</span></div>')
     teaser = dek.split(". ")[0].strip()
     if teaser and not teaser.endswith("."):
         teaser += "."
