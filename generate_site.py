@@ -1176,12 +1176,20 @@ def build_html(stories, cache):
         def news_card(h):
             return (f'<div class="highlight">'
                     f'<a href="{h.get("url","#")}" target="_blank" rel="noopener" class="highlight-img-link">'
-                    f'<img class="highlight-img" src="{h.get("image","")}" alt="" loading="lazy" onerror="this.style.display=\'none\'"></a>'
+                    f'<div class="highlight-thumb-wrap" style="background:#1a3a2a">'
+                    f'<img src="{h.get("image","")}" alt="" loading="lazy" onerror="this.style.display=\'none\'"></div></a>'
                     f'<h3 class="highlight-title"><a href="{h.get("url","#")}" target="_blank" rel="noopener">{h.get("title","")}</a></h3>'
                     f'<p class="highlight-caption">{h.get("caption","")}</p>'
                     f'</div>')
 
-        news = list(load_highlights() or [])
+        # Rotate the news slots by calendar day from a fresh reputable deck so the
+        # rail changes regularly (the daily shuffle_daily.bat republishes it).
+        news_deck = infocus_news_deck(stories, {featured.get("url")})
+        if news_deck:
+            _start = datetime.now().toordinal() % len(news_deck)
+            news = [news_deck[(_start + i) % len(news_deck)] for i in range(len(news_deck))]
+        else:
+            news = list(load_highlights() or [])
         mine = [a for a in published_articles() if a.get("author") == SIGNED_AUTHOR]  # newest first
 
         slots = [None, None, None]
@@ -1711,6 +1719,19 @@ def build_html(stories, cache):
             object-fit: cover;
             display: block;
             margin-bottom: 0.5rem;
+        }}
+
+        .highlight-thumb-wrap {{
+            height: 110px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }}
+
+        .highlight-thumb-wrap img {{
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
         }}
 
         .highlight-explainer-thumb {{
@@ -4489,6 +4510,51 @@ def article_highlight_card(article):
             f'<h3 class="highlight-title"><a href="{page}">{title}</a></h3>'
             f'<p class="highlight-caption"><strong>By {author}.</strong> {teaser}</p>'
             f'</div>')
+
+
+def _story_to_highlight(s):
+    # Shape an archive story like a highlights.json entry so it can drop straight
+    # into the "In Focus" rail.
+    from pick_featured import domain as _dom
+    cap = (s.get("summary_en") or s.get("summary") or "").strip()
+    if len(cap) > 120:
+        cap = cap[:117].rstrip() + "..."
+    return {
+        "title": s.get("title_en") or s.get("title") or "",
+        "url": s.get("url", "#"),
+        "image": s.get("image", ""),      # og:image; the rail has a colour fallback so a broken one never shows a gap
+        "caption": cap,
+        "source": _dom(s.get("url", "")),
+    }
+
+
+def infocus_news_deck(stories, exclude_urls):
+    # A rotating deck for the "In Focus" news slots. Curated highlights.json entries
+    # lead (vetted, local images), then fresh reputable stories from the archive are
+    # topped up, so the rail refreshes as new stories land instead of showing the
+    # same three forever. Same reputable gate as the hero; capped one per source so
+    # the day-to-day rotation stays varied.
+    from pick_featured import eligible, score, domain as _dom
+    exclude = {u for u in exclude_urls if u}
+    curated = [h for h in (load_highlights() or []) if h.get("url") not in exclude]
+    seen = {h.get("url") for h in curated}
+    recent = sorted(stories, key=lambda s: s.get("saved_at", ""), reverse=True)[:200]
+    ranked = sorted((s for s in recent if eligible(s)),
+                    key=lambda s: (score(s), s.get("saved_at", "")), reverse=True)
+    deck, per_domain = list(curated), {}
+    for s in ranked:
+        u = s.get("url", "")
+        if u in exclude or u in seen:
+            continue
+        d = _dom(u)
+        if per_domain.get(d, 0) >= 1:     # one story per source keeps the rotation varied
+            continue
+        per_domain[d] = 1
+        seen.add(u)
+        deck.append(_story_to_highlight(s))
+        if len(deck) >= 14:
+            break
+    return deck
 
 
 def render_article_body(body):
