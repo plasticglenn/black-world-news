@@ -1169,17 +1169,35 @@ def build_html(stories, cache):
             '<div class="hero-img" style="background:#1a3a2a"></div>'
         )
 
-        # Curated highlights from highlights.json (external, hand-picked)
-        highlights = load_highlights()
-        if highlights:
-            highlights_html = "".join(
-                f'''<div class="highlight">
-                    <a href="{h.get("url","#")}" target="_blank" rel="noopener" class="highlight-img-link"><img class="highlight-img" src="{h.get("image","")}" alt="" loading="lazy" onerror="this.style.display='none'"></a>
-                    <h3 class="highlight-title"><a href="{h.get("url","#")}" target="_blank" rel="noopener">{h.get("title","")}</a></h3>
-                    <p class="highlight-caption">{h.get("caption","")}</p>
-                </div>'''
-                for h in highlights[:3]
-            )
+        # In Focus rail. Slot 1 is reserved for our newest signed piece; when a
+        # newer one publishes, the previous piece drops to slot 3. Slot 2 (and any
+        # slot a signed piece doesn't claim) stays curated news from
+        # highlights.json, so the rail never becomes all one byline.
+        def news_card(h):
+            return (f'<div class="highlight">'
+                    f'<a href="{h.get("url","#")}" target="_blank" rel="noopener" class="highlight-img-link">'
+                    f'<img class="highlight-img" src="{h.get("image","")}" alt="" loading="lazy" onerror="this.style.display=\'none\'"></a>'
+                    f'<h3 class="highlight-title"><a href="{h.get("url","#")}" target="_blank" rel="noopener">{h.get("title","")}</a></h3>'
+                    f'<p class="highlight-caption">{h.get("caption","")}</p>'
+                    f'</div>')
+
+        news = list(load_highlights() or [])
+        mine = [a for a in published_articles() if a.get("author") == SIGNED_AUTHOR]  # newest first
+
+        slots = [None, None, None]
+        if mine:
+            slots[0] = article_highlight_card(mine[0])   # newest signed piece
+        if len(mine) > 1:
+            slots[2] = article_highlight_card(mine[1])   # previous signed piece
+        news_iter = iter(news)
+        for i in range(3):
+            if slots[i] is None:
+                nxt = next(news_iter, None)
+                if nxt is not None:
+                    slots[i] = news_card(nxt)
+        cards = [c for c in slots if c]
+        if cards:
+            highlights_html = "".join(cards)
         else:
             highlights_html = '<p style="color:#888;font-size:0.8rem;font-style:italic">Add curated highlights to highlights.json</p>'
 
@@ -1693,6 +1711,22 @@ def build_html(stories, cache):
             object-fit: cover;
             display: block;
             margin-bottom: 0.5rem;
+        }}
+
+        .highlight-explainer-thumb {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+
+        .highlight-explainer-thumb span {{
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            opacity: 0.92;
         }}
 
         .highlight-title {{
@@ -4423,6 +4457,38 @@ def _article_theme_color(theme):
     # Reuse the theme palette the placeholders already use, so an article's
     # colour matches its theme everywhere on the site.
     return _PH_COLORS.get(theme, "#1a3a2a")
+
+
+# Author whose signed pieces get a reserved spot in the homepage "In Focus" rail.
+SIGNED_AUTHOR = "Glenn A. Asare"
+
+
+def article_highlight_card(article):
+    # Render one of our own long-form pieces as an "In Focus" sidebar card. Same
+    # markup as a curated-news highlight, but the link stays internal (our reader
+    # page) and an image-less piece falls back to a branded colour block.
+    slug   = article.get("slug", "")
+    title  = article.get("title", "Untitled")
+    dek    = article.get("dek", "")
+    theme  = article.get("theme", "")
+    author = article.get("author", "Black World News")
+    hero   = article.get("hero_image", "")
+    colour = _article_theme_color(theme)
+    page   = article_slug_page(slug)
+    if hero:
+        thumb = (f'<img class="highlight-img" src="{hero}" alt="" loading="lazy" '
+                 f'onerror="this.style.display=\'none\'">')
+    else:
+        thumb = (f'<div class="highlight-img highlight-explainer-thumb" '
+                 f'style="background:{colour}"><span>Opinion</span></div>')
+    teaser = dek.split(". ")[0].strip()
+    if teaser and not teaser.endswith("."):
+        teaser += "."
+    return (f'<div class="highlight">'
+            f'<a href="{page}" class="highlight-img-link">{thumb}</a>'
+            f'<h3 class="highlight-title"><a href="{page}">{title}</a></h3>'
+            f'<p class="highlight-caption"><strong>By {author}.</strong> {teaser}</p>'
+            f'</div>')
 
 
 def render_article_body(body):
