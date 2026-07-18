@@ -94,19 +94,21 @@ in order of how easy each is:
 ## SETUP CHECKLIST
 
 ### Accounts
-- [ ] YouTube channel for Black World News (create under a Google account), set handle, banner, avatar
-- [ ] TikTok account, switch to a Business account, set handle, bio, avatar
-- [ ] Instagram account, switch to Professional (Creator or Business)
-- [ ] Facebook Page for Black World News (Reels need a Page, not a personal profile)
-- [ ] Link the Instagram Professional account to the Facebook Page (required for Reels automation later)
-- [ ] Claim the same handle on all four if it is free, and check availability first
-- [ ] Fill every bio and link field using the copy in LAUNCH_KIT.md
+- [x] YouTube channel for Black World News (exists)
+- [x] TikTok account for Black World News (exists)
+- [x] Instagram account for Black World News (created)
+- [x] Facebook for Black World News (created)
+- [ ] Confirm Facebook is a Page, not a personal profile (Reels and the API need a Page)
+- [ ] Instagram: switch to Professional (Creator or Business) and link it to the Facebook Page
+- [ ] TikTok: switch to a Business account
+- [ ] Apply avatars, banners, bios and the website link to all four (asset map below)
 
 ### Branding assets for video
-- [ ] Vertical logo watermark as a transparent PNG for the corner
-- [ ] End card frame at 1080 by 1920 with the logo and blackworldnews.world
+- [x] Corner watermark: `brand/video_watermark.png` (transparent)
+- [x] End card frame 1080 by 1920: `brand/video_endcard.png`
+- [x] YouTube channel banner (correct 2560 by 1440): `brand/banner_youtube.png`
 - [x] Lock one voiceover voice: **arcas** (Deepgram Aura, calm male). Set as the default in make_voiceover.py.
-- [ ] Lock a caption style: font, color, size, position
+- [ ] Lock a caption style: font, color, size, position (decide in CapCut on the first video)
 
 ### APIs (for later automation, not needed for the test run)
 - [ ] Google Cloud project, enable YouTube Data API v3, create an OAuth client
