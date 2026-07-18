@@ -105,7 +105,7 @@ in order of how easy each is:
 ### Branding assets for video
 - [ ] Vertical logo watermark as a transparent PNG for the corner
 - [ ] End card frame at 1080 by 1920 with the logo and blackworldnews.world
-- [ ] Lock one voiceover voice and note it here
+- [x] Lock one voiceover voice: **arcas** (Deepgram Aura, calm male). Set as the default in make_voiceover.py.
 - [ ] Lock a caption style: font, color, size, position
 
 ### APIs (for later automation, not needed for the test run)
