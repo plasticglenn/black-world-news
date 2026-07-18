@@ -7,3 +7,7 @@ _chk.txt
 
 build.log
 agent_run.log
+
+# Social video working assets (voiceovers, b-roll stills, scripts) — local only,
+# not part of the deployed site. Final videos are assembled in CapCut.
+shorts/
