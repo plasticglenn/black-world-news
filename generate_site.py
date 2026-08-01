@@ -2631,6 +2631,7 @@ def page_shell(title, content, active=""):
         ("Reports", "/black-world-news/reports.html", "reports"),
         ("Trends", "/black-world-news/trends.html", "trends"),
         ("Community", "/black-world-news/community.html", "community"),
+        ("Immigration", "/black-world-news/immigration.html", "immigration"),
         ("🌍 Kids", "/black-world-news/index.html#kids", "kids"),
     ]
     nav_html = "".join(
