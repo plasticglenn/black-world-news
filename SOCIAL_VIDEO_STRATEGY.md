@@ -23,9 +23,9 @@ goes to all four channels, each with its own caption and tags.
 | 2. Script | A 150 to 220 word summary, hook first, call to action last | written to `shorts/<slug>.txt` | free |
 | 3. Voiceover | Script read aloud as an MP3 | `make_voiceover.py` (Cloudflare Aura) | free |
 | 4. Visuals | Four to six vertical stills that match the script beats | `generate_image.py` (Cloudflare FLUX) | free |
-| 5. Assemble | Stills with slow zoom, voiceover, styled captions, logo, end card | CapCut (free) | free |
+| 5. Assemble | Stills with slow zoom, voiceover, burned captions, logo, end card | `make_short.py` (ffmpeg) | free |
 | 6. Captions | Per channel text and hashtags | manual for now, `social_post.py` later | free |
-| 7. Publish | Upload to the four channels | manual first, API automation later | free |
+| 7. Publish | Upload to the four channels | review then approve, API automation | free |
 
 Stages 2, 3 and 4 are already scripted and cloud based, so they cost nothing
 and add no load to the machine. Stage 5 is done once per video in CapCut, which
@@ -33,14 +33,17 @@ is free, has automatic captions, and runs on phone or desktop with no install.
 
 ---
 
-## Why CapCut for assembly (and not a local render)
+## Assembly is automated (no CapCut)
 
-The project stack is deliberately cloud based with no heavy local rendering,
-and there is no video toolchain installed on the machine. CapCut fits that:
-free, fast, excellent automatic captions, and it exports a clean 1080 by 1920
-file. It keeps a human eye on the first few videos while we learn what lands.
-Once the format is locked, we can move assembly to a cloud renderer for full
-automation if we want it.
+`make_short.py` builds the whole video with one command, so there is no manual
+editor step. It generates the voiceover (Cloudflare Aura), times the captions
+from the exact script against the audio length (deterministic, always correct
+words), and uses ffmpeg to assemble the stills with a slow zoom, burn in the
+captions, add the corner watermark and end card, and mux the audio. ffmpeg is a
+one time install; the render of a short is light enough for a low compute
+machine. CapCut is no longer needed.
+
+    python make_short.py <slug>   ->   shorts/<slug>.mp4
 
 ---
 
@@ -132,13 +135,12 @@ the same trust before frequency rule as the text posts.
 ## Test run status (Article 1: The Crumbling Church of Money)
 
 Produced and in the `shorts/` folder:
-- [x] Script: `shorts/article1-crumbling-church.txt`
-- [x] Voiceover MP3: `shorts/article1-crumbling-church.mp3` (Cloudflare Aura, about 75 seconds)
-- [x] Hero still: the cracked Mary image already in `images/`
-- [ ] Three to four extra stills for the other beats (generate with generate_image.py)
-- [ ] Assemble in CapCut: voiceover, stills with slow zoom, auto captions, logo, end card
-- [ ] Per channel captions and tags
+- [x] Script: `shorts/crumbling-church-of-money.txt`
+- [x] Voiceover MP3 (Cloudflare Aura, arcas voice)
+- [x] Hero still + three b-roll stills
+- [x] Finished video: `shorts/crumbling-church-of-money.mp4` (about 59 seconds), built by `make_short.py`
+- [ ] Per channel captions and tags (drafted, see the captions section)
 - [ ] Upload to the four channels once the accounts are set
 
-The reusable tools (`make_voiceover.py`, `generate_image.py`) mean the next
-article is the same three commands plus one CapCut pass.
+The next article is now literally one command: `python make_short.py <slug>`.
+Write the article, drop a `shorts/<slug>.txt` script, run it, review the mp4.
