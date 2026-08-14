@@ -521,6 +521,25 @@
                 padding-left: 0;
                 padding-top: 1rem;
             }
+
+            /* In Focus becomes a compact list (small thumb + headline), not big cards */
+            .hero-sidebar .highlight {
+                display: grid;
+                grid-template-columns: 84px 1fr;
+                column-gap: 0.8rem;
+                align-items: start;
+                padding-bottom: 0.8rem;
+            }
+            .hero-sidebar .highlight-img-link { grid-column: 1; grid-row: 1 / span 2; }
+            .hero-sidebar .highlight-img,
+            .hero-sidebar .highlight-thumb-wrap,
+            .hero-sidebar .highlight-explainer-thumb {
+                width: 84px; height: 84px; margin-bottom: 0;
+            }
+            .hero-sidebar .highlight-thumb-wrap img { height: 84px; }
+            .hero-sidebar .highlight-explainer-thumb span { font-size: 0.55rem; }
+            .hero-sidebar .highlight-title { grid-column: 2; grid-row: 1; font-size: 0.95rem; margin: 0; }
+            .hero-sidebar .highlight-caption { grid-column: 2; grid-row: 2; }
         }
 
         /* CARDS */
@@ -1245,7 +1264,7 @@
         <h1><a href="index.html" class="masthead-home">BLACK WORLD NEWS</a></h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: August 14, 2026 — 12:37 &nbsp;|&nbsp; 6563 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: August 14, 2026 — 12:50 &nbsp;|&nbsp; 6563 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="index.html" class="nav-issue">Home</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="politics.html" class="nav-issue">Politics</a><a href="culture.html" class="nav-issue">Culture</a><a href="sports.html" class="nav-issue">Sports</a><a href="policing.html" class="nav-issue">Policing</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="namerica.html" class="nav-region">N. America</a><a href="caribbean.html" class="nav-region">Caribbean</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>

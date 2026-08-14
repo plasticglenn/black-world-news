@@ -2,7 +2,7 @@
 // Caches the shell and recently-visited pages so the app works offline.
 // Bumps CACHE_NAME whenever we want the user's browser to fetch fresh files.
 
-const CACHE_NAME = "bwn-v7";
+const CACHE_NAME = "bwn-v8";
 
 // Core shell — pages we want available even with no internet.
 const SHELL = [
@@ -38,7 +38,9 @@ self.addEventListener("activate", event => {
     self.clients.claim();
 });
 
-// Fetch — network first, fall back to cache when offline
+// Fetch — network first, fall back to cache when offline.
+// Page navigations bypass the browser HTTP cache so a freshly deployed version
+// shows immediately instead of a stale copy; assets use the normal cache.
 self.addEventListener("fetch", event => {
     const req = event.request;
 
@@ -46,8 +48,12 @@ self.addEventListener("fetch", event => {
     if (req.method !== "GET") return;
     if (new URL(req.url).origin !== location.origin) return;
 
+    const isPage = req.mode === "navigate" ||
+                   (req.headers.get("accept") || "").includes("text/html");
+    const fetchReq = isPage ? new Request(req.url, { cache: "no-store" }) : req;
+
     event.respondWith(
-        fetch(req)
+        fetch(fetchReq)
             .then(res => {
                 // Cache a copy of every successful page response for offline
                 if (res.ok && (res.type === "basic" || res.type === "default")) {

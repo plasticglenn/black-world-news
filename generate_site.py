@@ -1786,6 +1786,25 @@ def build_html(stories, cache):
                 padding-left: 0;
                 padding-top: 1rem;
             }}
+
+            /* In Focus becomes a compact list (small thumb + headline), not big cards */
+            .hero-sidebar .highlight {{
+                display: grid;
+                grid-template-columns: 84px 1fr;
+                column-gap: 0.8rem;
+                align-items: start;
+                padding-bottom: 0.8rem;
+            }}
+            .hero-sidebar .highlight-img-link {{ grid-column: 1; grid-row: 1 / span 2; }}
+            .hero-sidebar .highlight-img,
+            .hero-sidebar .highlight-thumb-wrap,
+            .hero-sidebar .highlight-explainer-thumb {{
+                width: 84px; height: 84px; margin-bottom: 0;
+            }}
+            .hero-sidebar .highlight-thumb-wrap img {{ height: 84px; }}
+            .hero-sidebar .highlight-explainer-thumb span {{ font-size: 0.55rem; }}
+            .hero-sidebar .highlight-title {{ grid-column: 2; grid-row: 1; font-size: 0.95rem; margin: 0; }}
+            .hero-sidebar .highlight-caption {{ grid-column: 2; grid-row: 2; }}
         }}
 
         /* CARDS */
