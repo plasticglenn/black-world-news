@@ -123,6 +123,11 @@
             line-height: 1;
         }
 
+        /* Logo and title both link home / back to top, on every screen size. */
+        .masthead-home { color: inherit; text-decoration: none; display: inline-flex; cursor: pointer; }
+        .masthead h1 .masthead-home { color: #ffffff; }
+        .masthead-home:hover { color: #c8d8c0; }
+
         .masthead-tagline {
             margin-top: 0.35rem;
             font-size: 0.72rem;
@@ -1243,14 +1248,14 @@
 <header class="masthead">
     <div class="logo-wrap">
         <!-- One logo for the whole site: edit logo.svg to change it everywhere. -->
-        <img src="logo.svg" alt="Black World News" width="48" height="48">
+        <a href="index.html" class="masthead-home" aria-label="Black World News, back to home"><img src="logo.svg" alt="Black World News" width="48" height="48"></a>
     </div>
     <p class="masthead-eyebrow">Your World Today</p>
     <div class="masthead-text">
-        <h1>BLACK WORLD NEWS</h1>
+        <h1><a href="index.html" class="masthead-home">BLACK WORLD NEWS</a></h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
-    <p class="masthead-meta admin-only" style="display:none">Last updated: August 11, 2026 — 18:39 &nbsp;|&nbsp; 6563 stories in archive</p>
+    <p class="masthead-meta admin-only" style="display:none">Last updated: August 14, 2026 — 12:30 &nbsp;|&nbsp; 6563 stories in archive</p>
 </header>
 
 <nav class="site-nav"><a href="index.html" class="nav-issue">Home</a><a href="economics.html" class="nav-issue">Economics</a><a href="health.html" class="nav-issue">Health</a><a href="education.html" class="nav-issue">Education</a><a href="politics.html" class="nav-issue">Politics</a><a href="culture.html" class="nav-issue">Culture</a><a href="sports.html" class="nav-issue">Sports</a><a href="policing.html" class="nav-issue">Policing</a><a href="kids.html" class="nav-kids"><span class="kids-letter kc-red">K</span><span class="kids-letter kc-pink">i</span><span class="kids-letter kc-blue">d</span><span class="kids-letter kc-yellow">s</span><span class="kids-space"></span><span class="kids-letter kc-green">C</span><span class="kids-letter kc-orange">o</span><span class="kids-letter kc-purple">r</span><span class="kids-letter kc-red">n</span><span class="kids-letter kc-pink">e</span><span class="kids-letter kc-blue">r</span></a><span class="nav-divider">|</span><a href="namerica.html" class="nav-region">N. America</a><a href="caribbean.html" class="nav-region">Caribbean</a><a href="samerica.html" class="nav-region">S. America</a><a href="africa.html" class="nav-region">Africa</a><a href="europe.html" class="nav-region">Europe</a><a href="asia.html" class="nav-region">Asia & Pacific</a><span class="nav-divider">|</span><a href="search.html" class="nav-search">&#x1F50D; Search</a></nav>
@@ -1279,7 +1284,7 @@
             <div class="hero-image"><a href="https://www.nytimes.com/2025/01/28/world/africa/rwanda-congo-goma-conflict.html" target="_blank" rel="noopener" class="hero-image-link"><img class="hero-img" src="https://images.pexels.com/photos/38833763/pexels-photo-38833763.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" loading="lazy"></a></div>
             <aside class="hero-sidebar">
                 <h4 class="sidebar-label">In Focus</h4>
-                <div class="highlight"><a href="article-crumbling-church-of-money.html" class="highlight-img-link"><img class="highlight-img" src="images/article-crumbling-church-of-money.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></a><h3 class="highlight-title"><a href="article-crumbling-church-of-money.html">The Crumbling Church of Money</a></h3><p class="highlight-caption"><strong>By Glenn A. Asare.</strong> Money is not a thing.</p></div><div class="highlight"><a href="https://www.thecable.ng/were-commited-to-increasing-finance-caf-asks-members-to-review-fifas-world-cup-sell-off-plan/" target="_blank" rel="noopener" class="highlight-img-link"><div class="highlight-thumb-wrap" style="background:#1a3a2a"><img src="https://www.thecable.ng/wp-content/uploads/2026/07/bbed-nfmf-f-2026-07-30-927-1024x556.png" alt="" loading="lazy" onerror="this.style.display='none'"></div></a><h3 class="highlight-title"><a href="https://www.thecable.ng/were-commited-to-increasing-finance-caf-asks-members-to-review-fifas-world-cup-sell-off-plan/" target="_blank" rel="noopener">'We’re committed to increasing finance' — CAF asks members to review FIFA’s World Cup sell-off plan</a></h3><p class="highlight-caption">CAF asks member associations to review FIFA's plan to sell minority stakes in World Cup operations to private investo...</p></div><div class="highlight"><a href="https://www.reuters.com/world/americas/brazils-fiscal-discipline-crucial-post-2026-election-warns-goldman-sachs-2025-11-12/" target="_blank" rel="noopener" class="highlight-img-link"><div class="highlight-thumb-wrap" style="background:#1a3a2a"><img src="" alt="" loading="lazy" onerror="this.style.display='none'"></div></a><h3 class="highlight-title"><a href="https://www.reuters.com/world/americas/brazils-fiscal-discipline-crucial-post-2026-election-warns-goldman-sachs-2025-11-12/" target="_blank" rel="noopener">Brazil's fiscal discipline crucial post-2026 election, warns Goldman Sachs</a></h3><p class="highlight-caption">Goldman Sachs warns that Brazil must maintain fiscal discipline after the 2026 elections. The report focuses on econo...</p></div>
+                <div class="highlight"><a href="article-crumbling-church-of-money.html" class="highlight-img-link"><img class="highlight-img" src="images/article-crumbling-church-of-money.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></a><h3 class="highlight-title"><a href="article-crumbling-church-of-money.html">The Crumbling Church of Money</a></h3><p class="highlight-caption"><strong>By Glenn A. Asare.</strong> Money is not a thing.</p></div><div class="highlight"><a href="https://www.caribbeannationalweekly.com/posts/rowley-calls-for-end-to-trinidad-and-tobago-state-of-emergency-accuses-government-of-abuse" target="_blank" rel="noopener" class="highlight-img-link"><div class="highlight-thumb-wrap" style="background:#1a3a2a"><img src="https://www.caribbeannationalweekly.com/api/media/file/keith-rowley-caribbeannewsservice-ftr-3.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div></a><h3 class="highlight-title"><a href="https://www.caribbeannationalweekly.com/posts/rowley-calls-for-end-to-trinidad-and-tobago-state-of-emergency-accuses-government-of-abuse" target="_blank" rel="noopener">Rowley calls for end to Trinidad and Tobago state of emergency, accuses government of abuse</a></h3><p class="highlight-caption">Former Trinidad and Tobago Prime Minister Keith Rowley calls for an end to the state of emergency, accusing the gover...</p></div><div class="highlight"><a href="https://allafrica.com/stories/202602100187.html" target="_blank" rel="noopener" class="highlight-img-link"><div class="highlight-thumb-wrap" style="background:#1a3a2a"><img src="https://cdn.allafrica.com/static/images/structure/aa-logo-rgba-no-text-square.png" alt="" loading="lazy" onerror="this.style.display='none'"></div></a><h3 class="highlight-title"><a href="https://allafrica.com/stories/202602100187.html" target="_blank" rel="noopener">African Development Fund Approves $24.45 Million Grant to Improve Water and Sanitation in Somalia</a></h3><p class="highlight-caption">The African Development Fund approved a $24.45 million grant to improve water and sanitation in three Somali towns. T...</p></div>
             </aside>
         </section>
 
@@ -1288,111 +1293,111 @@
         <p class="section-label">Latest</p>
         <div class="card-grid">
     <div class="card">
-        <a href="https://nile1.com/en/2026/07/29/global-inattention-compounds-sudans-mass-displacement-and-famine-crisis/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://nile1.com/en/wp-content/uploads/2026/07/1785358293_sudan-refugees.jpg" alt="" loading="lazy"></a>
-        <div class="card-meta">
-            <span class="theme-tag">Politics & Power</span>
-            
-            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
-            
-        </div>
-        <h2 class="card-title"><a href="https://nile1.com/en/2026/07/29/global-inattention-compounds-sudans-mass-displacement-and-famine-crisis/" target="_blank" rel="noopener">Global Inattention Compounds Sudan's Mass Displacement and Famine Crisis</a></h2>
-        <p class="card-summary">Sudan faces a catastrophic humanitarian crisis with over 14 million displaced and 34 million in need of aid, yet global attention remains focused elsewhere. The conflict between the Sudanese Armed Forces and Rapid Support Forces has led to war crimes, ethnically motivated violence, and severe famine.</p>
-        <p class="narrative-analysis">Readers encounter Sudanese Black communities primarily through grim mortality and displacement numbers, which can desensitize audiences to their humanity.</p>
-        <p class="cui-bono">The warring SAF and RSF factions benefit from the chaos.</p>
-        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
-        <div class="card-footer">
-            <span class="saved-at">Collected: 2026-07-30 12:48</span>
-            <a href="https://nile1.com/en/2026/07/29/global-inattention-compounds-sudans-mass-displacement-and-famine-crisis/" class="read-more" target="_blank" rel="noopener">Read original →</a>
-        </div>
-    </div>
-    <div class="card">
-        <a href="https://measuredworld.com/categories/economy/unemployment-rate" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://measuredworld.com/categories/economy/unemployment-rate/opengraph-image?65b40f825c17d39d" alt="" loading="lazy"></a>
+        <a href="https://www.acceleratorforamerica.org/oztoolkit/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/13278726/pexels-photo-13278726.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
         <div class="card-meta">
             <span class="theme-tag">Economy</span>
-            <span class="flag-country">🇿🇦 South Africa</span>
-            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
-            
-        </div>
-        <h2 class="card-title"><a href="https://measuredworld.com/categories/economy/unemployment-rate" target="_blank" rel="noopener">Percentage of labor force that is unemployed by Country (2026)</a></h2>
-        <p class="card-summary">The article lists countries with the highest unemployment rates, with Sudan at 61.33% and South Africa at 32.46%. It presents the data as raw percentages without context on racial or historical exploitation.</p>
-        <p class="narrative-analysis">The data reduces Black South Africans to a stark unemployment statistic, obscuring how apartheid's legacy and ongoing capital flight trap communities in joblessness.</p>
-        <p class="cui-bono">Global investors and mining corporations benefit from a cheap, surplus labor pool.</p>
-        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">engineered unemployment</span><span class="factor">corporate extraction</span></div>
-        <div class="card-footer">
-            <span class="saved-at">Collected: 2026-07-30 12:47</span>
-            <a href="https://measuredworld.com/categories/economy/unemployment-rate" class="read-more" target="_blank" rel="noopener">Read original →</a>
-        </div>
-    </div>
-    <div class="card">
-        <a href="https://www.sseta.co.za/coca-cola-learnership-2026/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.pexels.com/photos/12491632/pexels-photo-12491632.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" loading="lazy"></a>
-        <div class="card-meta">
-            <span class="theme-tag">Economy</span>
-            <span class="flag-country">🇿🇦 South Africa</span>
+            <span class="flag-country">🇺🇸 United States</span>
             <span class="framing-dot" style="background:#f39c12" title="Exploited"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://www.sseta.co.za/coca-cola-learnership-2026/" target="_blank" rel="noopener">Coca-Cola Learnership 2026</a></h2>
-        <p class="card-summary">Coca-Cola Beverages South Africa is offering a 2026 learnership for unemployed young people to work as visual merchandisers. The program provides workplace experience and a qualification, but it operates within a context of high Black youth unemployment and corporate reliance on temporary labor.</p>
-        <p class="narrative-analysis">Young Black South Africans are offered a learnership that promises skills but glosses over the structural unemployment and corporate labor dependency shaping their options.</p>
-        <p class="cui-bono">Coca-Cola Beverages South Africa benefits from cheap labor and brand loyalty.</p>
-        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">engineered unemployment</span><span class="factor">corporate extraction</span></div>
+        <h2 class="card-title"><a href="https://www.acceleratorforamerica.org/oztoolkit/" target="_blank" rel="noopener">Opportunity Zone Designation Toolkit for Local Leaders</a></h2>
+        <p class="card-summary">The Opportunity Zone Designation Toolkit guide helps local leaders choose census tracts for investment. It frames Black neighborhoods as sites for economic growth rather than addressing systemic inequities.</p>
+        <p class="narrative-analysis">Black communities are positioned as untapped markets for outside investors, their needs reduced to a toolkit for capital growth.</p>
+        <p class="cui-bono">Real estate developers and investment firms benefit most.</p>
+        <div class="factors"><span class="factor">corporate extraction</span><span class="factor">engineered unemployment</span></div>
         <div class="card-footer">
-            <span class="saved-at">Collected: 2026-07-30 12:47</span>
-            <a href="https://www.sseta.co.za/coca-cola-learnership-2026/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <span class="saved-at">Collected: 2026-07-30 12:45</span>
+            <a href="https://www.acceleratorforamerica.org/oztoolkit/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
     <div class="card">
-        <a href="https://www.euronews.com/my-europe/2026/06/01/at-least-two-injured-in-explosion-at-fireworks-factory-in-northern-malta-police-say" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://images.euronews.com/articles/stories/09/78/02/09/1200x675_cmsv2_e8539216-98b0-57f7-b23b-bd20d7246c53-9780209.jpg" alt="" loading="lazy"></a>
+        <a href="https://businessday.ng/news/article/nigeria-secures-7-6bn-investment-pledge-at-africa-investment-forum/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://cdn.businessday.ng/2023/04/Akinwumi-Adesina-1.jpg" alt="" loading="lazy"></a>
         <div class="card-meta">
-            <span class="theme-tag">Policing</span>
+            <span class="theme-tag">Land & Resources</span>
+            <span class="flag-country">🇳🇬 Nigeria</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://businessday.ng/news/article/nigeria-secures-7-6bn-investment-pledge-at-africa-investment-forum/" target="_blank" rel="noopener">Nigeria secures $7.6bn investment pledge at Africa Investment Forum</a></h2>
+        <p class="card-summary">Nigeria secured $7.6 billion in investment pledges at the 2024 Africa Investment Forum, facilitated by the African Development Bank. The funds are aimed at projects in energy, infrastructure, and agriculture. State governors participated in the event held in Morocco.</p>
+        <p class="narrative-analysis">The story reduces Black communities to investment figures, framing their development solely through the lens of external capital without acknowledging the systemic barriers they face.</p>
+        <p class="cui-bono">Foreign investors and the African Development Bank benefit most.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-07-30 12:44</span>
+            <a href="https://businessday.ng/news/article/nigeria-secures-7-6bn-investment-pledge-at-africa-investment-forum/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://theexchange.africa/sovereign-debt-crisis-solution-african-countries-trading-with-each-other/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://theexchange.africa/wp-content/uploads/2022/10/Laurence-Sithole.-Zimbabwe.-Solving-Sovereign-Debt-Africa.-Pic-1.jpg" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Debt Trap</span>
             
             <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://www.euronews.com/my-europe/2026/06/01/at-least-two-injured-in-explosion-at-fireworks-factory-in-northern-malta-police-say" target="_blank" rel="noopener">At least two injured in explosion at fireworks factory in northern Malta, police say</a></h2>
-        <p class="card-summary">An explosion at a fireworks factory in northern Malta injured at least two people. The story provides no details on the workers' backgrounds or broader safety conditions.</p>
-        <p class="narrative-analysis">The factory workers injured in the explosion appear only as a number, stripped of identity, community, or context.</p>
-        
-        <div class="factors"><span class="factor">corporate extraction</span></div>
+        <h2 class="card-title"><a href="https://theexchange.africa/sovereign-debt-crisis-solution-african-countries-trading-with-each-other/" target="_blank" rel="noopener">Debt Crisis: African Countries Should Trade More With Each Other</a></h2>
+        <p class="card-summary">The article discusses the doubling of sovereign debt distress risk in African countries since COVID-19, highlighting low uptake of the Debt Service Suspension Initiative and continued Eurobond issuance. It presents a debate between experts about Africa's ability to manage its debt, focusing on financial mechanisms rather than systemic inequalities.</p>
+        <p class="narrative-analysis">The story reduces African nations to debt statistics and failed initiatives, erasing the human impact of colonial-era financial systems that perpetuate poverty.</p>
+        <p class="cui-bono">Western financial institutions and Eurobond investors benefit most.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
-            <span class="saved-at">Collected: 2026-07-30 12:47</span>
-            <a href="https://www.euronews.com/my-europe/2026/06/01/at-least-two-injured-in-explosion-at-fireworks-factory-in-northern-malta-police-say" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <span class="saved-at">Collected: 2026-07-30 12:44</span>
+            <a href="https://theexchange.africa/sovereign-debt-crisis-solution-african-countries-trading-with-each-other/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
     <div class="card">
-        <a href="https://www.bcinsight.crugroup.com/2026/07/29/cefic-warns-ets-reform-risks-deindustrialisation/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.bcinsight.crugroup.com/wp-content/uploads/sites/7/2026/07/ofotoray-clouds-6881917-scaled.jpg" alt="" loading="lazy"></a>
+        <a href="https://international-partnerships.ec.europa.eu/policies/africa-eu-partnership_en" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://international-partnerships.ec.europa.eu/sites/default/files/styles/ewcms_metatag_image/public/2021-01/web-notitle-eu-africa-strategy.jpg?itok=S6WgEmcw" alt="" loading="lazy"></a>
         <div class="card-meta">
-            <span class="theme-tag">Climate</span>
+            <span class="theme-tag">Economy</span>
             
             <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://www.bcinsight.crugroup.com/2026/07/29/cefic-warns-ets-reform-risks-deindustrialisation/" target="_blank" rel="noopener">Cefic warns ETS reform risks deindustrialisation</a></h2>
-        <p class="card-summary">Cefic warns that proposed EU ETS reforms could accelerate deindustrialization in Europe's chemical sector, citing an 86% drop in investment and 10% capacity loss. The organization argues that stricter free allocation conditions undermine carbon leakage protection, risking over 100,000 jobs.</p>
-        <p class="narrative-analysis">Black communities are invisible here; the coverage treats job losses and deindustrialization as abstract risks without naming who bears the heaviest burden.</p>
-        <p class="cui-bono">European chemical industry corporations like Cefic members.</p>
-        <div class="factors"><span class="factor">engineered unemployment</span><span class="factor">corporate extraction</span></div>
+        <h2 class="card-title"><a href="https://international-partnerships.ec.europa.eu/policies/africa-eu-partnership_en" target="_blank" rel="noopener">Africa-EU Partnership - International Partnerships - European Commission</a></h2>
+        <p class="card-summary">The European Commission's page describes the Africa-EU partnership as a strategic priority focused on political dialogue and sustainable development. It presents the relationship as mutually beneficial but omits discussions of structural inequality, colonial history, or economic exploitation affecting Black communities.</p>
+        <p class="narrative-analysis">The document portrays African nations as passive recipients of EU partnership, reducing complex historical ties to bureaucratic cooperation without addressing colonial legacies or power imbalances.</p>
+        <p class="cui-bono">European Union institutions and corporations benefit from controlled access to African markets.</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
-            <span class="saved-at">Collected: 2026-07-30 12:47</span>
-            <a href="https://www.bcinsight.crugroup.com/2026/07/29/cefic-warns-ets-reform-risks-deindustrialisation/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <span class="saved-at">Collected: 2026-07-30 12:44</span>
+            <a href="https://international-partnerships.ec.europa.eu/policies/africa-eu-partnership_en" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div>
     <div class="card">
-        <a href="https://www.hltv.org/events/9298/cct-2026-europe-series-6" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://img-cdn.hltv.org/eventlogo/CZYxFG_CfcWYpUqP22qBsg.png?ixlib=java-2.1.0&s=af7777521c605fecc7943ecb2a16d4a3" alt="" loading="lazy"></a>
+        <a href="https://www.agbi.com/economy/2022/07/uae-signs-first-african-bilateral-trade-deal-with-kenya/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://www.agbi.com/tachyon/sites/4/2022/07/Kenya-deal.jpg" alt="" loading="lazy"></a>
         <div class="card-meta">
-            <span class="theme-tag">Sport</span>
+            <span class="theme-tag">Land & Resources</span>
+            <span class="flag-country">🇰🇪 Kenya</span>
+            <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
+            
+        </div>
+        <h2 class="card-title"><a href="https://www.agbi.com/economy/2022/07/uae-signs-first-african-bilateral-trade-deal-with-kenya/" target="_blank" rel="noopener">UAE to discuss first African bilateral trade deal with Kenya | AGBI</a></h2>
+        <p class="card-summary">The UAE and Kenya have signed an agreement to begin negotiations on a Comprehensive Economic Partnership Agreement (CEPA), the first such deal between the UAE and an African country. The deal focuses on increasing bilateral trade, which reached $2.3 billion last year, and targets growth in agriculture, tourism, infrastructure, technology, and renewable energy.</p>
+        <p class="narrative-analysis">Kenya is reduced to growth forecasts and trade figures, erasing the lived realities of Black Kenyans who may not benefit from such deals.</p>
+        <p class="cui-bono">UAE and Kenyan political elites</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
+        <div class="card-footer">
+            <span class="saved-at">Collected: 2026-07-30 12:44</span>
+            <a href="https://www.agbi.com/economy/2022/07/uae-signs-first-african-bilateral-trade-deal-with-kenya/" class="read-more" target="_blank" rel="noopener">Read original →</a>
+        </div>
+    </div>
+    <div class="card">
+        <a href="https://africabusinessconvention.com/abc-reports/africa-investment-yearbook-2026/" target="_blank" rel="noopener" class="card-img-link"><img class="card-img" src="https://africabusinessconvention.com/wp-content/uploads/2023/12/Website-top-logo.png" alt="" loading="lazy"></a>
+        <div class="card-meta">
+            <span class="theme-tag">Debt Trap</span>
             
             <span class="framing-dot" style="background:#7f8c8d" title="Statistic"></span>
             
         </div>
-        <h2 class="card-title"><a href="https://www.hltv.org/events/9298/cct-2026-europe-series-6" target="_blank" rel="noopener">CCT 2026 Europe Series 6 overview | HLTV.org</a></h2>
-        <p class="card-summary">HLTV.org provides a factual overview of the CCT 2026 Europe Series 6 esports tournament, including prize distribution, teams, and brackets. The story contains no direct mention of Black communities or systemic issues.</p>
-        <p class="narrative-analysis">Black communities are entirely invisible in this tournament overview, reduced to absent data points within a profit-driven esports ecosystem.</p>
-        <p class="cui-bono">Tournament organizers and betting platforms.</p>
-        <div class="factors"><span class="factor">media bias</span><span class="factor">corporate extraction</span></div>
+        <h2 class="card-title"><a href="https://africabusinessconvention.com/abc-reports/africa-investment-yearbook-2026/" target="_blank" rel="noopener">Africa Investment Yearbook 2026 - Africa Business Convention</a></h2>
+        <p class="card-summary">The Africa Investment Yearbook 2026 highlights the continent's improving equity and bond markets, citing reforms and commodity prices. It frames Africa as a diverse investment destination with risks like global monetary changes and high debt, implicitly serving investor interests over local populations.</p>
+        <p class="narrative-analysis">The report reduces African economies to abstract investment metrics, portraying the continent as a site for financial gain without acknowledging its peoples or the structural legacies affecting them.</p>
+        <p class="cui-bono">International investors and financial institutions</p>
+        <div class="factors"><span class="factor">colonial legacy</span><span class="factor">foreign debt</span><span class="factor">corporate extraction</span></div>
         <div class="card-footer">
-            <span class="saved-at">Collected: 2026-07-30 12:46</span>
-            <a href="https://www.hltv.org/events/9298/cct-2026-europe-series-6" class="read-more" target="_blank" rel="noopener">Read original →</a>
+            <span class="saved-at">Collected: 2026-07-30 12:44</span>
+            <a href="https://africabusinessconvention.com/abc-reports/africa-investment-yearbook-2026/" class="read-more" target="_blank" rel="noopener">Read original →</a>
         </div>
     </div></div>
     </div>

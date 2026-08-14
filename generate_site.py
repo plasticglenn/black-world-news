@@ -1409,6 +1409,11 @@ def build_html(stories, cache):
             line-height: 1;
         }}
 
+        /* Logo and title both link home / back to top, on every screen size. */
+        .masthead-home {{ color: inherit; text-decoration: none; display: inline-flex; cursor: pointer; }}
+        .masthead h1 .masthead-home {{ color: #ffffff; }}
+        .masthead-home:hover {{ color: #c8d8c0; }}
+
         .masthead-tagline {{
             margin-top: 0.35rem;
             font-size: 0.72rem;
@@ -2508,11 +2513,11 @@ def build_html(stories, cache):
 <header class="masthead">
     <div class="logo-wrap">
         <!-- One logo for the whole site: edit logo.svg to change it everywhere. -->
-        <img src="logo.svg" alt="Black World News" width="48" height="48">
+        <a href="index.html" class="masthead-home" aria-label="Black World News, back to home"><img src="logo.svg" alt="Black World News" width="48" height="48"></a>
     </div>
     <p class="masthead-eyebrow">Your World Today</p>
     <div class="masthead-text">
-        <h1>BLACK WORLD NEWS</h1>
+        <h1><a href="index.html" class="masthead-home">BLACK WORLD NEWS</a></h1>
         <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
     <p class="masthead-meta admin-only" style="display:none">Last updated: {now} &nbsp;|&nbsp; {total} stories in archive</p>
