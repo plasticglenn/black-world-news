@@ -1772,14 +1772,14 @@ def build_html(stories, cache):
             line-height: 1.4;
         }}
 
-        @media (max-width: 900px) {{
+        @media (max-width: 1024px) {{
             .hero {{
                 grid-template-columns: 1fr;
                 padding: 1rem;
                 gap: 1rem;
             }}
-            .hero-image {{ min-height: 240px; order: -1; }}
-            .hero-img {{ min-height: 240px; height: 240px; }}
+            .hero-image {{ min-height: 300px; order: -1; }}
+            .hero-img {{ min-height: 300px; height: 300px; }}
             .hero-sidebar {{
                 border-left: none;
                 border-top: 1px solid #ddd;
@@ -2430,29 +2430,19 @@ def build_html(stories, cache):
             .card.featured .card-footer {{ padding-bottom: 1rem; }}
             .card.featured .card-title {{ font-size: 1.25rem; }}
 
-            /* LATEST — horizontal scroll strip */
+            /* LATEST — tidy grid like a news home: 2 columns on tablet, 1 on phone */
             .card-grid {{
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                 gap: 0.75rem;
                 padding: 0 1rem 1rem;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
             }}
-
-            .card-grid::-webkit-scrollbar {{ display: none; }}
 
             .card-grid .card {{
-                min-width: 260px;
-                max-width: 260px;
-                scroll-snap-align: start;
                 margin-bottom: 0;
                 border-radius: 12px;
-                flex-shrink: 0;
             }}
 
-            .card-grid .card-img {{ height: 150px; border-radius: 12px 12px 0 0; }}
+            .card-grid .card-img {{ height: 140px; border-radius: 12px 12px 0 0; }}
 
             /* SECTION LABELS */
             .section-label {{
