@@ -45,27 +45,37 @@ rendering.
   day. Expect the working tree to move on its own.
 - **Recent design work already shipped:** a responsive narrow homepage layout in
   the BBC style, a compact "In Focus" list, and the logo and title now link home.
-- **Explainers:** `crumbling-church-of-money` is **live** (`published:true`). The
-  **CFA franc** piece (`slug: cfa-franc`) is still a **draft** (`published:false`)
-  and has not shipped.
+- **Explainers: both live.** `article-cfa-franc.html` and
+  `article-crumbling-church-of-money.html` are built and `published:true`. The
+  Crumbling Church piece is "Money Priesthood, part 1", so that series has a part
+  2 waiting.
+- **Corpus:** `stories.json` holds about 7,600 curated stories across 87
+  countries, each carrying four language versions (en, es, pt, fr) plus the
+  `narrative_analysis` and `cui_bono` fields that hold the editorial lens.
+- **Pages built (26):** homepage; regions (africa, namerica, samerica, caribbean,
+  europe, asia); themes (economics, health, education, politics, culture,
+  policing, sports); reports, trends, community, resources, comics, kids, about,
+  privacy, search, and the two article pages.
+- **Video and social scaffolding already exists:** `make_short.py`,
+  `make_voiceover.py`, `panel.py`, plus `social_post.py` and `social_queue.json`.
+  The pipeline is started, not zero.
 
 ---
 
 ## What's next  *(priority order)*
 
-1. **Ship the CFA franc piece.** Polish the draft in `articles.json`, add a
-   `hero_image`, confirm the two source links, set `"published": true`, run
-   `python generate_site.py`, verify, push.
-2. **Work the writing backlog** in `WRITING_CALENDAR.md` and `ARTICLES.md`:
-   Babylon (the keystone, must land before the word is used publicly), then the
+1. **Work the writing backlog** in `WRITING_CALENDAR.md` and `ARTICLES.md`:
+   Babylon (the keystone, must land before the word is used publicly), Money
+   Priesthood part 2 (the sequel to the live Crumbling Church piece), then the
    debt trap series, cocoa, Windrush.
-3. **Comics.** Generate the Garvey art in Dashtoon (`COMIC_01_GARVEY.md`), apply
-   `COMIC_CRAFT_BRIEF.md`, then publish. Strip #2 is Yaa Asantewaa.
-4. **Newsletter.** The number one owned channel add (hard to deplatform). Not
+2. **Comics.** Generate the Garvey art (`make_garvey_art.py` or Dashtoon per
+   `COMIC_01_GARVEY.md`), apply `COMIC_CRAFT_BRIEF.md`, set `"published": true` in
+   `comics.json`, build, push. Strip #2 is Yaa Asantewaa (`make_yaa_portrait.py`).
+3. **Newsletter.** The number one owned channel add (hard to deplatform). Not
    started.
-5. **Social and video pipeline.** Drafting exists (`social_post.py`); the full
-   pipeline is the next big build.
-6. **Older threads:** the Paper Trail "Decoded" layer (needs an extraction
+4. **Finish the video pipeline.** The pieces exist (`make_short.py`,
+   `make_voiceover.py`, `panel.py`); wire them into a repeatable flow.
+5. **Older threads:** the Paper Trail "Decoded" layer (needs an extraction
    template); the Africa image placeholders (they self fill on builds, not
    stuck); the book (parked until the USB turns up).
 

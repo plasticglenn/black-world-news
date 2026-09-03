@@ -1071,9 +1071,6 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
         </div>
         <h2 class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>
         <p class="card-summary">{summary}</p>
-        {'<p class="narrative-analysis">' + analysis + '</p>' if analysis else ''}
-        {'<p class="cui-bono">' + cui_bono + '</p>' if cui_bono and cui_bono.lower() != "unclear." and cui_bono.lower() != "unclear" else ''}
-        {factor_tags(factors)}
         <div class="card-footer">
             <span class="saved-at">Collected: {saved}</span>
             <a href="{url}" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -2527,7 +2524,6 @@ def build_html(stories, cache):
     <p class="masthead-eyebrow">Your World Today</p>
     <div class="masthead-text">
         <h1><a href="index.html" class="masthead-home">BLACK WORLD NEWS</a></h1>
-        <p class="masthead-tagline">"Let my people go, that they may serve me." – Exodus 8:1</p>
     </div>
     <p class="masthead-meta admin-only" style="display:none">Last updated: {now} &nbsp;|&nbsp; {total} stories in archive</p>
 </header>
@@ -2749,6 +2745,11 @@ def build_about():
     content = """
     <h1 class="page-title">About</h1>
     <p class="page-subtitle">Who we are, what we do, and why it matters.</p>
+
+    <blockquote style="margin:2rem 0 2.5rem;padding:1.25rem 1.5rem;border-left:4px solid #1a3a2a;background:#f2f6f3;">
+        <p style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#1a3a2a;line-height:1.35;margin:0;">&ldquo;Let my people go, that they may serve me.&rdquo;</p>
+        <cite style="display:block;margin-top:0.6rem;font-style:normal;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#6a9a7a;">Exodus 8:1</cite>
+    </blockquote>
 
     <h2 class="section-title">What is Black World News?</h2>
     <p>Black World News is a news aggregation service covering stories involving Black communities around the world. We monitor sources across Africa, North and South America, the Caribbean, and Europe and publish summaries daily.</p>
