@@ -10,8 +10,8 @@
 
 ## Priority
 
-### 1. Babylon — what the word means  💡
-*Parked from the theme rename.* Before we ever use "Babylon" in public copy, we earn it.
+### 1. Babylon — what the word means  ✅ drafted
+*Drafted 2026-09-13 as slug `babylon` (theme Culture), `published:false`. Traces the word from Rastafari/reggae to a precise name for a structure of domination, plus a kid-gentle closing. Ready to polish and add art.* Before we ever use "Babylon" in public copy, we earn it.
 - **The angle:** trace the word from the Rastafari and reggae tradition — Babylon as the whole machine of domination (the state, the police, the system that grinds people down), not just one institution. Reclaim it as a precise name for a real structure, so when we use it, readers know exactly what it points at.
 - **Why it matters:** lets us name the system plainly later without it reading as a slur or losing people who don't know the reference.
 - **Channel:** grown-up site piece (and a kid-gentle version: "a word our people use").
@@ -45,6 +45,13 @@
 
 ### 7. The Windrush generation — invited, then betrayed  💡
 - The angle: brought to rebuild Britain, then denied the right to stay. The structure behind the "scandal." (We already made the image.)
+
+---
+
+## Power & the pulpit
+
+### 8. Who may preach — governments move to regulate the pulpit  ✅ drafted
+*Drafted 2026-09-13 as slug `pastors-regulation` (theme Politics), `published:false`.* The mechanism: the same law that protects the faithful (training, safe buildings, honest finances after harms like Shakahola) also hands the state a lever over who may gather, speak, and take foreign support. Global spread: Rwanda, Kenya, South Africa, Ghana, Nigeria, China, Jordan, the UK. The test is who holds the switch and what else it can close.
 
 ---
 
