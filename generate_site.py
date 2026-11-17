@@ -505,6 +505,24 @@ def display_summary(story, lang="en"):
     return story.get(f"summary_{lang}") or story.get("summary", "")
 
 
+def display_lede(story):
+    """The publisher's own first line (BBC style card text). Blank when we have
+    none, or when the source is not in English (the headline is translated but
+    the lede is not), so the card shows the headline alone. AI summaries and our
+    analysis never appear on news cards."""
+    lede = (story.get("lede") or "").strip()
+    if not lede:
+        return ""
+    if str(story.get("translated", "")).lower() == "true":
+        return ""   # source was not in English
+    return lede
+
+
+def lede_html(story, cls="card-summary"):
+    lede = display_lede(story)
+    return f'<p class="{cls}">{lede}</p>' if lede else ""
+
+
 def load_highlights():
     # Curated external highlights for the homepage sidebar.
     # Edit highlights.json by hand. Format: [{title, url, image, caption, source}]
@@ -1025,7 +1043,7 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
     url     = story.get("url", "#")
     country = story.get("country", "Other/Global")
     cat     = story.get("category", "")
-    summary = display_summary(story, "en")
+    summary = lede_html(story)
     framing = story.get("narrative_framing", "")
     analysis   = story.get("narrative_analysis", "")
     cui_bono   = story.get("cui_bono", "")
@@ -1042,10 +1060,9 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
         <div class="card-meta">
             {theme_tag(story)}
             {country_label(country)}
-            {framing_badge(framing)}
         </div>
         <h2 class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>
-        <p class="card-summary">{summary}</p>
+        {summary}
         <div class="card-footer">
             <span class="saved-at">{saved}</span>
             <a href="{url}" class="read-more" target="_blank" rel="noopener">Read →</a>
@@ -1066,11 +1083,9 @@ def story_card(story, featured=False, archive=False, cache=None, used_images=Non
         <div class="card-meta">
             {theme_tag(story)}
             {country_label(country)}
-            {framing_badge(framing)}
-            {explicit_tag}
         </div>
         <h2 class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>
-        <p class="card-summary">{summary}</p>
+        {summary}
         <div class="card-footer">
             <span class="saved-at">Collected: {saved}</span>
             <a href="{url}" class="read-more" target="_blank" rel="noopener">Read original →</a>
@@ -1207,17 +1222,16 @@ def build_html(stories, cache):
             highlights_html = '<p style="color:#888;font-size:0.8rem;font-style:italic">Add curated highlights to highlights.json</p>'
 
         hero_title   = display_title(featured, "en")
-        hero_summary = display_summary(featured, "en")
+        hero_summary = lede_html(featured, "hero-summary")
         hero_html = f'''
         <section class="hero">
             <div class="hero-text">
                 <div class="card-meta">
                     {theme_tag(featured)}
                     {country_label(featured.get("country",""))}
-                    {framing_badge(featured.get("narrative_framing",""))}
                 </div>
                 <h2 class="hero-title"><a href="{featured.get("url","#")}" target="_blank" rel="noopener">{hero_title}</a></h2>
-                <p class="hero-summary">{hero_summary}</p>
+                {hero_summary}
                 <div class="hero-meta-bottom">
                     <span class="saved-at">{featured.get("saved_at","")}</span>
                     <a href="{featured.get("url","#")}" class="read-more" target="_blank" rel="noopener">Read original &rarr;</a>
@@ -1320,7 +1334,7 @@ def build_html(stories, cache):
     # Pull featured story image for Open Graph sharing
     og_image = story_image(featured, cache, featured=True) if featured else ""
     og_title = featured.get("title", "Black World News") if featured else "Black World News"
-    og_desc  = featured.get("summary", "News about Black communities around the world.")[:160] if featured else "News about Black communities around the world."
+    og_desc  = (display_lede(featured) if featured else "") or "News about Black communities around the world."
 
     nav_block = make_two_tier_nav()  # homepage = latest, no issue active
 
@@ -2804,7 +2818,7 @@ def build_reports():
             net = ""
         stype = report_source_type(s)
         saved = s.get("saved_at", "")
-        summary = display_summary(s, "en")
+        summary = lede_html(s, "rep-sum")
         return f"""
         <div class="rep-card" data-stype="{stype}">
             <div class="rep-top">
@@ -2812,7 +2826,7 @@ def build_reports():
                 <span class="rep-date">{saved}</span>
             </div>
             <a class="rep-title" href="{url}" target="_blank" rel="noopener">{title}</a>
-            <p class="rep-sum">{summary}</p>
+            {summary}
         </div>"""
 
     sections = ""
@@ -4389,10 +4403,12 @@ def build_search_page():
         const flag     = FLAGS[s.country] || '';
         const loc      = isGlobal ? '' : `<span class="flag-country">${{(flag + ' ' + escapeHtml(s.country)).trim()}}</span>`;
         const fcolor   = FRAMING[s.narrative_framing] || '';
-        const dot      = fcolor ? `<span class="framing-dot" style="background:${{fcolor}}" title="${{escapeHtml(s.narrative_framing)}}"></span>` : '';
-        // Use English title and summary; fall back to original
+        const dot      = '';
+        // Headline plus the publisher's first line (BBC style). Non English
+        // sources show the translated headline only.
         const title    = s.title_en || s.title || '';
-        const summary  = s.summary || '';
+        const english  = String(s.translated).toLowerCase() !== 'true';
+        const summary  = (english && s.lede) ? s.lede : '';
         const img      = s.image ? `<img class="card-img" src="${{escapeHtml(s.image)}}" alt="" loading="lazy" onerror="this.remove()">` : '';
         return `
             <div class="card">
@@ -4403,7 +4419,7 @@ def build_search_page():
                     ${{dot}}
                 </div>
                 <h2 class="card-title"><a href="${{escapeHtml(s.url)}}" target="_blank" rel="noopener">${{escapeHtml(title)}}</a></h2>
-                <p class="card-summary">${{escapeHtml(summary)}}</p>
+                ${{summary ? `<p class="card-summary">${{escapeHtml(summary)}}</p>` : ''}}
             </div>`;
     }}
 
@@ -4532,9 +4548,9 @@ def _story_to_highlight(s):
     # Shape an archive story like a highlights.json entry so it can drop straight
     # into the "In Focus" rail.
     from pick_featured import domain as _dom
-    cap = (s.get("summary_en") or s.get("summary") or "").strip()
+    cap = display_lede(s)
     if len(cap) > 120:
-        cap = cap[:117].rstrip() + "..."
+        cap = cap[:117].rsplit(" ", 1)[0] + "..."
     return {
         "title": s.get("title_en") or s.get("title") or "",
         "url": s.get("url", "#"),

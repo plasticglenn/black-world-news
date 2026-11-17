@@ -252,10 +252,12 @@
         const flag     = FLAGS[s.country] || '';
         const loc      = isGlobal ? '' : `<span class="flag-country">${(flag + ' ' + escapeHtml(s.country)).trim()}</span>`;
         const fcolor   = FRAMING[s.narrative_framing] || '';
-        const dot      = fcolor ? `<span class="framing-dot" style="background:${fcolor}" title="${escapeHtml(s.narrative_framing)}"></span>` : '';
-        // Use English title and summary; fall back to original
+        const dot      = '';
+        // Headline plus the publisher's first line (BBC style). Non English
+        // sources show the translated headline only.
         const title    = s.title_en || s.title || '';
-        const summary  = s.summary || '';
+        const english  = String(s.translated).toLowerCase() !== 'true';
+        const summary  = (english && s.lede) ? s.lede : '';
         const img      = s.image ? `<img class="card-img" src="${escapeHtml(s.image)}" alt="" loading="lazy" onerror="this.remove()">` : '';
         return `
             <div class="card">
@@ -266,7 +268,7 @@
                     ${dot}
                 </div>
                 <h2 class="card-title"><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(title)}</a></h2>
-                <p class="card-summary">${escapeHtml(summary)}</p>
+                ${summary ? `<p class="card-summary">${escapeHtml(summary)}</p>` : ''}
             </div>`;
     }
 

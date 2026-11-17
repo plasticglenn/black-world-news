@@ -17,6 +17,7 @@ from datetime import datetime        # adds timestamps to stories
 from ddgs import DDGS                # searches DuckDuckGo for articles
 import requests                      # fetches web pages
 from bs4 import BeautifulSoup        # pulls text out of web pages
+from lede import extract_lede        # the publisher's own first line, for cards
 from groq import Groq                # sends articles to AI for analysis
 from json_repair import repair_json  # fixes AI responses that aren't perfect JSON
 from generate_site import is_off_mission  # shared spam/off-mission filter (one definition)
@@ -722,9 +723,11 @@ def run_agent(custom_query=None):
                     _soup = BeautifulSoup(_r.text, "html.parser")
                     article_text = " ".join([p.get_text() for p in _soup.find_all("p")])[:3000]
                     image_url    = get_article_image(story["url"], _soup)
+                    lede         = extract_lede(_soup)
                 except:
                     article_text = ""
                     image_url    = ""
+                    lede         = ""
 
                 analyzed = analyze_story(story["title"], story["url"], story["snippet"], article_text)
                 if analyzed and is_off_mission(analyzed):
@@ -735,6 +738,7 @@ def run_agent(custom_query=None):
                     if not analyzed.get("country") or analyzed["country"] == "Other/Global":
                         analyzed["country"] = source.get("country", analyzed.get("country"))
                     analyzed["image"] = image_url
+                    analyzed["lede"]  = lede
                     new_stories.append(analyzed)
                     archive.append(analyzed)
                     print(f"✅ {analyzed['country']} | {analyzed['category']} | {analyzed['narrative_framing']} | {analyzed['title'][:35]}")
@@ -759,9 +763,11 @@ def run_agent(custom_query=None):
                 _soup = BeautifulSoup(_r.text, "html.parser")
                 article_text = " ".join([p.get_text() for p in _soup.find_all("p")])[:3000]
                 image_url    = get_article_image(story["url"], _soup)
+                lede         = extract_lede(_soup)
             except:
                 article_text = ""
                 image_url    = ""
+                lede         = ""
 
             # Send to AI for analysis
             analyzed = analyze_story(story["title"], story["url"], story["snippet"], article_text)
@@ -772,6 +778,7 @@ def run_agent(custom_query=None):
 
             if analyzed:
                 analyzed["image"] = image_url
+                analyzed["lede"]  = lede
                 new_stories.append(analyzed)
                 archive.append(analyzed)
                 print(f"✅ {analyzed['country']} | {analyzed['category']} | {analyzed['narrative_framing']} | {analyzed['title'][:35]}")
